@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Montserrat&family=Open+Sans&family=Poppins&family=Roboto&display=swap');
+
+* {
+ margin: 0;
+ box-sizing: border-box;
+ font-family: 'Inter', 'Montserrat', 'Open Sans', 'Poppins', 'Roboto',
+  sans-serif;
+}
+
+html {
+ width: 100%;
+}
+
+.header {
+ text-align: center;
+ padding: 32px;
+}
+
+#app {
+ display: flex;
+ flex-direction: column;
+ width: 100%;
+ height: 100%;
+}
+
+#app #search {
+ display: flex;
+ width: 100%;
+ justify-content: center;
+ margin: 1rem 0;
+}
+
+h1 {
+ padding-top: 0.5rem;
+ font-size: 31px;
+ text-align: center;
+}
+
+#app #search #type-search {
+ height: 2.9rem;
+ font-size: 1rem;
+ min-width: 200px;
+ width: 27vw;
+ border-bottom: 1px solid black;
+}
+
+input[type='button'],
+input[type='submit'],
+input[type='reset'] {
+ background-color: #04aa6d;
+ border: none;
+ color: white;
+ padding: 16px 32px;
+ text-decoration: none;
+ margin: 4px 2px;
+ cursor: pointer;
+}
+
+#app #content {
+ min-height: 100vh;
+}
+.dog_img {
+ width: 100%;
+ height: 100%;
+}
+
+#app #content .dog_info {
+ height: 2.5rem;
+ font-size: 1rem;
+ border: 1px solid black;
+ padding: 0.5rem;
+ margin-bottom: 0.5rem;
+ margin-top: 0.5rem;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: 30vw;
+}
+.grid-container {
+ display: grid;
+ padding: 1rem;
+ align-items: center;
+ justify-content: center;
+}
+
+.grid-container2 {
+ display: none;
+ padding: 1rem;
+ align-items: center;
+ justify-content: center;
+}
+
+.grid-item {
+ background-color: rgba(255, 255, 255, 0.8);
+ border: 1px solid rgba(0, 0, 0, 0.8);
+ font-size: 30px;
+ text-align: center;
+ width: 30vw;
+ height: 40vh;
+ margin-top: 10px;
+}
+
+span {
+    padding-top: 0.5rem;
+    font-size: 31px;
+    text-align: center;
+   }
+
