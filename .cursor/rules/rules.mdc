@@ -1,0 +1,560 @@
+---
+alwaysApply: true
+---
+
+# Regras Fundamentais do Portfólio
+
+## Contexto do Projeto
+
+**Portfólio de Guilherme Estevam** é um site estático hospedado no **GitHub Pages** para apresentar projetos, habilidades e experiências. Adaptado das regras do GJ Finance Hub para um projeto HTML/CSS/JS estático.
+
+### Stack Tecnológica
+
+- **Frontend**: HTML5, CSS3 (SASS), JavaScript (ES6+)
+- **Build Tool**: Vite 5
+- **Assets**: Font Awesome + Ionicons (ícones)
+- **Template Base**: HTML5 UP Editorial
+- **Hospedagem**: GitHub Pages
+- **Integrações**: GitHub API (para projetos dinâmicos)
+- **Localização**: Português do Brasil (pt-BR)
+
+---
+
+## REGRAS CRÍTICAS (NUNCA VIOLAR)
+
+### 1. Sistema de Assets Vite - REGRA CRÍTICA
+
+**CRÍTICO**: Qualquer arquivo CSS ou JS criado em `assets/` DEVE ser adicionado ao `vite.config.js` (se necessário para bundling)
+
+- Sem isso, pode funcionar em dev mas causar **erro 500 em produção**
+- **CHECKLIST OBRIGATÓRIO:**
+  1. [ ] Criar o arquivo
+  2. [ ] Verificar se precisa ser adicionado ao `vite.config.js` (para módulos ES6)
+  3. [ ] Importar no arquivo principal (`app.js`) quando necessário
+  4. [ ] Testar com `npm run build` (nunca pular este passo)
+
+### 2. Sistema de Toast Global - REGRA CRÍTICA
+
+**O portfólio possui um sistema de toast global unificado que DEVE ser usado para TODAS as notificações.**
+
+#### Arquivos do Sistema
+
+- `assets/js/toast.js` - JavaScript global
+- `assets/css/toast.css` - Estilos CSS globais
+- Container HTML: `<div id="toast-container" class="global-toast-container"></div>`
+
+#### Uso OBRIGATÓRIO
+
+```javascript
+// ÚNICA FORMA CORRETA
+window.showToast('Mensagem', 'success', 5000);
+window.showToast('Mensagem', 'error', 5000);
+window.showToast('Mensagem', 'warning', 5000);
+window.showToast('Mensagem', 'info', 5000);
+```
+
+#### Tipos Disponíveis
+
+- `success` - Verde, confirmações (Projeto carregado com sucesso!)
+- `error` - Vermelho, erros (Erro ao carregar projetos)
+- `warning` - Amarelo, avisos (Aviso de API rate limit)
+- `info` - Azul, informações (Nenhum projeto adicional encontrado)
+
+**Nota**: Os ícones visuais dos toasts são gerenciados automaticamente pelo sistema. Não adicionar emojis nas mensagens de toast.
+
+#### Regras Críticas do Toast
+
+- **PROIBIDO** criar novos sistemas de toast
+- **PROIBIDO** implementar CSS/JS inline para toasts
+- **PROIBIDO** usar bibliotecas externas de toast
+- **NUNCA** modificar `toast.css` sem testar empilhamento
+- **SEMPRE** manter `overflow: visible` e `max-height: none`
+- **NUNCA** reduzir `z-index` abaixo de 99999999
+
+### 3. Proibição de CSS/JS Inline e Alerts Nativos
+
+**PROIBIDO:**
+
+- Tags `<style>` sem `scoped` ou sem ser em componente Vue
+- Tags `<script>` inline no HTML (exceto quando absolutamente necessário)
+- **PROIBIDO `window.alert()`, `window.confirm()`, `window.prompt()`** - sempre usar modais ou toasts
+- **EVITAR atributos `style=""`** (preferir classes CSS sempre que possível)
+
+**PERMITIDO:**
+
+- Atributos `onclick=""`, `onload=""` quando necessário (pragmatismo, especialmente para passar dados dinâmicos)
+- Atributos `style=""` quando absolutamente necessário (evitar quando possível)
+
+**Alternativas aos Alerts Nativos:**
+
+```javascript
+// Em vez de window.alert() → usar toast
+window.showToast('Projeto carregado!', 'success'); // ✅ CORRETO
+
+// Em vez de window.confirm() → usar modal de confirmação (criar componente se necessário)
+// Em vez de window.prompt() → usar modal com input (criar componente se necessário)
+```
+
+### 4. Público-alvo: Brasil
+
+- **Idioma**: Português do Brasil (pt-BR)
+- **Formato de datas**: DD/MM/YYYY
+- **Localização JavaScript**: Configurada para pt-BR
+- **Formatação numérica**: Usar `Intl.NumberFormat('pt-BR')` para valores
+- **Exemplos PT-BR**: "usuário", "celular", "projeto"
+
+### 5. NÃO executar automaticamente
+
+- **NÃO rodar `npm run build`** (usuário já está com `npm run dev` ativo)
+- **NÃO fazer commits automáticos** (só quando explicitamente solicitado)
+
+---
+
+## ARQUITETURA E ORGANIZAÇÃO
+
+### Princípio da Responsabilidade Única
+
+- **Utils**: funções utilitárias reutilizáveis
+- **Modules**: funcionalidades específicas (github.js, toast.js)
+- **CSS**: apenas estilos, em arquivos `.css`
+- **HTML**: apenas estrutura e semântica
+
+### Padrão de Organização
+
+- **CSS**: `assets/css/` - APENAS estilos, em arquivos `.css`
+- **JS**: `assets/js/` - APENAS comportamento, em arquivos `.js`
+- **SASS**: `assets/sass/` - organização modular
+- **NUNCA misturar responsabilidades**
+
+---
+
+## PADRÕES JAVASCRIPT
+
+### Estrutura
+
+- **Módulos ES6** quando possível (`import`/`export`)
+- **Funções modulares**
+- **Evitar variáveis globais** (exceto utilitários como `window.showToast`)
+- **`const` e `let`** (NUNCA `var`)
+- **PROIBIDO `window.alert()`, `window.confirm()`, `window.prompt()`**
+
+### Organização de Código JS
+
+```javascript
+// Exemplo: assets/js/utils/formatters.js
+export function formatDate(date) {
+ return new Intl.DateTimeFormat('pt-BR', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+ }).format(new Date(date));
+}
+```
+
+---
+
+## FORMATACAO E LOCALIZACAO
+
+### Valores e Datas
+
+**SEMPRE** usar `Intl` para formatação:
+
+```javascript
+// ✅ CORRETO: Formatação de data
+import { formatDate } from '@/utils/formatters';
+
+formatDate(new Date()); // "15/03/2025"
+```
+
+**Nota**: Todas as formatações devem usar `pt-BR` como locale.
+
+**Helper global** em `assets/js/utils/formatters.js`:
+
+- `formatDate(date)` - Formatação de datas
+- `formatDateTime(date)` - Formatação de datas e horas
+- `formatRelativeDate(date)` - Formatação relativa (há 2 dias)
+- `formatNumber(number, decimals)` - Formatação numérica
+- `truncateText(text, maxLength)` - Truncar texto
+
+---
+
+## UX/UI E ACESSIBILIDADE
+
+### Feedback Visual
+
+**SEMPRE** fornecer feedback visual para ações do usuário:
+
+1. **Loading States**: Mostrar indicadores durante requisições
+2. **Success States**: Toast de sucesso após ações
+3. **Error States**: Mensagens de erro claras e acionáveis
+4. **Empty States**: Mensagens quando não há dados
+5. **Disabled States**: Desabilitar botões durante processamento
+
+### Acessibilidade (A11y)
+
+**SEMPRE** implementar:
+
+- **Labels**: Todos os inputs devem ter `<label>` associado
+- **ARIA**: Usar atributos ARIA quando necessário (`aria-label`, `aria-describedby`, `aria-live`)
+- **Keyboard Navigation**: Suportar navegação por teclado (Tab, Enter, Esc)
+- **Focus States**: Indicadores visuais claros de foco
+- **Contraste**: Manter contraste adequado (WCAG AA mínimo)
+- **Screen Readers**: Textos alternativos para ícones e imagens
+
+```html
+<!-- ✅ CORRETO: Input acessível -->
+<label for="description" class="block text-sm font-medium"> Descrição * </label>
+<input
+ id="description"
+ type="text"
+ aria-describedby="description-error"
+ :aria-invalid="!!form.errors.description"
+/>
+<div v-if="form.errors.description" id="description-error" class="text-red-600">
+ {{ form.errors.description }}
+</div>
+```
+
+### Responsividade
+
+**SEMPRE** testar em:
+
+- Mobile (320px - 768px)
+- Tablet (768px - 1024px)
+- Desktop (1024px+)
+
+**Usar media queries CSS:**
+
+```css
+@media screen and (max-width: 768px) {
+ /* Estilos mobile */
+}
+```
+
+### Dark Mode
+
+**SEMPRE** implementar suporte a dark mode:
+
+- Usar `@media (prefers-color-scheme: dark)`
+- Testar ambos os temas (light e dark)
+- Manter contraste adequado em ambos os temas
+
+### Ícones - Abordagem Híbrida (Font Awesome + Ionicons)
+
+**O projeto usa duas bibliotecas de ícones complementares:**
+
+#### Font Awesome
+
+**Quando usar:**
+
+- Ícones de marcas/redes sociais (GitHub, LinkedIn, etc.)
+- Ícones já existentes no template HTML5 UP
+- Ícones gerais que não precisam de estilo específico
+
+**Como usar:**
+
+```html
+<!-- ✅ CORRETO: Ícones Font Awesome -->
+<i class="fas fa-check-circle"></i>
+<!-- Solid -->
+<i class="far fa-star"></i>
+<!-- Regular -->
+<i class="fab fa-github"></i>
+<!-- Brands (redes sociais) -->
+<span class="icon brands fa-github"></span>
+```
+
+#### Ionicons
+
+**Quando usar:**
+
+- Placeholders e elementos visuais modernos
+- Interface de aplicativo/app-like
+- Ícones que precisam de animação ou interação
+- Elementos novos da interface
+
+**Como usar:**
+
+```html
+<!-- ✅ CORRETO: Ícones Ionicons -->
+<ion-icon name="code-outline"></ion-icon>
+<!-- Outline (preferencial) -->
+<ion-icon name="folder"></ion-icon>
+<!-- Filled -->
+<ion-icon name="cube-sharp"></ion-icon>
+<!-- Sharp -->
+```
+
+#### Diretrizes
+
+- **Font Awesome**: Use para redes sociais, ícones do template existente, e ícones gerais
+- **Ionicons**: Use para placeholders, novos elementos de interface, e elementos modernos
+- **Consistência**: Mantenha consistência visual dentro de cada seção/componente
+- **Acessibilidade**: Sempre adicionar `aria-label` ou `aria-hidden="true"` conforme necessário
+
+#### Exemplos Práticos
+
+```html
+<!-- ✅ CORRETO: Font Awesome para redes sociais -->
+<a
+ href="https://github.com"
+ class="icon brands fa-github"
+ aria-label="GitHub"
+></a>
+
+<!-- ✅ CORRETO: Ionicons para placeholder de projeto -->
+<div class="placeholder">
+ <ion-icon name="code-outline" aria-hidden="true"></ion-icon>
+ <span>Nome do Projeto</span>
+</div>
+
+<!-- ✅ CORRETO: Font Awesome para toasts (já implementado) -->
+<i class="fas fa-check-circle" aria-hidden="true"></i>
+```
+
+---
+
+## INTEGRAÇÃO GITHUB API
+
+### Regras de Uso
+
+- **SEMPRE** tratar erros de requisição
+- **SEMPRE** mostrar estados de loading
+- **SEMPRE** implementar fallback para erros de rede
+- **NUNCA** expor tokens de API no frontend
+- **SEMPRE** filtrar projetos relevantes (excluir forks, privados)
+
+### Exemplo de Implementação
+
+```javascript
+async function fetchRepositories() {
+ try {
+  const response = await fetch(GITHUB_API_URL);
+  if (!response.ok) {
+   throw new Error(`Erro: ${response.status}`);
+  }
+  const repos = await response.json();
+  return repos.filter((repo) => !repo.fork && !repo.private);
+ } catch (error) {
+  window.showToast('Erro ao carregar projetos', 'error');
+  throw error;
+ }
+}
+```
+
+---
+
+## VALIDACAO E TRATAMENTO DE ERROS
+
+### Tratamento de Erros
+
+**SEMPRE** tratar erros adequadamente:
+
+```javascript
+// ✅ CORRETO: Tratamento de erros
+try {
+ const repos = await fetchRepositories();
+ renderRepositories(container, repos);
+} catch (error) {
+ console.error('Erro ao carregar repositórios:', error);
+ window.showToast('Erro ao carregar projetos do GitHub', 'error');
+ showErrorState(container, error);
+}
+```
+
+---
+
+## PERFORMANCE
+
+### Lazy Loading
+
+**SEMPRE** usar lazy loading para imagens:
+
+```html
+<!-- ✅ CORRETO: Lazy loading de imagens -->
+<img src="image.jpg" alt="Descrição" loading="lazy" />
+```
+
+### Otimização de Imagens
+
+- Usar formatos modernos (WebP, AVIF)
+- Implementar lazy loading de imagens
+- Usar tamanhos apropriados
+
+### Debounce e Throttle
+
+**SEMPRE** usar debounce para buscas e filtros:
+
+```javascript
+// ✅ CORRETO: Debounce em busca
+function debounce(func, wait) {
+ let timeout;
+ return function executedFunction(...args) {
+  const later = () => {
+   clearTimeout(timeout);
+   func(...args);
+  };
+  clearTimeout(timeout);
+  timeout = setTimeout(later, wait);
+ };
+}
+```
+
+---
+
+## SEGURANCA
+
+### Validação
+
+- **SEMPRE sanitizar inputs** (se houver formulários)
+- **Validação client-side** é apenas UX (não segurança)
+
+### Proteção
+
+- **XSS**: sempre escapar HTML (`escapeHtml()`)
+- **Links externos**: sempre usar `target="_blank" rel="noopener noreferrer"`
+- **Dados sensíveis**: **NUNCA** expor tokens ou chaves de API no frontend
+
+---
+
+## ESTRUTURA DE ARQUIVOS
+
+### Organização de Assets
+
+```
+assets/
+├── css/
+│   ├── main.css          # CSS compilado do SASS
+│   ├── toast.css         # Sistema de toast
+│   └── custom.css        # Customizações adicionais
+├── js/
+│   ├── app.js            # JS principal (entry point)
+│   ├── main.js           # UI/interações do template
+│   ├── github.js         # Integração GitHub API
+│   ├── toast.js          # Sistema de toast
+│   └── utils/            # Utilitários
+│       └── formatters.js
+└── sass/                 # Fonte SASS (manter estrutura)
+```
+
+### Nomenclatura de Arquivos
+
+- **Descritiva**: `github-api-integration.js` (não `api.js`)
+- **Kebab-case**: `project-list-renderer.js`
+- **Por feature/página**: um arquivo por funcionalidade principal
+
+---
+
+## PADROES DE CSS
+
+### Nomenclatura de Classes
+
+- **Kebab-case**: `.project-card`, `.technology-item`
+- **Prefixos por contexto**: `.portfolio-`, `.project-`, `.technology-`
+- **BEM para componentes complexos**: `.card__header--highlighted`
+- **Descritivas**: `.project-status-badge` (não `.red-badge`)
+
+### Variáveis CSS
+
+- **Definir em**: `assets/css/custom.css` ou arquivo de variáveis
+- **Usar**: `var(--primary-color)`, `var(--bg-card)`
+- **Sempre implementar Dark Mode**: `@media (prefers-color-scheme: dark) { ... }`
+
+### Evitar
+
+- ❌ IDs para estilização (usar classes)
+- ❌ `!important` (resolver especificidade corretamente)
+- ❌ Magic numbers (usar variáveis CSS)
+
+---
+
+## EVITAR DUPLICATAS
+
+### Antes de Criar Código Novo
+
+1. **Procurar se já existe funcionalidade similar**
+2. **Verificar se há código duplicado**
+3. **Reutilizar código existente** (Utils, Helpers)
+4. **Refatorar em vez de duplicar**
+
+### Usar
+
+- **Utils**: para funções utilitárias simples (formatters, validators)
+- **Modules**: para funcionalidades específicas (github.js, toast.js)
+
+---
+
+## GIT E COMMITS
+
+### Commits
+
+- **NUNCA `git add .`** (sempre verificar arquivos específicos)
+- **Conventional Commits**:
+  - `feat: Adiciona integração com GitHub API`
+  - `fix: Corrige erro ao carregar projetos`
+  - `refactor: Modulariza JavaScript de projetos`
+  - `style: Remove CSS inline`
+  - `docs: Atualiza README`
+
+### Antes de Commitar
+
+1. [ ] Verificar arquivos alterados (`git status`)
+2. [ ] Adicionar apenas arquivos relevantes
+3. [ ] Testar `npm run build` (não executar, apenas mencionar)
+4. [ ] Verificar linter errors
+5. [ ] Escrever mensagem descritiva
+
+---
+
+## CHECKLIST DE QUALIDADE
+
+- [ ] Código segue padrões ES6+
+- [ ] **CSS está em arquivo externo** (ZERO inline, exceto quando absolutamente necessário)
+- [ ] **JavaScript está em arquivo externo** (ZERO inline)
+- [ ] **Novos arquivos CSS/JS adicionados ao `vite.config.js`** (se necessário)
+- [ ] **`npm run build` executa SEM ERROS** (verificar, não executar)
+- [ ] Sem `console.log()` esquecidos em produção
+- [ ] Variáveis e funções com nomes descritivos em PT-BR
+- [ ] Comentários onde necessário (lógica complexa)
+- [ ] Dark mode implementado (se aplicável)
+- [ ] Responsivo para mobile (se aplicável)
+- [ ] Tratamento de erros adequado
+- [ ] Sem duplicatas de código
+- [ ] Acessibilidade (labels, ARIA, keyboard navigation)
+- [ ] Loading states implementados
+- [ ] Formatação de valores usando Intl.NumberFormat
+- [ ] Toast usado em vez de alerts nativos
+- [ ] Links externos com `rel="noopener noreferrer"`
+
+---
+
+## RESUMO: O Que NUNCA Fazer
+
+1. ❌ Tags `<style>` inline e tags `<script>` inline no HTML (ZERO tolerância)
+2. ❌ Criar CSS/JS sem verificar necessidade de adicionar ao `vite.config.js`
+3. ❌ `window.alert()`, `window.confirm()`, `window.prompt()` (usar toasts/modais)
+4. ❌ Criar novos sistemas de toast (usar apenas `window.showToast()`)
+5. ❌ Usar `git add .` (sempre específico)
+6. ❌ Executar `npm run build` automaticamente
+7. ❌ Código duplicado (verificar se já existe)
+8. ❌ Português de Portugal (usar PT-BR)
+9. ❌ Commits sem testar build
+10. ❌ Misturar responsabilidades (CSS em arquivos .css, JS em arquivos .js)
+11. ❌ IDs para estilização (usar classes)
+12. ❌ Expor tokens de API no frontend
+13. ❌ Componentes sem estados de loading
+14. ❌ Links externos sem `rel="noopener noreferrer"`
+
+## O Que é PERMITIDO (com bom senso)
+
+1. ✅ Atributos `onclick=""`, `onload=""` quando necessário
+2. ✅ Atributos `style=""` quando absolutamente necessário (evitar quando possível)
+3. ✅ `window.showToast()` para notificações (sistema global)
+4. ✅ Módulos ES6 com `import`/`export`
+5. ✅ JavaScript Vanilla moderno (ES6+)
+
+---
+
+**Estas regras são OBRIGATÓRIAS para manter a qualidade, consistência e funcionamento correto do projeto em produção.**
+
+**Última atualização**: 2025

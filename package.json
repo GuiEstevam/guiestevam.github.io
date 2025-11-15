@@ -1,0 +1,21 @@
+{
+  "name": "guilherme-estevam-portfolio",
+  "version": "1.0.0",
+  "description": "Portfólio de Guilherme Estevam",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "portfolio",
+    "github-pages"
+  ],
+  "author": "Guilherme Estevam",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}
+

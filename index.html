@@ -1,244 +1,620 @@
-<!DOCTYPE HTML>
-<!--
-	Editorial by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Portfólio</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="is-preload">
-		<!-- Wrapper -->
-			<div id="wrapper">
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
-							<!-- Header -->
-								<header id="header">
-									<a href="index.html" class="logo"><strong>Bem-vindo!</strong></a>
-									<ul class="icons">
-										<li><a href="https://github.com/GuiEstevam" class="icon brands fa-github"><span class="label">Github</span></a></li>
-										<li><a href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-										
-									</ul>
-								</header>
-							<!-- Banner -->
-								<section id="banner">
-									<div class="content">
-										<header>
-											<h1>Olá, eu sou o Guilherme!<br/>
-											Bem-vindo ao meu portfólio</h1>
-										</header>
-										<p>A seguir, você verá um acervo de meus projetos pessoais, habilidades, hobbies e tecnologias conhecidas</p>
-										<!-- <ul class="actions">
-											<li><a href="#" class="button big">Learn More</a></li>
-										</ul> -->
-									</div>
-									<!-- <span class="image object">
-										<img src="images/pic10.jpg" alt="" />
-									</span> -->
-								</section>
+<!DOCTYPE html>
 
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Tecnologias</h2>
-									</header>
-									<div class="features">
-										<article>
-											<span class="icon brands fa-php"></span>
-											<div class="content">
-												<h3>PHP</h3>
-												<p>Devido a projetos anteriores, possuo experiência tanto prática quanto teórica na linguagem PHP.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon brands fa-bootstrap"></span>
-											<div class="content">
-												<h3>Bootstrap</h3>
-												<p>Devido a projetos anteriores, possuo experiência tanto prática quanto teórica na tecnologia Bootstrap.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon brands fa-laravel"></span>
-											<div class="content">
-												<h3>Laravel</h3>
-												<p>Um dos mais famosos e utilizados frameworks da linguagem PHP é um dos meus objetos de estudo e trabalho.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon brands fa-vuejs"></span>
-											<div class="content">
-												<h3>Vue.js</h3>
-												<p>Utilizando a framework Vue.js realizei possuo uma certa experiência se tratando de Javascript.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon solid fa-database"></span>
-											<div class="content">
-												<h3>Terraform</h3>
-												<p>Interessado pela área de Devops, sigo estudando a área e suas dependências.</p>
-											</div>
-										</article>
-										<article>
-											<span class="icon brands fa-python"></span>
-											<div class="content">
-												<h3>Python</h3>
-												<p>Iniciei nesta área de estudo visando me aprimorar a respeito dos conteúdos de automação.</p>
-											</div>
-										</article>
-										
-									</div>
-								</section>
+<html lang="pt-BR">
+ <head>
+  <title>Portfólio - Guilherme Estevam</title>
+  <meta charset="utf-8" />
+  <meta
+   name="viewport"
+   content="width=device-width, initial-scale=1, user-scalable=no"
+  />
+  <meta
+   name="description"
+   content="Portfólio de Guilherme Estevam - Desenvolvedor de Software"
+  />
+  <link rel="stylesheet" href="assets/css/base.css" />
+  <link rel="stylesheet" href="assets/css/toast.css" />
+  <link rel="stylesheet" href="assets/css/custom.css" />
+  <script
+   type="module"
+   src="https://unpkg.com/ionicons@latest/dist/ionicons/ionicons.esm.js"
+  ></script>
+  <script
+   nomodule
+   src="https://unpkg.com/ionicons@latest/dist/ionicons/ionicons.js"
+  ></script>
+ </head>
+ <body class="is-preload">
+  <!-- Wrapper -->
+  <div id="wrapper">
+   <!-- Main -->
+   <div id="main">
+    <div class="inner">
+     <!-- Navigation - Menu Fixo -->
+     <nav
+      id="main-navigation"
+      class="sticky-nav"
+      role="navigation"
+      aria-label="Navegação principal"
+     >
+      <div class="nav-container">
+       <a href="#hero" class="logo" aria-label="Ir para início"
+        ><strong>Guilherme Estevam</strong></a
+       >
+       <button
+        class="menu-toggle"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+        type="button"
+       >
+        <span class="menu-toggle-icon">
+         <span class="icon solid fa-bars" aria-hidden="true"></span>
+        </span>
+       </button>
+       <ul class="nav-menu" id="nav-menu">
+        <li>
+         <a href="#hero" class="nav-link" aria-label="Ir para início">Início</a>
+        </li>
+        <li>
+         <a href="#sobre" class="nav-link" aria-label="Ir para sobre">Sobre</a>
+        </li>
+        <li>
+         <a
+          href="#tecnologias"
+          class="nav-link"
+          aria-label="Ir para tecnologias"
+          >Tecnologias</a
+         >
+        </li>
+        <li>
+         <a href="#projetos" class="nav-link" aria-label="Ir para projetos"
+          >Projetos</a
+         >
+        </li>
+        <li>
+         <a href="#contato" class="nav-link" aria-label="Ir para contato"
+          >Contato</a
+         >
+        </li>
+        <li class="nav-menu-icons">
+         <ul class="icons nav-menu-social">
+          <li>
+           <a
+            href="https://github.com/GuiEstevam"
+            class="icon brands fa-github"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Perfil no GitHub"
+            ><span class="label">Github</span></a
+           >
+          </li>
+          <li>
+           <a
+            href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
+            class="icon brands fa-linkedin"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Perfil no LinkedIn"
+            ><span class="label">Linkedin</span></a
+           >
+          </li>
+         </ul>
+        </li>
+       </ul>
+       <div class="nav-icons">
+        <ul class="icons">
+         <li>
+          <a
+           href="https://github.com/GuiEstevam"
+           class="icon brands fa-github"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Perfil no GitHub"
+           ><span class="label">Github</span></a
+          >
+         </li>
+         <li>
+          <a
+           href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
+           class="icon brands fa-linkedin"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Perfil no LinkedIn"
+           ><span class="label">Linkedin</span></a
+          >
+         </li>
+        </ul>
+       </div>
+      </div>
+     </nav>
 
-							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Projetos</h2>
-									</header>
-									<div class="posts">
-										<article>
-											<a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
-											<h3>Horientando</h3>
-											<p>Este projeto visa criar um ambiente para alunos que ainda não possuem um orientador ou tema definido para realização do trabalho de conclusão de curso (TCC).</p>
-											<ul class="actions">
-												<li><a href="https://github.com/GuiEstevam/projeto_tcc" class="button">Ver no Github</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
-											<h3>Pokedex</h3>
-											<p>Este projeto visa criar uma Pokedex (listagem de pokemons) consumindo os dados da API pública PokeAPI.</p>
-											<ul class="actions">
-												<li><a href="https://github.com/GuiEstevam/pokedex" class="button">Ver no Github</a></li>
-											</ul>
-										</article>
-										<!-- <article>
-											<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
-											<h3>Tempus ullamcorper</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic04.jpg" alt="" /></a>
-											<h3>Sed etiam facilis</h3>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-											<ul class="actions">
-												<li><a href="#" class="button">More</a></li>
-											</ul>
-										</article> -->
-									</div>
-								</section>
+     <!-- Hero Section -->
+     <section
+      id="hero"
+      class="full-viewport-section"
+      data-section="hero"
+      aria-labelledby="hero-heading"
+     >
+      <div class="section-content hero-content">
+       <header class="hero-header">
+        <p class="hero-name reveal-on-scroll" data-delay="0">
+         Olá, eu sou <strong>Guilherme Estevam</strong>
+        </p>
+        <h1
+         id="hero-heading"
+         class="hero-title reveal-on-scroll"
+         data-delay="0.1"
+        >
+         Transformando ideias em<br />
+         <strong>soluções digitais</strong>
+        </h1>
+        <p class="hero-subtitle reveal-on-scroll" data-delay="0.3">
+         Desenvolvedor Full Stack
+        </p>
+        <p class="hero-description reveal-on-scroll" data-delay="0.4">
+         Criando aplicações modernas e eficientes com tecnologias de ponta.
+         Explore meus projetos e descubra como posso ajudar no seu próximo
+         desafio.
+        </p>
+        <div class="hero-actions reveal-on-scroll" data-delay="0.6">
+         <a
+          href="#projetos"
+          class="button hero-button-primary"
+          aria-label="Ver projetos do portfólio"
+         >
+          <i class="icon solid fa-briefcase" aria-hidden="true"></i>
+          <span>Ver Projetos</span>
+         </a>
+         <a
+          href="#contato"
+          class="button button-secondary hero-button-secondary"
+          aria-label="Entrar em contato"
+         >
+          <i class="icon solid fa-envelope" aria-hidden="true"></i>
+          <span>Entrar em Contato</span>
+         </a>
+        </div>
+       </header>
+      </div>
+      <a
+       href="#sobre"
+       class="scroll-indicator"
+       aria-label="Rolar para próxima seção"
+      >
+       <span class="scroll-indicator-text">Explorar</span>
+       <i
+        class="icon solid fa-chevron-down scroll-indicator-icon"
+        aria-hidden="true"
+       ></i>
+      </a>
+     </section>
 
-						</div>
-					</div>
+     <!-- Divider -->
+     <div class="section-divider"></div>
 
-				<!-- Sidebar -->
-					<!-- <div id="sidebar">
-						<div class="inner"> -->
+     <!-- Sobre Mim Section -->
+     <section
+      id="sobre"
+      class="full-viewport-section"
+      data-section="sobre"
+      aria-labelledby="sobre-heading"
+     >
+      <div class="section-content about-content">
+       <header class="section-header">
+        <h2 id="sobre-heading" class="section-title reveal-on-scroll">
+         Sobre Mim
+        </h2>
+       </header>
 
-							<!-- Search -->
-								<!-- <section id="search" class="alt">
-									<form method="post" action="#">
-										<input type="text" name="query" id="query" placeholder="Search" />
-									</form>
-								</section> -->
+       <!-- Card About - Layout similar aos cards de projetos -->
+       <article class="about-card reveal-on-scroll">
+        <!-- Foto de Perfil -->
+        <div class="about-image">
+         <div class="about-image-wrapper">
+          <img
+           src="images/guilherme-lima.jpg"
+           alt="Guilherme Estevam - Desenvolvedor de Software"
+           class="about-photo"
+           loading="lazy"
+          />
+         </div>
+        </div>
 
-							<!-- Menu -->
-								<!-- <nav id="menu">
-									<header class="major">
-										<h2>Menu</h2>
-									</header>
-									<ul>
-										<li><a href="index.html">Homepage</a></li>
-										<li><a href="generic.html">Generic</a></li>
-										<li><a href="elements.html">Elements</a></li>
-										<li>
-											<span class="opener">Submenu</span>
-											<ul>
-												<li><a href="#">Lorem Dolor</a></li>
-												<li><a href="#">Ipsum Adipiscing</a></li>
-												<li><a href="#">Tempus Magna</a></li>
-												<li><a href="#">Feugiat Veroeros</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Etiam Dolore</a></li>
-										<li><a href="#">Adipiscing</a></li>
-										<li>
-											<span class="opener">Another Submenu</span>
-											<ul>
-												<li><a href="#">Lorem Dolor</a></li>
-												<li><a href="#">Ipsum Adipiscing</a></li>
-												<li><a href="#">Tempus Magna</a></li>
-												<li><a href="#">Feugiat Veroeros</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Maximus Erat</a></li>
-										<li><a href="#">Sapien Mauris</a></li>
-										<li><a href="#">Amet Lacinia</a></li>
-									</ul>
-								</nav> -->
+        <!-- Conteúdo -->
+        <div class="about-article-content">
+         <div class="about-body">
+          <div class="about-description">
+           <p>
+            Sou um desenvolvedor de software apaixonado por tecnologia, com
+            experiência sólida em desenvolvimento web e um interesse crescente
+            em DevOps e Cloud Computing. Trabalho com tecnologias modernas como
+            <strong>PHP</strong>, <strong>Laravel</strong>,
+            <strong>Vue.js</strong> e <strong>Python</strong>, sempre buscando
+            aprimorar minhas habilidades e aprender novas ferramentas que me
+            permitam criar soluções inovadoras e eficientes. Meu objetivo é
+            desenvolver aplicações de alta qualidade que gerem valor real e
+            façam a diferença nos projetos em que atuo.
+           </p>
+          </div>
+         </div>
 
-							<!-- Section -->
-								<!-- <section>
-									<header class="major">
-										<h2>Ante interdum</h2>
-									</header>
-									<div class="mini-posts">
-										<article>
-											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-									</div>
-									<ul class="actions">
-										<li><a href="#" class="button">More</a></li>
-									</ul>
-								</section> -->
+         <div class="about-footer">
+          <!-- Estatísticas -->
+          <section class="about-stats" aria-labelledby="about-stats-heading">
+           <h3 id="about-stats-heading" class="about-subtitle visually-hidden">
+            Estatísticas Profissionais
+           </h3>
+           <div
+            class="about-stats-grid"
+            role="list"
+            aria-label="Estatísticas profissionais"
+           >
+            <div class="about-stat-item" role="listitem">
+             <span
+              class="about-stat-number"
+              aria-label="3 ou mais anos de experiência"
+              >3+</span
+             >
+             <span class="about-stat-label">Anos de Experiência</span>
+            </div>
+            <div class="about-stat-item" role="listitem">
+             <span
+              class="about-stat-number"
+              aria-label="12 ou mais tecnologias dominadas"
+              >12+</span
+             >
+             <span class="about-stat-label">Tecnologias</span>
+            </div>
+            <div class="about-stat-item" role="listitem">
+             <span
+              class="about-stat-number"
+              aria-label="20 ou mais projetos desenvolvidos"
+              >20+</span
+             >
+             <span class="about-stat-label">Projetos</span>
+            </div>
+           </div>
+          </section>
 
-							<!-- Section -->
-								<!-- <section>
-									<header class="major">
-										<h2>Get in touch</h2>
-									</header>
-									<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-									<ul class="contact">
-										<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
-										<li class="icon solid fa-phone">(000) 000-0000</li>
-										<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
-										Nashville, TN 00000-0000</li>
-									</ul>
-								</section> -->
+          <!-- Interesses -->
+          <section
+           class="about-interests"
+           aria-labelledby="about-interests-heading"
+          >
+           <h3 id="about-interests-heading" class="about-interests-title">
+            Áreas de Interesse
+           </h3>
+           <div
+            class="about-interests-list"
+            role="list"
+            aria-label="Lista de áreas de interesse"
+           >
+            <span class="about-interest-badge" role="listitem">DevOps</span>
+            <span class="about-interest-badge" role="listitem"
+             >Desenvolvimento Web</span
+            >
+            <span class="about-interest-badge" role="listitem"
+             >APIs RESTful</span
+            >
+            <span class="about-interest-badge" role="listitem"
+             >Cloud Computing</span
+            >
+            <span class="about-interest-badge" role="listitem"
+             >Arquitetura de Software</span
+            >
+            <span class="about-interest-badge" role="listitem"
+             >Testes Automatizados</span
+            >
+           </div>
+          </section>
+         </div>
+        </div>
+       </article>
+      </div>
+     </section>
 
-							<!-- Footer -->
-								<!-- <footer id="footer">
-									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-								</footer> -->
+     <!-- Divider -->
+     <div class="section-divider"></div>
 
-						</div>
-					</div>
+     <!-- Tecnologias Section -->
+     <section
+      id="tecnologias"
+      class="full-viewport-section"
+      data-section="tecnologias"
+      aria-labelledby="technologies-heading"
+     >
+      <div class="section-content">
+       <header class="section-header">
+        <h2 id="technologies-heading" class="section-title reveal-on-scroll">
+         Tecnologias
+        </h2>
+       </header>
+       <div class="technologies-grid-wrapper">
+        <ul
+         class="technologies-grid"
+         id="technologies-grid"
+         role="list"
+         aria-live="polite"
+        >
+         <li class="technology-card" role="listitem">
+          <span class="icon brands fa-php" aria-hidden="true"></span>
+          <div class="content">
+           <h3>PHP</h3>
+           <p>
+            Linguagem server-side robusta e madura. Experiência prática no
+            desenvolvimento de aplicações web dinâmicas, APIs RESTful e
+            integração com bancos de dados.
+           </p>
+          </div>
+         </li>
+         <li class="technology-card" role="listitem">
+          <span class="icon brands fa-laravel" aria-hidden="true"></span>
+          <div class="content">
+           <h3>Laravel</h3>
+           <p>
+            Framework PHP elegante e poderoso. Desenvolvimento de aplicações web
+            modernas utilizando MVC, Eloquent ORM, migrations, autenticação e
+            APIs com Sanctum.
+           </p>
+          </div>
+         </li>
+         <li class="technology-card" role="listitem">
+          <span class="icon brands fa-bootstrap" aria-hidden="true"></span>
+          <div class="content">
+           <h3>Bootstrap</h3>
+           <p>
+            Framework CSS para desenvolvimento rápido de interfaces responsivas.
+            Utilizado para criar layouts modernos e consistentes em diversos
+            projetos.
+           </p>
+          </div>
+         </li>
+         <li class="technology-card" role="listitem">
+          <span class="icon brands fa-vuejs" aria-hidden="true"></span>
+          <div class="content">
+           <h3>Vue.js</h3>
+           <p>
+            Framework JavaScript moderno para construção de interfaces reativas.
+            Utilizado em diversos projetos para criar aplicações SPA responsivas
+            e escaláveis.
+           </p>
+          </div>
+         </li>
+         <li class="technology-card" role="listitem">
+          <span class="icon brands fa-python" aria-hidden="true"></span>
+          <div class="content">
+           <h3>Python</h3>
+           <p>
+            Linguagem versátil utilizada para automação, scripts e
+            desenvolvimento backend. Explorando frameworks como Django e Flask
+            para criar APIs robustas.
+           </p>
+          </div>
+         </li>
+         <li class="technology-card" role="listitem">
+          <span class="icon brands fa-js" aria-hidden="true"></span>
+          <div class="content">
+           <h3>JavaScript</h3>
+           <p>
+            Linguagem essencial para desenvolvimento web moderno. Experiência
+            com ES6+, manipulação de DOM, APIs assíncronas e programação
+            funcional.
+           </p>
+          </div>
+         </li>
+         <li class="technology-card" role="listitem">
+          <span class="icon brands fa-git-alt" aria-hidden="true"></span>
+          <div class="content">
+           <h3>Git & GitHub</h3>
+           <p>
+            Controle de versão distribuído para gerenciamento de código.
+            Experiência com Git Flow, pull requests, code review e CI/CD através
+            do GitHub Actions.
+           </p>
+          </div>
+         </li>
+         <li class="technology-card" role="listitem">
+          <span class="icon solid fa-database" aria-hidden="true"></span>
+          <div class="content">
+           <h3>Banco de Dados</h3>
+           <p>
+            Experiência com MySQL e PostgreSQL, modelagem de dados, consultas
+            SQL complexas e otimização de queries. Conhecimento em migrations e
+            ORMs como Eloquent.
+           </p>
+          </div>
+         </li>
+         <li class="technology-card" role="listitem">
+          <span class="icon solid fa-cloud" aria-hidden="true"></span>
+          <div class="content">
+           <h3>Terraform & DevOps</h3>
+           <p>
+            Infraestrutura como código para provisionamento e gerenciamento de
+            recursos em cloud. Estudando práticas de DevOps, containers e
+            orquestração.
+           </p>
+          </div>
+         </li>
+         <li class="technology-card" role="listitem">
+          <span class="icon brands fa-html5" aria-hidden="true"></span>
+          <div class="content">
+           <h3>HTML5 & CSS3</h3>
+           <p>
+            Fundamentos sólidos em marcação semântica e estilização moderna.
+            Experiência com Flexbox, Grid, animações CSS e design responsivo
+            mobile-first.
+           </p>
+          </div>
+         </li>
+         <li class="technology-card" role="listitem">
+          <span class="icon brands fa-docker" aria-hidden="true"></span>
+          <div class="content">
+           <h3>Docker</h3>
+           <p>
+            Containerização de aplicações para deploy e desenvolvimento
+            consistente. Criando e gerenciando containers, Docker Compose e
+            otimização de imagens.
+           </p>
+          </div>
+         </li>
+         <li class="technology-card" role="listitem">
+          <span class="icon solid fa-coffee" aria-hidden="true"></span>
+          <div class="content">
+           <h3>Java</h3>
+           <p>
+            Linguagem orientada a objetos para desenvolvimento de aplicações
+            robustas. Experiência com POO, coleções, streams e desenvolvimento
+            de software desktop e web.
+           </p>
+          </div>
+         </li>
+        </ul>
+        <div class="technologies-actions">
+         <button
+          class="btn-action btn-more"
+          id="btn-show-more"
+          type="button"
+          aria-label="Mostrar mais tecnologias"
+          aria-expanded="false"
+         >
+          <span>Mostrar mais</span>
+          <i class="icon solid fa-chevron-down" aria-hidden="true"></i>
+         </button>
+         <button
+          class="btn-action btn-less"
+          id="btn-show-less"
+          type="button"
+          aria-label="Mostrar menos tecnologias"
+          aria-expanded="false"
+         >
+          <span>Mostrar menos</span>
+          <i class="icon solid fa-chevron-up" aria-hidden="true"></i>
+         </button>
+        </div>
+       </div>
+      </div>
+     </section>
 
-			</div>
+     <!-- Divider -->
+     <div class="section-divider"></div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+     <!-- Projetos Section -->
+     <section
+      id="projetos"
+      class="full-viewport-section projects-section"
+      data-section="projetos"
+      aria-labelledby="projects-heading"
+     >
+      <div class="section-content">
+       <header class="section-header">
+        <h2 id="projects-heading" class="section-title reveal-on-scroll">
+         Projetos
+        </h2>
+        <p class="section-subtitle reveal-on-scroll">
+         Alguns dos meus projetos desenvolvidos e disponíveis no GitHub
+        </p>
+       </header>
+       <div
+        id="projects-controls"
+        class="projects-controls"
+        aria-label="Controles de projetos"
+       >
+        <!-- Controles de ordenação e contador serão inseridos aqui via JavaScript -->
+       </div>
+       <div class="posts" role="list" aria-label="Lista de projetos">
+        <!-- Projetos serão carregados dinamicamente via GitHub API -->
+        <article role="listitem" aria-busy="true">
+         <div class="loading-state" role="status" aria-live="polite">
+          <p>Carregando projetos...</p>
+         </div>
+        </article>
+       </div>
+      </div>
+     </section>
 
-	</body>
+     <!-- Divider -->
+     <div class="section-divider"></div>
+
+     <!-- Contato Section -->
+     <section
+      id="contato"
+      class="full-viewport-section contact-section"
+      data-section="contato"
+      aria-labelledby="contact-heading"
+     >
+      <div class="section-content contact-content">
+       <header class="section-header">
+        <h2 id="contact-heading" class="section-title reveal-on-scroll">
+         Contato
+        </h2>
+       </header>
+       <div class="contact-wrapper">
+        <div class="contact-info reveal-on-scroll">
+         <p>
+          Entre em contato comigo através das redes sociais ou envie uma
+          mensagem.
+         </p>
+         <ul class="contact-social">
+          <li>
+           <a
+            href="https://github.com/GuiEstevam"
+            class="icon brands fa-github"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Perfil no GitHub"
+           >
+            <span>GitHub</span>
+           </a>
+          </li>
+          <li>
+           <a
+            href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
+            class="icon brands fa-linkedin"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Perfil no LinkedIn"
+           >
+            <span>LinkedIn</span>
+           </a>
+          </li>
+         </ul>
+        </div>
+       </div>
+      </div>
+     </section>
+
+     <!-- Divider -->
+     <div class="section-divider"></div>
+
+     <!-- Footer -->
+     <footer id="footer" role="contentinfo">
+      <div class="footer-content">
+       <p class="copyright">
+        &copy; 2024 Guilherme Estevam. Todos os direitos reservados.
+       </p>
+       <p class="footer-credit">
+        Design baseado em
+        <a href="https://html5up.net" target="_blank" rel="noopener noreferrer"
+         >HTML5 UP</a
+        >
+       </p>
+      </div>
+     </footer>
+    </div>
+   </div>
+  </div>
+
+  <!-- Scripts -->
+  <!-- Scripts do template HTML5 UP -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/browser.min.js"></script>
+  <script src="assets/js/breakpoints.min.js"></script>
+  <script src="assets/js/util.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <!-- Script principal da aplicação (Vite) -->
+  <script type="module" src="assets/js/app.js"></script>
+  <script src="assets/js/darkmode.js"></script>
+ </body>
 </html>
