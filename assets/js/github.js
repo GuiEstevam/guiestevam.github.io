@@ -24,7 +24,7 @@ const CUSTOM_REPO_IMAGES = {
  Syncfinance: 'images/syncfinance.png',
  projeto_tcc: 'images/projeto_tcc.jpg',
  Guicodex: 'images/guicodex.png', // Repositório com G maiúsculo
- // Se você tiver outras imagens específicas, adicione aqui:
+ Riftfinder: 'images/riftfinder.png', // Se você tiver outras imagens específicas, adicione aqui:
  // 'brg': 'images/brg.jpg',
  // 'seguradora': 'images/seguradora.jpg',
  // 'lol_api': 'images/lol_api.jpg',
@@ -35,6 +35,7 @@ const CUSTOM_REPO_IMAGES = {
 let allRepos = [];
 let displayedRepos = 0;
 let currentSortOrder = 'updated'; // 'updated', 'stars', 'name'
+let searchFilter = ''; // Filtro de busca por nome
 
 // Contador para gerar índices únicos de imagens (apenas para projetos sem imagem customizada)
 let imageCounter = 0;
@@ -611,17 +612,35 @@ function createProjectArticle(project) {
  * @param {boolean} isInitialLoad - Se true, usa INITIAL_REPOS; senão usa REPOS_PER_PAGE
  */
 async function renderNextPage(container, isInitialLoad = false) {
+ // Aplicar filtro de busca se houver
+ let filteredRepos = allRepos;
+ if (searchFilter) {
+  filteredRepos = allRepos.filter((repo) =>
+   repo.name.toLowerCase().includes(searchFilter)
+  );
+ }
+
  const reposToShow = isInitialLoad ? INITIAL_REPOS : REPOS_PER_PAGE;
- const reposToRender = allRepos.slice(
+ const reposToRender = filteredRepos.slice(
   displayedRepos,
   displayedRepos + reposToShow
  );
 
  if (reposToRender.length === 0) {
   if (displayedRepos === 0) {
-   showEmptyState(container);
+   if (searchFilter) {
+    showEmptyState(
+     container,
+     `Nenhum projeto encontrado com "${searchFilter}". Tente outra busca.`
+    );
+   } else {
+    showEmptyState(container);
+   }
    if (window.showToast) {
-    window.showToast('Nenhum projeto encontrado no GitHub.', 'info');
+    const message = searchFilter
+     ? `Nenhum projeto encontrado com "${searchFilter}".`
+     : 'Nenhum projeto encontrado no GitHub.';
+    window.showToast(message, 'info');
    }
   }
   return;
@@ -704,6 +723,17 @@ function createProjectsControls() {
 
  controlsContainer.innerHTML = `
   <div class="projects-controls-wrapper">
+   <div class="projects-search">
+    <input
+     type="text"
+     id="projects-search-input"
+     class="projects-search-input"
+     placeholder="Buscar projetos..."
+     aria-label="Buscar projetos por nome"
+     value="${searchFilter}"
+    />
+    <i class="icon solid fa-search projects-search-icon" aria-hidden="true"></i>
+   </div>
    <div class="projects-count" aria-live="polite" aria-atomic="true">
     <span class="count-text">Mostrando <strong class="count-displayed">${displayedRepos}</strong> de <strong class="count-total">${
   allRepos.length
@@ -749,13 +779,33 @@ function createProjectsControls() {
  * Atualiza o contador de projetos nos controles
  */
 function updateProjectsControls() {
+ // Aplicar filtro de busca se houver
+ let filteredRepos = allRepos;
+ if (searchFilter) {
+  filteredRepos = allRepos.filter((repo) =>
+   repo.name.toLowerCase().includes(searchFilter)
+  );
+ }
+
  const countDisplayed = document.querySelector('.count-displayed');
  const countTotal = document.querySelector('.count-total');
  if (countDisplayed) {
   countDisplayed.textContent = displayedRepos;
  }
  if (countTotal) {
-  countTotal.textContent = allRepos.length;
+  countTotal.textContent = filteredRepos.length;
+ }
+
+ // Atualizar texto do contador se houver busca
+ const countText = document.querySelector('.count-text');
+ if (countText && searchFilter) {
+  const projectText = filteredRepos.length === 1 ? 'projeto' : 'projetos';
+  countText.innerHTML = `Mostrando <strong class="count-displayed">${displayedRepos}</strong> de <strong class="count-total">${
+   filteredRepos.length
+  }</strong> ${projectText} encontrado${filteredRepos.length === 1 ? '' : 's'}`;
+ } else if (countText && !searchFilter) {
+  const projectText = allRepos.length === 1 ? 'projeto' : 'projetos';
+  countText.innerHTML = `Mostrando <strong class="count-displayed">${displayedRepos}</strong> de <strong class="count-total">${allRepos.length}</strong> ${projectText}`;
  }
 }
 
@@ -790,15 +840,23 @@ function updatePaginationButtons(container) {
   existingButtons.remove();
  }
 
- const hasMore = displayedRepos < allRepos.length;
+ // Aplicar filtro de busca se houver
+ let filteredRepos = allRepos;
+ if (searchFilter) {
+  filteredRepos = allRepos.filter((repo) =>
+   repo.name.toLowerCase().includes(searchFilter)
+  );
+ }
+
+ const hasMore = displayedRepos < filteredRepos.length;
  const hasMoreThanInitial = displayedRepos > INITIAL_REPOS;
- const isFullyExpanded = displayedRepos >= allRepos.length;
+ const isFullyExpanded = displayedRepos >= filteredRepos.length;
 
  // Se há mais projetos ou já mostrou mais que o inicial, mostrar botões
  if (hasMore || hasMoreThanInitial) {
   const buttonContainer = document.createElement('div');
   buttonContainer.className = 'pagination-buttons';
-  const totalRepos = allRepos.length;
+  const totalRepos = filteredRepos.length;
 
   // Botão "Mostrar mais" - mostrar apenas se houver mais projetos
   if (hasMore) {
@@ -1127,13 +1185,15 @@ function showErrorState(container, error) {
 /**
  * Mostra estado vazio quando não há projetos
  */
-function showEmptyState(container) {
+function showEmptyState(container, customMessage = null) {
+ const message =
+  customMessage || 'Não há projetos públicos disponíveis no momento.';
  container.innerHTML = `
         <article class="empty-state" role="status" aria-live="polite">
             <div class="empty-state-content">
                 <i class="fas fa-folder-open empty-state-icon" aria-hidden="true"></i>
                 <h3>Nenhum projeto encontrado</h3>
-                <p>Não há projetos públicos disponíveis no momento.</p>
+                <p>${message}</p>
             </div>
         </article>
     `;

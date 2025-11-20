@@ -31,7 +31,7 @@
  --color-text-inverse: #ffffff;
 
  /* Cores Semânticas - Acentos */
- --color-accent-primary: #2563eb;
+ --color-accent-primary: #0072ff;
  --color-accent-secondary: #059669;
  --color-accent-hover: #1d4ed8;
  --color-accent-secondary-hover: #047857;
@@ -45,17 +45,19 @@
  /* Cores Semânticas - Bordas */
  --color-border-primary: #dee2e6;
  --color-border-secondary: #ced4da;
- --color-border-focus: #2563eb;
+ --color-border-focus: #0072ff;
 
  /* Cores Semânticas - Sombras */
  --color-shadow-sm: rgba(0, 0, 0, 0.05);
  --color-shadow-md: rgba(0, 0, 0, 0.1);
  --color-shadow-lg: rgba(0, 0, 0, 0.15);
- --color-shadow-accent: rgba(37, 99, 235, 0.25);
+ --color-shadow-accent: rgba(0, 114, 255, 0.25);
+ --color-accent-light: rgba(0, 114, 255, 0.1); /* Para backgrounds sutis */
+ --color-accent-medium: rgba(0, 114, 255, 0.2); /* Para borders e efeitos */
 
  /* Gradientes */
- --gradient-accent: linear-gradient(135deg, #2563eb 0%, #059669 100%);
- --gradient-text: linear-gradient(135deg, #2563eb, #059669);
+ --gradient-accent: linear-gradient(135deg, #0072ff 0%, #059669 100%);
+ --gradient-text: linear-gradient(135deg, #0072ff, #059669);
  --gradient-bg-subtle: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
 
  /* ============================================
@@ -510,49 +512,158 @@ img[loading='lazy'].loaded {
    SEÇÃO DE PROJETOS - Subtítulo e Controles
    ============================================ */
 
-/* Subtítulo da seção de projetos */
+/* Subtítulo da seção de projetos - Mobile First */
 .section-subtitle {
  font-family: 'Open Sans', sans-serif;
- font-size: clamp(1rem, 1.2vw, 1.125rem);
+ font-size: clamp(1rem, 1.5vw, 1.25rem);
  font-weight: 400;
  color: var(--color-text-secondary);
- margin: var(--spacing-sm) 0 var(--spacing-lg) 0;
+ margin: var(--spacing-sm) 0 var(--spacing-xl) 0;
  text-align: center;
- line-height: 1.6;
+ line-height: 1.7;
  letter-spacing: 0.01em;
+ max-width: 800px;
+ margin-left: auto;
+ margin-right: auto;
+ padding: 0 var(--spacing-md);
 }
 
-/* Controles de projetos (contador + ordenação) */
+@media screen and (min-width: 768px) {
+ .section-subtitle {
+  margin-bottom: var(--spacing-xl);
+  padding: 0 var(--spacing-lg);
+ }
+}
+
+@media screen and (min-width: 1024px) {
+ .section-subtitle {
+  margin-bottom: var(--spacing-lg);
+ }
+}
+
+/* Controles de projetos (busca + contador + ordenação) - Mobile First */
 .projects-controls {
- margin-bottom: var(--spacing-lg);
- padding: var(--spacing-md);
- background-color: var(--color-bg-secondary);
- border-radius: var(--radius-md);
- border: 1px solid var(--divider-color);
+ margin-bottom: var(--spacing-md); /* Reduzido de xl para md */
+ padding: var(--spacing-lg);
+ background-color: var(--color-bg-card);
+ border-radius: var(--radius-lg);
+ border: 1px solid var(--color-border-primary);
+ box-shadow: var(--shadow-sm);
+ /* Mesma largura dos cards - usar mesmo padding lateral */
+ width: calc(100% - 2 * var(--spacing-lg));
+ margin-left: auto;
+ margin-right: auto;
+}
+
+/* Mobile: padding lateral igual aos cards */
+@media screen and (max-width: 767px) {
+ .projects-controls {
+  padding: var(--spacing-md);
+  width: calc(100% - 2 * var(--spacing-md));
+  margin-bottom: var(--spacing-sm); /* Ainda menor no mobile */
+ }
+}
+
+/* Tablet: padding lateral igual aos cards */
+@media screen and (min-width: 768px) {
+ .projects-controls {
+  padding: var(--spacing-lg);
+  width: calc(100% - 2 * var(--spacing-lg));
+  margin-bottom: var(--spacing-md);
+ }
+}
+
+/* Desktop: padding lateral igual aos cards */
+@media screen and (min-width: 1024px) {
+ .projects-controls {
+  width: calc(100% - 2 * var(--spacing-lg)); /* Mesmo padding dos posts */
+  margin-bottom: var(--spacing-md);
+ }
 }
 
 .projects-controls-wrapper {
  display: flex;
  flex-direction: column;
  gap: var(--spacing-md);
- align-items: center;
- justify-content: space-between;
+ align-items: stretch;
 }
 
 @media screen and (min-width: 768px) {
  .projects-controls-wrapper {
   flex-direction: row;
   align-items: center;
+  gap: var(--spacing-lg);
  }
 }
 
-/* Contador de projetos */
+/* Campo de busca - Mobile First */
+.projects-search {
+ position: relative;
+ width: 100%;
+ margin-bottom: var(--spacing-md);
+}
+
+@media screen and (min-width: 768px) {
+ .projects-search {
+  flex: 1;
+  margin-bottom: 0;
+  max-width: 400px;
+ }
+}
+
+.projects-search-input {
+ width: 100%;
+ padding: 0.875rem 1rem 0.875rem 2.75rem;
+ font-family: 'Open Sans', sans-serif;
+ font-size: clamp(0.9375rem, 1vw, 1rem);
+ font-weight: 400;
+ color: var(--color-text-primary);
+ background-color: var(--color-bg-primary);
+ border: 2px solid var(--color-border-primary);
+ border-radius: var(--radius-md);
+ transition: all var(--transition-normal);
+}
+
+.projects-search-input::placeholder {
+ color: var(--color-text-muted);
+}
+
+.projects-search-input:focus {
+ outline: none;
+ border-color: var(--color-accent-primary);
+ box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+
+.projects-search-icon {
+ position: absolute;
+ left: 1rem;
+ top: 50%;
+ transform: translateY(-50%);
+ color: var(--color-text-muted);
+ font-size: 1rem;
+ pointer-events: none;
+}
+
+.projects-search-input:focus + .projects-search-icon {
+ color: var(--color-accent-primary);
+}
+
+/* Contador de projetos - Mobile First */
 .projects-count {
  font-family: 'Open Sans', sans-serif;
  font-size: clamp(0.9375rem, 1vw, 1rem);
  color: var(--color-text-secondary);
  font-weight: 500;
  text-align: center;
+ padding: var(--spacing-sm) 0;
+}
+
+@media screen and (min-width: 768px) {
+ .projects-count {
+  text-align: left;
+  flex-shrink: 0;
+  min-width: 200px;
+ }
 }
 
 .projects-count .count-text {
@@ -562,16 +673,25 @@ img[loading='lazy'].loaded {
 .projects-count strong {
  font-family: 'Roboto Slab', serif;
  font-weight: 700;
- color: var(--color-text-primary);
+ color: var(--color-accent-primary);
 }
 
-/* Seção de ordenação */
+/* Seção de ordenação - Mobile First */
 .projects-sort {
  display: flex;
  align-items: center;
  gap: var(--spacing-sm);
  flex-wrap: wrap;
  justify-content: center;
+ width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+ .projects-sort {
+  justify-content: flex-end;
+  width: auto;
+  flex-shrink: 0;
+ }
 }
 
 .sort-label {
@@ -609,7 +729,7 @@ img[loading='lazy'].loaded {
 .sort-select:focus {
  outline: none;
  border-color: var(--accent-blue);
- box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+ box-shadow: 0 0 0 3px var(--color-accent-light);
 }
 
 .sort-select option {
@@ -618,16 +738,62 @@ img[loading='lazy'].loaded {
 
 /* Dark mode para controles */
 .dark-mode .projects-controls {
- background-color: var(--color-bg-secondary);
+ background-color: var(--color-bg-card);
  border-color: var(--color-border-primary);
 }
 
 .dark-mode .projects-count {
- color: var(--color-text-tertiary);
+ color: var(--color-text-secondary);
 }
 
 .dark-mode .projects-count strong {
+ color: var(--color-accent-primary);
+}
+
+/* Dark mode para campo de busca */
+.dark-mode .projects-search-input {
+ background-color: var(--color-bg-primary);
+ border-color: var(--color-border-primary);
  color: var(--color-text-primary);
+}
+
+.dark-mode .projects-search-input::placeholder {
+ color: var(--color-text-muted);
+}
+
+.dark-mode .projects-search-input:focus {
+ border-color: var(--color-accent-primary);
+ box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+
+.dark-mode .projects-search-icon {
+ color: var(--color-text-muted);
+}
+
+.dark-mode .projects-search-input:focus + .projects-search-icon {
+ color: var(--color-accent-primary);
+}
+
+/* Dark mode para select de ordenação */
+.dark-mode .sort-select {
+ background-color: var(--color-bg-primary);
+ border-color: var(--color-border-primary);
+ color: var(--color-text-primary);
+}
+
+.dark-mode .sort-select:hover {
+ border-color: var(--color-accent-primary);
+ background-color: var(--color-bg-primary);
+}
+
+.dark-mode .sort-select:focus {
+ border-color: var(--color-accent-primary);
+ box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+
+/* Dark mode para título da seção projetos */
+.dark-mode #projetos .section-title::after {
+ background: var(--gradient-accent);
 }
 
 .dark-mode .sort-label {
@@ -696,7 +862,9 @@ img[loading='lazy'].loaded {
  overflow: hidden;
 }
 
-/* Botões de paginação usam o mesmo estilo dos botões de tecnologias */
+/* Botões de ação unificados - Tecnologias e Projetos */
+/* Base comum para .btn-action e .pagination-buttons .button */
+.btn-action,
 .pagination-buttons .button {
  margin: 0;
  display: inline-flex;
@@ -725,34 +893,43 @@ img[loading='lazy'].loaded {
  line-height: normal !important;
 }
 
+.btn-action:hover,
 .pagination-buttons .button:hover {
- background-color: var(--color-accent-primary);
- border-color: var(--color-accent-primary);
- color: var(--color-text-inverse);
+ background-color: var(--color-accent-primary) !important;
+ border-color: var(--color-accent-primary) !important;
+ color: var(--color-text-inverse) !important;
+ font-family: 'Roboto Slab', serif !important;
+ font-size: 1.125rem !important;
+ font-weight: 600 !important;
+ letter-spacing: 0.025em !important;
  transform: translateY(-2px);
  box-shadow: 0 4px 12px var(--color-shadow-accent);
 }
 
+.btn-action:active,
 .pagination-buttons .button:active {
  transform: translateY(0);
 }
 
+.btn-action .icon,
 .pagination-buttons .button .icon {
  font-size: 1rem;
  color: inherit !important;
 }
 
+.btn-action:hover .icon,
 .pagination-buttons .button:hover .icon {
  color: inherit !important;
 }
 
-/* Responsividade para botões de paginação */
+/* Responsividade para botões de ação unificados */
 @media screen and (max-width: 767px) {
  .pagination-buttons {
   flex-direction: column;
   gap: var(--spacing-xs);
  }
 
+ .btn-action,
  .pagination-buttons .button {
   width: 100%;
   min-width: unset;
@@ -762,25 +939,29 @@ img[loading='lazy'].loaded {
   gap: 0.625rem;
  }
 
+ .btn-action .icon,
  .pagination-buttons .button .icon {
   font-size: 0.9375rem;
  }
 }
 
 @media screen and (min-width: 768px) {
+ .btn-action,
  .pagination-buttons .button {
   padding: 1rem 2rem;
   font-size: 1.125rem;
   min-width: 180px;
  }
 
+ .btn-action .icon,
  .pagination-buttons .button .icon {
   font-size: 1rem;
  }
 }
 
-/* Reduzir movimento para botões de paginação */
+/* Reduzir movimento para botões de ação */
 @media (prefers-reduced-motion: reduce) {
+ .btn-action,
  .pagination-buttons .button {
   transition: none !important;
  }
@@ -795,19 +976,53 @@ img[loading='lazy'].loaded {
    ============================================ */
 
 #projetos {
- background-color: var(--bg-white);
+ background-color: var(--color-bg-primary);
 }
 
 .projects-section .section-content {
  padding-top: var(--spacing-md);
+ /* Padding lateral igual aos cards */
+ padding-left: var(--spacing-lg);
+ padding-right: var(--spacing-lg);
+}
+
+@media screen and (max-width: 767px) {
+ .projects-section .section-content {
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
+ }
+}
+
+/* Título da Seção Projetos - Estilização similar ao de Tecnologias */
+#projetos .section-title {
+ font-family: 'Roboto Slab', serif;
+ font-size: clamp(2rem, 4vw, 3.5rem);
+ font-weight: 800;
+ color: var(--color-text-primary);
+ letter-spacing: -0.03em;
+ line-height: 1.1;
+ margin-bottom: var(--spacing-lg);
+}
+
+/* Desktop: margin-bottom ainda menor */
+@media screen and (min-width: 1024px) {
+ #projetos .section-title {
+  margin-bottom: var(--spacing-md);
+ }
+}
+
+#projetos .section-title::after {
+ background: var(--gradient-accent);
+ height: 4px;
+ width: 80px;
 }
 
 .posts {
  display: grid !important;
  grid-template-columns: 1fr;
  gap: var(--spacing-md);
- margin: var(--spacing-lg) auto var(--spacing-lg) auto !important;
- padding: var(--spacing-lg) var(--spacing-lg) !important;
+ margin: var(--spacing-md) auto var(--spacing-lg) auto !important; /* Reduzido margin-top */
+ padding: 0 var(--spacing-lg) !important; /* Padding apenas lateral */
  width: 100% !important;
  max-width: 100%;
  flex-wrap: unset !important;
@@ -817,8 +1032,8 @@ img[loading='lazy'].loaded {
 @media screen and (max-width: 767px) {
  .posts {
   gap: var(--spacing-md);
-  padding: var(--spacing-md) var(--spacing-md) !important;
-  margin: var(--spacing-md) auto 0 auto !important;
+  padding: 0 var(--spacing-md) !important; /* Padding apenas lateral */
+  margin: var(--spacing-sm) auto 0 auto !important; /* Reduzido margin-top */
   max-width: 100%;
  }
 }
@@ -836,7 +1051,8 @@ img[loading='lazy'].loaded {
 @media screen and (min-width: 768px) {
  .posts {
   gap: var(--spacing-sm);
-  padding: var(--spacing-xl) 0 !important;
+  padding: 0 var(--spacing-lg) !important; /* Padding apenas lateral */
+  margin-top: var(--spacing-md) !important; /* Reduzido */
  }
 }
 
@@ -1221,7 +1437,7 @@ img[loading='lazy'].loaded {
  .description-toggle:focus {
   outline: none;
   border-color: var(--accent-blue);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
  }
 
  .description-toggle .toggle-icon {
@@ -1703,7 +1919,7 @@ img[loading='lazy'].loaded {
  border-radius: var(--radius-md);
  border: 2px solid var(--color-accent-primary);
  background-color: var(--color-accent-primary);
- color: #ffffff;
+ color: var(--color-text-inverse);
  text-decoration: none;
  transition: all var(--transition-normal);
  cursor: pointer;
@@ -1725,7 +1941,7 @@ img[loading='lazy'].loaded {
  box-shadow: 0 4px 12px var(--color-shadow-accent);
  background-color: var(--color-accent-hover);
  border-color: var(--color-accent-hover);
- color: #ffffff;
+ color: var(--color-text-inverse);
  outline: none;
 }
 
@@ -1779,8 +1995,10 @@ img[loading='lazy'].loaded {
  display: none; /* Desabilitar o efeito ::before do botão genérico */
 }
 
-/* Melhorias nos botões */
-.button {
+/* Melhorias nos botões - apenas para botões genéricos */
+.button:not(.btn-action):not(.pagination-buttons .button):not(
+  .hero-actions .button
+ ):not(.posts article .button) {
  transition: all 0.3s ease;
  position: relative;
  overflow: hidden;
@@ -1799,7 +2017,10 @@ img[loading='lazy'].loaded {
  z-index: 10; /* Acima do overlay quando menu está fechado */
 }
 
-.button::before {
+/* Pseudo-elemento ::before apenas para botões genéricos */
+.button:not(.btn-action):not(.pagination-buttons .button):not(
+  .hero-actions .button
+ ):not(.posts article .button)::before {
  content: '';
  position: absolute;
  top: 50%;
@@ -1807,20 +2028,25 @@ img[loading='lazy'].loaded {
  width: 0;
  height: 0;
  border-radius: 50%;
- background: rgba(37, 99, 235, 0.2);
+ background: var(--color-shadow-accent);
  transform: translate(-50%, -50%);
  transition: width 0.6s, height 0.6s;
 }
 
-.button:hover::before {
+.button:not(.btn-action):not(.pagination-buttons .button):not(
+  .hero-actions .button
+ ):not(.posts article .button):hover::before {
  width: 300px;
  height: 300px;
 }
 
-.button:hover {
+/* Hover genérico - apenas para botões sem classe específica */
+.button:hover:not(.button-demo):not(.button-github):not(.btn-action):not(
+  .hero-actions .button
+ ):not(.pagination-buttons .button) {
  transform: translateY(-2px);
  box-shadow: 0 5px 15px var(--color-shadow-accent);
- /* Sobrescrever hover do template original */
+ /* Sobrescrever hover do template original apenas para botões genéricos */
  background-color: transparent !important;
 }
 
@@ -1832,7 +2058,7 @@ img[loading='lazy'].loaded {
 
 .icons a:hover {
  transform: translateY(-3px) scale(1.1);
- background-color: rgba(37, 99, 235, 0.1);
+ background-color: var(--color-accent-light);
 }
 
 /* Garantir que o botão de dark mode tenha o mesmo tamanho dos outros ícones */
@@ -1859,7 +2085,7 @@ img[loading='lazy'].loaded {
  width: 40px;
  height: 40px;
  margin: -20px 0 0 -20px;
- border: 4px solid rgba(37, 99, 235, 0.2);
+ border: 4px solid var(--color-accent-medium);
  border-top-color: var(--color-error);
  border-radius: 50%;
  animation: spin 0.8s linear infinite;
@@ -1936,51 +2162,100 @@ h2.major::after {
 }
 
 /* ============================================
-   TECNOLOGIAS SECTION
+   TECNOLOGIAS SECTION - Mobile First
    ============================================ */
 
 #tecnologias {
- background-color: var(--bg-white);
+ background-color: var(--color-bg-primary);
+}
+
+/* Título da Seção Tecnologias - Estilização similar ao Sobre Mim */
+#tecnologias .section-title {
+ font-family: 'Roboto Slab', serif;
+ font-size: clamp(2rem, 4vw, 3.5rem);
+ font-weight: 800;
+ color: var(--color-text-primary);
+ letter-spacing: -0.03em;
+ line-height: 1.1;
+ margin-bottom: var(--spacing-lg);
+}
+
+/* Desktop: margin-bottom ainda menor */
+@media screen and (min-width: 1024px) {
+ #tecnologias .section-title {
+  margin-bottom: var(--spacing-md);
+ }
+}
+
+#tecnologias .section-title::after {
+ background: var(--gradient-accent);
+ height: 4px;
+ width: 80px;
 }
 
 /* ============================================
-   GRID DE TECNOLOGIAS - Refatorado do Zero
+   GRID DE TECNOLOGIAS - Mobile First
    ============================================ */
 
 .technologies-grid-wrapper {
- margin: var(--spacing-xl) 0 0;
- padding: 0;
+ margin: var(--spacing-lg) 0 0;
+ /* Mobile: padding lateral */
+ padding: 0 var(--spacing-md);
  width: 100%;
 }
 
+/* Tablet: padding lateral maior */
+@media screen and (min-width: 768px) {
+ .technologies-grid-wrapper {
+  padding: 0 var(--spacing-lg);
+ }
+}
+
+/* Desktop: padding lateral máximo */
+@media screen and (min-width: 1024px) {
+ .technologies-grid-wrapper {
+  padding: 0 var(--spacing-lg);
+  margin-top: var(--spacing-md);
+ }
+}
+
+/* Mobile First: 1 coluna */
 .technologies-grid {
  display: grid;
  grid-template-columns: 1fr;
- gap: var(--spacing-lg);
+ gap: var(--spacing-md);
  padding: 0;
  margin: 0;
  list-style: none;
  width: 100%;
 }
 
-/* Cards de tecnologia */
+/* Cards de tecnologia - Mobile First */
 .technology-card {
  display: flex;
  flex-direction: column;
- padding: var(--spacing-sm) var(--spacing-md) var(--spacing-md);
- background-color: var(--bg-white);
- border: 1px solid var(--divider-color);
- border-radius: var(--radius-md);
+ /* Mobile: padding equilibrado */
+ padding: var(--spacing-md);
+ background-color: var(--color-bg-card);
+ border: 1px solid var(--color-border-primary);
+ border-radius: var(--radius-lg);
  transition: all var(--transition-normal);
  opacity: 1;
  transform: translateY(0);
  overflow: hidden;
+ /* Melhor distribuição de espaço */
+ min-height: 0;
 }
 
 .technology-card:hover {
- border-color: var(--accent-blue);
+ border-color: var(--color-accent-primary);
  box-shadow: var(--shadow-md);
- transform: translateY(-4px);
+ transform: translateY(-2px);
+}
+
+.technology-card:focus-within {
+ outline: 2px solid var(--color-border-focus);
+ outline-offset: 2px;
 }
 
 /* Cards escondidos */
@@ -1992,18 +2267,18 @@ h2.major::after {
 .technology-card.is-revealing {
  display: flex;
  opacity: 0;
- transform: translateY(30px) scale(0.9);
- animation: revealCard 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+ transform: translateY(20px) scale(0.95);
+ animation: revealCard 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 @keyframes revealCard {
  0% {
   opacity: 0;
-  transform: translateY(30px) scale(0.9);
+  transform: translateY(20px) scale(0.95);
  }
  60% {
-  opacity: 0.8;
-  transform: translateY(-5px) scale(1.02);
+  opacity: 0.9;
+  transform: translateY(-3px) scale(1.01);
  }
  100% {
   opacity: 1;
@@ -2011,54 +2286,180 @@ h2.major::after {
  }
 }
 
-/* Ícone do card */
-.technology-card .icon {
- font-size: 2.5rem;
- color: var(--accent-blue);
+/* Wrapper do ícone - Melhor controle de espaçamento */
+.technology-icon-wrapper {
+ display: flex;
+ align-items: center;
+ justify-content: flex-start;
  margin-bottom: var(--spacing-sm);
+ width: 100%;
+}
+
+/* Ícone dentro do wrapper */
+.technology-icon-wrapper .icon {
+ /* Mobile: tamanho adequado */
+ font-size: 2.25rem;
+ color: var(--color-accent-primary);
  transition: transform var(--transition-normal), color var(--transition-normal);
+ display: inline-flex;
+ align-items: center;
+ justify-content: flex-start;
+ line-height: 1;
+ margin: 0;
 }
 
-.technology-card:hover .icon {
- transform: scale(1.1) rotate(5deg);
- color: var(--accent-green);
+.technology-card:hover .technology-icon-wrapper .icon {
+ transform: scale(1.08) rotate(3deg);
+ color: var(--color-accent-secondary);
 }
 
-/* Conteúdo do card */
+/* Conteúdo do card - Melhor distribuição */
 .technology-card .content {
  flex: 1;
+ display: flex;
+ flex-direction: column;
+ /* Garantir que o conteúdo ocupe o espaço disponível */
+ min-height: 0;
 }
 
+/* Título - Estilização similar à seção Sobre Mim */
 .technology-card .content h3 {
- font-size: var(--font-size-h3);
- font-weight: 700;
- color: var(--text-dark);
- margin: 0 0 var(--spacing-xs) 0;
+ font-family: 'Roboto Slab', serif;
+ font-size: clamp(1.625rem, 2.5vw, 2.25rem);
+ font-weight: 800;
+ color: var(--color-text-primary);
+ /* Espaçamento equilibrado entre título e descrição */
+ margin: 0 0 var(--spacing-sm) 0;
+ padding-bottom: var(--spacing-xs);
+ line-height: 1.2;
+ /* Transição suave para animação de cor */
+ transition: color var(--transition-normal);
+ letter-spacing: -0.02em;
+ position: relative;
+ display: inline-block;
+ width: 100%;
 }
 
+/* Linha decorativa abaixo do título com gradiente */
+.technology-card .content h3::after {
+ content: '';
+ position: absolute;
+ bottom: 0;
+ left: 0;
+ width: 50px;
+ height: 3px;
+ background: var(--gradient-accent);
+ border-radius: 2px;
+ opacity: 0.6;
+ transition: all var(--transition-normal);
+}
+
+/* Animação de cor e linha no hover */
+.technology-card:hover .content h3 {
+ color: var(--color-accent-primary);
+}
+
+.technology-card:hover .content h3::after {
+ width: 70px;
+ opacity: 1;
+ background: var(--gradient-accent);
+}
+
+/* Parágrafo - Justificado e com melhor legibilidade */
 .technology-card .content p {
  font-size: var(--font-size-body);
  color: var(--text-light);
  line-height: 1.6;
  margin: 0;
+ /* Garantir que o texto ocupe o espaço disponível */
+ flex: 1;
+ /* Texto justificado */
+ text-align: justify;
+ text-justify: inter-word;
+ hyphens: auto;
+ -webkit-hyphens: auto;
+ -moz-hyphens: auto;
+ /* Transição suave para melhor interatividade */
+ transition: color var(--transition-normal);
+ letter-spacing: 0.01em;
 }
 
-/* Responsivo: 2 colunas em tablet */
+/* Efeito sutil no parágrafo no hover */
+.technology-card:hover .content p {
+ color: var(--color-text-primary);
+}
+
+/* Tablet: 2 colunas */
 @media screen and (min-width: 768px) {
+ .technologies-grid-wrapper {
+  margin: var(--spacing-xl) 0 0;
+ }
+
  .technologies-grid {
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-xl);
+  gap: var(--spacing-lg);
+ }
+
+ .technology-card {
+  /* Tablet: padding mais generoso */
+  padding: var(--spacing-lg);
+ }
+
+ .technology-icon-wrapper {
+  margin-bottom: var(--spacing-md);
+ }
+
+ .technology-icon-wrapper .icon {
+  font-size: 2.5rem;
+ }
+
+ .technology-card .content h3 {
+  margin-bottom: var(--spacing-sm);
  }
 }
 
-/* Responsivo: 4 colunas em desktop */
+/* Desktop: 4 colunas */
 @media screen and (min-width: 1024px) {
  .technologies-grid {
   grid-template-columns: repeat(4, 1fr);
+  /* Desktop: gap reduzido para melhor distribuição */
+  gap: 1.5rem; /* 24px - mais compacto */
+ }
+
+ .technology-card {
+  /* Desktop: padding interno aumentado para melhor respiração */
+  padding: 1.75rem 1.5rem; /* 28px 24px - balanceado */
+  /* Garantir que cards não quebrem */
+  min-width: 0;
+  overflow-wrap: break-word;
+ }
+
+ .technology-icon-wrapper {
+  margin-bottom: 0.75rem; /* 12px - reduzido */
+ }
+
+ .technology-icon-wrapper .icon {
+  font-size: 2.5rem; /* Reduzido de 2.75rem */
+ }
+
+ .technology-card .content h3 {
+  margin-bottom: 0.5rem; /* 8px - reduzido */
+  font-size: clamp(1.5rem, 2vw, 2rem); /* Ajustado para desktop */
  }
 }
 
-/* Botões de ação */
+/* Large Desktop: Ajustes finos */
+@media screen and (min-width: 1280px) {
+ .technologies-grid {
+  gap: 2rem; /* 32px - mantém proporção */
+ }
+
+ .technology-card {
+  padding: 2rem 1.75rem; /* 32px 28px - proporcional ao desktop */
+ }
+}
+
+/* Botões de ação - Container */
 .technologies-actions {
  display: flex;
  align-items: center;
@@ -2069,99 +2470,9 @@ h2.major::after {
  width: 100%;
 }
 
-.btn-action {
- margin: 0;
- display: inline-flex;
- align-items: center;
- justify-content: center;
- gap: 0.75rem;
- padding: 1rem 2rem;
- border-radius: var(--radius-md);
- font-size: 1.125rem;
- font-weight: 600;
- font-family: 'Roboto Slab', serif;
- letter-spacing: 0.025em;
- transition: all var(--transition-normal);
- border: 2px solid var(--divider-color);
- background-color: transparent;
- color: var(--text-dark);
- cursor: pointer;
- min-width: 180px;
- pointer-events: auto; /* Garantir que é clicável */
- position: relative;
- z-index: 10; /* Acima do overlay quando menu está fechado */
- /* Sobrescrever estilos do template original */
- box-shadow: none !important;
- text-transform: none !important;
- height: auto !important;
- line-height: normal !important;
-}
-
-.btn-action:hover {
- background-color: var(--color-accent-primary);
- border-color: var(--color-accent-primary);
- color: var(--color-text-inverse);
- transform: translateY(-2px);
- box-shadow: 0 4px 12px var(--color-shadow-accent);
-}
-
-.btn-action:active {
- transform: translateY(0);
-}
-
+/* Estado oculto específico para tecnologias */
 .btn-action.is-hidden {
  display: none;
-}
-
-.btn-action .icon {
- font-size: 1rem;
- color: inherit !important;
-}
-
-.btn-action:hover .icon {
- color: inherit !important;
-}
-
-/* Dark mode para tecnologias - Removido: usar apenas .dark-mode (classe) */
-/* Estilos movidos para .dark-mode abaixo para evitar duplicação */
-
-/* Responsividade para botões de ação */
-@media screen and (max-width: 767px) {
- .btn-action {
-  padding: 0.875rem 1.5rem;
-  font-size: 1rem;
-  min-width: 160px;
-  gap: 0.625rem;
- }
-
- .btn-action .icon {
-  font-size: 0.9375rem;
- }
-}
-
-@media screen and (min-width: 768px) {
- .btn-action {
-  padding: 1rem 2rem;
-  font-size: 1.125rem;
-  min-width: 180px;
- }
-
- .btn-action .icon {
-  font-size: 1rem;
- }
-}
-
-/* Reduzir movimento */
-@media (prefers-reduced-motion: reduce) {
- .technology-card.is-revealing {
-  animation: none !important;
-  opacity: 1 !important;
-  transform: translateY(0) !important;
- }
-
- .btn-action {
-  transition: none !important;
- }
 }
 
 /* Botões de navegação modernos - Mobile First */
@@ -2472,12 +2783,20 @@ body.dark-mode {
  color: var(--color-text-muted);
 }
 
-.dark-mode .button {
+/* Dark mode para botões genéricos apenas */
+.dark-mode
+ .button:not(.btn-action):not(.pagination-buttons .button):not(
+  .hero-actions .button
+ ):not(.posts article .button) {
  box-shadow: inset 0 0 0 2px var(--color-accent-primary);
  color: var(--color-accent-primary) !important;
 }
 
-.dark-mode .button:hover {
+/* Dark mode hover genérico - apenas para botões sem classe específica */
+.dark-mode
+ .button:hover:not(.button-demo):not(.button-github):not(.btn-action):not(
+  .hero-actions .button
+ ):not(.pagination-buttons .button) {
  background-color: rgba(96, 165, 250, 0.1);
  box-shadow: 0 5px 15px var(--color-shadow-accent);
 }
@@ -2512,6 +2831,8 @@ body.dark-mode {
  background: var(--gradient-bg-subtle);
 }
 
+/* Dark mode para botões de ação unificados */
+.dark-mode .btn-action,
 .dark-mode .pagination-buttons .button {
  background-color: transparent;
  border-color: var(--divider-color);
@@ -2519,26 +2840,21 @@ body.dark-mode {
  box-shadow: none !important;
 }
 
+.dark-mode .btn-action:hover,
 .dark-mode .pagination-buttons .button:hover {
- background-color: var(--color-accent-primary);
- border-color: var(--color-accent-primary);
- color: var(--color-text-inverse);
+ background-color: var(--color-accent-hover) !important;
+ border-color: var(--color-accent-hover) !important;
+ color: var(--color-text-inverse) !important;
+ font-family: 'Roboto Slab', serif !important;
+ font-size: 1.125rem !important;
+ font-weight: 600 !important;
+ letter-spacing: 0.025em !important;
+ transform: translateY(-2px);
+ box-shadow: 0 4px 12px var(--color-shadow-accent);
 }
 
 .dark-mode .pagination-info {
  color: var(--color-text-tertiary);
-}
-
-.dark-mode .btn-action {
- background-color: transparent;
- border-color: var(--divider-color);
- color: var(--text-dark);
-}
-
-.dark-mode .btn-action:hover {
- background-color: var(--color-accent-primary);
- border-color: var(--color-accent-primary);
- color: var(--color-text-inverse);
 }
 
 /* Estilo específico para o botão de toggle */
@@ -2574,12 +2890,12 @@ body.dark-mode {
  /* Cores Semânticas - Texto */
  --color-text-primary: #f8fafc;
  --color-text-secondary: #e2e8f0;
- --color-text-tertiary: #cbd5e1;
+ --color-text-tertiary: #ffffff;
  --color-text-muted: #94a3b8;
  --color-text-inverse: #0f172a;
 
  /* Cores Semânticas - Acentos */
- --color-accent-primary: #60a5fa;
+ --color-accent-primary: #0072ff;
  --color-accent-secondary: #34d399;
  --color-accent-hover: #3b82f6;
  --color-accent-secondary-hover: #10b981;
@@ -2593,17 +2909,29 @@ body.dark-mode {
  /* Cores Semânticas - Bordas */
  --color-border-primary: #334155;
  --color-border-secondary: #475569;
- --color-border-focus: #60a5fa;
+ --color-border-focus: #0072ff;
 
  /* Cores Semânticas - Sombras */
  --color-shadow-sm: rgba(0, 0, 0, 0.3);
  --color-shadow-md: rgba(0, 0, 0, 0.4);
  --color-shadow-lg: rgba(0, 0, 0, 0.5);
- --color-shadow-accent: rgba(96, 165, 250, 0.3);
+ --color-shadow-accent: rgba(0, 114, 255, 0.3);
+ --color-accent-light: rgba(
+  0,
+  114,
+  255,
+  0.15
+ ); /* Para backgrounds sutis no dark mode */
+ --color-accent-medium: rgba(
+  0,
+  114,
+  255,
+  0.25
+ ); /* Para borders e efeitos no dark mode */
 
  /* Gradientes */
- --gradient-accent: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
- --gradient-text: linear-gradient(135deg, #60a5fa, #34d399);
+ --gradient-accent: linear-gradient(135deg, #0072ff 0%, #34d399 100%);
+ --gradient-text: linear-gradient(135deg, #0072ff, #34d399);
  --gradient-bg-subtle: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 
  /* Aliases para compatibilidade (atualizados para dark mode) */
@@ -2665,15 +2993,40 @@ body.dark-mode {
 .dark-mode .hero-actions .button {
  background-color: var(--color-accent-primary);
  border-color: var(--color-accent-primary);
- color: #ffffff !important; /* Cor branca para contraste no dark mode com fundo azul */
+ color: var(
+  --color-text-inverse
+ ) !important; /* Cor branca para contraste no dark mode com fundo azul */
  font-weight: 600;
+}
+
+/* Ícones dos botões do hero no dark mode - TODOS brancos */
+.dark-mode .hero-actions .button .icon,
+.dark-mode .hero-actions .button i.icon,
+.dark-mode .hero-actions .button i.icon.solid,
+.dark-mode .hero-actions .button .icon.solid,
+.dark-mode .hero-actions a.button .icon,
+.dark-mode .hero-actions a.button i.icon,
+.dark-mode .hero-actions a.button i.icon.solid,
+.dark-mode .hero-actions a.button .icon.solid {
+ color: var(--color-text-inverse) !important; /* Ícones brancos no dark mode */
 }
 
 .dark-mode .hero-actions .button:hover,
 .dark-mode .hero-actions .button:focus {
  background-color: var(--color-accent-hover);
  border-color: var(--color-accent-hover);
- color: #ffffff !important; /* Manter branco no hover */
+ color: var(--color-text-inverse) !important; /* Manter branco no hover */
+}
+
+.dark-mode .hero-actions .button:hover .icon,
+.dark-mode .hero-actions .button:hover i.icon,
+.dark-mode .hero-actions .button:hover i.icon.solid,
+.dark-mode .hero-actions .button:hover .icon.solid,
+.dark-mode .hero-actions .button:focus .icon,
+.dark-mode .hero-actions .button:focus i.icon,
+.dark-mode .hero-actions .button:focus i.icon.solid,
+.dark-mode .hero-actions .button:focus .icon.solid {
+ color: var(--color-text-inverse) !important; /* Ícones brancos no hover */
 }
 
 .dark-mode .hero-actions .button.button-secondary {
@@ -2682,10 +3035,38 @@ body.dark-mode {
  border-color: var(--color-accent-primary);
 }
 
+/* Botão secundário: ícones brancos mesmo no estado normal */
+.dark-mode .hero-actions .button.button-secondary .icon,
+.dark-mode .hero-actions .button.button-secondary i.icon,
+.dark-mode .hero-actions .button.button-secondary i.icon.solid,
+.dark-mode .hero-actions .button.button-secondary .icon.solid,
+.dark-mode .hero-actions a.button.button-secondary .icon,
+.dark-mode .hero-actions a.button.button-secondary i.icon,
+.dark-mode .hero-actions a.button.button-secondary i.icon.solid,
+.dark-mode .hero-actions a.button.button-secondary .icon.solid {
+ color: var(
+  --color-text-inverse
+ ) !important; /* Ícones brancos no botão secundário também */
+}
+
 .dark-mode .hero-actions .button.button-secondary:hover,
 .dark-mode .hero-actions .button.button-secondary:focus {
- background-color: var(--color-accent-primary);
+ background-color: var(--color-accent-hover);
+ border-color: var(--color-accent-hover);
  color: var(--color-text-inverse);
+}
+
+.dark-mode .hero-actions .button.button-secondary:hover .icon,
+.dark-mode .hero-actions .button.button-secondary:hover i.icon,
+.dark-mode .hero-actions .button.button-secondary:hover i.icon.solid,
+.dark-mode .hero-actions .button.button-secondary:hover .icon.solid,
+.dark-mode .hero-actions .button.button-secondary:focus .icon,
+.dark-mode .hero-actions .button.button-secondary:focus i.icon,
+.dark-mode .hero-actions .button.button-secondary:focus i.icon.solid,
+.dark-mode .hero-actions .button.button-secondary:focus .icon.solid {
+ color: var(
+  --color-text-inverse
+ ) !important; /* Ícones brancos no hover do botão secundário */
 }
 
 .dark-mode .scroll-indicator {
@@ -2699,7 +3080,7 @@ body.dark-mode {
 
 /* Sobre no dark mode */
 .dark-mode #sobre {
- background-color: var(--bg-light);
+ background-color: var(--color-bg-primary);
 }
 
 .dark-mode .about-description {
@@ -2708,17 +3089,6 @@ body.dark-mode {
 
 .dark-mode .about-description p {
  color: var(--text-secondary);
-}
-
-.dark-mode .about-card {
- background-color: var(--color-bg-card);
- border-top-color: var(--color-border-primary);
- border-bottom-color: var(--color-border-primary);
-}
-
-.dark-mode .about-card:hover {
- background-color: var(--color-bg-card);
- box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .dark-mode .about-image-wrapper {
@@ -2809,24 +3179,55 @@ body.dark-mode {
 
 /* Tecnologias no dark mode */
 .dark-mode #tecnologias {
- background-color: var(--bg-white);
+ background-color: var(--color-bg-primary);
 }
 
 .dark-mode .technology-card {
- background-color: var(--bg-light);
- border-color: var(--divider-color);
+ background-color: var(--color-bg-card);
+ border-color: var(--color-border-primary);
 }
 
 .dark-mode .technology-card:hover {
- border-color: var(--accent-blue);
+ border-color: var(--color-accent-primary);
+ background-color: var(--color-bg-secondary);
+}
+
+.dark-mode .technology-icon-wrapper .icon {
+ color: var(--color-accent-primary);
+}
+
+.dark-mode .technology-card:hover .technology-icon-wrapper .icon {
+ color: var(--color-accent-secondary);
 }
 
 .dark-mode .technology-card .content h3 {
- color: var(--text-dark);
+ color: var(--color-text-primary);
+}
+
+.dark-mode .technology-card:hover .content h3 {
+ color: var(--color-accent-primary);
+}
+
+.dark-mode .technology-card .content h3::after {
+ background: var(--gradient-accent);
+ opacity: 0.7;
+}
+
+.dark-mode .technology-card:hover .content h3::after {
+ opacity: 1;
 }
 
 .dark-mode .technology-card .content p {
- color: var(--text-medium);
+ color: var(--color-text-secondary);
+}
+
+.dark-mode .technology-card:hover .content p {
+ color: var(--color-text-tertiary);
+}
+
+/* Manter gradiente no título da seção tecnologias no dark mode */
+.dark-mode #tecnologias .section-title::after {
+ background: var(--gradient-accent);
 }
 
 /* Slider no dark mode */
@@ -2935,8 +3336,8 @@ body.dark-mode {
 
 .dark-mode .posts article .button.button-github:hover,
 .dark-mode .posts article .button.button-github:focus {
- border-color: var(--color-accent-primary);
- background-color: var(--color-accent-primary);
+ border-color: var(--color-accent-hover);
+ background-color: var(--color-accent-hover);
  color: #ffffff !important;
  box-shadow: 0 4px 12px var(--color-shadow-accent);
 }
@@ -2973,22 +3374,54 @@ body.dark-mode {
 
 /* Contato no dark mode */
 .dark-mode #contato {
- background-color: var(--bg-light);
+ background-color: var(--color-bg-primary);
 }
 
-.dark-mode .contact-info {
- color: var(--text-medium);
+.dark-mode #contato .section-title::after {
+ background: var(--gradient-accent);
 }
 
-.dark-mode .contact-social a {
- background-color: var(--bg-medium);
- border-color: var(--divider-color);
- color: var(--text-medium);
+.dark-mode .contact-card {
+ background-color: var(--color-bg-card);
+ border-color: var(--color-border-primary);
 }
 
-.dark-mode .contact-social a:hover {
- border-color: var(--accent-blue);
- color: var(--accent-blue);
+.dark-mode .contact-card:hover {
+ border-color: var(--color-accent-primary);
+ background-color: var(--color-bg-secondary);
+}
+
+.dark-mode .contact-icon-wrapper .icon {
+ color: var(--color-accent-primary);
+}
+
+.dark-mode .contact-card:hover .contact-icon-wrapper .icon {
+ color: var(--color-accent-secondary);
+}
+
+.dark-mode .contact-card .content h3 {
+ color: var(--color-text-primary);
+}
+
+.dark-mode .contact-card:hover .content h3 {
+ color: var(--color-accent-primary);
+}
+
+.dark-mode .contact-card .content h3::after {
+ background: var(--gradient-accent);
+ opacity: 0.7;
+}
+
+.dark-mode .contact-card:hover .content h3::after {
+ opacity: 1;
+}
+
+.dark-mode .contact-card .content p {
+ color: var(--color-text-secondary);
+}
+
+.dark-mode .contact-card:hover .content p {
+ color: var(--color-text-tertiary);
 }
 
 /* Footer no dark mode */
@@ -3008,9 +3441,6 @@ body.dark-mode {
 .dark-mode .section-title::after {
  background: var(--divider-color);
 }
-
-/* Dark mode baseado em preferência do sistema (fallback) */
-/* Removido: usar apenas .dark-mode (classe) para controle manual */
 
 /* ============================================
    NAVEGAÇÃO STICKY - Menu Fixo
@@ -3204,7 +3634,7 @@ body.dark-mode {
 .nav-menu-social .icon:hover,
 .nav-menu-social .icon:focus {
  color: var(--accent-blue);
- background-color: rgba(37, 99, 235, 0.1);
+ background-color: var(--color-accent-light);
  transform: translateY(-2px);
 }
 
@@ -3219,7 +3649,7 @@ body.dark-mode {
 
 .nav-menu-social #dark-mode-toggle:hover {
  color: var(--accent-blue);
- background-color: rgba(37, 99, 235, 0.1);
+ background-color: var(--color-accent-light);
  transform: translateY(-2px);
 }
 
@@ -3798,7 +4228,9 @@ section {
  border-radius: var(--radius-md);
  border: 2px solid var(--color-accent-primary);
  background-color: var(--color-accent-primary);
- color: #ffffff; /* Sempre branco para contraste com fundo azul */
+ color: var(
+  --color-text-inverse
+ ); /* Sempre branco para contraste com fundo azul */
  text-decoration: none;
  transition: all var(--transition-normal);
  cursor: pointer;
@@ -3817,7 +4249,7 @@ section {
  box-shadow: 0 4px 12px var(--color-shadow-accent);
  background-color: var(--color-accent-hover);
  border-color: var(--color-accent-hover);
- color: #ffffff; /* Manter branco no hover */
+ color: var(--color-text-inverse); /* Manter branco no hover */
  outline: none;
 }
 
@@ -3937,15 +4369,42 @@ section {
    DIVIDERS VISUAIS
    ============================================ */
 
+/* Variável específica para dividers mais sutis */
+:root {
+ --divider-opacity: 0.15; /* Opacidade reduzida para ser mais discreta */
+ --divider-width: 70%; /* Largura reduzida para ser menos chamativa */
+}
+
+.dark-mode {
+ --divider-opacity: 0.2; /* Ligeiramente mais visível no dark mode */
+}
+
 .section-divider {
- height: 1px;
- background-color: var(--divider-color);
+ height: 1px; /* Altura padrão para garantir visibilidade */
  margin: var(--spacing-xl) 0;
  border: none;
- max-width: 95%;
+ max-width: var(--divider-width);
  margin-left: auto;
  margin-right: auto;
- opacity: 0.5;
+ position: relative;
+
+ /* Gradiente suave nas extremidades para transição mais natural */
+ background: linear-gradient(
+  to right,
+  transparent 0%,
+  var(--divider-color) 15%,
+  var(--divider-color) 85%,
+  transparent 100%
+ );
+
+ /* Opacidade reduzida para ser mais discreta */
+ opacity: var(--divider-opacity);
+
+ /* Transição suave para mudanças de tema */
+ transition: opacity 0.3s ease, background 0.3s ease;
+
+ /* Garantir que o divisor não interfira com o scroll suave */
+ pointer-events: none;
 }
 
 /* ============================================
@@ -4099,8 +4558,13 @@ section {
    ============================================ */
 
 #sobre {
- background-color: var(--bg-light);
+ background-color: var(--color-bg-primary);
  scroll-margin-top: 80px; /* Offset para scroll quando clica no menu */
+}
+
+/* Garantir que a seção full-viewport dentro de #sobre herde o background */
+#sobre.full-viewport-section {
+ background-color: var(--color-bg-primary);
 }
 
 .about-content {
@@ -4139,10 +4603,8 @@ section {
  flex-direction: row;
  border-radius: 0; /* Sem bordas arredondadas nas laterais */
  overflow: visible; /* Mudado para visible para permitir círculo */
- background-color: var(--bg-white);
+ background-color: var(--color-bg-primary);
  border: none;
- border-top: 1px solid var(--divider-color);
- border-bottom: 1px solid var(--divider-color);
  box-shadow: none; /* Sem sombra, já que ocupa toda a seção */
  margin: 0; /* Sem margin, ocupa toda a largura */
  width: 100%; /* Ocupar 100% da largura */
@@ -4152,11 +4614,6 @@ section {
  align-items: center; /* Centralizar verticalmente */
  gap: var(--spacing-lg); /* Espaçamento entre foto e conteúdo */
  padding: var(--spacing-md) 0; /* Padding interno para melhor respiração */
-}
-
-.about-card:hover {
- background-color: var(--bg-white);
- box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); /* Sombra sutil no hover */
 }
 
 /* Imagem do About - Círculo */
@@ -4527,70 +4984,269 @@ section {
 }
 
 /* ============================================
-   CONTATO SECTION
+   CONTATO SECTION - Mobile First
    ============================================ */
 
 #contato {
- background-color: var(--bg-light);
+ background-color: var(--color-bg-primary);
 }
 
-.contact-content {
- max-width: 100%;
- text-align: center;
- padding: 0 var(--spacing-md);
-}
-
-.contact-wrapper {
- margin-top: var(--spacing-lg);
-}
-
-.contact-info {
- font-size: var(--font-size-body);
- color: var(--text-medium);
- line-height: 1.8;
+/* Título da Seção Contato - Estilização similar às outras seções */
+#contato .section-title {
+ font-family: 'Roboto Slab', serif;
+ font-size: clamp(2rem, 4vw, 3.5rem);
+ font-weight: 800;
+ color: var(--color-text-primary);
+ letter-spacing: -0.03em;
+ line-height: 1.1;
  margin-bottom: var(--spacing-lg);
 }
 
-.contact-info p {
- font-size: 1.125rem;
+/* Desktop: margin-bottom ainda menor */
+@media screen and (min-width: 1024px) {
+ #contato .section-title {
+  margin-bottom: var(--spacing-md);
+ }
 }
 
-.contact-social {
- display: flex;
- justify-content: center;
+#contato .section-title::after {
+ background: var(--gradient-accent);
+ height: 4px;
+ width: 80px;
+}
+
+/* ============================================
+   GRID DE CONTATO - Mobile First
+   ============================================ */
+
+.contact-grid-wrapper {
+ margin: var(--spacing-lg) 0 0;
+ /* Mobile: padding lateral */
+ padding: 0 var(--spacing-md);
+ width: 100%;
+}
+
+/* Tablet: padding lateral maior */
+@media screen and (min-width: 768px) {
+ .contact-grid-wrapper {
+  padding: 0 var(--spacing-lg);
+ }
+}
+
+/* Desktop: padding lateral máximo */
+@media screen and (min-width: 1024px) {
+ .contact-grid-wrapper {
+  padding: 0 var(--spacing-lg);
+  margin-top: var(--spacing-md);
+ }
+}
+
+/* Mobile First: 1 coluna */
+.contact-grid {
+ display: grid;
+ grid-template-columns: 1fr;
  gap: var(--spacing-md);
- list-style: none;
- margin: 0;
  padding: 0;
-}
-
-.contact-social li {
  margin: 0;
+ list-style: none;
+ width: 100%;
 }
 
-.contact-social a {
+/* Cards de contato - Mobile First */
+.contact-card {
+ display: flex;
+ flex-direction: column;
+ /* Mobile: padding equilibrado */
+ padding: var(--spacing-md);
+ background-color: var(--color-bg-card);
+ border: 1px solid var(--color-border-primary);
+ border-radius: var(--radius-lg);
+ transition: all var(--transition-normal);
+ opacity: 1;
+ transform: translateY(0);
+ overflow: hidden;
+ /* Melhor distribuição de espaço */
+ min-height: 0;
+}
+
+.contact-card-link {
+ display: flex;
+ flex-direction: column;
+ width: 100%;
+ height: 100%;
+ text-decoration: none;
+ color: inherit;
+}
+
+.contact-card:hover {
+ border-color: var(--color-accent-primary);
+ box-shadow: var(--shadow-md);
+ transform: translateY(-2px);
+}
+
+.contact-card:focus-within {
+ outline: 2px solid var(--color-border-focus);
+ outline-offset: 2px;
+}
+
+/* Wrapper do ícone - Melhor controle de espaçamento */
+.contact-icon-wrapper {
  display: flex;
  align-items: center;
- gap: 0.5rem;
- padding: 1rem 2rem;
- background-color: var(--bg-white);
- color: var(--text-dark);
- text-decoration: none;
- border-radius: var(--radius-md);
- border: 1px solid var(--divider-color);
+ justify-content: flex-start;
+ margin-bottom: var(--spacing-sm);
+ width: 100%;
+}
+
+/* Ícone dentro do wrapper */
+.contact-icon-wrapper .icon {
+ /* Mobile: tamanho adequado */
+ font-size: 2.25rem;
+ color: var(--color-accent-primary);
+ transition: transform var(--transition-normal), color var(--transition-normal);
+ display: inline-flex;
+ align-items: center;
+ justify-content: flex-start;
+ line-height: 1;
+ margin: 0;
+}
+
+.contact-card:hover .contact-icon-wrapper .icon {
+ transform: scale(1.08) rotate(3deg);
+ color: var(--color-accent-secondary);
+}
+
+/* Conteúdo do card - Melhor distribuição */
+.contact-card .content {
+ flex: 1;
+ display: flex;
+ flex-direction: column;
+ /* Garantir que o conteúdo ocupe o espaço disponível */
+ min-height: 0;
+}
+
+/* Título - Estilização similar à seção Tecnologias */
+.contact-card .content h3 {
+ font-family: 'Roboto Slab', serif;
+ font-size: clamp(1.625rem, 2.5vw, 2.25rem);
+ font-weight: 800;
+ color: var(--color-text-primary);
+ /* Espaçamento equilibrado entre título e descrição */
+ margin: 0 0 var(--spacing-sm) 0;
+ padding-bottom: var(--spacing-xs);
+ line-height: 1.2;
+ /* Transição suave para animação de cor */
+ transition: color var(--transition-normal);
+ letter-spacing: -0.02em;
+ position: relative;
+ display: inline-block;
+ width: 100%;
+}
+
+/* Linha decorativa abaixo do título com gradiente */
+.contact-card .content h3::after {
+ content: '';
+ position: absolute;
+ bottom: 0;
+ left: 0;
+ width: 50px;
+ height: 3px;
+ background: var(--gradient-accent);
+ border-radius: 2px;
+ opacity: 0.6;
  transition: all var(--transition-normal);
- box-shadow: var(--shadow-sm);
 }
 
-.contact-social a:hover {
- transform: translateY(-2px);
- box-shadow: var(--shadow-md);
- border-color: var(--accent-blue);
- color: var(--accent-blue);
+/* Animação de cor e linha no hover */
+.contact-card:hover .content h3 {
+ color: var(--color-accent-primary);
 }
 
-.contact-social a .icon {
- font-size: 1.25rem;
+.contact-card:hover .content h3::after {
+ width: 70px;
+ opacity: 1;
+ background: var(--gradient-accent);
+}
+
+/* Parágrafo - Melhor legibilidade */
+.contact-card .content p {
+ font-size: var(--font-size-body);
+ color: var(--text-light);
+ line-height: 1.6;
+ margin: 0;
+ /* Garantir que o texto ocupe o espaço disponível */
+ flex: 1;
+ /* Transição suave para melhor interatividade */
+ transition: color var(--transition-normal);
+ letter-spacing: 0.01em;
+ word-break: break-word;
+}
+
+/* E-mail em uma linha */
+.contact-card-email .content p {
+ white-space: nowrap;
+ overflow: hidden;
+ text-overflow: ellipsis;
+}
+
+/* Efeito sutil no parágrafo no hover */
+.contact-card:hover .content p {
+ color: var(--color-text-primary);
+}
+
+/* Tablet: 2 colunas */
+@media screen and (min-width: 768px) {
+ .contact-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+ }
+
+ .contact-card {
+  /* Tablet: padding mais generoso */
+  padding: var(--spacing-lg);
+ }
+
+ .contact-icon-wrapper {
+  margin-bottom: var(--spacing-md);
+ }
+
+ .contact-icon-wrapper .icon {
+  font-size: 2.5rem;
+ }
+
+ .contact-card .content h3 {
+  margin-bottom: var(--spacing-sm);
+ }
+}
+
+/* Desktop: 3 colunas */
+@media screen and (min-width: 1024px) {
+ .contact-grid {
+  grid-template-columns: repeat(3, 1fr);
+  /* Desktop: gap reduzido para melhor distribuição */
+  gap: 1.5rem; /* 24px - mais compacto */
+ }
+
+ .contact-card {
+  /* Desktop: padding interno aumentado para melhor respiração */
+  padding: 1.75rem 1.5rem; /* 28px 24px - balanceado */
+  /* Garantir que cards não quebrem */
+  min-width: 0;
+  overflow-wrap: break-word;
+ }
+
+ .contact-icon-wrapper {
+  margin-bottom: 0.75rem; /* 12px - reduzido */
+ }
+
+ .contact-icon-wrapper .icon {
+  font-size: 2.5rem; /* Reduzido de 2.75rem */
+ }
+
+ .contact-card .content h3 {
+  margin-bottom: 0.5rem; /* 8px - reduzido */
+  font-size: clamp(1.5rem, 2vw, 2rem); /* Ajustado para desktop */
+ }
 }
 
 /* ============================================
@@ -4761,16 +5417,6 @@ section {
  }
 
  /* Hero responsivo já gerido por clamp() nos estilos principais */
-
- .contact-social {
-  flex-direction: column;
-  gap: var(--spacing-sm);
- }
-
- .contact-social a {
-  width: 100%;
-  justify-content: center;
- }
 
  /* Grid responsivo para projetos e tecnologias */
  .posts {

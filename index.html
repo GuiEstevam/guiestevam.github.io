@@ -338,7 +338,9 @@
          aria-live="polite"
         >
          <li class="technology-card" role="listitem">
-          <span class="icon brands fa-php" aria-hidden="true"></span>
+          <div class="technology-icon-wrapper">
+           <span class="icon brands fa-php" aria-hidden="true"></span>
+          </div>
           <div class="content">
            <h3>PHP</h3>
            <p>
@@ -349,7 +351,9 @@
           </div>
          </li>
          <li class="technology-card" role="listitem">
-          <span class="icon brands fa-laravel" aria-hidden="true"></span>
+          <div class="technology-icon-wrapper">
+           <span class="icon brands fa-laravel" aria-hidden="true"></span>
+          </div>
           <div class="content">
            <h3>Laravel</h3>
            <p>
@@ -360,7 +364,9 @@
           </div>
          </li>
          <li class="technology-card" role="listitem">
-          <span class="icon brands fa-bootstrap" aria-hidden="true"></span>
+          <div class="technology-icon-wrapper">
+           <span class="icon brands fa-bootstrap" aria-hidden="true"></span>
+          </div>
           <div class="content">
            <h3>Bootstrap</h3>
            <p>
@@ -371,7 +377,9 @@
           </div>
          </li>
          <li class="technology-card" role="listitem">
-          <span class="icon brands fa-vuejs" aria-hidden="true"></span>
+          <div class="technology-icon-wrapper">
+           <span class="icon brands fa-vuejs" aria-hidden="true"></span>
+          </div>
           <div class="content">
            <h3>Vue.js</h3>
            <p>
@@ -382,7 +390,9 @@
           </div>
          </li>
          <li class="technology-card" role="listitem">
-          <span class="icon brands fa-python" aria-hidden="true"></span>
+          <div class="technology-icon-wrapper">
+           <span class="icon brands fa-python" aria-hidden="true"></span>
+          </div>
           <div class="content">
            <h3>Python</h3>
            <p>
@@ -393,7 +403,9 @@
           </div>
          </li>
          <li class="technology-card" role="listitem">
-          <span class="icon brands fa-js" aria-hidden="true"></span>
+          <div class="technology-icon-wrapper">
+           <span class="icon brands fa-js" aria-hidden="true"></span>
+          </div>
           <div class="content">
            <h3>JavaScript</h3>
            <p>
@@ -404,7 +416,9 @@
           </div>
          </li>
          <li class="technology-card" role="listitem">
-          <span class="icon brands fa-git-alt" aria-hidden="true"></span>
+          <div class="technology-icon-wrapper">
+           <span class="icon brands fa-git-alt" aria-hidden="true"></span>
+          </div>
           <div class="content">
            <h3>Git & GitHub</h3>
            <p>
@@ -415,7 +429,9 @@
           </div>
          </li>
          <li class="technology-card" role="listitem">
-          <span class="icon solid fa-database" aria-hidden="true"></span>
+          <div class="technology-icon-wrapper">
+           <span class="icon solid fa-database" aria-hidden="true"></span>
+          </div>
           <div class="content">
            <h3>Banco de Dados</h3>
            <p>
@@ -426,7 +442,9 @@
           </div>
          </li>
          <li class="technology-card" role="listitem">
-          <span class="icon solid fa-cloud" aria-hidden="true"></span>
+          <div class="technology-icon-wrapper">
+           <span class="icon solid fa-cloud" aria-hidden="true"></span>
+          </div>
           <div class="content">
            <h3>Terraform & DevOps</h3>
            <p>
@@ -437,7 +455,9 @@
           </div>
          </li>
          <li class="technology-card" role="listitem">
-          <span class="icon brands fa-html5" aria-hidden="true"></span>
+          <div class="technology-icon-wrapper">
+           <span class="icon brands fa-html5" aria-hidden="true"></span>
+          </div>
           <div class="content">
            <h3>HTML5 & CSS3</h3>
            <p>
@@ -448,7 +468,9 @@
           </div>
          </li>
          <li class="technology-card" role="listitem">
-          <span class="icon brands fa-docker" aria-hidden="true"></span>
+          <div class="technology-icon-wrapper">
+           <span class="icon brands fa-docker" aria-hidden="true"></span>
+          </div>
           <div class="content">
            <h3>Docker</h3>
            <p>
@@ -459,7 +481,9 @@
           </div>
          </li>
          <li class="technology-card" role="listitem">
-          <span class="icon solid fa-coffee" aria-hidden="true"></span>
+          <div class="technology-icon-wrapper">
+           <span class="icon solid fa-coffee" aria-hidden="true"></span>
+          </div>
           <div class="content">
            <h3>Java</h3>
            <p>
@@ -548,38 +572,114 @@
         <h2 id="contact-heading" class="section-title reveal-on-scroll">
          Contato
         </h2>
+         <p class="section-subtitle reveal-on-scroll">
+         Entre em contato comigo através das opções abaixo. Estou sempre aberto a
+         novas oportunidades e colaborações.
+        </p>
        </header>
-       <div class="contact-wrapper">
-        <div class="contact-info reveal-on-scroll">
-         <p>
-          Entre em contato comigo através das redes sociais ou envie uma
-          mensagem.
-         </p>
-         <ul class="contact-social">
-          <li>
-           <a
-            href="https://github.com/GuiEstevam"
-            class="icon brands fa-github"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Perfil no GitHub"
-           >
-            <span>GitHub</span>
-           </a>
-          </li>
-          <li>
-           <a
-            href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
-            class="icon brands fa-linkedin"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Perfil no LinkedIn"
-           >
-            <span>LinkedIn</span>
-           </a>
-          </li>
-         </ul>
-        </div>
+       <div class="contact-grid-wrapper">
+        <ul class="contact-grid" role="list" aria-label="Formas de contato">
+         <li class="contact-card contact-card-email" role="listitem">
+          <a
+           href="mailto:contato.estevamdelima@gmail.com"
+           class="contact-card-link"
+           aria-label="Enviar e-mail"
+          >
+           <div class="contact-icon-wrapper">
+            <i class="icon solid fa-envelope" aria-hidden="true"></i>
+           </div>
+           <div class="content">
+            <h3>E-mail</h3>
+            <p>contato.estevamdelima@gmail.com</p>
+           </div>
+          </a>
+         </li>
+         <li class="contact-card contact-card-whatsapp" role="listitem">
+          <a
+           href="https://wa.me/5511913438979"
+           class="contact-card-link"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Abrir WhatsApp"
+          >
+           <div class="contact-icon-wrapper">
+            <i class="icon brands fa-whatsapp" aria-hidden="true"></i>
+           </div>
+           <div class="content">
+            <h3>WhatsApp</h3>
+            <p>(11) 91343-8979</p>
+           </div>
+          </a>
+         </li>
+         <li class="contact-card contact-card-github" role="listitem">
+          <a
+           href="https://github.com/GuiEstevam"
+           class="contact-card-link"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Visitar perfil no GitHub"
+          >
+           <div class="contact-icon-wrapper">
+            <i class="icon brands fa-github" aria-hidden="true"></i>
+           </div>
+           <div class="content">
+            <h3>GitHub</h3>
+            <p>Veja meus projetos e contribuições</p>
+           </div>
+          </a>
+         </li>
+         <li class="contact-card contact-card-linkedin" role="listitem">
+          <a
+           href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
+           class="contact-card-link"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Visitar perfil no LinkedIn"
+          >
+           <div class="contact-icon-wrapper">
+            <i class="icon brands fa-linkedin" aria-hidden="true"></i>
+           </div>
+           <div class="content">
+            <h3>LinkedIn</h3>
+            <p>Conecte-se e vamos conversar</p>
+           </div>
+          </a>
+         </li>
+         <li class="contact-card contact-card-instagram" role="listitem">
+          <a
+           href="https://www.instagram.com/srhiddan"
+           class="contact-card-link"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Visitar perfil no Instagram"
+          >
+           <div class="contact-icon-wrapper">
+            <i class="icon brands fa-instagram" aria-hidden="true"></i>
+           </div>
+           <div class="content">
+            <h3>Instagram</h3>
+            <p>@srhiddan</p>
+           </div>
+          </a>
+         </li>
+         <li class="contact-card contact-card-tiktok" role="listitem">
+          <a
+           href="https://www.tiktok.com/@srhiddan"
+           class="contact-card-link"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Visitar perfil no TikTok"
+          >
+           <div class="contact-icon-wrapper">
+            <i class="icon brands fa-tiktok" aria-hidden="true"></i>
+           </div>
+           <div class="content">
+            <h3>TikTok</h3>
+            <p>@srhiddan</p>
+           </div>
+          </a>
+         </li>
+        </ul>
        </div>
       </div>
      </section>
