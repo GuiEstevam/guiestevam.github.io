@@ -1,6 +1,6 @@
 /**
- * Integração com GitHub API
- * Busca e renderiza projetos do GitHub dinamicamente
+ * Renderização de projetos do GitHub
+ * Responsável por manipular DOM e renderizar projetos dinamicamente
  */
 
 import {
@@ -9,13 +9,14 @@ import {
  formatProjectName,
  formatNumber,
 } from './utils/formatters.js';
+import {
+ fetchRepositories,
+ fetchRepositoryLanguages,
+} from './services/github-service.js';
 
-// Configuração
-const GITHUB_USERNAME = 'GuiEstevam';
-const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos`;
+// Configuração de UI
 const INITIAL_REPOS = 3; // Número de repositórios na primeira carga
 const REPOS_PER_PAGE = 3; // Número de repositórios por página (após primeira carga)
-const EXCLUDED_REPOS = ['guiestevam.github.io']; // Repositórios a excluir
 const POPULAR_STARS_THRESHOLD = 10; // Número mínimo de stars para considerar projeto popular
 
 // Mapeamento de imagens personalizadas para repositórios do GitHub
@@ -31,7 +32,17 @@ const CUSTOM_REPO_IMAGES = {
  // Para projetos sem imagem customizada, será usada uma imagem padrão (pic03-pic11)
 };
 
-// Variáveis para paginação
+// Mapeamento de homepages/demos personalizadas para repositórios do GitHub
+// Adicione aqui o nome do repositório e a URL da demo/homepage correspondente
+// Isso permite exibir o botão "Ver Demo" mesmo quando o repositório não tem homepage configurada no GitHub
+const CUSTOM_REPO_HOMEPAGES = {
+ Riftfinder: 'http://guiestevam.me/Riftfinder/', // URL da demo do RiftFinder
+ // Adicione outros projetos aqui conforme necessário:
+ // 'Syncfinance': 'https://syncfinance.example.com',
+ // 'Guicodex': 'https://guicodex.example.com',
+};
+
+// Variáveis para paginação e estado da UI
 let allRepos = [];
 let displayedRepos = 0;
 let currentSortOrder = 'updated'; // 'updated', 'stars', 'name'
@@ -39,11 +50,6 @@ let searchFilter = ''; // Filtro de busca por nome
 
 // Contador para gerar índices únicos de imagens (apenas para projetos sem imagem customizada)
 let imageCounter = 0;
-
-// Configuração de cache
-const CACHE_KEY = 'github_repos_cache';
-const CACHE_TIMESTAMP_KEY = 'github_repos_cache_timestamp';
-const CACHE_DURATION = 60 * 60 * 1000; // 1 hora em milissegundos
 
 /**
  * Inicializa a busca de repositórios
@@ -64,108 +70,6 @@ export async function loadGitHubRepos() {
  } catch (error) {
   console.error('Erro ao carregar repositórios:', error);
   showErrorState(container, error);
- }
-}
-
-/**
- * Verifica se há dados em cache válidos
- */
-function getCachedRepos() {
- try {
-  const cachedData = localStorage.getItem(CACHE_KEY);
-  const cachedTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
-
-  if (!cachedData || !cachedTimestamp) {
-   return null;
-  }
-
-  const now = Date.now();
-  const cacheAge = now - parseInt(cachedTimestamp, 10);
-
-  // Se o cache ainda é válido (menos de 1 hora)
-  if (cacheAge < CACHE_DURATION) {
-   return JSON.parse(cachedData);
-  }
-
-  // Cache expirado, remover
-  localStorage.removeItem(CACHE_KEY);
-  localStorage.removeItem(CACHE_TIMESTAMP_KEY);
-  return null;
- } catch (error) {
-  console.warn('Erro ao ler cache:', error);
-  return null;
- }
-}
-
-/**
- * Salva dados no cache
- */
-function setCachedRepos(repos) {
- try {
-  localStorage.setItem(CACHE_KEY, JSON.stringify(repos));
-  localStorage.setItem(CACHE_TIMESTAMP_KEY, Date.now().toString());
- } catch (error) {
-  console.warn('Erro ao salvar cache:', error);
- }
-}
-
-/**
- * Busca repositórios da API do GitHub ou do cache
- */
-async function fetchRepositories() {
- // Primeiro, verificar se há cache válido
- const cachedRepos = getCachedRepos();
- if (cachedRepos) {
-  console.log('Usando dados em cache (GitHub API)');
-  return cachedRepos;
- }
-
- // Se não houver cache, buscar da API
- try {
-  const response = await fetch(GITHUB_API_URL, {
-   headers: {
-    Accept: 'application/vnd.github.v3+json',
-   },
-  });
-
-  if (!response.ok) {
-   // Se houver erro 403 e cache antigo disponível, usar cache antigo
-   if (response.status === 403) {
-    const oldCache = localStorage.getItem(CACHE_KEY);
-    if (oldCache) {
-     console.warn('Rate limit atingido, usando cache antigo');
-     return JSON.parse(oldCache);
-    }
-   }
-
-   // Melhorar mensagem de erro baseada no status
-   let errorMessage = `Erro ao buscar repositórios: ${response.status}`;
-   if (response.status === 403) {
-    errorMessage =
-     'Rate limit da API do GitHub excedido. Por favor, tente novamente em alguns minutos.';
-   } else if (response.status === 404) {
-    errorMessage = 'Usuário do GitHub não encontrado.';
-   }
-   throw new Error(errorMessage);
-  }
-
-  const repos = await response.json();
-
-  // Filtrar repositórios (a ordenação será feita depois via sortRepositories)
-  const filteredRepos = repos.filter((repo) => {
-   // Excluir forks e privados
-   if (repo.fork || repo.private) return false;
-   // Excluir repositórios na lista de exclusão
-   if (EXCLUDED_REPOS.includes(repo.name)) return false;
-   return true;
-  });
-
-  // Salvar no cache antes de retornar
-  setCachedRepos(filteredRepos);
-
-  return filteredRepos;
- } catch (error) {
-  throw new Error(`Falha ao buscar repositórios: ${error.message}`);
  }
 }
 
@@ -676,7 +580,7 @@ async function renderNextPage(container, isInitialLoad = false) {
    languages: languages,
    stars: repo.stargazers_count || 0,
    forks: repo.forks_count || 0,
-   homepage: repo.homepage || null,
+   homepage: getProjectHomepage(repo.name, repo.homepage),
    isPopular: (repo.stargazers_count || 0) >= POPULAR_STARS_THRESHOLD,
   };
 
@@ -985,6 +889,31 @@ function getProjectImage(repoName) {
 }
 
 /**
+ * Obtém a homepage/demo do projeto (prioridade: customizado > GitHub homepage)
+ * @param {string} repoName - Nome do repositório
+ * @param {string|null} githubHomepage - Homepage configurada no GitHub (se houver)
+ * @returns {string|null} URL da homepage ou null
+ */
+function getProjectHomepage(repoName, githubHomepage) {
+ // 1. Verificar se tem homepage customizada definida no mapeamento
+ // Buscar por nome exato primeiro (case-sensitive)
+ if (CUSTOM_REPO_HOMEPAGES[repoName]) {
+  return CUSTOM_REPO_HOMEPAGES[repoName];
+ }
+
+ // 2. Se não encontrar, buscar case-insensitive
+ const repoNameLower = repoName.toLowerCase();
+ for (const [key, value] of Object.entries(CUSTOM_REPO_HOMEPAGES)) {
+  if (key.toLowerCase() === repoNameLower) {
+   return value;
+  }
+ }
+
+ // 3. Fallback: usar homepage do GitHub (se configurada)
+ return githubHomepage || null;
+}
+
+/**
  * Obtém a cor do badge baseada na linguagem de programação
  * @param {string} language - Nome da linguagem
  * @returns {string} Cor em hexadecimal
@@ -1089,36 +1018,6 @@ function getLanguageIcon(language) {
  };
 
  return languageIcons[language] || 'fas fa-code';
-}
-
-/**
- * Busca linguagens de um repositório
- * @param {string} repoUrl - URL do repositório
- * @returns {Promise<Object>} Objeto com linguagens e percentuais
- */
-async function fetchRepositoryLanguages(repoUrl) {
- try {
-  // Extrair owner e repo da URL
-  const match = repoUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
-  if (!match) return null;
-
-  const owner = match[1];
-  const repo = match[2];
-  const languagesUrl = `https://api.github.com/repos/${owner}/${repo}/languages`;
-
-  const response = await fetch(languagesUrl, {
-   headers: {
-    Accept: 'application/vnd.github.v3+json',
-   },
-  });
-
-  if (!response.ok) return null;
-
-  return await response.json();
- } catch (error) {
-  console.warn(`Erro ao buscar linguagens para ${repoUrl}:`, error);
-  return null;
- }
 }
 
 /**

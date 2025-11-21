@@ -18,8 +18,11 @@ import './technologies.js';
 // Importar menu mobile
 import './mobile-menu.js';
 
+// Importar botão voltar ao topo
+import './back-to-top.js';
+
 // Aguardar DOM estar pronto
-document.addEventListener('DOMContentLoaded', function() {
+function initApp() {
     // Inicializar carregamento de projetos do GitHub
     // Após carregar, observar novos elementos para animações
     if (document.querySelector('.posts')) {
@@ -44,5 +47,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 500);
         }
     }
-});
+}
+
+// Aguardar DOM estar pronto
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    // DOM já está pronto
+    initApp();
+}
 

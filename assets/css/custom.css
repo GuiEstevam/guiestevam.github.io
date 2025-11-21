@@ -3007,7 +3007,19 @@ body.dark-mode {
 .dark-mode .hero-actions a.button .icon,
 .dark-mode .hero-actions a.button i.icon,
 .dark-mode .hero-actions a.button i.icon.solid,
-.dark-mode .hero-actions a.button .icon.solid {
+.dark-mode .hero-actions a.button .icon.solid,
+.dark-mode .hero-actions .button i[class*='icon'],
+.dark-mode .hero-actions a.button i[class*='icon'],
+.dark-mode .hero-actions .button i.icon::before,
+.dark-mode .hero-actions .button i.icon.solid::before,
+.dark-mode .hero-actions a.button i.icon::before,
+.dark-mode .hero-actions a.button i.icon.solid::before,
+.dark-mode .hero-actions .hero-button-primary i,
+.dark-mode .hero-actions .hero-button-primary i.icon,
+.dark-mode .hero-actions .hero-button-primary i.icon.solid,
+.dark-mode .hero-actions .hero-button-primary i::before,
+.dark-mode .hero-actions .hero-button-primary i.icon::before,
+.dark-mode .hero-actions .hero-button-primary i.icon.solid::before {
  color: var(--color-text-inverse) !important; /* Ícones brancos no dark mode */
 }
 
@@ -3035,6 +3047,28 @@ body.dark-mode {
  border-color: var(--color-accent-primary);
 }
 
+/* Forçar ícones brancos nos botões secundários - sobrescrever herança de cor do texto azul */
+.dark-mode .hero-actions .button.button-secondary i,
+.dark-mode .hero-actions .button.button-secondary i.icon,
+.dark-mode .hero-actions .button.button-secondary i.icon.solid,
+.dark-mode .hero-actions .button.button-secondary i::before,
+.dark-mode .hero-actions .button.button-secondary i.icon::before,
+.dark-mode .hero-actions .button.button-secondary i.icon.solid::before,
+.dark-mode .hero-actions .hero-button-secondary i,
+.dark-mode .hero-actions .hero-button-secondary i.icon,
+.dark-mode .hero-actions .hero-button-secondary i.icon.solid,
+.dark-mode .hero-actions .hero-button-secondary i::before,
+.dark-mode .hero-actions .hero-button-secondary i.icon::before,
+.dark-mode .hero-actions .hero-button-secondary i.icon.solid::before,
+.dark-mode .hero-actions .hero-button-resume i,
+.dark-mode .hero-actions .hero-button-resume i.icon,
+.dark-mode .hero-actions .hero-button-resume i.icon.solid,
+.dark-mode .hero-actions .hero-button-resume i::before,
+.dark-mode .hero-actions .hero-button-resume i.icon::before,
+.dark-mode .hero-actions .hero-button-resume i.icon.solid::before {
+ color: var(--color-text-inverse) !important;
+}
+
 /* Botão secundário: ícones brancos mesmo no estado normal */
 .dark-mode .hero-actions .button.button-secondary .icon,
 .dark-mode .hero-actions .button.button-secondary i.icon,
@@ -3043,7 +3077,19 @@ body.dark-mode {
 .dark-mode .hero-actions a.button.button-secondary .icon,
 .dark-mode .hero-actions a.button.button-secondary i.icon,
 .dark-mode .hero-actions a.button.button-secondary i.icon.solid,
-.dark-mode .hero-actions a.button.button-secondary .icon.solid {
+.dark-mode .hero-actions a.button.button-secondary .icon.solid,
+.dark-mode .hero-actions .button.button-secondary i[class*='icon'],
+.dark-mode .hero-actions a.button.button-secondary i[class*='icon'],
+.dark-mode .hero-actions .hero-button-secondary i[class*='icon'],
+.dark-mode .hero-actions .hero-button-resume i[class*='icon'],
+.dark-mode .hero-actions .button.button-secondary i.icon::before,
+.dark-mode .hero-actions .button.button-secondary i.icon.solid::before,
+.dark-mode .hero-actions a.button.button-secondary i.icon::before,
+.dark-mode .hero-actions a.button.button-secondary i.icon.solid::before,
+.dark-mode .hero-actions .hero-button-secondary i.icon::before,
+.dark-mode .hero-actions .hero-button-secondary i.icon.solid::before,
+.dark-mode .hero-actions .hero-button-resume i.icon::before,
+.dark-mode .hero-actions .hero-button-resume i.icon.solid::before {
  color: var(
   --color-text-inverse
  ) !important; /* Ícones brancos no botão secundário também */
@@ -3063,10 +3109,50 @@ body.dark-mode {
 .dark-mode .hero-actions .button.button-secondary:focus .icon,
 .dark-mode .hero-actions .button.button-secondary:focus i.icon,
 .dark-mode .hero-actions .button.button-secondary:focus i.icon.solid,
-.dark-mode .hero-actions .button.button-secondary:focus .icon.solid {
+.dark-mode .hero-actions .button.button-secondary:focus .icon.solid,
+.dark-mode .hero-actions .button.button-secondary:hover i[class*='icon'],
+.dark-mode .hero-actions .button.button-secondary:focus i[class*='icon'],
+.dark-mode .hero-actions .hero-button-secondary:hover i[class*='icon'],
+.dark-mode .hero-actions .hero-button-secondary:focus i[class*='icon'],
+.dark-mode .hero-actions .hero-button-resume:hover i[class*='icon'],
+.dark-mode .hero-actions .hero-button-resume:focus i[class*='icon'],
+.dark-mode .hero-actions .button.button-secondary:hover i.icon::before,
+.dark-mode .hero-actions .button.button-secondary:hover i.icon.solid::before,
+.dark-mode .hero-actions .button.button-secondary:focus i.icon::before,
+.dark-mode .hero-actions .button.button-secondary:focus i.icon.solid::before,
+.dark-mode .hero-actions .hero-button-secondary:hover i.icon::before,
+.dark-mode .hero-actions .hero-button-secondary:hover i.icon.solid::before,
+.dark-mode .hero-actions .hero-button-secondary:focus i.icon::before,
+.dark-mode .hero-actions .hero-button-secondary:focus i.icon.solid::before,
+.dark-mode .hero-actions .hero-button-resume:hover i.icon::before,
+.dark-mode .hero-actions .hero-button-resume:hover i.icon.solid::before,
+.dark-mode .hero-actions .hero-button-resume:focus i.icon::before,
+.dark-mode .hero-actions .hero-button-resume:focus i.icon.solid::before {
  color: var(
   --color-text-inverse
  ) !important; /* Ícones brancos no hover do botão secundário */
+}
+
+/* Regra adicional para garantir ícones brancos em todos os botões do hero no dark mode */
+.dark-mode .hero-actions a.button i,
+.dark-mode .hero-actions .button i,
+.dark-mode .hero-actions a.button i.icon,
+.dark-mode .hero-actions .button i.icon,
+.dark-mode .hero-actions a.button i.icon.solid,
+.dark-mode .hero-actions .button i.icon.solid,
+.dark-mode .hero-actions a.button i[class*='icon'],
+.dark-mode .hero-actions .button i[class*='icon'],
+.dark-mode .hero-actions a.button i.icon::before,
+.dark-mode .hero-actions .button i.icon::before,
+.dark-mode .hero-actions a.button i.icon.solid::before,
+.dark-mode .hero-actions .button i.icon.solid::before,
+.dark-mode .hero-actions .button.button-secondary i,
+.dark-mode .hero-actions .button.button-secondary i::before,
+.dark-mode .hero-actions .hero-button-secondary i,
+.dark-mode .hero-actions .hero-button-secondary i::before,
+.dark-mode .hero-actions .hero-button-resume i,
+.dark-mode .hero-actions .hero-button-resume i::before {
+ color: var(--color-text-inverse) !important;
 }
 
 .dark-mode .scroll-indicator {
@@ -3653,6 +3739,44 @@ body.dark-mode {
  transform: translateY(-2px);
 }
 
+/* Garantir que o botão de dark mode seja sempre clicável */
+#dark-mode-toggle,
+.dark-mode-toggle {
+ pointer-events: auto !important;
+ cursor: pointer !important;
+ position: relative;
+ z-index: 1011 !important; /* Acima de tudo */
+ user-select: none;
+ -webkit-user-select: none;
+ -moz-user-select: none;
+ -ms-user-select: none;
+}
+
+#dark-mode-toggle:hover,
+.dark-mode-toggle:hover {
+ pointer-events: auto !important;
+}
+
+#dark-mode-toggle:active,
+.dark-mode-toggle:active {
+ pointer-events: auto !important;
+}
+
+/* Garantir que o botão funcione mesmo dentro do menu mobile */
+.nav-menu #dark-mode-toggle,
+.nav-menu-social #dark-mode-toggle {
+ pointer-events: auto !important;
+ z-index: 1007 !important;
+ cursor: pointer !important;
+}
+
+/* Garantir que o botão funcione na navbar desktop */
+.nav-icons #dark-mode-toggle {
+ pointer-events: auto !important;
+ z-index: 1011 !important;
+ cursor: pointer !important;
+}
+
 .nav-link {
  color: var(--text-medium);
  text-decoration: none;
@@ -3670,6 +3794,7 @@ body.dark-mode {
  width: 100%;
  cursor: pointer; /* Garantir cursor pointer */
  pointer-events: auto; /* Garantir que é clicável */
+ z-index: 1007; /* Acima do overlay e do menu */
 }
 
 .nav-link:hover,
@@ -3713,14 +3838,65 @@ body.dark-mode {
 .nav-overlay.active {
  display: block;
  opacity: 1;
- pointer-events: all;
+ /* IMPORTANTE: pointer-events apenas no overlay, não nos filhos */
+ /* Usar pointer-events: auto apenas para capturar cliques fora do menu */
+ pointer-events: auto;
  /* Sem blur, sem escurecimento - apenas área clicável invisível */
+ /* Garantir que o overlay fique ABAIXO do menu */
+ z-index: 1001 !important;
+}
+
+/* Quando o menu está ativo, o overlay não deve bloquear cliques dentro do menu */
+/* Desabilitar pointer-events do overlay quando menu está ativo */
+.nav-menu.active ~ .nav-overlay.active,
+body:has(.nav-menu.active) .nav-overlay.active {
+ pointer-events: none !important;
+}
+
+/* Garantir que o overlay não bloqueie cliques no menu */
+.nav-overlay.active ~ * .nav-menu.active,
+body > .nav-menu.active {
+ pointer-events: auto !important;
+}
+
+/* No mobile, garantir que o overlay não intercepte cliques dentro do menu */
+@media screen and (max-width: 767px) {
+ /* O overlay só deve capturar cliques fora do menu */
+ .nav-overlay.active {
+  pointer-events: auto;
+ }
+
+ /* O menu e seus elementos devem estar acima do overlay e serem clicáveis */
+ .nav-menu.active {
+  pointer-events: auto !important;
+  /* Garantir que o menu está acima do overlay */
+  z-index: 1005 !important;
+ }
+
+ /* Todos os elementos dentro do menu devem ser clicáveis */
+ .nav-menu.active * {
+  pointer-events: auto !important;
+ }
+
+ /* Garantir que links e botões dentro do menu sejam sempre clicáveis */
+ .nav-menu.active a,
+ .nav-menu.active button,
+ .nav-menu.active .nav-link,
+ .nav-menu.active .icon,
+ .nav-menu.active #dark-mode-toggle,
+ .nav-menu.active .nav-menu-social,
+ .nav-menu.active .nav-menu-social * {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 1007 !important; /* Acima do overlay e do menu */
+  cursor: pointer !important;
+ }
 }
 
 /* Garantir que o menu sempre fique acima do overlay - APENAS NO MOBILE */
 @media screen and (max-width: 767px) {
  .nav-menu.active {
-  z-index: 1005 !important; /* Acima de tudo, inclusive do overlay */
+  z-index: 10010 !important; /* MUITO acima do overlay (1001) */
   position: fixed !important;
   transform: translateZ(
    0
@@ -3730,36 +3906,26 @@ body.dark-mode {
   pointer-events: auto !important; /* Garantir que menu e seus elementos são clicáveis */
  }
 
- /* Garantir que botões dentro do menu sejam clicáveis */
+ /* Garantir que TODOS os elementos dentro do menu sejam clicáveis */
+ .nav-menu.active * {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10011 !important; /* Acima do menu */
+ }
+
+ /* Garantir que links e botões dentro do menu sejam sempre clicáveis */
+ .nav-menu.active a,
+ .nav-menu.active button,
+ .nav-menu.active .nav-link,
+ .nav-menu.active .icon,
  .nav-menu.active .button,
  .nav-menu.active .btn-action,
- .nav-menu.active a,
- .nav-menu.active button {
-  pointer-events: auto !important;
-  z-index: 1006 !important; /* Acima do menu */
-  position: relative;
- }
-
- /* Garantir que TODOS os botões sejam clicáveis (sempre acima do overlay) */
- .button:not(.menu-toggle),
- .btn-action,
- button[type='button']:not(.menu-toggle),
- button[type='submit']:not(.menu-toggle) {
+ .nav-menu.active #dark-mode-toggle,
+ .nav-menu.active .nav-menu-social,
+ .nav-menu.active .nav-menu-social * {
   pointer-events: auto !important;
   position: relative;
-  z-index: 1010 !important; /* Sempre acima do overlay (1001) */
-  cursor: pointer !important;
- }
-}
-
-/* Garantir que botões sejam sempre clicáveis no mobile (mesmo quando overlay está ativo) */
-@media screen and (max-width: 767px) {
- .button:not(.menu-toggle),
- .btn-action,
- button:not(.menu-toggle) {
-  pointer-events: auto !important;
-  position: relative;
-  z-index: 1010 !important; /* Sempre acima do overlay (1001) */
+  z-index: 10012 !important; /* Acima de tudo dentro do menu */
   cursor: pointer !important;
  }
 }
@@ -4063,14 +4229,18 @@ section {
  align-items: center;
  gap: var(--spacing-sm);
  width: 100%;
- padding-bottom: var(
-  --spacing-xl
- ); /* Espaço para o scroll-indicator no mobile */
+ padding-bottom: calc(
+  var(--spacing-xl) + 4rem
+ ); /* Espaço extra para o scroll-indicator */
+ position: relative;
+ z-index: 5; /* Garantir que fique acima do scroll-indicator */
 }
 
 @media screen and (min-width: 768px) {
  .hero-header {
-  padding-bottom: var(--spacing-2xl, 6rem); /* Mais espaço no desktop */
+  padding-bottom: calc(
+   var(--spacing-2xl, 6rem) + 3rem
+  ); /* Mais espaço no desktop */
  }
 }
 
@@ -4285,7 +4455,7 @@ section {
  color: var(--text-light);
  cursor: pointer;
  text-decoration: none;
- z-index: 10;
+ z-index: 1; /* Abaixo dos botões (que têm z-index 10) */
  transition: all var(--transition-normal);
 }
 
@@ -4306,10 +4476,16 @@ section {
  }
 }
 
-/* Garantir que não sobreponha os botões em desktop */
+/* Garantir que não sobreponha os botões em todas as resoluções */
+@media screen and (max-width: 767px) {
+ .hero-actions {
+  margin-bottom: 3rem; /* Espaço extra no mobile para o scroll-indicator */
+ }
+}
+
 @media screen and (min-width: 768px) {
  .hero-actions {
-  margin-bottom: var(--spacing-xl); /* Espaço extra para o scroll-indicator */
+  margin-bottom: 2rem; /* Espaço extra no desktop para o scroll-indicator */
  }
 }
 
@@ -4574,7 +4750,7 @@ section {
 
 /* Título da Seção - Tipografia Melhorada */
 #sobre .section-content {
- padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md); /* Padding reduzido no topo */
+ padding: var(--spacing-sm) var(--spacing-md) var(--spacing-md); /* Padding reduzido no topo */
 }
 
 #sobre .section-header {
@@ -4588,7 +4764,7 @@ section {
  color: var(--text-dark);
  letter-spacing: -0.03em;
  line-height: 1.1;
- margin-bottom: var(--spacing-xl);
+ margin-bottom: var(--spacing-md);
 }
 
 #sobre .section-title::after {
@@ -4700,7 +4876,7 @@ section {
  display: flex;
  flex-direction: column;
  flex: 1;
- padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) 0; /* Padding direito removido, já que gap cuida do espaçamento */
+ padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-sm) 0; /* Padding direito removido, já que gap cuida do espaçamento */
  min-width: 0;
  position: relative;
  z-index: 1;
@@ -4721,13 +4897,36 @@ section {
  line-height: 1.8;
  color: var(--text-medium);
  margin-bottom: 0;
+ width: 100%; /* Ocupar toda a largura disponível */
  max-width: 100%; /* Garantir que o texto não ultrapasse o container */
 }
 
-/* Melhorar legibilidade do texto com max-width em desktop */
+/* Desktop: alinhar final do texto com final dos cards de estatísticas */
 @media screen and (min-width: 1024px) {
+ .about-article-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+ }
+
+ .about-body {
+  flex: 0 0 auto;
+  min-height: 0;
+  width: 100%; /* Mesma largura do footer */
+ }
+
  .about-description {
-  max-width: 90%; /* Limitar largura para melhor legibilidade */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 120px; /* Altura aproximada dos cards de estatísticas */
+  width: 100%; /* Mesma largura dos cards */
+ }
+
+ .about-description p {
+  margin-bottom: 0;
+  margin-top: auto;
+  width: 100%; /* Garantir que o parágrafo ocupe toda a largura */
  }
 }
 
@@ -4760,7 +4959,7 @@ section {
 }
 
 .about-description p:last-child {
- margin-bottom: 0;
+ margin-bottom: var(--spacing-md);
 }
 
 /* Footer do Card */
@@ -5603,4 +5802,588 @@ section {
   padding: 0.5rem 0.75rem;
   min-height: 40px;
  }
+}
+
+/* ============================================
+   BOTÃO VOLTAR AO TOPO
+   ============================================ */
+
+.back-to-top-button {
+ position: fixed;
+ bottom: 2rem;
+ right: 2rem;
+ width: 3rem;
+ height: 3rem;
+ background: var(--color-accent-primary);
+ color: var(--color-text-inverse);
+ border: none;
+ border-radius: 50%;
+ cursor: pointer;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-size: 1.25rem;
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+ opacity: 0;
+ visibility: hidden;
+ transform: translateY(20px);
+ transition: all 0.3s ease;
+ z-index: 1003; /* Acima do overlay (1001), abaixo do menu quando aberto (1004-1005) */
+ /* Garantir que acompanhe o scroll */
+ transform-origin: center;
+ /* GPU acceleration para melhor performance */
+ will-change: transform, opacity, visibility;
+ backface-visibility: hidden;
+ -webkit-backface-visibility: hidden;
+}
+
+.back-to-top-button:hover,
+.back-to-top-button:focus {
+ background: var(--color-accent-hover);
+ transform: translateY(-4px);
+ box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+ outline: 2px solid var(--color-accent-primary);
+ outline-offset: 2px;
+}
+
+.back-to-top-button:active {
+ transform: translateY(-2px);
+ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.back-to-top-button.visible {
+ opacity: 1;
+ visibility: visible;
+ transform: translateY(0);
+}
+
+.back-to-top-button[aria-hidden='true'] {
+ pointer-events: none;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+ .back-to-top-button {
+  background: var(--color-accent-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+ }
+
+ .back-to-top-button:hover,
+ .back-to-top-button:focus {
+  background: var(--color-accent-hover);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+ }
+}
+
+/* Mobile: ajustar posição e garantir visibilidade */
+@media screen and (max-width: 768px) {
+ .back-to-top-button {
+  bottom: 1rem;
+  right: 1rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.1rem;
+  min-width: 44px; /* Área de toque adequada - acessibilidade */
+  min-height: 44px;
+  z-index: 1003; /* Base: acima do overlay (1001), JS ajusta dinamicamente quando menu abre */
+  /* Garantir que não seja coberto por outros elementos */
+  position: fixed !important;
+  /* Garantir que acompanhe o scroll no mobile */
+  transform: translateZ(0); /* GPU acceleration */
+ }
+}
+
+/* Mobile muito pequeno: ajustar ainda mais */
+@media screen and (max-width: 480px) {
+ .back-to-top-button {
+  bottom: 0.75rem;
+  right: 0.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1rem;
+  min-width: 44px; /* Manter área de toque mínima */
+  min-height: 44px;
+ }
+}
+
+/* Quando menu mobile está aberto, botão pode ser ajustado dinamicamente via JS */
+/* O JS gerencia z-index dinamicamente baseado no estado do menu */
+
+/* Respeitar prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+ .back-to-top-button {
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+ }
+
+ .back-to-top-button:hover,
+ .back-to-top-button:focus {
+  transform: translateY(0);
+ }
+}
+
+/* ============================================
+   SEÇÃO DE EXPERIÊNCIA PROFISSIONAL
+   ============================================ */
+
+.experience-content {
+ padding: var(--spacing-md) var(--spacing-md);
+}
+
+/* Título da seção - mesmo padrão das outras seções */
+#experiencia .section-title {
+ font-family: 'Roboto Slab', serif;
+ font-size: clamp(2rem, 4vw, 3.5rem);
+ font-weight: 800;
+ color: var(--text-dark);
+ letter-spacing: -0.03em;
+ line-height: 1.1;
+ margin-bottom: var(--spacing-lg);
+}
+
+/* Desktop: margin-bottom ainda menor */
+@media screen and (min-width: 1024px) {
+ #experiencia .section-title {
+  margin-bottom: var(--spacing-md);
+ }
+}
+
+#experiencia .section-title::after {
+ background: var(--gradient-accent);
+ height: 4px;
+ width: 80px;
+}
+
+/* Dark mode para título da seção */
+@media (prefers-color-scheme: dark) {
+ #experiencia .section-title {
+  color: var(--text-dark);
+ }
+
+ #experiencia .section-title::after {
+  background: var(--gradient-accent);
+ }
+}
+
+.experience-timeline-wrapper {
+ margin-top: var(--spacing-xl);
+ position: relative;
+}
+
+/* Linha horizontal da timeline (desktop) */
+.experience-timeline-line {
+ display: none;
+}
+
+/* Timeline Container */
+.experience-timeline {
+ list-style: none;
+ padding: 0;
+ margin: 0;
+ display: flex;
+ flex-direction: column;
+ gap: var(--spacing-lg);
+}
+
+/* Item da experiência */
+.experience-item {
+ position: relative;
+ flex: 1;
+}
+
+/* Marcador da timeline */
+.experience-marker {
+ display: none;
+}
+
+/* Card de experiência */
+.experience-card {
+ background: var(--color-bg-card);
+ border: 1px solid var(--color-border-primary);
+ border-radius: var(--radius-md);
+ padding: var(--spacing-md);
+ box-shadow: var(--shadow-sm);
+ transition: all var(--transition-normal);
+ height: 100%;
+ display: flex;
+ flex-direction: column;
+ position: relative;
+ overflow: hidden;
+}
+
+.experience-card::before {
+ content: '';
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ height: 3px;
+ background: var(--gradient-accent);
+ transform: scaleX(0);
+ transform-origin: left;
+ transition: transform var(--transition-normal);
+}
+
+.experience-card:hover {
+ box-shadow: var(--shadow-lg);
+ transform: translateY(-6px);
+ border-color: var(--color-accent-primary);
+}
+
+.experience-card:hover::before {
+ transform: scaleX(1);
+}
+
+/* Header do card */
+.experience-header {
+ display: flex;
+ flex-direction: column;
+ gap: var(--spacing-xs);
+ margin-bottom: var(--spacing-sm);
+}
+
+.experience-title-wrapper {
+ flex: 1;
+}
+
+.experience-title {
+ font-family: 'Roboto Slab', serif;
+ font-size: 1.5rem;
+ font-weight: 800;
+ color: var(--text-dark);
+ margin: 0 0 0.5rem 0;
+ line-height: 1.2;
+ letter-spacing: -0.02em;
+ position: relative;
+ display: block;
+ transition: all var(--transition-normal);
+}
+
+.experience-card:hover .experience-title {
+ color: var(--color-accent-primary);
+ transform: translateX(2px);
+}
+
+/* Animação de entrada para os cards */
+.experience-card.reveal-on-scroll {
+ opacity: 0;
+ transform: translateY(40px) scale(0.95);
+ transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.experience-card.reveal-on-scroll.revealed {
+ opacity: 1;
+ transform: translateY(0) scale(1);
+}
+
+/* Delay escalonado para cada card */
+.experience-item:nth-child(1) .experience-card.reveal-on-scroll {
+ transition-delay: 0.1s;
+}
+
+.experience-item:nth-child(2) .experience-card.reveal-on-scroll {
+ transition-delay: 0.25s;
+}
+
+.experience-item:nth-child(3) .experience-card.reveal-on-scroll {
+ transition-delay: 0.4s;
+}
+
+.experience-item:nth-child(4) .experience-card.reveal-on-scroll {
+ transition-delay: 0.55s;
+}
+
+.experience-company {
+ font-size: 1rem;
+ font-weight: 500;
+ color: var(--color-accent-primary);
+ margin: 0;
+}
+
+.experience-badge {
+ display: inline-flex;
+ align-items: center;
+ margin-top: 0.25rem;
+}
+
+.experience-badge-text {
+ font-size: 0.75rem;
+ padding: 0.25rem 0.5rem;
+ background: var(--color-bg-secondary);
+ color: var(--color-text-secondary);
+ border-radius: var(--radius-sm);
+ font-weight: 500;
+}
+
+/* Meta informações */
+.experience-meta {
+ display: flex;
+ flex-direction: column;
+ gap: 0.25rem;
+ margin-bottom: var(--spacing-sm);
+}
+
+.experience-period {
+ display: flex;
+ align-items: center;
+ gap: 0.375rem;
+ font-size: 0.8125rem;
+ color: var(--color-text-secondary);
+ font-weight: 500;
+}
+
+.experience-period i {
+ color: var(--color-text-tertiary);
+ font-size: 0.75rem;
+}
+
+.experience-duration {
+ font-size: 0.75rem;
+ color: var(--color-text-tertiary);
+ margin-left: 1.5rem;
+}
+
+.experience-location {
+ display: flex;
+ align-items: center;
+ gap: 0.375rem;
+ font-size: 0.8125rem;
+ color: var(--color-text-secondary);
+ margin-bottom: var(--spacing-sm);
+}
+
+.experience-location i {
+ color: var(--color-text-tertiary);
+ font-size: 0.75rem;
+}
+
+/* Descrição da experiência */
+.experience-description {
+ color: var(--color-text-secondary);
+ line-height: 1.6;
+ font-size: 0.875rem;
+ flex: 1;
+}
+
+.experience-description p {
+ margin: 0;
+}
+
+.experience-description strong {
+ color: var(--color-text-primary);
+ font-weight: 600;
+}
+
+/* Desktop: Timeline Horizontal */
+@media screen and (min-width: 1024px) {
+ .experience-timeline-wrapper {
+  position: relative;
+  padding-top: 3rem;
+  padding-bottom: 0;
+ }
+
+ /* Linha horizontal */
+ .experience-timeline-line {
+  display: block;
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-border-primary);
+  z-index: 0;
+ }
+
+ /* Timeline horizontal */
+ .experience-timeline {
+  flex-direction: row;
+  gap: var(--spacing-md);
+  position: relative;
+  z-index: 1;
+  margin-top: 0;
+ }
+
+ /* Marcadores na linha - alinhados com a linha */
+ .experience-marker {
+  display: block;
+  position: absolute;
+  top: -1.5rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background: var(--color-accent-primary);
+  border: 3px solid var(--color-bg-primary);
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 0 0 2px var(--color-border-primary);
+  transition: all var(--transition-normal);
+ }
+
+ .experience-item:hover .experience-marker {
+  transform: translate(-50%, -50%) scale(1.2);
+  box-shadow: 0 0 0 3px var(--color-accent-primary),
+   0 0 12px rgba(0, 114, 255, 0.4);
+ }
+
+ .experience-item {
+  flex: 1;
+  min-width: 0; /* Permite que os cards encolham */
+  max-width: calc(25% - var(--spacing-md)); /* 4 cards por linha */
+ }
+
+ /* Ajuste automático: se houver 3 ou menos, cada card ocupa mais espaço */
+ .experience-timeline .experience-item:only-child {
+  max-width: 100%;
+ }
+
+ .experience-timeline .experience-item:nth-child(2):last-child {
+  max-width: calc(50% - var(--spacing-md));
+ }
+
+ .experience-timeline .experience-item:nth-child(3):last-child {
+  max-width: calc(33.333% - var(--spacing-md));
+ }
+
+ .experience-card {
+  padding: var(--spacing-md);
+  min-height: 400px;
+ }
+}
+
+/* Tablet: 2 colunas */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+ .experience-timeline {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+ }
+
+ .experience-item {
+  max-width: 100%;
+ }
+
+ .experience-card {
+  min-height: 350px;
+ }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+ .experience-card {
+  background: var(--color-bg-card);
+  border-color: var(--color-border-primary);
+ }
+
+ .experience-card:hover {
+  border-color: var(--color-accent-primary);
+ }
+
+ .experience-title {
+  color: var(--text-dark);
+ }
+
+ .experience-badge-text {
+  background: var(--color-bg-tertiary);
+  color: var(--color-text-secondary);
+ }
+
+ @media screen and (min-width: 1024px) {
+  .experience-timeline-line {
+   background: var(--color-border-primary);
+  }
+
+  .experience-marker {
+   background: var(--color-accent-primary);
+   border-color: var(--color-bg-primary);
+  }
+ }
+}
+
+/* Mobile: ajustes */
+@media screen and (max-width: 767px) {
+ .experience-content {
+  padding: var(--spacing-lg) var(--spacing-sm);
+ }
+
+ .experience-timeline-wrapper {
+  margin-top: var(--spacing-lg);
+ }
+
+ .experience-card {
+  padding: var(--spacing-md);
+  min-height: auto;
+ }
+
+ .experience-title {
+  font-size: 1.25rem;
+ }
+
+ .experience-company {
+  font-size: 0.9375rem;
+ }
+
+ .experience-description {
+  font-size: 0.8125rem;
+ }
+}
+
+/* Respeitar prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+ .experience-card {
+  transition: none;
+ }
+
+ .experience-card:hover {
+  transform: none;
+ }
+
+ .experience-title {
+  transform: none;
+ }
+
+ .experience-card.reveal-on-scroll {
+  opacity: 1;
+  transform: none;
+ }
+}
+
+/* ============================================
+   CORREÇÃO FINAL: ÍCONES BRANCOS NO DARK MODE - HERO BUTTONS
+   ============================================ */
+/* Regra com máxima especificidade para garantir ícones brancos nos botões do hero no dark mode */
+body.dark-mode .hero-actions a.button i,
+body.dark-mode .hero-actions a.button.hero-button-primary i,
+body.dark-mode .hero-actions a.button.button-secondary i,
+body.dark-mode .hero-actions a.button.hero-button-secondary i,
+body.dark-mode .hero-actions a.button.hero-button-resume i,
+body.dark-mode .hero-actions a.button i.icon,
+body.dark-mode .hero-actions a.button.hero-button-primary i.icon,
+body.dark-mode .hero-actions a.button.button-secondary i.icon,
+body.dark-mode .hero-actions a.button.hero-button-secondary i.icon,
+body.dark-mode .hero-actions a.button.hero-button-resume i.icon,
+body.dark-mode .hero-actions a.button i.icon.solid,
+body.dark-mode .hero-actions a.button.hero-button-primary i.icon.solid,
+body.dark-mode .hero-actions a.button.button-secondary i.icon.solid,
+body.dark-mode .hero-actions a.button.hero-button-secondary i.icon.solid,
+body.dark-mode .hero-actions a.button.hero-button-resume i.icon.solid,
+body.dark-mode .hero-actions a.button i::before,
+body.dark-mode .hero-actions a.button.hero-button-primary i::before,
+body.dark-mode .hero-actions a.button.button-secondary i::before,
+body.dark-mode .hero-actions a.button.hero-button-secondary i::before,
+body.dark-mode .hero-actions a.button.hero-button-resume i::before,
+body.dark-mode .hero-actions a.button i.icon::before,
+body.dark-mode .hero-actions a.button.hero-button-primary i.icon::before,
+body.dark-mode .hero-actions a.button.button-secondary i.icon::before,
+body.dark-mode .hero-actions a.button.hero-button-secondary i.icon::before,
+body.dark-mode .hero-actions a.button.hero-button-resume i.icon::before,
+body.dark-mode .hero-actions a.button i.icon.solid::before,
+body.dark-mode .hero-actions a.button.hero-button-primary i.icon.solid::before,
+body.dark-mode .hero-actions a.button.button-secondary i.icon.solid::before,
+body.dark-mode
+ .hero-actions
+ a.button.hero-button-secondary
+ i.icon.solid::before,
+body.dark-mode .hero-actions a.button.hero-button-resume i.icon.solid::before {
+ color: #ffffff !important;
 }

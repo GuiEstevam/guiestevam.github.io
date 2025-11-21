@@ -149,7 +149,18 @@
             link.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
                 
-                // Apenas processar links âncora
+                // Verificar se o menu mobile está aberto - se estiver, NÃO interferir
+                const navMenu = document.querySelector('.nav-menu');
+                const isMenuOpen = navMenu && navMenu.classList.contains('active');
+                const isMobile = window.innerWidth < 768;
+                
+                // Se menu mobile estiver aberto, SAIR IMEDIATAMENTE sem fazer nada
+                // Deixar o mobile-menu.js gerenciar completamente
+                if (isMenuOpen && isMobile) {
+                    return; // Não fazer nada, deixar mobile-menu.js gerenciar
+                }
+                
+                // Apenas processar links âncora quando menu NÃO está aberto
                 if (href && href.startsWith('#')) {
                     const targetId = href.substring(1);
                     const targetElement = document.getElementById(targetId);
@@ -173,8 +184,32 @@
                         }
                     }
                 }
-            });
+            }, { passive: false }); // Permitir preventDefault quando necessário
         });
+    }
+    
+    /**
+     * Função auxiliar para fazer smooth scroll após menu fechar
+     */
+    function handleSmoothScroll(href) {
+        if (!href || !href.startsWith('#')) return;
+        
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            const headerHeight = document.querySelector('.sticky-nav')?.offsetHeight || 0;
+            const targetPosition = targetElement.offsetTop - headerHeight;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+            
+            if (history.pushState) {
+                history.pushState(null, null, href);
+            }
+        }
     }
 
     /**

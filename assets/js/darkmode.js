@@ -124,7 +124,7 @@ if (window.darkModeScriptLoaded) {
         
         if (!iconsContainer) {
             // Tentar novamente após um pequeno delay se o container ainda não existir
-            setTimeout(createToggleButton, 100);
+            setTimeout(createToggleButton, 200);
             return;
         }
 
@@ -158,11 +158,18 @@ if (window.darkModeScriptLoaded) {
         toggleBtn.setAttribute('aria-label', 'Ativar modo escuro');
         toggleBtn.innerHTML = '<i class="fas fa-moon" aria-hidden="true"></i><span class="label">Modo Escuro</span>';
         
-        toggleBtn.addEventListener('click', function(e) {
+        // Adicionar listener com flag para evitar duplicatas
+        // Usar uma função nomeada para poder remover depois se necessário
+        function darkModeClickHandler(e) {
             e.preventDefault();
             e.stopPropagation();
             toggleDarkMode();
-        });
+        }
+        
+        // Adicionar listener em múltiplas fases para garantir que seja capturado
+        toggleBtn.addEventListener('mousedown', darkModeClickHandler, true);
+        toggleBtn.addEventListener('click', darkModeClickHandler, true);
+        toggleBtn.dataset.listenerAdded = 'true';
 
         listItem.appendChild(toggleBtn);
         iconsContainer.appendChild(listItem);
@@ -183,17 +190,18 @@ if (window.darkModeScriptLoaded) {
     let initCalled = false;
     function init() {
         if (initCalled) {
-            console.warn('Função init() já foi chamada. Ignorando duplicata.');
             return;
         }
         initCalled = true;
 
         initDarkMode();
         
-        // Usar requestAnimationFrame para garantir que o DOM está totalmente renderizado
+        // Usar requestAnimationFrame e setTimeout para garantir que o DOM está totalmente renderizado
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-                createToggleButton();
+                setTimeout(() => {
+                    createToggleButton();
+                }, 100);
             });
         });
     }
@@ -224,8 +232,19 @@ if (window.darkModeScriptLoaded) {
         
         // Mover apenas se necessário e se o container de destino existe
         if (targetContainer && currentContainer !== targetContainer) {
+            // Preservar o listener ao mover
+            const listenerAdded = toggleBtn.dataset.listenerAdded;
             btnListItem.remove();
             targetContainer.appendChild(btnListItem);
+            // Re-adicionar listener se necessário
+            if (listenerAdded && !toggleBtn.dataset.listenerAdded) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleDarkMode();
+                }, true);
+                toggleBtn.dataset.listenerAdded = 'true';
+            }
         }
     }
 
