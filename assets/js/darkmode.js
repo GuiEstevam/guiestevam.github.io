@@ -3,13 +3,21 @@
  * Salva a preferência do usuário no localStorage
  */
 
-// Prevenir múltiplas execuções
-if (window.darkModeScriptLoaded) {
- // Script já foi carregado, não executar novamente
- if (typeof console !== 'undefined') {
-  console.warn('darkmode.js já foi carregado. Ignorando duplicata.');
+// Inicializar módulo apenas em ambientes com DOM
+(function initDarkModeModule() {
+ if (typeof window === 'undefined' || typeof document === 'undefined') {
+  return;
  }
-} else {
+
+ // Prevenir múltiplas execuções
+ if (window.darkModeScriptLoaded) {
+  // Script já foi carregado, não executar novamente
+  if (typeof console !== 'undefined') {
+   console.warn('darkmode.js já foi carregado. Ignorando duplicata.');
+  }
+  return;
+ }
+
  window.darkModeScriptLoaded = true;
 
  (function () {
@@ -287,4 +295,4 @@ if (window.darkModeScriptLoaded) {
   window.enableDarkMode = enableDarkMode;
   window.disableDarkMode = disableDarkMode;
  })();
-}
+})();

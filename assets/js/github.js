@@ -18,6 +18,7 @@ import {
 const INITIAL_REPOS = 3; // Número de repositórios na primeira carga
 const REPOS_PER_PAGE = 3; // Número de repositórios por página (após primeira carga)
 const POPULAR_STARS_THRESHOLD = 10; // Número mínimo de stars para considerar projeto popular
+const LANGUAGE_REQUEST_CONCURRENCY = 3; // Limite simultâneo de requisições por linguagens
 
 // Mapeamento de imagens personalizadas para repositórios do GitHub
 // Adicione aqui o nome do repositório e o caminho da imagem correspondente
@@ -50,6 +51,9 @@ let searchFilter = ''; // Filtro de busca por nome
 
 // Contador para gerar índices únicos de imagens (apenas para projetos sem imagem customizada)
 let imageCounter = 0;
+
+// Controle de concorrência das requisições de linguagens
+const enqueueLanguageFetch = createConcurrencyLimiter(LANGUAGE_REQUEST_CONCURRENCY);
 
 /**
  * Inicializa a busca de repositórios
@@ -170,56 +174,22 @@ function createProjectArticle(project) {
  // Criar imagem
  const img = document.createElement('img');
  img.alt = `Imagem representativa do projeto ${project.name}`;
-
- // Configurar estilos iniciais da imagem
- img.style.display = 'none';
- img.style.opacity = '0';
- img.style.transition = 'opacity 0.4s ease-in-out';
- img.style.position = 'absolute';
- img.style.top = '0';
- img.style.left = '0';
- img.style.right = '0';
- img.style.bottom = '0';
- img.style.width = '100%';
- img.style.height = '100%';
- img.style.minWidth = '100%';
- img.style.minHeight = '100%';
- img.style.objectFit = 'cover';
- img.style.objectPosition = 'center center';
- img.style.margin = '0';
- img.style.padding = '0';
+ img.className = 'project-image';
 
  // Função para mostrar a imagem e esconder o placeholder
  function showImage() {
   if (img.naturalHeight > 0 && img.complete) {
-   placeholderDiv.style.display = 'none';
-   // Garantir que os estilos de posicionamento sejam mantidos ANTES de mostrar
-   img.style.position = 'absolute';
-   img.style.top = '0';
-   img.style.left = '0';
-   img.style.right = '0';
-   img.style.bottom = '0';
-   img.style.width = '100%';
-   img.style.height = '100%';
-   img.style.minWidth = '100%';
-   img.style.minHeight = '100%';
-   img.style.objectFit = 'cover';
-   img.style.objectPosition = 'center center';
-   img.style.margin = '0';
-   img.style.padding = '0';
-   img.style.display = 'block';
-   // Usar requestAnimationFrame para garantir transição suave
+   placeholderDiv.classList.add('is-hidden');
    requestAnimationFrame(() => {
-    img.style.opacity = '1';
+    img.classList.add('is-visible');
    });
   }
  }
 
  // Função para mostrar o placeholder
  function showPlaceholder() {
-  img.style.display = 'none';
-  img.style.opacity = '0';
-  placeholderDiv.style.display = 'flex';
+  img.classList.remove('is-visible');
+  placeholderDiv.classList.remove('is-hidden');
  }
 
  // Adicionar handler de erro ANTES de definir src
@@ -556,18 +526,25 @@ async function renderNextPage(container, isInitialLoad = false) {
   let languages = [];
   if (repo.language) {
    languages.push(repo.language);
-   // Buscar outras linguagens via API
-   try {
-    const languagesData = await fetchRepositoryLanguages(repo.html_url);
-    if (languagesData) {
-     const sortedLanguages = Object.keys(languagesData)
-      .sort((a, b) => languagesData[b] - languagesData[a])
-      .slice(0, 5); // Limitar a 5 linguagens principais
-     languages = sortedLanguages;
-    }
-   } catch (error) {
-    console.warn(`Erro ao buscar linguagens para ${repo.name}:`, error);
+  }
+
+  try {
+   const languagesData = await enqueueLanguageFetch(() =>
+    fetchRepositoryLanguages({
+     owner: repo.owner?.login || repo.owner?.name,
+     name: repo.name,
+     languagesUrl: repo.languages_url,
+    })
+   );
+
+   if (languagesData) {
+    const sortedLanguages = Object.keys(languagesData)
+     .sort((a, b) => languagesData[b] - languagesData[a])
+     .slice(0, 5); // Limitar a 5 linguagens principais
+    languages = sortedLanguages;
    }
+  } catch (error) {
+   console.warn(`Erro ao buscar linguagens para ${repo.name}:`, error);
   }
 
   const project = {
@@ -1107,4 +1084,43 @@ function escapeHtml(text) {
  const div = document.createElement('div');
  div.textContent = text;
  return div.innerHTML;
+}
+
+/**
+ * Cria um limitador simples de concorrência para Promises
+ * @param {number} limit - Número máximo de Promises simultâneas
+ * @returns {(fn: Function) => Promise}
+ */
+function createConcurrencyLimiter(limit = 3) {
+ if (!Number.isFinite(limit) || limit <= 0) {
+  throw new Error('O limite de concorrência deve ser um número maior que zero.');
+ }
+
+ const queue = [];
+ let activeCount = 0;
+
+ const next = () => {
+  if (queue.length === 0 || activeCount >= limit) {
+   return;
+  }
+
+  activeCount++;
+  const { fn, resolve, reject } = queue.shift();
+
+  Promise.resolve()
+   .then(fn)
+   .then((value) => resolve(value))
+   .catch((error) => reject(error))
+   .finally(() => {
+    activeCount--;
+    next();
+   });
+ };
+
+ return function enqueue(fn) {
+  return new Promise((resolve, reject) => {
+   queue.push({ fn, resolve, reject });
+   next();
+  });
+ };
 }
