@@ -7,6 +7,73 @@
 const GITHUB_USERNAME = 'GuiEstevam';
 const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos`;
 const EXCLUDED_REPOS = ['guiestevam.github.io'];
+const EXTERNAL_PROJECTS = [
+    {
+        name: 'Nerdola Miner',
+        description: 'Loja especializada em ASICs com calculadoras de rentabilidade, suporte e conteúdo para mineração de Bitcoin.',
+        html_url: 'https://nerdolaminer.com.br/',
+        homepage: 'https://nerdolaminer.com.br/',
+        stargazers_count: 0,
+        forks_count: 0,
+        language: 'PHP',
+        topics: ['laravel', 'blade', 'sql', 'php'],
+        updated_at: '2026-04-15T00:00:00Z',
+        fork: false,
+        private: false,
+    },
+    {
+        name: 'Transcende',
+        description: 'Site institucional para yoga, massagens, terapias e locação de espaços em São Paulo.',
+        html_url: 'https://transcende.vercel.app/',
+        homepage: 'https://transcende.vercel.app/',
+        stargazers_count: 0,
+        forks_count: 0,
+        language: 'JavaScript',
+        topics: ['html', 'css', 'javascript', 'landing-page'],
+        updated_at: '2026-04-15T00:00:00Z',
+        fork: false,
+        private: false,
+    },
+    {
+        name: 'LGF Contabilidade',
+        description: 'Landing page institucional de contabilidade e consultoria para empresas.',
+        html_url: 'https://lgf-nu.vercel.app/',
+        homepage: 'https://lgf-nu.vercel.app/',
+        stargazers_count: 0,
+        forks_count: 0,
+        language: 'JavaScript',
+        topics: ['html', 'css', 'javascript', 'institucional'],
+        updated_at: '2026-04-15T00:00:00Z',
+        fork: false,
+        private: false,
+    },
+    {
+        name: 'SkyFashion',
+        description: 'E-commerce de moda esportiva com catálogo, categorias e carrinho de compras.',
+        html_url: 'https://skyfashion.pt/',
+        homepage: 'https://skyfashion.pt/',
+        stargazers_count: 0,
+        forks_count: 0,
+        language: 'PHP',
+        topics: ['laravel', 'blade', 'sql', 'php', 'ecommerce'],
+        updated_at: '2026-04-15T00:00:00Z',
+        fork: false,
+        private: false,
+    },
+    {
+        name: 'Ntinformatica',
+        description: 'Site institucional da NT Informática com foco em suporte técnico e soluções completas em TI.',
+        html_url: 'https://nt-informatica.vercel.app/',
+        homepage: 'https://nt-informatica.vercel.app/',
+        stargazers_count: 0,
+        forks_count: 0,
+        language: 'JavaScript',
+        topics: ['html', 'css', 'javascript', 'institucional'],
+        updated_at: '2026-04-15T00:00:00Z',
+        fork: false,
+        private: false,
+    },
+];
 const CACHE_KEY = 'github_repos_cache';
 const CACHE_TIMESTAMP_KEY = 'github_repos_cache_timestamp';
 const CACHE_DURATION = 60 * 60 * 1000; // 1 hora
@@ -20,7 +87,7 @@ export async function fetchRepositories() {
     const cachedRepos = getCachedRepos();
     if (cachedRepos) {
         console.log('Usando dados em cache (GitHub API)');
-        return cachedRepos;
+        return mergeWithExternalProjects(cachedRepos);
     }
 
     // 2. Buscar da API
@@ -37,7 +104,7 @@ export async function fetchRepositories() {
                 const oldCache = localStorage.getItem(CACHE_KEY);
                 if (oldCache) {
                     console.warn('Rate limit atingido, usando cache antigo');
-                    return JSON.parse(oldCache);
+                    return mergeWithExternalProjects(JSON.parse(oldCache));
                 }
             }
             throw new Error(formatErrorMessage(response.status));
@@ -55,7 +122,7 @@ export async function fetchRepositories() {
         // Salvar no cache
         setCachedRepos(filteredRepos);
         
-        return filteredRepos;
+        return mergeWithExternalProjects(filteredRepos);
 
     } catch (error) {
         throw new Error(`Falha ao buscar repositórios: ${error.message}`);
@@ -120,6 +187,17 @@ function setCachedRepos(repos) {
     } catch (error) {
         console.warn('Erro ao salvar cache:', error);
     }
+}
+
+function mergeWithExternalProjects(repos) {
+    if (!Array.isArray(repos)) return [...EXTERNAL_PROJECTS];
+
+    const repoNames = new Set(repos.map((repo) => repo?.name).filter(Boolean));
+    const missingExternalProjects = EXTERNAL_PROJECTS.filter(
+        (externalProject) => !repoNames.has(externalProject.name)
+    );
+
+    return [...repos, ...missingExternalProjects];
 }
 
 function formatErrorMessage(status) {

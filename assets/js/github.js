@@ -26,6 +26,11 @@ const CUSTOM_REPO_IMAGES = {
  projeto_tcc: 'images/projeto_tcc.jpg',
  Guicodex: 'images/guicodex.png', // Repositório com G maiúsculo
  Riftfinder: 'images/riftfinder.png', // Se você tiver outras imagens específicas, adicione aqui:
+ 'Ntinformatica': 'images/ntinformatica.png',
+ 'Nerdola Miner': 'images/nerdolaminer.png',
+ 'Transcende': 'images/transcende.png',
+ 'LGF Contabilidade': 'images/lgf-contabilidade.png',
+ 'Skyfashion': 'images/skyfashion.png',
  // 'brg': 'images/brg.jpg',
  // 'seguradora': 'images/seguradora.jpg',
  // 'lol_api': 'images/lol_api.jpg',
@@ -332,24 +337,30 @@ function createProjectArticle(project) {
   descContainer.appendChild(desc);
  }
 
- // Criar footer do card com informações do projeto (compacto)
+ // Criar footer do card com informações simplificadas
  const projectInfo = document.createElement('div');
  projectInfo.className = 'project-info';
 
- // Linha superior: Linguagens e Stats lado a lado
- const topRow = document.createElement('div');
- topRow.className = 'project-info-top-row';
+ // Linha de meta (atualização + engajamento)
+ const metaRow = document.createElement('div');
+ metaRow.className = 'project-meta-row';
 
- // Container de tecnologias (compacto, sem título)
- const techBadges = document.createElement('div');
- techBadges.className = 'project-tech-badges';
+const techBadges = document.createElement('div');
+techBadges.className = 'project-tech-badges';
+
+ const dateInfo = document.createElement('div');
+ dateInfo.className = 'project-updated';
+ dateInfo.innerHTML = `<i class="far fa-clock" aria-hidden="true"></i> <span>${
+  project.updatedAt ? `Atualizado ${formatRelativeDate(project.updatedAt)}` : 'Data não informada'
+ }</span>`;
+ metaRow.appendChild(dateInfo);
 
  // Coletar todas as linguagens únicas para exibir
  const languagesToDisplay = new Set();
 
  // Adicionar linguagem principal se existir
  if (project.language) {
-  languagesToDisplay.add(project.language);
+  languagesToDisplay.add(normalizeTechnologyLabel(project.language));
  }
 
  // Adicionar outras linguagens se disponíveis (limitar a 3 principais)
@@ -360,7 +371,16 @@ function createProjectArticle(project) {
  ) {
   project.languages.slice(0, 3).forEach((lang) => {
    if (lang && typeof lang === 'string' && lang.trim()) {
-    languagesToDisplay.add(lang.trim());
+    languagesToDisplay.add(normalizeTechnologyLabel(lang.trim()));
+   }
+  });
+ }
+
+ // Adicionar tópicos/stack (útil para projetos externos)
+ if (project.topics && Array.isArray(project.topics) && project.topics.length > 0) {
+  project.topics.slice(0, 5).forEach((topic) => {
+   if (topic && typeof topic === 'string' && topic.trim()) {
+    languagesToDisplay.add(normalizeTechnologyLabel(topic.trim()));
    }
   });
  }
@@ -374,7 +394,9 @@ function createProjectArticle(project) {
    .forEach((lang) => {
     const languageBadge = document.createElement('span');
     languageBadge.className = 'project-language-badge';
-    languageBadge.style.backgroundColor = getLanguageColor(lang);
+    const badgeColor = getLanguageColor(lang);
+    languageBadge.style.backgroundColor = badgeColor;
+    languageBadge.style.color = getContrastTextColor(badgeColor);
     languageBadge.setAttribute('aria-label', `Linguagem: ${lang}`);
     const iconClass = getLanguageIcon(lang);
     languageBadge.innerHTML = `<i class="${iconClass}" aria-hidden="true"></i> <span>${escapeHtml(
@@ -386,15 +408,15 @@ function createProjectArticle(project) {
   // Fallback: se não houver linguagem, mostrar badge genérico
   const noLanguageBadge = document.createElement('span');
   noLanguageBadge.className = 'project-language-badge';
-  noLanguageBadge.style.backgroundColor = '#999999';
+  const fallbackBadgeColor = '#999999';
+  noLanguageBadge.style.backgroundColor = fallbackBadgeColor;
+  noLanguageBadge.style.color = getContrastTextColor(fallbackBadgeColor);
   noLanguageBadge.setAttribute('aria-label', 'Linguagem não especificada');
   noLanguageBadge.innerHTML = `<i class="fas fa-code" aria-hidden="true"></i> <span>N/S</span>`;
   techBadges.appendChild(noLanguageBadge);
  }
 
- topRow.appendChild(techBadges);
-
- // Stats (stars e forks) - inline com tecnologias
+ // Stats (stars e forks)
  const statsContainer = document.createElement('div');
  statsContainer.className = 'project-stats';
 
@@ -419,67 +441,67 @@ function createProjectArticle(project) {
  )}</span>`;
  statsContainer.appendChild(forksBadge);
 
- topRow.appendChild(statsContainer);
- projectInfo.appendChild(topRow);
+ metaRow.appendChild(statsContainer);
+ projectInfo.appendChild(metaRow);
 
- // Linha inferior: Data de atualização e botões
- const bottomRow = document.createElement('div');
- bottomRow.className = 'project-info-bottom-row';
+ // Linha de tecnologias
+ const techRow = document.createElement('div');
+ techRow.className = 'project-tech-row';
 
- // Data de atualização (compacta)
- if (project.updatedAt) {
-  const dateInfo = document.createElement('div');
-  dateInfo.className = 'project-updated';
-  dateInfo.innerHTML = `<i class="far fa-clock" aria-hidden="true"></i> <span>${formatRelativeDate(
-   project.updatedAt
-  )}</span>`;
-  bottomRow.appendChild(dateInfo);
- } else {
-  // Espaçador se não houver data
-  const spacer = document.createElement('div');
-  spacer.className = 'project-updated';
-  spacer.style.opacity = '0';
-  spacer.style.pointerEvents = 'none';
-  bottomRow.appendChild(spacer);
- }
+ techRow.appendChild(techBadges);
+ projectInfo.appendChild(techRow);
 
- // Criar ações (botões) para adicionar na linha inferior
+ // Linha de ações
  const actions = document.createElement('ul');
- actions.className = 'actions';
+ actions.className = 'actions project-actions';
 
- // Botão para demo/homepage (se disponível)
- if (project.homepage && project.homepage.trim()) {
-  const demoItem = document.createElement('li');
-  const demoLink = document.createElement('a');
-  demoLink.href = project.homepage;
-  demoLink.className = 'button button-demo';
-  demoLink.target = '_blank';
-  demoLink.rel = 'noopener noreferrer';
-  demoLink.setAttribute('aria-label', `Ver demo do projeto ${formattedName}`);
-  demoLink.innerHTML =
-   '<i class="fas fa-external-link-alt" aria-hidden="true"></i> Ver Demo';
-  demoItem.appendChild(demoLink);
-  actions.appendChild(demoItem);
+ const isGitHubProject = typeof project.url === 'string' && project.url.includes('github.com');
+
+ // Projetos fora do GitHub: exibir um único CTA largo "Ver Site"
+ if (!isGitHubProject) {
+  const siteItem = document.createElement('li');
+  siteItem.className = 'project-actions-single-item';
+  const siteLink = document.createElement('a');
+  siteLink.href = project.homepage && project.homepage.trim() ? project.homepage : project.url;
+  siteLink.className = 'button button-github button-site-wide';
+  siteLink.target = '_blank';
+  siteLink.rel = 'noopener noreferrer';
+  siteLink.setAttribute('aria-label', `Ver site do projeto ${formattedName}`);
+  siteLink.innerHTML = '<i class="fas fa-globe" aria-hidden="true"></i> Ver Site';
+  siteItem.appendChild(siteLink);
+  actions.appendChild(siteItem);
+  actions.classList.add('project-actions-single');
+ } else {
+  // Botão de demo (se disponível)
+  if (project.homepage && project.homepage.trim()) {
+   const demoItem = document.createElement('li');
+   const demoLink = document.createElement('a');
+   demoLink.href = project.homepage;
+   demoLink.className = 'button button-demo';
+   demoLink.target = '_blank';
+   demoLink.rel = 'noopener noreferrer';
+   demoLink.setAttribute('aria-label', `Ver demo do projeto ${formattedName}`);
+   demoLink.innerHTML =
+    '<i class="fas fa-external-link-alt" aria-hidden="true"></i> Ver Demo';
+   demoItem.appendChild(demoLink);
+   actions.appendChild(demoItem);
+  }
+
+  // Botão do repositório
+  const githubItem = document.createElement('li');
+  const githubLink = document.createElement('a');
+  githubLink.href = project.url;
+  githubLink.className = 'button button-github';
+  githubLink.target = '_blank';
+  githubLink.rel = 'noopener noreferrer';
+  githubLink.setAttribute('aria-label', `Ver repositório do projeto ${formattedName}`);
+  githubLink.innerHTML =
+   '<i class="fab fa-github" aria-hidden="true"></i> Ver no GitHub';
+  githubItem.appendChild(githubLink);
+  actions.appendChild(githubItem);
  }
 
- // Botão para GitHub
- const githubItem = document.createElement('li');
- const githubLink = document.createElement('a');
- githubLink.href = project.url;
- githubLink.className = 'button button-github';
- githubLink.target = '_blank';
- githubLink.rel = 'noopener noreferrer';
- githubLink.setAttribute(
-  'aria-label',
-  `Ver projeto ${formattedName} no GitHub`
- );
- githubLink.innerHTML =
-  '<i class="fab fa-github" aria-hidden="true"></i> Ver no GitHub';
- githubItem.appendChild(githubLink);
- actions.appendChild(githubItem);
-
- bottomRow.appendChild(actions);
- projectInfo.appendChild(bottomRow);
+ projectInfo.appendChild(actions);
 
  // Criar container de conteúdo
  const contentContainer = document.createElement('div');
@@ -578,6 +600,7 @@ async function renderNextPage(container, isInitialLoad = false) {
    updatedAt: repo.updated_at,
    language: repo.language,
    languages: languages,
+   topics: Array.isArray(repo.topics) ? repo.topics : [],
    stars: repo.stargazers_count || 0,
    forks: repo.forks_count || 0,
    homepage: getProjectHomepage(repo.name, repo.homepage),
@@ -962,9 +985,28 @@ function getLanguageColor(language) {
   CoffeeScript: '#244776',
   TeX: '#3D6117',
   Markdown: '#083FA1',
+  Laravel: '#FF2D20',
+  Blade: '#F7523F',
+  SQL: '#336791',
+  Vite: '#646CFF',
  };
 
  return languageColors[language] || '#666666';
+}
+
+function getContrastTextColor(hexColor) {
+ if (!hexColor || typeof hexColor !== 'string') return '#ffffff';
+ const normalized = hexColor.replace('#', '');
+ if (normalized.length !== 6) return '#ffffff';
+
+ const r = parseInt(normalized.substring(0, 2), 16);
+ const g = parseInt(normalized.substring(2, 4), 16);
+ const b = parseInt(normalized.substring(4, 6), 16);
+
+ if (Number.isNaN(r) || Number.isNaN(g) || Number.isNaN(b)) return '#ffffff';
+
+ const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+ return luminance > 0.62 ? '#1f2937' : '#f8fafc';
 }
 
 /**
@@ -1015,9 +1057,39 @@ function getLanguageIcon(language) {
   CoffeeScript: 'fas fa-coffee',
   TeX: 'fas fa-file-alt',
   Markdown: 'fab fa-markdown',
+  Laravel: 'fab fa-laravel',
+  Blade: 'fas fa-layer-group',
+  SQL: 'fas fa-database',
+  Vite: 'fas fa-bolt',
  };
 
  return languageIcons[language] || 'fas fa-code';
+}
+
+/**
+ * Normaliza labels de stack/tecnologia para manter badges consistentes
+ * @param {string} label
+ * @returns {string}
+ */
+function normalizeTechnologyLabel(label) {
+ if (!label || typeof label !== 'string') return label;
+
+ const normalized = label.trim().toLowerCase();
+ const aliases = {
+  javascript: 'JavaScript',
+  typescript: 'TypeScript',
+  html: 'HTML',
+  css: 'CSS',
+  scss: 'SCSS',
+  sass: 'SASS',
+  php: 'PHP',
+  sql: 'SQL',
+  laravel: 'Laravel',
+  blade: 'Blade',
+  vite: 'Vite',
+ };
+
+ return aliases[normalized] || label.trim();
 }
 
 /**
