@@ -18,6 +18,9 @@ import './technologies.js';
 // Importar menu mobile
 import './mobile-menu.js';
 
+// Importar dark mode
+import './darkmode.js';
+
 // Importar botão voltar ao topo
 import './back-to-top.js';
 

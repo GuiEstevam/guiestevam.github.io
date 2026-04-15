@@ -11,7 +11,6 @@
   let isMenuOpen = false;
   let menuToggle = null;
   let navMenu = null;
-  let navOverlay = null;
 
   /**
    * Verifica se está em modo mobile
@@ -21,46 +20,68 @@
   }
 
   /**
-   * Cria o overlay se não existir
+   * Scroll suave customizado
+   * @param {number} targetPosition - Posição alvo em pixels
+   * @param {number} duration - Duração da animação em ms
    */
-  function createOverlay() {
-    if (navOverlay) {
-      return navOverlay;
+  function smoothScrollTo(targetPosition, duration = 600) {
+    // Não verificar prefersReducedMotion aqui porque o scroll é uma ação do usuário
+    // (ele clicou no link), não uma animação automática
+    
+    const startPosition = window.pageYOffset || window.scrollY || document.documentElement.scrollTop;
+    const distance = targetPosition - startPosition;
+    
+    // Se a distância for muito pequena, fazer scroll instantâneo
+    if (Math.abs(distance) < 10) {
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'auto'
+      });
+      return;
+    }
+    
+    let startTime = null;
+    let animationFrameId = null;
+    let frameCount = 0;
+
+    function animation(currentTime) {
+      if (startTime === null) {
+        startTime = currentTime;
+      }
+      
+      frameCount++;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+      
+      // Easing function (easeInOutCubic)
+      const ease = progress < 0.5
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      
+      const currentPosition = startPosition + (distance * ease);
+      
+      // Usar scrollTo direto (sem options) para animação manual suave
+      window.scrollTo(0, Math.round(currentPosition));
+      
+      if (timeElapsed < duration) {
+        animationFrameId = requestAnimationFrame(animation);
+      } else {
+        // Garantir que chegamos exatamente na posição final
+        window.scrollTo({
+          top: targetPosition,
+          behavior: 'auto'
+        });
+      }
     }
 
-    navOverlay = document.createElement('div');
-    navOverlay.className = 'nav-overlay';
-    navOverlay.setAttribute('aria-hidden', 'true');
-    navOverlay.setAttribute('role', 'button');
-    navOverlay.setAttribute('tabindex', '-1');
+    animationFrameId = requestAnimationFrame(animation);
     
-    // Fechar menu ao clicar fora do menu (usar document em vez do overlay)
-    // Isso funciona porque o overlay tem pointer-events: none quando o menu está ativo
-    document.addEventListener('click', (e) => {
-      // Verificar se o menu está aberto
-      if (!isMenuOpen || !navMenu) {
-        return;
+    // Retornar função para cancelar se necessário
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
       }
-      
-      // Verificar se o clique foi dentro do menu
-      const clickedInsideMenu = navMenu.contains(e.target);
-      const clickedOnToggle = menuToggle && menuToggle.contains(e.target);
-      
-      // Se clicou fora do menu e não no toggle, fechar o menu
-      if (!clickedInsideMenu && !clickedOnToggle) {
-        closeMenu();
-      }
-    }, true); // Usar capture phase para garantir que execute antes
-    
-    // Prevenir que cliques dentro do menu fechem o menu
-    if (navMenu) {
-      navMenu.addEventListener('click', (e) => {
-        e.stopPropagation();
-      }, true);
-    }
-    
-    document.body.appendChild(navOverlay);
-    return navOverlay;
+    };
   }
 
   /**
@@ -76,13 +97,10 @@
     menuToggle.setAttribute('aria-expanded', 'true');
     menuToggle.setAttribute('aria-label', 'Fechar menu');
 
-    // Criar e ativar overlay
-    const overlay = createOverlay();
-    overlay.classList.add('active');
-
     // Prevenir scroll do body
     document.body.style.overflow = 'hidden';
   }
+
 
   /**
    * Fecha o menu
@@ -96,11 +114,6 @@
     navMenu.classList.remove('active');
     menuToggle.setAttribute('aria-expanded', 'false');
     menuToggle.setAttribute('aria-label', 'Abrir menu');
-
-    // Desativar overlay
-    if (navOverlay) {
-      navOverlay.classList.remove('active');
-    }
 
     // Restaurar scroll do body
     document.body.style.overflow = '';
@@ -133,15 +146,6 @@
       return;
     }
 
-    // Verificar se é o botão de dark mode - não processar aqui
-    // O darkmode.js já tem seu próprio handler, apenas fechar o menu depois
-    const darkModeToggle = e.target.closest('#dark-mode-toggle');
-    if (darkModeToggle) {
-      // Não fazer nada aqui, deixar o darkmode.js processar o clique
-      // O menu será fechado pelo listener acima
-      return;
-    }
-
     // Verificar se é um link do menu (nav-link) ou qualquer link dentro do menu
     const link = e.target.closest('.nav-link') || e.target.closest('a');
     if (!link || !navMenu || !navMenu.contains(link)) {
@@ -158,31 +162,41 @@
       return;
     }
 
-    // Fechar menu primeiro
-    closeMenu();
+    // Se for link externo, não interferir - deixar o navegador processar
+    if (href.startsWith('http://') || href.startsWith('https://') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('//')) {
+      // Não prevenir comportamento padrão - deixar o link funcionar normalmente
+      // Fechar menu após um pequeno delay para permitir que o clique seja processado
+      setTimeout(() => {
+        closeMenu();
+      }, 150);
+      return;
+    }
 
-    // Se for âncora, fazer scroll suave após menu fechar
+    // Se for âncora, prevenir comportamento padrão e fazer scroll suave
     if (href.startsWith('#')) {
+      e.preventDefault();
+      e.stopPropagation();
+      
       const targetId = href.substring(1);
       const targetElement = document.getElementById(targetId);
       
       if (targetElement) {
+        // Fechar menu primeiro
+        closeMenu();
+        
+        // Aguardar um pequeno delay para o menu começar a fechar, depois fazer scroll suave
         setTimeout(() => {
           const headerHeight = document.querySelector('.sticky-nav')?.offsetHeight || 0;
-          const targetPosition = targetElement.offsetTop - headerHeight;
+          const targetPosition = Math.max(0, targetElement.offsetTop - headerHeight);
           
-          const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          
-          window.scrollTo({
-            top: Math.max(0, targetPosition),
-            behavior: prefersReducedMotion ? 'auto' : 'smooth'
-          });
+          // Usar scroll suave customizado
+          smoothScrollTo(targetPosition, 600);
           
           // Atualizar URL
           if (history.pushState) {
             history.pushState(null, null, href);
           }
-        }, 300);
+        }, 150); // Delay pequeno para o menu começar a fechar
       }
     }
   }
@@ -218,15 +232,14 @@
       return;
     }
 
-    // Event listener no toggle - usar event delegation no menu para links
+    // Event listener no toggle
     menuToggle.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       toggleMenu();
     });
 
-    // Event delegation no menu para links - mais eficiente e não interfere com outros scripts
-    // Capturar TODOS os cliques dentro do menu, não apenas nav-link
+    // Event delegation no menu para links
     navMenu.addEventListener('click', (e) => {
       // Verificar se é o botão de dark mode - não processar aqui, deixar o darkmode.js processar
       const darkModeToggle = e.target.closest('#dark-mode-toggle');
@@ -238,7 +251,6 @@
             closeMenu();
           }
         }, 300);
-        // Não retornar aqui, deixar o evento propagar para o darkmode.js
         return;
       }
       
@@ -250,10 +262,30 @@
       if (link || button) {
         handleLinkClick(e);
       }
-    }); // Não usar capture phase aqui para não interferir com o dark mode
+    }, false);
 
     // Fechar ao pressionar ESC
     document.addEventListener('keydown', handleKeyDown);
+
+    // Fechar ao clicar fora do menu (sem capture phase para não interferir com links)
+    document.addEventListener('click', (e) => {
+      // Só processar se menu estiver aberto e estiver no mobile
+      if (!isMenuOpen || !isMobile()) {
+        return;
+      }
+
+      // Verificar se o clique foi dentro do menu ou no toggle
+      const clickedInsideMenu = navMenu && navMenu.contains(e.target);
+      const clickedOnToggle = menuToggle && (menuToggle === e.target || menuToggle.contains(e.target));
+
+      // Se clicou dentro do menu ou no toggle, não fazer nada
+      if (clickedInsideMenu || clickedOnToggle) {
+        return;
+      }
+
+      // Se clicou fora, fechar menu
+      closeMenu();
+    }, false); // SEM capture phase - deixar links processarem primeiro
 
     // Fechar ao redimensionar
     let resizeTimeout;
