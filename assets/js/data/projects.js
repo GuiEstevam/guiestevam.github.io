@@ -6,7 +6,7 @@ const PROJECT_CATALOG = [
  {
   id: 'nerdola-miner',
   name: 'Nerdola Miner',
-  impactLine: 'Laravel + e-commerce e regras de negócio em produção',
+  impactLine: 'Laravel + e-commerce e regras de negócio para mineração',
   description:
    'Loja especializada em ASICs com calculadoras de rentabilidade, suporte e conteúdo para mineração de Bitcoin.',
   image: 'images/nerdolaminer.png',
@@ -23,7 +23,7 @@ const PROJECT_CATALOG = [
  {
   id: 'skyfashion',
   name: 'SkyFashion',
-  impactLine: 'E-commerce completo em produção',
+  impactLine: 'E-commerce de moda esportiva completo',
   description:
    'E-commerce de moda esportiva com catálogo, categorias e carrinho de compras.',
   image: 'images/skyfashion.png',
