@@ -13,40 +13,25 @@ import {
  fetchRepositories,
  fetchRepositoryLanguages,
 } from './services/github-service.js';
+import {
+ getPortfolioProjectsFallback,
+ isFeaturedProject,
+ isProductionProject,
+ resolveProjectDescription,
+ resolveProjectImage,
+ resolveProjectHomepage,
+ resolveProjectStack,
+} from './data/projects.js';
+import { setupMobileDescriptionToggle } from './utils/description-toggle.js';
+
+const PROJECT_STACK_LIMIT = 3;
 
 // Configuração de UI
 const INITIAL_REPOS = 3; // Número de repositórios na primeira carga
 const REPOS_PER_PAGE = 3; // Número de repositórios por página (após primeira carga)
 const POPULAR_STARS_THRESHOLD = 10; // Número mínimo de stars para considerar projeto popular
 const LANGUAGE_REQUEST_CONCURRENCY = 3; // Limite simultâneo de requisições por linguagens
-
-// Mapeamento de imagens personalizadas para repositórios do GitHub
-// Adicione aqui o nome do repositório e o caminho da imagem correspondente
-const CUSTOM_REPO_IMAGES = {
- Syncfinance: 'images/syncfinance.png',
- projeto_tcc: 'images/projeto_tcc.jpg',
- Guicodex: 'images/guicodex.png', // Repositório com G maiúsculo
- Riftfinder: 'images/riftfinder.png', // Se você tiver outras imagens específicas, adicione aqui:
- 'Ntinformatica': 'images/ntinformatica.png',
- 'Nerdola Miner': 'images/nerdolaminer.png',
- 'Transcende': 'images/transcende.png',
- 'LGF Contabilidade': 'images/lgf-contabilidade.png',
- 'Skyfashion': 'images/skyfashion.png',
- // 'brg': 'images/brg.jpg',
- // 'seguradora': 'images/seguradora.jpg',
- // 'lol_api': 'images/lol_api.jpg',
- // Para projetos sem imagem customizada, será usada uma imagem padrão (pic03-pic11)
-};
-
-// Mapeamento de homepages/demos personalizadas para repositórios do GitHub
-// Adicione aqui o nome do repositório e a URL da demo/homepage correspondente
-// Isso permite exibir o botão "Ver Demo" mesmo quando o repositório não tem homepage configurada no GitHub
-const CUSTOM_REPO_HOMEPAGES = {
- Riftfinder: 'http://guiestevam.me/Riftfinder/', // URL da demo do RiftFinder
- // Adicione outros projetos aqui conforme necessário:
- // 'Syncfinance': 'https://syncfinance.example.com',
- // 'Guicodex': 'https://guicodex.example.com',
-};
+const DESCRIPTION_LINE_CLAMP = 3;
 
 // Variáveis para paginação e estado da UI
 let allRepos = [];
@@ -74,10 +59,31 @@ export async function loadGitHubRepos() {
  showLoadingState(container);
 
  try {
-  const repos = await fetchRepositories();
+  const { repos, source } = await fetchRepositories();
+
+  if (!Array.isArray(repos) || repos.length === 0) {
+   showEmptyState(container);
+   return;
+  }
+
   renderRepositories(container, repos);
+
+  if (source === 'local' || source === 'stale-cache') {
+   console.info(
+    `Projetos renderizados a partir de ${source === 'local' ? 'catálogo local' : 'cache'}`
+   );
+  }
  } catch (error) {
   console.error('Erro ao carregar repositórios:', error);
+  const fallbackRepos = getPortfolioProjectsFallback().filter(
+   (repo) => !isFeaturedProject(repo.name)
+  );
+
+  if (fallbackRepos.length > 0) {
+   renderRepositories(container, fallbackRepos);
+   return;
+  }
+
   showErrorState(container, error);
  }
 }
@@ -86,8 +92,8 @@ export async function loadGitHubRepos() {
  * Renderiza os repositórios no HTML
  */
 function renderRepositories(container, repos) {
- // Salvar todos os repositórios
- allRepos = repos;
+ // Salvar repositórios excluindo os featured (renderizados em #destaques)
+ allRepos = repos.filter((repo) => !isFeaturedProject(repo.name));
  displayedRepos = 0;
 
  // Ordenar repositórios inicialmente
@@ -132,6 +138,94 @@ function createImagePlaceholder(text) {
  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
+function getStackIcon(tech) {
+ const icons = {
+  PHP: 'fab fa-php',
+  Laravel: 'fab fa-laravel',
+  MySQL: 'fas fa-database',
+  Blade: 'fas fa-layer-group',
+  HTML: 'fab fa-html5',
+  CSS: 'fab fa-css3-alt',
+  JavaScript: 'fab fa-js',
+  'Vue.js': 'fab fa-vuejs',
+  Python: 'fab fa-python',
+  Java: 'fab fa-java',
+ };
+
+ return icons[tech] || getLanguageIcon(tech);
+}
+
+function createStackPill(tech) {
+ const item = document.createElement('li');
+ item.className = 'stack-pill';
+
+ const icon = document.createElement('i');
+ icon.className = getStackIcon(tech);
+ icon.setAttribute('aria-hidden', 'true');
+
+ const label = document.createElement('span');
+ label.textContent = tech;
+
+ item.appendChild(icon);
+ item.appendChild(label);
+ return item;
+}
+
+function createProjectStackList(stack) {
+ const stackList = document.createElement('ul');
+ stackList.className = 'project-stack';
+ stackList.setAttribute('aria-label', 'Stack do projeto');
+
+ const visibleStack = stack.slice(0, PROJECT_STACK_LIMIT);
+ const hiddenCount = stack.length - visibleStack.length;
+
+ visibleStack.forEach((tech) => {
+  stackList.appendChild(createStackPill(normalizeTechnologyLabel(tech)));
+ });
+
+ if (hiddenCount > 0) {
+  const moreItem = document.createElement('li');
+  moreItem.className = 'stack-pill stack-pill--more';
+
+  const icon = document.createElement('ion-icon');
+  icon.setAttribute('name', 'layers-outline');
+  icon.setAttribute('aria-hidden', 'true');
+
+  const label = document.createElement('span');
+  label.textContent = `+${hiddenCount}`;
+
+  moreItem.appendChild(icon);
+  moreItem.appendChild(label);
+  moreItem.setAttribute('aria-label', `Mais ${hiddenCount} tecnologias`);
+  stackList.appendChild(moreItem);
+ }
+
+ return stackList;
+}
+
+function createProjectTypeBadge(isProduction) {
+ const badge = document.createElement('span');
+ badge.className = `project-card-type-badge font-mono ${
+  isProduction
+   ? 'project-card-type-badge--production'
+   : 'project-card-type-badge--opensource'
+ }`;
+
+ const icon = document.createElement('ion-icon');
+ icon.setAttribute(
+  'name',
+  isProduction ? 'checkmark-circle-outline' : 'logo-github'
+ );
+ icon.setAttribute('aria-hidden', 'true');
+
+ const label = document.createElement('span');
+ label.textContent = isProduction ? 'Em produção' : 'Open source';
+
+ badge.appendChild(icon);
+ badge.appendChild(label);
+ return badge;
+}
+
 /**
  * Cria um elemento article para um projeto
  */
@@ -139,7 +233,13 @@ function createProjectArticle(project) {
  const article = document.createElement('article');
  article.setAttribute('role', 'article');
  article.setAttribute('aria-label', `Projeto ${project.name}`);
- article.classList.add('reveal-on-scroll'); // Adicionar classe para animação
+ article.classList.add('reveal-on-scroll', 'project-card');
+
+ if (project.isProduction) {
+  article.classList.add('project-card--production');
+ } else {
+  article.classList.add('project-card--opensource');
+ }
 
  // Formatar nome do projeto
  const formattedName = formatProjectName(project.name);
@@ -244,6 +344,8 @@ function createProjectArticle(project) {
   }
  }, 1000);
 
+ imageWrapper.appendChild(createProjectTypeBadge(project.isProduction));
+
  // Adicionar ao wrapper
  imageWrapper.appendChild(placeholderDiv);
  imageWrapper.appendChild(img);
@@ -272,39 +374,16 @@ function createProjectArticle(project) {
   desc.setAttribute('data-full-text', fullDescription);
  }
 
- // Adicionar botão "mostrar mais/mostrar menos" apenas se houver descrição
+ descContainer.appendChild(desc);
+
  if (project.description && project.description.trim() !== '') {
-  const toggleButton = document.createElement('button');
-  toggleButton.className = 'description-toggle';
-  toggleButton.setAttribute('aria-label', 'Expandir ou colapsar descrição');
-  toggleButton.setAttribute('aria-expanded', 'false');
-  toggleButton.innerHTML = `
-   <span class="toggle-text">Mostrar mais</span>
-   <ion-icon name="chevron-down-outline" class="toggle-icon"></ion-icon>
-  `;
-
-  // Adicionar evento de clique
-  toggleButton.addEventListener('click', function () {
-   const isExpanded = desc.classList.contains('expanded');
-   desc.classList.toggle('expanded');
-   toggleButton.setAttribute('aria-expanded', !isExpanded);
-
-   const toggleText = toggleButton.querySelector('.toggle-text');
-   const toggleIcon = toggleButton.querySelector('.toggle-icon');
-
-   if (!isExpanded) {
-    toggleText.textContent = 'Mostrar menos';
-    toggleIcon.setAttribute('name', 'chevron-up-outline');
-   } else {
-    toggleText.textContent = 'Mostrar mais';
-    toggleIcon.setAttribute('name', 'chevron-down-outline');
-   }
+  requestAnimationFrame(() => {
+   requestAnimationFrame(() => {
+    setupMobileDescriptionToggle(desc, descContainer, {
+     lineClamp: DESCRIPTION_LINE_CLAMP,
+    });
+   });
   });
-
-  descContainer.appendChild(desc);
-  descContainer.appendChild(toggleButton);
- } else {
-  descContainer.appendChild(desc);
  }
 
  // Criar footer do card com informações simplificadas
@@ -315,76 +394,12 @@ function createProjectArticle(project) {
  const metaRow = document.createElement('div');
  metaRow.className = 'project-meta-row';
 
-const techBadges = document.createElement('div');
-techBadges.className = 'project-tech-badges';
-
  const dateInfo = document.createElement('div');
  dateInfo.className = 'project-updated';
  dateInfo.innerHTML = `<i class="far fa-clock" aria-hidden="true"></i> <span>${
   project.updatedAt ? `Atualizado ${formatRelativeDate(project.updatedAt)}` : 'Data não informada'
  }</span>`;
  metaRow.appendChild(dateInfo);
-
- // Coletar todas as linguagens únicas para exibir
- const languagesToDisplay = new Set();
-
- // Adicionar linguagem principal se existir
- if (project.language) {
-  languagesToDisplay.add(normalizeTechnologyLabel(project.language));
- }
-
- // Adicionar outras linguagens se disponíveis (limitar a 3 principais)
- if (
-  project.languages &&
-  Array.isArray(project.languages) &&
-  project.languages.length > 0
- ) {
-  project.languages.slice(0, 3).forEach((lang) => {
-   if (lang && typeof lang === 'string' && lang.trim()) {
-    languagesToDisplay.add(normalizeTechnologyLabel(lang.trim()));
-   }
-  });
- }
-
- // Adicionar tópicos/stack (útil para projetos externos)
- if (project.topics && Array.isArray(project.topics) && project.topics.length > 0) {
-  project.topics.slice(0, 5).forEach((topic) => {
-   if (topic && typeof topic === 'string' && topic.trim()) {
-    languagesToDisplay.add(normalizeTechnologyLabel(topic.trim()));
-   }
-  });
- }
-
- // Criar badges para todas as linguagens
- if (languagesToDisplay.size > 0) {
-  // Limitar a 3 linguagens principais e ordenar
-  Array.from(languagesToDisplay)
-   .sort()
-   .slice(0, 3)
-   .forEach((lang) => {
-    const languageBadge = document.createElement('span');
-    languageBadge.className = 'project-language-badge';
-    const badgeColor = getLanguageColor(lang);
-    languageBadge.style.backgroundColor = badgeColor;
-    languageBadge.style.color = getContrastTextColor(badgeColor);
-    languageBadge.setAttribute('aria-label', `Linguagem: ${lang}`);
-    const iconClass = getLanguageIcon(lang);
-    languageBadge.innerHTML = `<i class="${iconClass}" aria-hidden="true"></i> <span>${escapeHtml(
-     lang
-    )}</span>`;
-    techBadges.appendChild(languageBadge);
-   });
- } else {
-  // Fallback: se não houver linguagem, mostrar badge genérico
-  const noLanguageBadge = document.createElement('span');
-  noLanguageBadge.className = 'project-language-badge';
-  const fallbackBadgeColor = '#999999';
-  noLanguageBadge.style.backgroundColor = fallbackBadgeColor;
-  noLanguageBadge.style.color = getContrastTextColor(fallbackBadgeColor);
-  noLanguageBadge.setAttribute('aria-label', 'Linguagem não especificada');
-  noLanguageBadge.innerHTML = `<i class="fas fa-code" aria-hidden="true"></i> <span>N/S</span>`;
-  techBadges.appendChild(noLanguageBadge);
- }
 
  // Stats (stars e forks)
  const statsContainer = document.createElement('div');
@@ -414,11 +429,20 @@ techBadges.className = 'project-tech-badges';
  metaRow.appendChild(statsContainer);
  projectInfo.appendChild(metaRow);
 
- // Linha de tecnologias
+ // Linha de stack
  const techRow = document.createElement('div');
  techRow.className = 'project-tech-row';
 
- techRow.appendChild(techBadges);
+ const stackItems = project.stack?.length
+  ? project.stack
+  : [
+     ...(project.language ? [project.language] : []),
+     ...(Array.isArray(project.languages) ? project.languages : []),
+    ];
+
+ if (stackItems.length > 0) {
+  techRow.appendChild(createProjectStackList(stackItems));
+ }
  projectInfo.appendChild(techRow);
 
  // Linha de ações
@@ -427,37 +451,55 @@ techBadges.className = 'project-tech-badges';
 
  const isGitHubProject = typeof project.url === 'string' && project.url.includes('github.com');
 
- // Projetos fora do GitHub: exibir um único CTA largo "Ver Site"
- if (!isGitHubProject) {
+ // Projetos em produção (site entregue): CTA principal "Ver site"
+ if (project.isProduction) {
   const siteItem = document.createElement('li');
   siteItem.className = 'project-actions-single-item';
   const siteLink = document.createElement('a');
-  siteLink.href = project.homepage && project.homepage.trim() ? project.homepage : project.url;
-  siteLink.className = 'button button-github button-site-wide';
+  siteLink.href =
+   project.homepage && project.homepage.trim() ? project.homepage : project.url;
+  siteLink.className = 'button button-site button-site-wide';
   siteLink.target = '_blank';
   siteLink.rel = 'noopener noreferrer';
   siteLink.setAttribute('aria-label', `Ver site do projeto ${formattedName}`);
-  siteLink.innerHTML = '<i class="fas fa-globe" aria-hidden="true"></i> Ver Site';
+  siteLink.innerHTML =
+   '<ion-icon name="open-outline" aria-hidden="true"></ion-icon> Ver site';
   siteItem.appendChild(siteLink);
   actions.appendChild(siteItem);
   actions.classList.add('project-actions-single');
+
+  if (isGitHubProject) {
+   const githubItem = document.createElement('li');
+   const githubLink = document.createElement('a');
+   githubLink.href = project.url;
+   githubLink.className = 'button button-github';
+   githubLink.target = '_blank';
+   githubLink.rel = 'noopener noreferrer';
+   githubLink.setAttribute(
+    'aria-label',
+    `Ver repositório do projeto ${formattedName}`
+   );
+   githubLink.innerHTML =
+    '<i class="fab fa-github" aria-hidden="true"></i> Ver no GitHub';
+   githubItem.appendChild(githubLink);
+   actions.appendChild(githubItem);
+   actions.classList.remove('project-actions-single');
+  }
  } else {
-  // Botão de demo (se disponível)
   if (project.homepage && project.homepage.trim()) {
-   const demoItem = document.createElement('li');
-   const demoLink = document.createElement('a');
-   demoLink.href = project.homepage;
-   demoLink.className = 'button button-demo';
-   demoLink.target = '_blank';
-   demoLink.rel = 'noopener noreferrer';
-   demoLink.setAttribute('aria-label', `Ver demo do projeto ${formattedName}`);
-   demoLink.innerHTML =
-    '<i class="fas fa-external-link-alt" aria-hidden="true"></i> Ver Demo';
-   demoItem.appendChild(demoLink);
-   actions.appendChild(demoItem);
+   const siteItem = document.createElement('li');
+   const siteLink = document.createElement('a');
+   siteLink.href = project.homepage;
+   siteLink.className = 'button button-site-outline';
+   siteLink.target = '_blank';
+   siteLink.rel = 'noopener noreferrer';
+   siteLink.setAttribute('aria-label', `Ver site do projeto ${formattedName}`);
+   siteLink.innerHTML =
+    '<ion-icon name="open-outline" aria-hidden="true"></ion-icon> Ver site';
+   siteItem.appendChild(siteLink);
+   actions.appendChild(siteItem);
   }
 
-  // Botão do repositório
   const githubItem = document.createElement('li');
   const githubLink = document.createElement('a');
   githubLink.href = project.url;
@@ -569,18 +611,23 @@ async function renderNextPage(container, isInitialLoad = false) {
    console.warn(`Erro ao buscar linguagens para ${repo.name}:`, error);
   }
 
+  const homepage = getProjectHomepage(repo.name, repo.homepage);
   const project = {
    name: repo.name,
-   description: repo.description || 'Sem descrição disponível.',
+   description:
+    resolveProjectDescription(repo.name, repo.description) ||
+    'Sem descrição disponível.',
    image: getProjectImage(repo.name),
    url: repo.html_url,
    updatedAt: repo.updated_at,
    language: repo.language,
    languages: languages,
+   stack: resolveProjectStack(repo.name, languages),
    topics: Array.isArray(repo.topics) ? repo.topics : [],
    stars: repo.stargazers_count || 0,
    forks: repo.forks_count || 0,
-   homepage: getProjectHomepage(repo.name, repo.homepage),
+   homepage,
+   isProduction: isProductionProject(repo.name, repo.html_url, homepage),
    isPopular: (repo.stargazers_count || 0) >= POPULAR_STARS_THRESHOLD,
   };
 
@@ -627,35 +674,44 @@ function createProjectsControls() {
 
  controlsContainer.innerHTML = `
   <div class="projects-controls-wrapper">
-   <div class="projects-search">
-    <input
-     type="text"
-     id="projects-search-input"
-     class="projects-search-input"
-     placeholder="Buscar projetos..."
-     aria-label="Buscar projetos por nome"
-     value="${searchFilter}"
-    />
-    <i class="icon solid fa-search projects-search-icon" aria-hidden="true"></i>
-   </div>
-   <div class="projects-count" aria-live="polite" aria-atomic="true">
-    <span class="count-text">Mostrando <strong class="count-displayed">${displayedRepos}</strong> de <strong class="count-total">${
-  allRepos.length
- }</strong> ${allRepos.length === 1 ? 'projeto' : 'projetos'}</span>
-   </div>
-   <div class="projects-sort">
-    <label for="sort-select" class="sort-label">Ordenar por:</label>
-    <select id="sort-select" class="sort-select" aria-label="Ordenar projetos">
-     <option value="updated" ${
-      currentSortOrder === 'updated' ? 'selected' : ''
-     }>Mais recentes</option>
-     <option value="stars" ${
-      currentSortOrder === 'stars' ? 'selected' : ''
-     }>Mais estrelas</option>
-     <option value="name" ${
-      currentSortOrder === 'name' ? 'selected' : ''
-     }>Nome (A-Z)</option>
-    </select>
+   <div class="projects-toolbar">
+    <label class="projects-search" for="projects-search-input">
+     <ion-icon name="search-outline" class="projects-search-icon" aria-hidden="true"></ion-icon>
+     <input
+      type="search"
+      id="projects-search-input"
+      class="projects-search-input"
+      placeholder="Buscar por nome..."
+      aria-label="Buscar projetos por nome"
+      value="${searchFilter}"
+      autocomplete="off"
+      enterkeyhint="search"
+     />
+    </label>
+    <div class="projects-toolbar-meta">
+     <div class="projects-sort">
+      <ion-icon name="swap-vertical-outline" class="projects-sort-icon" aria-hidden="true"></ion-icon>
+      <select id="sort-select" class="sort-select" aria-label="Ordenar projetos">
+       <option value="updated" ${
+        currentSortOrder === 'updated' ? 'selected' : ''
+       }>Mais recentes</option>
+       <option value="stars" ${
+        currentSortOrder === 'stars' ? 'selected' : ''
+       }>Mais estrelas</option>
+       <option value="name" ${
+        currentSortOrder === 'name' ? 'selected' : ''
+       }>Nome (A-Z)</option>
+      </select>
+     </div>
+     <span
+      class="projects-count font-mono"
+      aria-live="polite"
+      aria-atomic="true"
+      aria-label="Projetos visíveis"
+     >
+      <span class="count-displayed">${displayedRepos}</span><span class="projects-count-sep" aria-hidden="true">/</span><span class="count-total">${allRepos.length}</span>
+     </span>
+    </div>
    </div>
   </div>
  `;
@@ -677,6 +733,25 @@ function createProjectsControls() {
    updateProjectsControls();
   });
  }
+
+ const searchInput = document.getElementById('projects-search-input');
+ if (searchInput) {
+  let searchTimeout;
+  searchInput.addEventListener('input', (e) => {
+   clearTimeout(searchTimeout);
+   searchTimeout = setTimeout(() => {
+    searchFilter = e.target.value.trim().toLowerCase();
+    const postsContainer = document.querySelector('.posts');
+    if (postsContainer) {
+     displayedRepos = 0;
+     imageCounter = 0;
+     postsContainer.innerHTML = '';
+     renderNextPage(postsContainer, true);
+    }
+    updateProjectsControls();
+   }, 300);
+  });
+ }
 }
 
 /**
@@ -693,6 +768,8 @@ function updateProjectsControls() {
 
  const countDisplayed = document.querySelector('.count-displayed');
  const countTotal = document.querySelector('.count-total');
+ const countBadge = document.querySelector('.projects-count');
+
  if (countDisplayed) {
   countDisplayed.textContent = displayedRepos;
  }
@@ -700,16 +777,13 @@ function updateProjectsControls() {
   countTotal.textContent = filteredRepos.length;
  }
 
- // Atualizar texto do contador se houver busca
- const countText = document.querySelector('.count-text');
- if (countText && searchFilter) {
-  const projectText = filteredRepos.length === 1 ? 'projeto' : 'projetos';
-  countText.innerHTML = `Mostrando <strong class="count-displayed">${displayedRepos}</strong> de <strong class="count-total">${
-   filteredRepos.length
-  }</strong> ${projectText} encontrado${filteredRepos.length === 1 ? '' : 's'}`;
- } else if (countText && !searchFilter) {
-  const projectText = allRepos.length === 1 ? 'projeto' : 'projetos';
-  countText.innerHTML = `Mostrando <strong class="count-displayed">${displayedRepos}</strong> de <strong class="count-total">${allRepos.length}</strong> ${projectText}`;
+ if (countBadge) {
+  const projectWord = filteredRepos.length === 1 ? 'projeto' : 'projetos';
+  const searchHint = searchFilter ? ` com busca "${searchFilter}"` : '';
+  countBadge.setAttribute(
+   'aria-label',
+   `${displayedRepos} de ${filteredRepos.length} ${projectWord} visíveis${searchHint}`
+  );
  }
 }
 
@@ -868,49 +942,22 @@ function updatePaginationButtons(container) {
  * Obtém a imagem do projeto (prioridade: customizado > padrão)
  */
 function getProjectImage(repoName) {
- // 1. Verificar se tem imagem customizada definida no mapeamento
- // Buscar por nome exato primeiro (case-sensitive)
- if (CUSTOM_REPO_IMAGES[repoName]) {
-  return CUSTOM_REPO_IMAGES[repoName];
+ const catalogImage = resolveProjectImage(repoName);
+ if (catalogImage) {
+  return catalogImage;
  }
 
- // 2. Se não encontrar, buscar case-insensitive
- const repoNameLower = repoName.toLowerCase();
- for (const [key, value] of Object.entries(CUSTOM_REPO_IMAGES)) {
-  if (key.toLowerCase() === repoNameLower) {
-   return value;
-  }
- }
-
- // 3. Fallback: usar imagem padrão baseada no contador (imagens disponíveis: pic03 a pic11)
- const availableImages = 9; // pic03 a pic11
+ // Fallback: imagem padrão baseada no contador (pic03 a pic11)
+ const availableImages = 9;
  const imageIndex = (imageCounter % availableImages) + 3;
  return `images/pic${String(imageIndex).padStart(2, '0')}.jpg`;
 }
 
 /**
- * Obtém a homepage/demo do projeto (prioridade: customizado > GitHub homepage)
- * @param {string} repoName - Nome do repositório
- * @param {string|null} githubHomepage - Homepage configurada no GitHub (se houver)
- * @returns {string|null} URL da homepage ou null
+ * Obtém a homepage/demo do projeto (prioridade: projects.js > GitHub homepage)
  */
 function getProjectHomepage(repoName, githubHomepage) {
- // 1. Verificar se tem homepage customizada definida no mapeamento
- // Buscar por nome exato primeiro (case-sensitive)
- if (CUSTOM_REPO_HOMEPAGES[repoName]) {
-  return CUSTOM_REPO_HOMEPAGES[repoName];
- }
-
- // 2. Se não encontrar, buscar case-insensitive
- const repoNameLower = repoName.toLowerCase();
- for (const [key, value] of Object.entries(CUSTOM_REPO_HOMEPAGES)) {
-  if (key.toLowerCase() === repoNameLower) {
-   return value;
-  }
- }
-
- // 3. Fallback: usar homepage do GitHub (se configurada)
- return githubHomepage || null;
+ return resolveProjectHomepage(repoName, githubHomepage);
 }
 
 /**
@@ -1108,25 +1155,22 @@ function showErrorState(container, error) {
  container.innerHTML = `
         <article>
             <div class="error-state" role="alert">
-                <p>Erro ao carregar projetos do GitHub.</p>
-                <p><small>${escapeHtml(errorMessage)}</small></p>
+                <p>Não foi possível carregar os projetos no momento.</p>
                 ${
                  isRateLimit
-                  ? '<p><small>Dica: A API do GitHub tem um limite de 60 requisições por hora. Aguarde alguns minutos e tente novamente.</small></p>'
-                  : ''
+                  ? '<p><small>A API do GitHub atingiu o limite de requisições. Aguarde alguns minutos e tente novamente.</small></p>'
+                  : '<p><small>Verifique sua conexão e tente novamente.</small></p>'
                 }
                 <ul class="actions">
-                    <li><button class="button" onclick="location.reload()">Tentar novamente</button></li>
+                    <li><button type="button" class="button error-retry-button">Tentar novamente</button></li>
                 </ul>
             </div>
         </article>
     `;
 
- if (window.showToast) {
-  const toastMessage = isRateLimit
-   ? 'Rate limit da API do GitHub. Aguarde alguns minutos.'
-   : 'Erro ao carregar projetos. Verifique sua conexão.';
-  window.showToast(toastMessage, 'error');
+ const retryButton = container.querySelector('.error-retry-button');
+ if (retryButton) {
+  retryButton.addEventListener('click', () => loadGitHubRepos());
  }
 }
 

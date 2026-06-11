@@ -5,6 +5,7 @@
 
 // Importar utilitários
 import { loadGitHubRepos } from './github.js';
+import { renderFeaturedProjects } from './featured-projects.js';
 
 // Importar toast system
 import './toast.js';
@@ -24,8 +25,13 @@ import './darkmode.js';
 // Importar botão voltar ao topo
 import './back-to-top.js';
 
+// Importar experiência (toggle de descrição no mobile)
+import './experience.js';
+
 // Aguardar DOM estar pronto
 function initApp() {
+    renderFeaturedProjects();
+
     // Inicializar carregamento de projetos do GitHub
     // Após carregar, observar novos elementos para animações
     if (document.querySelector('.posts')) {

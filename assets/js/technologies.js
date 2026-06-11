@@ -26,19 +26,34 @@
    * Inicialização
    */
   function init() {
-    grid = document.getElementById('technologies-grid');
+    const section = document.getElementById('tecnologias');
     btnMore = document.getElementById('btn-show-more');
     btnLess = document.getElementById('btn-show-less');
 
-    if (!grid) {
-      console.warn('Grid de tecnologias não encontrado');
+    if (!section) {
+      console.warn('Seção de tecnologias não encontrada');
       return;
     }
 
-    cards = Array.from(grid.querySelectorAll('.technology-card'));
+    grid =
+      section.querySelector('#technologies-grid') ||
+      section.querySelector('.technologies-list');
+    cards = Array.from(section.querySelectorAll('.technology-item'));
 
     if (cards.length === 0) {
-      console.warn('Nenhum card de tecnologia encontrado');
+      return;
+    }
+
+    const panel = section.querySelector('.technologies-panel');
+
+    // Painel unificado: todas as tecnologias visíveis, sem paginação
+    if (panel) {
+      cards.forEach((card) => {
+        card.classList.remove('is-hidden', 'is-revealing');
+        card.removeAttribute('aria-hidden');
+      });
+      if (btnMore) btnMore.classList.add('is-hidden');
+      if (btnLess) btnLess.classList.add('is-hidden');
       return;
     }
 
@@ -80,9 +95,11 @@
    * Calcula quantas colunas o grid tem atualmente
    */
   function calculateColumns() {
-    if (!grid) return;
+    const gridEl =
+      grid || document.querySelector('#tecnologias .technologies-grid');
+    if (!gridEl) return;
 
-    const computedStyle = window.getComputedStyle(grid);
+    const computedStyle = window.getComputedStyle(gridEl);
     const gridTemplateColumns = computedStyle.gridTemplateColumns;
 
     if (gridTemplateColumns && gridTemplateColumns !== 'none') {

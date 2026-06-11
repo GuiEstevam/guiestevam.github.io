@@ -15,6 +15,31 @@
     // Verificar preferência de movimento reduzido
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    /**
+     * Garante que a página abre no topo (evita micro-scroll / restauração do browser)
+     */
+    function initScrollReset() {
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
+        const resetToTop = () => {
+            const hash = window.location.hash;
+            if (!hash || hash === '#hero') {
+                window.scrollTo(0, 0);
+            }
+        };
+
+        resetToTop();
+
+        window.addEventListener('load', resetToTop);
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                resetToTop();
+            }
+        });
+    }
+
     // Intersection Observer para animações
     let animationObserver = null;
     
@@ -170,7 +195,7 @@
                         
                         // Calcular posição considerando header fixo
                         const headerHeight = document.querySelector('.sticky-nav')?.offsetHeight || 0;
-                        const targetPosition = targetElement.offsetTop - headerHeight;
+                        const targetPosition = Math.max(0, targetElement.offsetTop - headerHeight);
                         
                         // Smooth scroll
                         window.scrollTo({
@@ -199,7 +224,7 @@
         
         if (targetElement) {
             const headerHeight = document.querySelector('.sticky-nav')?.offsetHeight || 0;
-            const targetPosition = targetElement.offsetTop - headerHeight;
+            const targetPosition = Math.max(0, targetElement.offsetTop - headerHeight);
             
             window.scrollTo({
                 top: targetPosition,
@@ -256,19 +281,43 @@
     function initHeaderScrollEffect() {
         const nav = document.querySelector('.sticky-nav');
         if (!nav) return;
-        
+
         let lastScroll = 0;
-        
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            
+        let ticking = false;
+        const scrollDelta = 8;
+        const hideAfter = 72;
+
+        const updateNavOnScroll = () => {
+            const currentScroll = Math.max(0, window.pageYOffset || window.scrollY || 0);
+
             if (currentScroll > 50) {
                 nav.classList.add('scrolled');
             } else {
                 nav.classList.remove('scrolled');
+                nav.classList.remove('nav--hidden');
             }
-            
+
+            if (!prefersReducedMotion && currentScroll > hideAfter) {
+                if (currentScroll > lastScroll + scrollDelta) {
+                    nav.classList.add('nav--hidden');
+                    if (window.mobileMenu?.isOpen?.()) {
+                        window.mobileMenu.close();
+                    }
+                } else if (currentScroll < lastScroll - scrollDelta) {
+                    nav.classList.remove('nav--hidden');
+                }
+            } else {
+                nav.classList.remove('nav--hidden');
+            }
+
             lastScroll = currentScroll;
+            ticking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(updateNavOnScroll);
         }, { passive: true });
     }
 
@@ -290,6 +339,9 @@
             element.style.transitionDelay = `${delay}ms`;
         });
     }
+
+    // Reset de scroll o mais cedo possível (antes do paint)
+    initScrollReset();
 
     // Inicializar quando o DOM estiver pronto
     if (document.readyState === 'loading') {

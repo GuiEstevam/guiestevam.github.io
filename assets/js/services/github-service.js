@@ -3,77 +3,15 @@
  * Responsável por buscar dados, cache e tratamento de erros de API
  */
 
+import {
+ EXTERNAL_PROJECTS,
+ getPortfolioProjectsFallback,
+} from '../data/projects.js';
+
 // Configuração
 const GITHUB_USERNAME = 'GuiEstevam';
 const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos`;
 const EXCLUDED_REPOS = ['guiestevam.github.io'];
-const EXTERNAL_PROJECTS = [
-    {
-        name: 'Nerdola Miner',
-        description: 'Loja especializada em ASICs com calculadoras de rentabilidade, suporte e conteúdo para mineração de Bitcoin.',
-        html_url: 'https://nerdolaminer.com.br/',
-        homepage: 'https://nerdolaminer.com.br/',
-        stargazers_count: 0,
-        forks_count: 0,
-        language: 'PHP',
-        topics: ['laravel', 'blade', 'sql', 'php'],
-        updated_at: '2026-04-15T00:00:00Z',
-        fork: false,
-        private: false,
-    },
-    {
-        name: 'Transcende',
-        description: 'Site institucional para yoga, massagens, terapias e locação de espaços em São Paulo.',
-        html_url: 'https://transcende.vercel.app/',
-        homepage: 'https://transcende.vercel.app/',
-        stargazers_count: 0,
-        forks_count: 0,
-        language: 'JavaScript',
-        topics: ['html', 'css', 'javascript', 'landing-page'],
-        updated_at: '2026-04-15T00:00:00Z',
-        fork: false,
-        private: false,
-    },
-    {
-        name: 'LGF Contabilidade',
-        description: 'Landing page institucional de contabilidade e consultoria para empresas.',
-        html_url: 'https://lgf-nu.vercel.app/',
-        homepage: 'https://lgf-nu.vercel.app/',
-        stargazers_count: 0,
-        forks_count: 0,
-        language: 'JavaScript',
-        topics: ['html', 'css', 'javascript', 'institucional'],
-        updated_at: '2026-04-15T00:00:00Z',
-        fork: false,
-        private: false,
-    },
-    {
-        name: 'SkyFashion',
-        description: 'E-commerce de moda esportiva com catálogo, categorias e carrinho de compras.',
-        html_url: 'https://skyfashion.pt/',
-        homepage: 'https://skyfashion.pt/',
-        stargazers_count: 0,
-        forks_count: 0,
-        language: 'PHP',
-        topics: ['laravel', 'blade', 'sql', 'php', 'ecommerce'],
-        updated_at: '2026-04-15T00:00:00Z',
-        fork: false,
-        private: false,
-    },
-    {
-        name: 'Ntinformatica',
-        description: 'Site institucional da NT Informática com foco em suporte técnico e soluções completas em TI.',
-        html_url: 'https://nt-informatica.vercel.app/',
-        homepage: 'https://nt-informatica.vercel.app/',
-        stargazers_count: 0,
-        forks_count: 0,
-        language: 'JavaScript',
-        topics: ['html', 'css', 'javascript', 'institucional'],
-        updated_at: '2026-04-15T00:00:00Z',
-        fork: false,
-        private: false,
-    },
-];
 const CACHE_KEY = 'github_repos_cache';
 const CACHE_TIMESTAMP_KEY = 'github_repos_cache_timestamp';
 const CACHE_DURATION = 60 * 60 * 1000; // 1 hora
@@ -84,54 +22,58 @@ const LANG_CACHE_DURATION = 60 * 60 * 1000; // 1 hora
 const languagesMemoryCache = new Map();
 
 /**
- * Busca repositórios da API do GitHub ou do cache
- * @returns {Promise<Array>} Lista de repositórios filtrados
+ * Busca repositórios da API do GitHub, cache ou catálogo local
+ * @returns {Promise<{ repos: Array, source: 'api'|'cache'|'stale-cache'|'local' }>}
  */
 export async function fetchRepositories() {
-    // 1. Verificar cache
-    const cachedRepos = getCachedRepos();
-    if (cachedRepos) {
-        console.log('Usando dados em cache (GitHub API)');
-        return mergeWithExternalProjects(cachedRepos);
-    }
+ const cachedRepos = getCachedRepos();
+ if (cachedRepos) {
+  return {
+   repos: mergeWithExternalProjects(cachedRepos),
+   source: 'cache',
+  };
+ }
 
-    // 2. Buscar da API
-    try {
-        const response = await fetch(GITHUB_API_URL, {
-            headers: {
-                Accept: 'application/vnd.github.v3+json',
-            },
-        });
+ try {
+  const response = await fetch(GITHUB_API_URL, {
+   headers: {
+    Accept: 'application/vnd.github.v3+json',
+   },
+  });
 
-        if (!response.ok) {
-            // Fallback para cache antigo em caso de rate limit
-            if (response.status === 403) {
-                const oldCache = localStorage.getItem(CACHE_KEY);
-                if (oldCache) {
-                    console.warn('Rate limit atingido, usando cache antigo');
-                    return mergeWithExternalProjects(JSON.parse(oldCache));
-                }
-            }
-            throw new Error(formatErrorMessage(response.status));
-        }
+  if (!response.ok) {
+   const fallback = resolveFallbackRepos();
+   if (fallback) {
+    console.warn(
+     `GitHub API retornou ${response.status}, usando ${fallback.source}`
+    );
+    return fallback;
+   }
+   throw new Error(formatErrorMessage(response.status));
+  }
 
-        const repos = await response.json();
-        
-        // Filtrar repositórios
-        const filteredRepos = repos.filter((repo) => {
-            if (repo.fork || repo.private) return false;
-            if (EXCLUDED_REPOS.includes(repo.name)) return false;
-            return true;
-        });
+  const repos = await response.json();
+  const filteredRepos = repos.filter((repo) => {
+   if (repo.fork || repo.private) return false;
+   if (EXCLUDED_REPOS.includes(repo.name)) return false;
+   return true;
+  });
 
-        // Salvar no cache
-        setCachedRepos(filteredRepos);
-        
-        return mergeWithExternalProjects(filteredRepos);
+  setCachedRepos(filteredRepos);
 
-    } catch (error) {
-        throw new Error(`Falha ao buscar repositórios: ${error.message}`);
-    }
+  return {
+   repos: mergeWithExternalProjects(filteredRepos),
+   source: 'api',
+  };
+ } catch (error) {
+  const fallback = resolveFallbackRepos();
+  if (fallback) {
+   console.warn('GitHub API indisponível, usando catálogo local.', error);
+   return fallback;
+  }
+
+  throw new Error(`Falha ao buscar repositórios: ${error.message}`);
+ }
 }
 
 /**
@@ -205,14 +147,45 @@ function setCachedRepos(repos) {
 }
 
 function mergeWithExternalProjects(repos) {
-    if (!Array.isArray(repos)) return [...EXTERNAL_PROJECTS];
+ if (!Array.isArray(repos)) return [...EXTERNAL_PROJECTS];
 
-    const repoNames = new Set(repos.map((repo) => repo?.name).filter(Boolean));
-    const missingExternalProjects = EXTERNAL_PROJECTS.filter(
-        (externalProject) => !repoNames.has(externalProject.name)
-    );
+ const repoNames = new Set(repos.map((repo) => repo?.name).filter(Boolean));
+ const missingExternalProjects = EXTERNAL_PROJECTS.filter(
+  (externalProject) => !repoNames.has(externalProject.name)
+ );
 
-    return [...repos, ...missingExternalProjects];
+ return [...repos, ...missingExternalProjects];
+}
+
+function resolveFallbackRepos() {
+ const staleCache = getStaleCachedRepos();
+ if (Array.isArray(staleCache) && staleCache.length > 0) {
+  return {
+   repos: mergeWithExternalProjects(staleCache),
+   source: 'stale-cache',
+  };
+ }
+
+ const localRepos = getPortfolioProjectsFallback();
+ if (localRepos.length > 0) {
+  return {
+   repos: localRepos,
+   source: 'local',
+  };
+ }
+
+ return null;
+}
+
+function getStaleCachedRepos() {
+ try {
+  const cachedData = localStorage.getItem(CACHE_KEY);
+  if (!cachedData) return null;
+  return JSON.parse(cachedData);
+ } catch (error) {
+  console.warn('Erro ao ler cache expirado:', error);
+  return null;
+ }
 }
 
 function formatErrorMessage(status) {

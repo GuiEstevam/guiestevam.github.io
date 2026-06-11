@@ -25,27 +25,34 @@
 
   const DARK_MODE_KEY = 'darkMode';
   const DARK_MODE_CLASS = 'dark-mode';
+  const SHOW_NAV_TOGGLE = false;
   let buttonCreated = false;
+
+  function removeNavToggleButton() {
+   document
+    .querySelectorAll(
+     '#dark-mode-toggle, .dark-mode-toggle, [aria-label*="modo escuro"], [aria-label*="modo claro"]'
+    )
+    .forEach((btn) => {
+     const parent = btn.closest('li');
+     if (parent) {
+      parent.remove();
+     } else {
+      btn.remove();
+     }
+    });
+   buttonCreated = false;
+  }
 
   // Verificar preferência salva ou preferência do sistema
   function initDarkMode() {
    const savedMode = localStorage.getItem(DARK_MODE_KEY);
-   const prefersDark = window.matchMedia(
-    '(prefers-color-scheme: dark)'
-   ).matches;
 
-   // Se não houver preferência salva, usar a preferência do sistema
-   if (savedMode === null) {
-    if (prefersDark) {
-     enableDarkMode(false); // false = não salvar (será salvo no primeiro toggle)
-    }
+   // Padrão: dark ao abrir; respeitar preferência salva
+   if (savedMode === null || savedMode === 'true') {
+    enableDarkMode(false);
    } else {
-    // Usar preferência salva
-    if (savedMode === 'true') {
-     enableDarkMode(false);
-    } else {
-     disableDarkMode(false);
-    }
+    disableDarkMode(false);
    }
   }
 
@@ -102,6 +109,11 @@
   }
 
   function createToggleButton() {
+   if (!SHOW_NAV_TOGGLE) {
+    removeNavToggleButton();
+    return;
+   }
+
    // Verificação de segurança - evitar múltiplas criações
    if (buttonCreated || document.getElementById('dark-mode-toggle')) {
     return;
@@ -216,19 +228,27 @@
    initCalled = true;
 
    initDarkMode();
+   removeNavToggleButton();
 
-   // Usar requestAnimationFrame e setTimeout para garantir que o DOM está totalmente renderizado
-   requestAnimationFrame(() => {
+   if (SHOW_NAV_TOGGLE) {
+    // Usar requestAnimationFrame e setTimeout para garantir que o DOM está totalmente renderizado
     requestAnimationFrame(() => {
-     setTimeout(() => {
-      createToggleButton();
-     }, 100);
+     requestAnimationFrame(() => {
+      setTimeout(() => {
+       createToggleButton();
+      }, 100);
+     });
     });
-   });
+   }
   }
 
   // Mover botão entre containers ao redimensionar a janela
   function handleResize() {
+   if (!SHOW_NAV_TOGGLE) {
+    removeNavToggleButton();
+    return;
+   }
+
    const toggleBtn = document.getElementById('dark-mode-toggle');
    if (!toggleBtn) return;
 

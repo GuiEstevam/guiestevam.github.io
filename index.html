@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark-mode">
  <head>
-  <title>Portfólio - Guilherme Estevam</title>
+  <script>
+   (function () {
+    try {
+     var saved = localStorage.getItem('darkMode');
+     if (saved === 'false') {
+      document.documentElement.classList.remove('dark-mode');
+     } else {
+      document.documentElement.classList.add('dark-mode');
+     }
+    } catch (e) {
+     document.documentElement.classList.add('dark-mode');
+    }
+   })();
+  </script>
+  <title>Guilherme Estevam — Full Stack Laravel & Vue.js</title>
   <meta charset="utf-8" />
   <meta
    name="viewport"
    content="width=device-width, initial-scale=1, user-scalable=no"
   />
+  <meta name="theme-color" content="#0a0f16" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
   <meta
    name="description"
-   content="Portfólio de Guilherme Estevam - Desenvolvedor de Software"
+   content="Desenvolvedor Full Stack — PHP, Laravel e Vue.js. Projetos em produção, do backend à entrega."
   />
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://guiestevam.github.io/" />
-  <meta property="og:title" content="Portfólio - Guilherme Estevam" />
+  <meta property="og:title" content="Guilherme Estevam — Full Stack Laravel & Vue.js" />
   <meta
    property="og:description"
-   content="Desenvolvedor Full Stack especializado em PHP, Laravel, Vue.js e Python. Transformando ideias em soluções digitais modernas e eficientes."
+   content="Desenvolvedor Full Stack especializado em PHP, Laravel e Vue.js — do backend à entrega em produção."
   />
   <meta
    property="og:image"
@@ -27,10 +44,10 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://guiestevam.github.io/" />
-  <meta name="twitter:title" content="Portfólio - Guilherme Estevam" />
+  <meta name="twitter:title" content="Guilherme Estevam — Full Stack Laravel & Vue.js" />
   <meta
    name="twitter:description"
-   content="Desenvolvedor Full Stack especializado em PHP, Laravel, Vue.js e Python. Transformando ideias em soluções digitais modernas e eficientes."
+   content="Desenvolvedor Full Stack especializado em PHP, Laravel e Vue.js — do backend à entrega em produção."
   />
   <meta
    name="twitter:image"
@@ -39,6 +56,7 @@
   <link rel="stylesheet" href="assets/css/base.css" />
   <link rel="stylesheet" href="assets/css/toast.css" />
   <link rel="stylesheet" href="assets/css/custom.css" />
+  <link rel="stylesheet" href="assets/css/dev-theme.css" />
   <script
    type="module"
    src="https://unpkg.com/ionicons@latest/dist/ionicons/ionicons.esm.js"
@@ -73,71 +91,95 @@
         type="button"
        >
         <span class="menu-toggle-icon">
-         <span class="icon solid fa-bars" aria-hidden="true"></span>
+         <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
         </span>
        </button>
        <ul class="nav-menu" id="nav-menu">
-        <li>
-         <a href="#hero" class="nav-link" aria-label="Ir para início">Início</a>
+        <li class="nav-link-item--mobile-only">
+         <a href="#hero" class="nav-link" aria-label="Ir para início">
+          <ion-icon name="home-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
+          <span>Início</span>
+         </a>
         </li>
         <li>
-         <a href="#sobre" class="nav-link" aria-label="Ir para sobre">Sobre</a>
+         <a href="#destaques" class="nav-link" aria-label="Ir para destaques">
+          <ion-icon name="star-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
+          <span>Destaques</span>
+         </a>
+        </li>
+        <li class="nav-link-item--mobile-only">
+         <a href="#sobre" class="nav-link" aria-label="Ir para sobre">
+          <ion-icon name="person-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
+          <span>Sobre</span>
+         </a>
+        </li>
+        <li class="nav-link-item--mobile-only">
+         <a href="#projetos" class="nav-link" aria-label="Ir para projetos">
+          <ion-icon name="folder-open-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
+          <span>Projetos</span>
+         </a>
         </li>
         <li>
          <a
           href="#experiencia"
           class="nav-link"
           aria-label="Ir para experiência profissional"
-          >Experiência</a
          >
+          <ion-icon name="briefcase-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
+          <span>Experiência</span>
+         </a>
+        </li>
+        <li class="nav-link-item--mobile-only">
+         <a
+          href="#tecnologias"
+          class="nav-link"
+          aria-label="Ir para tecnologias"
+         >
+          <ion-icon name="hardware-chip-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
+          <span>Tecnologias</span>
+         </a>
         </li>
         <li>
          <a
           href="#publicacoes"
           class="nav-link"
           aria-label="Ir para publicações"
-          >Publicações</a
          >
+          <ion-icon name="newspaper-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
+          <span>Publicações</span>
+         </a>
         </li>
-        <li>
-         <a
-          href="#tecnologias"
-          class="nav-link"
-          aria-label="Ir para tecnologias"
-          >Tecnologias</a
-         >
-        </li>
-        <li>
-         <a href="#projetos" class="nav-link" aria-label="Ir para projetos"
-          >Projetos</a
-         >
-        </li>
-        <li>
-         <a href="#contato" class="nav-link" aria-label="Ir para contato"
-          >Contato</a
-         >
+        <li class="nav-link-item--mobile-only">
+         <a href="#contato" class="nav-link" aria-label="Ir para contato">
+          <ion-icon name="mail-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
+          <span>Contato</span>
+         </a>
         </li>
         <li class="nav-menu-icons">
          <ul class="icons nav-menu-social">
           <li>
            <a
             href="https://github.com/GuiEstevam"
-            class="icon brands fa-github"
+            class="nav-social-link"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Perfil no GitHub"
-            ><span class="label">Github</span></a
            >
+            <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
+            <span class="label">Github</span>
+           </a>
           </li>
           <li>
            <a
             href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
-            class="icon brands fa-linkedin"
+            class="nav-social-link"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Perfil no LinkedIn"
-            ><span class="label">Linkedin</span></a
            >
+            <ion-icon name="logo-linkedin" aria-hidden="true"></ion-icon>
+            <span class="label">Linkedin</span>
+           </a>
           </li>
          </ul>
         </li>
@@ -147,22 +189,26 @@
          <li>
           <a
            href="https://github.com/GuiEstevam"
-           class="icon brands fa-github"
+           class="nav-social-link nav-social-link--compact"
            target="_blank"
            rel="noopener noreferrer"
            aria-label="Perfil no GitHub"
-           ><span class="label">Github</span></a
           >
+           <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
+           <span class="label">Github</span>
+          </a>
          </li>
          <li>
           <a
            href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
-           class="icon brands fa-linkedin"
+           class="nav-social-link nav-social-link--compact"
            target="_blank"
            rel="noopener noreferrer"
            aria-label="Perfil no LinkedIn"
-           ><span class="label">Linkedin</span></a
           >
+           <ion-icon name="logo-linkedin" aria-hidden="true"></ion-icon>
+           <span class="label">Linkedin</span>
+          </a>
          </li>
         </ul>
        </div>
@@ -175,61 +221,142 @@
       class="full-viewport-section"
       data-section="hero"
       aria-labelledby="hero-heading"
+      aria-describedby="hero-subtitle"
      >
+      <div class="hero-ambient" aria-hidden="true">
+       <span class="hero-orb hero-orb--primary"></span>
+       <span class="hero-orb hero-orb--secondary"></span>
+      </div>
       <div class="hero-content">
-       <header class="hero-header">
-        <p class="hero-name reveal-on-scroll" data-delay="0">
-         Olá, eu sou <strong>Guilherme Estevam</strong>
-        </p>
-        <h1
-         id="hero-heading"
-         class="hero-title reveal-on-scroll"
-         data-delay="0.1"
+       <div class="hero-split">
+        <div class="hero-copy">
+         <div class="hero-headline">
+          <p
+           class="hero-eyebrow reveal-on-scroll"
+           data-delay="0"
+          >
+           Olá, eu sou o Guilherme
+          </p>
+          <h1
+           id="hero-heading"
+           class="hero-title reveal-on-scroll"
+           data-delay="0.1"
+          >
+           Desenvolvedor Full Stack
+          </h1>
+         </div>
+         <p
+          id="hero-subtitle"
+          class="hero-subtitle reveal-on-scroll"
+          data-delay="0.2"
+         >
+          Com <strong>Laravel</strong> e <strong>Vue.js</strong>, desenvolvo do
+          backend à interface — com entregas reais em produção.
+         </p>
+        <aside
+         class="hero-visual reveal-on-scroll"
+         data-delay="0.25"
+         aria-label="Terminal decorativo com mensagem de boas-vindas em PHP"
         >
-         Transformando ideias em<br />
-         <strong>soluções digitais</strong>
-        </h1>
-        <p class="hero-subtitle reveal-on-scroll" data-delay="0.3">
-         Desenvolvedor Full Stack
-        </p>
-        <p class="hero-description reveal-on-scroll" data-delay="0.4">
-         Criando aplicações modernas e eficientes com tecnologias de ponta.
-         Explore meus projetos e descubra como posso ajudar no seu próximo
-         desafio.
-        </p>
-        <div class="hero-actions reveal-on-scroll" data-delay="0.6">
-         <a
-          href="#projetos"
-          class="button hero-button-primary"
-          aria-label="Ver projetos do portfólio"
+         <div class="hero-terminal">
+          <div class="hero-terminal-bar">
+           <span class="hero-terminal-dot hero-terminal-dot--close" aria-hidden="true"></span>
+           <span class="hero-terminal-dot hero-terminal-dot--min" aria-hidden="true"></span>
+           <span class="hero-terminal-dot hero-terminal-dot--max" aria-hidden="true"></span>
+           <span class="hero-terminal-title font-mono">welcome.php</span>
+          </div>
+          <div class="hero-terminal-body font-mono" aria-hidden="true">
+           <p><span class="hero-code-tag">&lt;?php</span></p>
+           <p class="hero-code-blank" aria-hidden="true">&nbsp;</p>
+           <p><span class="hero-code-var">$dev</span> = <span class="hero-code-str">'Guilherme'</span>;</p>
+           <p class="hero-code-blank" aria-hidden="true">&nbsp;</p>
+           <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Olá! Bem-vindo ao meu portfólio.\n"</span>;</p>
+           <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Sou {$dev}, desenvolvedor Full Stack.\n"</span>;</p>
+           <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Stack: Laravel · Vue.js · PHP · MySQL\n"</span>;</p>
+           <p class="hero-code-blank" aria-hidden="true">&nbsp;</p>
+           <p><span class="hero-code-comment">// Explore os projetos abaixo</span></p>
+           <p><span class="hero-code-tag">?&gt;</span></p>
+          </div>
+         </div>
+         <ul
+          class="hero-stack reveal-on-scroll"
+          data-delay="0.35"
+          aria-label="Stack principal"
          >
-          <i class="icon solid fa-briefcase" aria-hidden="true"></i>
-          <span>Ver Projetos</span>
-         </a>
-         <a
-          href="#contato"
-          class="button button-secondary hero-button-secondary"
-          aria-label="Entrar em contato"
-         >
-          <i class="icon solid fa-envelope" aria-hidden="true"></i>
-          <span>Entrar em Contato</span>
-         </a>
-         <a
-          href="/curriculo-guilherme-lima.pdf"
-          class="button button-secondary hero-button-resume"
-          aria-label="Baixar currículo em PDF"
-          download="curriculo-guilherme-lima.pdf"
-         >
-          <i class="icon solid fa-download" aria-hidden="true"></i>
-          <span>Baixar Currículo</span>
-         </a>
+          <li class="stack-pill stack-pill--hero-primary">
+           <i class="fab fa-php" aria-hidden="true"></i>
+           <span>PHP</span>
+          </li>
+          <li class="stack-pill stack-pill--hero-primary">
+           <i class="fab fa-laravel" aria-hidden="true"></i>
+           <span>Laravel</span>
+          </li>
+          <li class="stack-pill stack-pill--hero-primary">
+           <i class="fab fa-vuejs" aria-hidden="true"></i>
+           <span>Vue.js</span>
+          </li>
+          <li class="stack-pill stack-pill--hero-extra">
+           <i class="fas fa-database" aria-hidden="true"></i>
+           <span>MySQL</span>
+          </li>
+          <li class="stack-pill stack-pill--hero-extra">
+           <i class="fab fa-git-alt" aria-hidden="true"></i>
+           <span>Git</span>
+          </li>
+          <li class="stack-pill stack-pill--hero-extra">
+           <i class="fab fa-docker" aria-hidden="true"></i>
+           <span>Docker</span>
+          </li>
+         </ul>
+        </aside>
+        <div class="hero-body">
+         <div class="hero-actions reveal-on-scroll" data-delay="0.5">
+          <a
+           href="#destaques"
+           class="button hero-button-primary"
+           aria-label="Ver projetos em destaque"
+          >
+           <i class="icon solid fa-folder-open" aria-hidden="true"></i>
+           <span>Ver Projetos</span>
+          </a>
+          <div class="hero-social" role="group" aria-label="Redes profissionais">
+           <a
+            href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
+            class="hero-social-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Perfil no LinkedIn"
+           >
+            <i class="icon brands fa-linkedin" aria-hidden="true"></i>
+           </a>
+           <a
+            href="https://github.com/GuiEstevam"
+            class="hero-social-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Perfil no GitHub"
+           >
+            <i class="icon brands fa-github" aria-hidden="true"></i>
+           </a>
+          </div>
+          <a
+           href="/curriculo-guilherme-lima.pdf"
+           class="button hero-button-resume"
+           aria-label="Baixar currículo em PDF"
+           download="curriculo-guilherme-lima.pdf"
+          >
+           <i class="icon solid fa-file-pdf" aria-hidden="true"></i>
+           <span>Currículo</span>
+          </a>
+         </div>
         </div>
-       </header>
+        </div>
+       </div>
       </div>
       <a
-       href="#sobre"
+       href="#destaques"
        class="scroll-indicator"
-       aria-label="Rolar para próxima seção"
+       aria-label="Rolar para projetos em destaque"
       >
        <span class="scroll-indicator-text">Explorar</span>
        <i
@@ -237,6 +364,44 @@
         aria-hidden="true"
        ></i>
       </a>
+     </section>
+
+     <!-- Divider -->
+     <div class="section-divider"></div>
+
+     <!-- Destaques Section -->
+     <section
+      id="destaques"
+      class="full-viewport-section"
+      data-section="destaques"
+      aria-labelledby="destaques-heading"
+     >
+      <div class="section-content">
+       <header class="section-header">
+        <h2 id="destaques-heading" class="section-title reveal-on-scroll">
+         Destaques
+        </h2>
+        <p class="section-subtitle reveal-on-scroll" data-delay="0.1">
+         Projetos entregues e em produção — do e-commerce à landing
+         institucional
+        </p>
+       </header>
+       <div
+        id="featured-projects-grid"
+        class="featured-bento"
+        role="list"
+        aria-label="Projetos em destaque"
+       ></div>
+       <p class="featured-section-footer reveal-on-scroll" data-delay="0.3">
+        <a href="#projetos" class="featured-section-link">
+         <span>Ver todos os projetos</span>
+         <ion-icon
+          name="arrow-forward-outline"
+          aria-hidden="true"
+         ></ion-icon>
+        </a>
+       </p>
+      </div>
      </section>
 
      <!-- Divider -->
@@ -254,47 +419,43 @@
         <h2 id="sobre-heading" class="section-title reveal-on-scroll">
          Sobre Mim
         </h2>
+        <p class="section-subtitle reveal-on-scroll" data-delay="0.1">
+         Da operação de TI ao desenvolvimento — com foco em resultado
+        </p>
        </header>
 
-       <!-- Card About - Layout similar aos cards de projetos -->
-       <article class="about-card reveal-on-scroll">
-        <!-- Foto de Perfil -->
+       <article class="about-card reveal-on-scroll" data-delay="0.15">
         <div class="about-image">
          <div class="about-image-wrapper">
           <img
            src="images/guilherme-lima.jpg"
            alt="Guilherme Estevam - Desenvolvedor de Software"
            class="about-photo"
-           width="180"
-           height="180"
+           width="140"
+           height="140"
            loading="lazy"
           />
          </div>
         </div>
 
-        <!-- Conteúdo -->
         <div class="about-article-content">
          <div class="about-body">
           <div class="about-description">
            <p>
-            Sou um desenvolvedor de software apaixonado por tecnologia, com
-            experiência sólida em desenvolvimento web e um interesse crescente
-            em DevOps e Cloud Computing. Trabalho com tecnologias modernas como
-            <strong>PHP</strong>, <strong>Laravel</strong>,
-            <strong>Vue.js</strong> e <strong>Python</strong>, sempre buscando
-            aprimorar minhas habilidades e aprender novas ferramentas que me
-            permitam criar soluções inovadoras e eficientes. Meu objetivo é
-            desenvolver aplicações de alta qualidade que gerem valor real e
-            façam a diferença nos projetos em que atuo.
+            Desenvolvedor Full Stack com experiência em
+            <strong>Laravel</strong> e <strong>Vue.js</strong>, do backend à
+            interface — com projetos já em produção.
+           </p>
+           <p>
+            Vim do suporte de TI e aplico essa visão prática em cada entrega:
+            código organizado, prazos cumpridos e soluções que funcionam no dia
+            a dia.
            </p>
           </div>
-         </div>
 
-         <div class="about-footer">
-          <!-- Estatísticas -->
           <section class="about-stats" aria-labelledby="about-stats-heading">
-           <h3 id="about-stats-heading" class="about-subtitle visually-hidden">
-            Estatísticas Profissionais
+           <h3 id="about-stats-heading" class="visually-hidden">
+            Estatísticas profissionais
            </h3>
            <div
             class="about-stats-grid"
@@ -303,62 +464,64 @@
            >
             <div class="about-stat-item" role="listitem">
              <span
-              class="about-stat-number"
+              class="about-stat-number font-mono"
               aria-label="3 ou mais anos de experiência"
               >3+</span
              >
-             <span class="about-stat-label">Anos de Experiência</span>
+             <span class="about-stat-label">anos de experiência</span>
             </div>
             <div class="about-stat-item" role="listitem">
              <span
-              class="about-stat-number"
-              aria-label="12 ou mais tecnologias dominadas"
+              class="about-stat-number font-mono"
+              aria-label="12 ou mais tecnologias"
               >12+</span
              >
-             <span class="about-stat-label">Tecnologias</span>
+             <span class="about-stat-label">tecnologias</span>
             </div>
             <div class="about-stat-item" role="listitem">
              <span
-              class="about-stat-number"
-              aria-label="20 ou mais projetos desenvolvidos"
+              class="about-stat-number font-mono"
+              aria-label="20 ou mais projetos"
               >20+</span
              >
-             <span class="about-stat-label">Projetos</span>
+             <span class="about-stat-label">projetos</span>
             </div>
            </div>
           </section>
 
-          <!-- Interesses -->
           <section
            class="about-interests"
            aria-labelledby="about-interests-heading"
           >
-           <h3 id="about-interests-heading" class="about-interests-title">
-            Áreas de Interesse
+           <h3
+            id="about-interests-heading"
+            class="about-interests-title font-mono"
+           >
+            Áreas de interesse
            </h3>
-           <div
+           <ul
             class="about-interests-list"
             role="list"
-            aria-label="Lista de áreas de interesse"
+            aria-label="Áreas de interesse"
            >
-            <span class="about-interest-badge" role="listitem">DevOps</span>
-            <span class="about-interest-badge" role="listitem"
-             >Desenvolvimento Web</span
-            >
-            <span class="about-interest-badge" role="listitem"
-             >APIs RESTful</span
-            >
-            <span class="about-interest-badge" role="listitem"
-             >Cloud Computing</span
-            >
-            <span class="about-interest-badge" role="listitem"
-             >Arquitetura de Software</span
-            >
-            <span class="about-interest-badge" role="listitem"
-             >Testes Automatizados</span
-            >
-           </div>
+            <li class="stack-pill" role="listitem">Laravel</li>
+            <li class="stack-pill" role="listitem">Vue.js</li>
+            <li class="stack-pill" role="listitem">APIs RESTful</li>
+            <li class="stack-pill" role="listitem">DevOps</li>
+            <li class="stack-pill" role="listitem">Docker</li>
+            <li class="stack-pill" role="listitem">Testes</li>
+           </ul>
           </section>
+
+          <p class="about-section-footer">
+           <a href="#tecnologias" class="about-section-link">
+            <span>Ver tecnologias</span>
+            <ion-icon
+             name="arrow-forward-outline"
+             aria-hidden="true"
+            ></ion-icon>
+           </a>
+          </p>
          </div>
         </div>
        </article>
@@ -366,6 +529,42 @@
      </section>
 
      <!-- Divider -->
+     <div class="section-divider"></div>
+
+     <!-- Projetos Section -->
+     <section
+      id="projetos"
+      class="full-viewport-section projects-section"
+      data-section="projetos"
+      aria-labelledby="projects-heading"
+     >
+      <div class="section-content">
+       <header class="section-header">
+        <h2 id="projects-heading" class="section-title reveal-on-scroll">
+         Projetos
+        </h2>
+        <p class="section-subtitle reveal-on-scroll">
+         Repositórios open source e projetos entregues — do GitHub ao deploy
+        </p>
+       </header>
+       <div
+        id="projects-controls"
+        class="projects-controls"
+        aria-label="Controles de projetos"
+       >
+        <!-- Controles de ordenação e contador serão inseridos aqui via JavaScript -->
+       </div>
+       <div class="posts" role="list" aria-label="Lista de projetos">
+        <!-- Projetos serão carregados dinamicamente via GitHub API -->
+        <article role="listitem" aria-busy="true">
+         <div class="loading-state" role="status" aria-live="polite">
+          <p>Carregando projetos...</p>
+         </div>
+        </article>
+       </div>
+      </div>
+     </section>
+<!-- Divider -->
      <div class="section-divider"></div>
 
      <!-- Experiência Section -->
@@ -386,18 +585,15 @@
        </header>
 
        <div class="experience-timeline-wrapper">
-        <!-- Linha horizontal da timeline (desktop) -->
-        <div class="experience-timeline-line" aria-hidden="true"></div>
-
         <ul
          class="experience-timeline"
          role="list"
          aria-label="Histórico profissional"
         >
          <!-- Experiência 1: Suporte de T.I - NT Serviços -->
-         <li class="experience-item" role="listitem">
+         <li class="experience-item experience-item--current" role="listitem">
           <div class="experience-marker" aria-hidden="true"></div>
-          <div class="experience-card reveal-on-scroll">
+          <div class="experience-card experience-card--current reveal-on-scroll">
            <div class="experience-header">
             <div class="experience-title-wrapper">
              <h3 class="experience-title">Suporte de T.I</h3>
@@ -405,7 +601,8 @@
               NT Serviços e Comércio de Informática
              </p>
             </div>
-            <div class="experience-badge">
+            <div class="experience-badges">
+             <span class="experience-badge-text experience-badge-text--current">Atual</span>
              <span class="experience-badge-text">Terceirizado</span>
             </div>
            </div>
@@ -432,16 +629,16 @@
          </li>
 
          <!-- Experiência 2: Desenvolvedor Fullstack - UNIMAIS -->
-         <li class="experience-item" role="listitem">
+         <li class="experience-item experience-item--featured" role="listitem">
           <div class="experience-marker" aria-hidden="true"></div>
-          <div class="experience-card reveal-on-scroll">
+          <div class="experience-card experience-card--highlight reveal-on-scroll">
            <div class="experience-header">
             <div class="experience-title-wrapper">
              <h3 class="experience-title">Desenvolvedor Fullstack</h3>
              <p class="experience-company">UNIMAIS - Faculdade Educamais</p>
             </div>
-            <div class="experience-badge">
-             <span class="experience-badge-text">Tempo integral</span>
+            <div class="experience-badges">
+             <span class="experience-badge-text experience-badge-text--dev">Dev</span>
             </div>
            </div>
            <div class="experience-meta">
@@ -455,22 +652,33 @@
             <i class="icon solid fa-map-marker-alt" aria-hidden="true"></i>
             São Paulo, Brasil · Remota
            </div>
+           <ul class="experience-stack" aria-label="Stack utilizada">
+            <li class="stack-pill">
+             <i class="fab fa-laravel" aria-hidden="true"></i>
+             <span>Laravel</span>
+            </li>
+            <li class="stack-pill">
+             <i class="fab fa-vuejs" aria-hidden="true"></i>
+             <span>Vue.js</span>
+            </li>
+            <li class="stack-pill">
+             <i class="fas fa-database" aria-hidden="true"></i>
+             <span>MySQL</span>
+            </li>
+           </ul>
            <div class="experience-description">
             <p>
              Participei no desenvolvimento e testes de um projeto em
-             implementação, focando na melhoria das funcionalidades e na
-             resolução de problemas técnicos. Desenvolvi ajustes e melhorias na
-             aplicação, utilizando principalmente os frameworks
-             <strong>Laravel (PHP)</strong> e
-             <strong>Vue.js (JavaScript)</strong>, além de
-             <strong>MySQL</strong> para o gerenciamento de banco de dados.
+             implementação, com foco em melhorias de funcionalidades e
+             resolução de problemas técnicos em ambiente Laravel com
+             interface Vue.js.
             </p>
            </div>
           </div>
          </li>
 
          <!-- Experiência 3: Assistente de TI - Campos Contabilidade -->
-         <li class="experience-item" role="listitem">
+         <li class="experience-item experience-item--parallel" role="listitem">
           <div class="experience-marker" aria-hidden="true"></div>
           <div class="experience-card reveal-on-scroll">
            <div class="experience-header">
@@ -480,10 +688,14 @@
               Campos Contabilidade e Consultoria Ltda.
              </p>
             </div>
-            <div class="experience-badge">
+            <div class="experience-badges">
              <span class="experience-badge-text">Tempo integral</span>
             </div>
            </div>
+           <p class="experience-parallel-note">
+            <i class="icon solid fa-layer-group" aria-hidden="true"></i>
+            Exercido em paralelo com o cargo na Online Certificadora.
+           </p>
            <div class="experience-meta">
             <span class="experience-period">
              <i class="icon solid fa-calendar" aria-hidden="true"></i>
@@ -508,7 +720,7 @@
          </li>
 
          <!-- Experiência 4: Agente Certificador - Online Certificadora -->
-         <li class="experience-item" role="listitem">
+         <li class="experience-item experience-item--parallel" role="listitem">
           <div class="experience-marker" aria-hidden="true"></div>
           <div class="experience-card reveal-on-scroll">
            <div class="experience-header">
@@ -516,10 +728,14 @@
              <h3 class="experience-title">Agente Certificador</h3>
              <p class="experience-company">Online Certificadora</p>
             </div>
-            <div class="experience-badge">
+            <div class="experience-badges">
              <span class="experience-badge-text">Tempo integral</span>
             </div>
            </div>
+           <p class="experience-parallel-note">
+            <i class="icon solid fa-layer-group" aria-hidden="true"></i>
+            Exercido em paralelo com o cargo na Campos Contabilidade.
+           </p>
            <div class="experience-meta">
             <span class="experience-period">
              <i class="icon solid fa-calendar" aria-hidden="true"></i>
@@ -545,8 +761,185 @@
        </div>
       </div>
      </section>
+<!-- Divider -->
+     <div class="section-divider"></div>
 
-     <!-- Divider -->
+     <!-- Tecnologias Section -->
+     <section
+      id="tecnologias"
+      class="full-viewport-section"
+      data-section="tecnologias"
+      aria-labelledby="technologies-heading"
+     >
+      <div class="section-content">
+       <header class="section-header">
+        <h2 id="technologies-heading" class="section-title reveal-on-scroll">
+         Tecnologias
+        </h2>
+        <p class="section-subtitle reveal-on-scroll">
+         Stack do dia a dia — do backend ao deploy, com foco em entregas reais
+        </p>
+       </header>
+       <div class="technologies-panel reveal-on-scroll">
+        <div class="technologies-panel-intro">
+         <p class="technologies-core-label font-mono">Stack principal</p>
+         <ul
+          class="technologies-core-stack"
+          role="list"
+          aria-label="Tecnologias principais"
+         >
+          <li class="stack-pill" role="listitem">
+           <i class="icon brands fa-php" aria-hidden="true"></i>
+           <span>PHP</span>
+          </li>
+          <li class="stack-pill" role="listitem">
+           <i class="icon brands fa-laravel" aria-hidden="true"></i>
+           <span>Laravel</span>
+          </li>
+          <li class="stack-pill" role="listitem">
+           <i class="icon brands fa-vuejs" aria-hidden="true"></i>
+           <span>Vue.js</span>
+          </li>
+         </ul>
+        </div>
+        <div class="technologies-panel-grid">
+         <section
+          class="technologies-group"
+          aria-labelledby="technologies-backend-title"
+         >
+          <h3 id="technologies-backend-title" class="technologies-group-title font-mono">
+           Backend
+          </h3>
+          <ul class="technologies-list" role="list">
+           <li class="technology-item" role="listitem" data-level="production">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon brands fa-php"></span>
+            </span>
+            <span class="technology-item-name">PHP</span>
+            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+           </li>
+           <li class="technology-item" role="listitem" data-level="production">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon brands fa-laravel"></span>
+            </span>
+            <span class="technology-item-name">Laravel</span>
+            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+           </li>
+           <li class="technology-item" role="listitem" data-level="familiar">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon brands fa-python"></span>
+            </span>
+            <span class="technology-item-name">Python</span>
+            <span class="technology-level-dot" aria-label="Nível: Familiar"></span>
+           </li>
+           <li class="technology-item" role="listitem" data-level="production">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon solid fa-database"></span>
+            </span>
+            <span class="technology-item-name">Banco de Dados</span>
+            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+           </li>
+           <li class="technology-item" role="listitem" data-level="familiar">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon solid fa-coffee"></span>
+            </span>
+            <span class="technology-item-name">Java</span>
+            <span class="technology-level-dot" aria-label="Nível: Familiar"></span>
+           </li>
+          </ul>
+         </section>
+         <section
+          class="technologies-group"
+          aria-labelledby="technologies-frontend-title"
+         >
+          <h3 id="technologies-frontend-title" class="technologies-group-title font-mono">
+           Frontend
+          </h3>
+          <ul class="technologies-list" role="list">
+           <li class="technology-item" role="listitem" data-level="production">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon brands fa-vuejs"></span>
+            </span>
+            <span class="technology-item-name">Vue.js</span>
+            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+           </li>
+           <li class="technology-item" role="listitem" data-level="production">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon brands fa-js"></span>
+            </span>
+            <span class="technology-item-name">JavaScript</span>
+            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+           </li>
+           <li class="technology-item" role="listitem" data-level="familiar">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon brands fa-bootstrap"></span>
+            </span>
+            <span class="technology-item-name">Bootstrap</span>
+            <span class="technology-level-dot" aria-label="Nível: Familiar"></span>
+           </li>
+           <li class="technology-item" role="listitem" data-level="production">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon brands fa-html5"></span>
+            </span>
+            <span class="technology-item-name">HTML5 &amp; CSS3</span>
+            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+           </li>
+          </ul>
+         </section>
+         <section
+          class="technologies-group"
+          aria-labelledby="technologies-tools-title"
+         >
+          <h3 id="technologies-tools-title" class="technologies-group-title font-mono">
+           Ferramentas
+          </h3>
+          <ul
+           class="technologies-list"
+           id="technologies-grid"
+           role="list"
+           aria-live="polite"
+          >
+           <li class="technology-item" role="listitem" data-level="production">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon brands fa-git-alt"></span>
+            </span>
+            <span class="technology-item-name">Git &amp; GitHub</span>
+            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+           </li>
+           <li class="technology-item" role="listitem" data-level="production">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon brands fa-docker"></span>
+            </span>
+            <span class="technology-item-name">Docker</span>
+            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+           </li>
+           <li class="technology-item" role="listitem" data-level="familiar">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon solid fa-cloud"></span>
+            </span>
+            <span class="technology-item-name">Terraform &amp; DevOps</span>
+            <span class="technology-level-dot" aria-label="Nível: Familiar"></span>
+           </li>
+          </ul>
+         </section>
+        </div>
+        <footer
+         class="technologies-panel-footer"
+         aria-label="Legenda de níveis de experiência"
+        >
+         <span class="technologies-legend-item">
+          <span class="technology-level-dot technology-level-dot--production"></span>
+          <span class="technologies-legend-text">Produção — projetos em produção</span>
+         </span>
+         <span class="technologies-legend-item">
+          <span class="technology-level-dot technology-level-dot--familiar"></span>
+          <span class="technologies-legend-text">Familiar — conhecimento aplicado</span>
+         </span>
+        </footer>
+       </div>
+      </div>
+     </section>
+<!-- Divider -->
      <div class="section-divider"></div>
 
      <!-- Publicações Section -->
@@ -562,285 +955,75 @@
          Publicações
         </h2>
         <p class="section-subtitle reveal-on-scroll">
-         Trabalho técnico publicado com foco em tecnologia e aplicação prática.
+         Conteúdo técnico publicado — pesquisa aplicada com consulta pública
         </p>
        </header>
-       <div class="publications-grid" role="list" aria-label="Lista de publicações">
-        <article class="publication-card reveal-on-scroll" role="listitem">
-         <div class="publication-card-header">
-          <span class="publication-badge" aria-label="Tipo de conteúdo publicado">
-           Publicado
-          </span>
-          <h3 class="publication-title">
-           Estudo técnico publicado na SDC Guarulhos
-          </h3>
-         </div>
-         <p class="publication-description">
-          Publicação disponibilizada no portal da Secretaria de Desenvolvimento
-          Científico de Guarulhos, reunindo conteúdo aplicado e contextualizado
-          para consulta pública.
-         </p>
-         <div class="publication-actions">
-          <a
-           href="https://sdc.guarulhos.sp.gov.br/index.php/SDC/article/view/1785"
-           class="button publication-link"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Ler publicação na SDC Guarulhos"
-          >
-           <i class="icon solid fa-book-open" aria-hidden="true"></i>
-           <span>Ler publicação</span>
-          </a>
+       <div class="publications-panel reveal-on-scroll" role="list" aria-label="Lista de publicações">
+        <article class="publication-card" role="listitem">
+         <div class="publication-card-browser">
+          <div class="publication-card-browser-bar" aria-hidden="true">
+           <span class="publication-card-browser-dot publication-card-browser-dot--close"></span>
+           <span class="publication-card-browser-dot publication-card-browser-dot--min"></span>
+           <span class="publication-card-browser-dot publication-card-browser-dot--max"></span>
+           <span class="publication-card-browser-url font-mono"
+            >sdc.guarulhos.sp.gov.br</span
+           >
+          </div>
+          <div class="publication-card-layout">
+           <div class="publication-card-visual" aria-hidden="true">
+            <ion-icon name="document-text-outline"></ion-icon>
+           </div>
+           <div class="publication-card-body">
+            <div class="publication-card-meta">
+             <span
+              class="publication-badge font-mono"
+              aria-label="Tipo de conteúdo publicado"
+              >Artigo técnico</span
+             >
+             <span class="publication-venue font-mono">SDC Guarulhos</span>
+            </div>
+            <h3 class="publication-title">
+             Estudo técnico publicado na Secretaria de Desenvolvimento
+             Científico
+            </h3>
+            <p class="publication-description">
+             Trabalho disponibilizado no portal institucional da SDC Guarulhos,
+             com conteúdo aplicado e contextualizado para consulta pública.
+            </p>
+            <ul class="publication-meta-list" aria-label="Detalhes da publicação">
+             <li class="publication-meta-item">
+              <i class="icon solid fa-university" aria-hidden="true"></i>
+              <span>Secretaria de Desenvolvimento Científico</span>
+             </li>
+             <li class="publication-meta-item">
+              <i class="icon solid fa-map-marker-alt" aria-hidden="true"></i>
+              <span>Guarulhos, SP</span>
+             </li>
+             <li class="publication-meta-item">
+              <i class="icon solid fa-globe" aria-hidden="true"></i>
+              <span>Acesso aberto</span>
+             </li>
+            </ul>
+           </div>
+          </div>
+          <footer class="publication-card-footer">
+           <a
+            href="https://sdc.guarulhos.sp.gov.br/index.php/SDC/article/view/1785"
+            class="publication-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Ler publicação na SDC Guarulhos"
+           >
+            <span>Ler publicação</span>
+            <ion-icon name="open-outline" aria-hidden="true"></ion-icon>
+           </a>
+          </footer>
          </div>
         </article>
        </div>
       </div>
      </section>
-
-     <!-- Divider -->
-     <div class="section-divider"></div>
-
-     <!-- Tecnologias Section -->
-     <section
-      id="tecnologias"
-      class="full-viewport-section"
-      data-section="tecnologias"
-      aria-labelledby="technologies-heading"
-     >
-      <div class="section-content">
-       <header class="section-header">
-        <h2 id="technologies-heading" class="section-title reveal-on-scroll">
-         Tecnologias
-        </h2>
-       </header>
-       <div class="technologies-grid-wrapper">
-        <ul
-         class="technologies-grid"
-         id="technologies-grid"
-         role="list"
-         aria-live="polite"
-        >
-         <li class="technology-card" role="listitem">
-          <div class="technology-icon-wrapper">
-           <span class="icon brands fa-php" aria-hidden="true"></span>
-          </div>
-          <div class="content">
-           <h3>PHP</h3>
-           <p>
-            Linguagem server-side robusta e madura. Experiência prática no
-            desenvolvimento de aplicações web dinâmicas, APIs RESTful e
-            integração com bancos de dados.
-           </p>
-          </div>
-         </li>
-         <li class="technology-card" role="listitem">
-          <div class="technology-icon-wrapper">
-           <span class="icon brands fa-laravel" aria-hidden="true"></span>
-          </div>
-          <div class="content">
-           <h3>Laravel</h3>
-           <p>
-            Framework PHP elegante e poderoso. Desenvolvimento de aplicações web
-            modernas utilizando MVC, Eloquent ORM, migrations, autenticação e
-            APIs com Sanctum.
-           </p>
-          </div>
-         </li>
-         <li class="technology-card" role="listitem">
-          <div class="technology-icon-wrapper">
-           <span class="icon brands fa-bootstrap" aria-hidden="true"></span>
-          </div>
-          <div class="content">
-           <h3>Bootstrap</h3>
-           <p>
-            Framework CSS para desenvolvimento rápido de interfaces responsivas.
-            Utilizado para criar layouts modernos e consistentes em diversos
-            projetos.
-           </p>
-          </div>
-         </li>
-         <li class="technology-card" role="listitem">
-          <div class="technology-icon-wrapper">
-           <span class="icon brands fa-vuejs" aria-hidden="true"></span>
-          </div>
-          <div class="content">
-           <h3>Vue.js</h3>
-           <p>
-            Framework JavaScript moderno para construção de interfaces reativas.
-            Utilizado em diversos projetos para criar aplicações SPA responsivas
-            e escaláveis.
-           </p>
-          </div>
-         </li>
-         <li class="technology-card" role="listitem">
-          <div class="technology-icon-wrapper">
-           <span class="icon brands fa-python" aria-hidden="true"></span>
-          </div>
-          <div class="content">
-           <h3>Python</h3>
-           <p>
-            Linguagem versátil utilizada para automação, scripts e
-            desenvolvimento backend. Explorando frameworks como Django e Flask
-            para criar APIs robustas.
-           </p>
-          </div>
-         </li>
-         <li class="technology-card" role="listitem">
-          <div class="technology-icon-wrapper">
-           <span class="icon brands fa-js" aria-hidden="true"></span>
-          </div>
-          <div class="content">
-           <h3>JavaScript</h3>
-           <p>
-            Linguagem essencial para desenvolvimento web moderno. Experiência
-            com ES6+, manipulação de DOM, APIs assíncronas e programação
-            funcional.
-           </p>
-          </div>
-         </li>
-         <li class="technology-card" role="listitem">
-          <div class="technology-icon-wrapper">
-           <span class="icon brands fa-git-alt" aria-hidden="true"></span>
-          </div>
-          <div class="content">
-           <h3>Git & GitHub</h3>
-           <p>
-            Controle de versão distribuído para gerenciamento de código.
-            Experiência com Git Flow, pull requests, code review e CI/CD através
-            do GitHub Actions.
-           </p>
-          </div>
-         </li>
-         <li class="technology-card" role="listitem">
-          <div class="technology-icon-wrapper">
-           <span class="icon solid fa-database" aria-hidden="true"></span>
-          </div>
-          <div class="content">
-           <h3>Banco de Dados</h3>
-           <p>
-            Experiência com MySQL e PostgreSQL, modelagem de dados, consultas
-            SQL complexas e otimização de queries. Conhecimento em migrations e
-            ORMs como Eloquent.
-           </p>
-          </div>
-         </li>
-         <li class="technology-card" role="listitem">
-          <div class="technology-icon-wrapper">
-           <span class="icon solid fa-cloud" aria-hidden="true"></span>
-          </div>
-          <div class="content">
-           <h3>Terraform & DevOps</h3>
-           <p>
-            Infraestrutura como código para provisionamento e gerenciamento de
-            recursos em cloud. Estudando práticas de DevOps, containers e
-            orquestração.
-           </p>
-          </div>
-         </li>
-         <li class="technology-card" role="listitem">
-          <div class="technology-icon-wrapper">
-           <span class="icon brands fa-html5" aria-hidden="true"></span>
-          </div>
-          <div class="content">
-           <h3>HTML5 & CSS3</h3>
-           <p>
-            Fundamentos sólidos em marcação semântica e estilização moderna.
-            Experiência com Flexbox, Grid, animações CSS e design responsivo
-            mobile-first.
-           </p>
-          </div>
-         </li>
-         <li class="technology-card" role="listitem">
-          <div class="technology-icon-wrapper">
-           <span class="icon brands fa-docker" aria-hidden="true"></span>
-          </div>
-          <div class="content">
-           <h3>Docker</h3>
-           <p>
-            Containerização de aplicações para deploy e desenvolvimento
-            consistente. Criando e gerenciando containers, Docker Compose e
-            otimização de imagens.
-           </p>
-          </div>
-         </li>
-         <li class="technology-card" role="listitem">
-          <div class="technology-icon-wrapper">
-           <span class="icon solid fa-coffee" aria-hidden="true"></span>
-          </div>
-          <div class="content">
-           <h3>Java</h3>
-           <p>
-            Linguagem orientada a objetos para desenvolvimento de aplicações
-            robustas. Experiência com POO, coleções, streams e desenvolvimento
-            de software desktop e web.
-           </p>
-          </div>
-         </li>
-        </ul>
-        <div class="technologies-actions">
-         <button
-          class="btn-action btn-more"
-          id="btn-show-more"
-          type="button"
-          aria-label="Mostrar mais tecnologias"
-          aria-expanded="false"
-         >
-          <span>Mostrar mais</span>
-          <i class="icon solid fa-chevron-down" aria-hidden="true"></i>
-         </button>
-         <button
-          class="btn-action btn-less"
-          id="btn-show-less"
-          type="button"
-          aria-label="Mostrar menos tecnologias"
-          aria-expanded="false"
-         >
-          <span>Mostrar menos</span>
-          <i class="icon solid fa-chevron-up" aria-hidden="true"></i>
-         </button>
-        </div>
-       </div>
-      </div>
-     </section>
-
-     <!-- Divider -->
-     <div class="section-divider"></div>
-
-     <!-- Projetos Section -->
-     <section
-      id="projetos"
-      class="full-viewport-section projects-section"
-      data-section="projetos"
-      aria-labelledby="projects-heading"
-     >
-      <div class="section-content">
-       <header class="section-header">
-        <h2 id="projects-heading" class="section-title reveal-on-scroll">
-         Projetos
-        </h2>
-        <p class="section-subtitle reveal-on-scroll">
-         Alguns dos meus projetos desenvolvidos e disponíveis no GitHub
-        </p>
-       </header>
-       <div
-        id="projects-controls"
-        class="projects-controls"
-        aria-label="Controles de projetos"
-       >
-        <!-- Controles de ordenação e contador serão inseridos aqui via JavaScript -->
-       </div>
-       <div class="posts" role="list" aria-label="Lista de projetos">
-        <!-- Projetos serão carregados dinamicamente via GitHub API -->
-        <article role="listitem" aria-busy="true">
-         <div class="loading-state" role="status" aria-live="polite">
-          <p>Carregando projetos...</p>
-         </div>
-        </article>
-       </div>
-      </div>
-     </section>
-
-     <!-- Divider -->
+<!-- Divider -->
      <div class="section-divider"></div>
 
      <!-- Contato Section -->
@@ -856,113 +1039,180 @@
          Contato
         </h2>
         <p class="section-subtitle reveal-on-scroll">
-         Entre em contato comigo através das opções abaixo. Estou sempre aberto
-         a novas oportunidades e colaborações.
+         Aberto a oportunidades, projetos e conversas sobre tecnologia
         </p>
        </header>
-       <div class="contact-grid-wrapper">
-        <ul class="contact-grid" role="list" aria-label="Formas de contato">
-         <li class="contact-card contact-card-email" role="listitem">
-          <a
-           href="mailto:contato.estevamdelima@gmail.com"
-           class="contact-card-link"
-           aria-label="Enviar e-mail"
-          >
-           <div class="contact-icon-wrapper">
-            <i class="icon solid fa-envelope" aria-hidden="true"></i>
-           </div>
-           <div class="content">
-            <h3>E-mail</h3>
-            <p>contato.estevamdelima@gmail.com</p>
-           </div>
-          </a>
-         </li>
-         <li class="contact-card contact-card-whatsapp" role="listitem">
-          <a
-           href="https://wa.me/5511913438979"
-           class="contact-card-link"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Abrir WhatsApp"
-          >
-           <div class="contact-icon-wrapper">
-            <i class="icon brands fa-whatsapp" aria-hidden="true"></i>
-           </div>
-           <div class="content">
-            <h3>WhatsApp</h3>
-            <p>(11) 91343-8979</p>
-           </div>
-          </a>
-         </li>
-         <li class="contact-card contact-card-github" role="listitem">
-          <a
-           href="https://github.com/GuiEstevam"
-           class="contact-card-link"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Visitar perfil no GitHub"
-          >
-           <div class="contact-icon-wrapper">
-            <i class="icon brands fa-github" aria-hidden="true"></i>
-           </div>
-           <div class="content">
-            <h3>GitHub</h3>
-            <p>Veja meus projetos e contribuições</p>
-           </div>
-          </a>
-         </li>
-         <li class="contact-card contact-card-linkedin" role="listitem">
-          <a
-           href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
-           class="contact-card-link"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Visitar perfil no LinkedIn"
-          >
-           <div class="contact-icon-wrapper">
-            <i class="icon brands fa-linkedin" aria-hidden="true"></i>
-           </div>
-           <div class="content">
-            <h3>LinkedIn</h3>
-            <p>Conecte-se e vamos conversar</p>
-           </div>
-          </a>
-         </li>
-         <li class="contact-card contact-card-instagram" role="listitem">
-          <a
-           href="https://www.instagram.com/srhiddan"
-           class="contact-card-link"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Visitar perfil no Instagram"
-          >
-           <div class="contact-icon-wrapper">
-            <i class="icon brands fa-instagram" aria-hidden="true"></i>
-           </div>
-           <div class="content">
-            <h3>Instagram</h3>
-            <p>@srhiddan</p>
-           </div>
-          </a>
-         </li>
-         <li class="contact-card contact-card-tiktok" role="listitem">
-          <a
-           href="https://www.tiktok.com/@srhiddan"
-           class="contact-card-link"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Visitar perfil no TikTok"
-          >
-           <div class="contact-icon-wrapper">
-            <i class="icon brands fa-tiktok" aria-hidden="true"></i>
-           </div>
-           <div class="content">
-            <h3>TikTok</h3>
-            <p>@srhiddan</p>
-           </div>
-          </a>
-         </li>
-        </ul>
+       <div class="contact-panel reveal-on-scroll">
+        <div class="contact-panel-intro">
+         <p class="contact-panel-intro-text">
+          Resposta mais rápida por <strong>e-mail</strong> ou
+          <strong>WhatsApp</strong>.
+         </p>
+        </div>
+        <div class="contact-panel-grid">
+         <section
+          class="contact-group"
+          aria-labelledby="contact-direct-title"
+         >
+          <h3 id="contact-direct-title" class="contact-group-title font-mono">
+           Direto
+          </h3>
+          <ul class="contact-list" role="list">
+           <li class="contact-item contact-item--primary" role="listitem">
+            <a
+             href="mailto:contato.estevamdelima@gmail.com"
+             class="contact-item-link"
+             aria-label="Enviar e-mail para contato.estevamdelima@gmail.com"
+            >
+             <span class="contact-item-icon" aria-hidden="true">
+              <i class="icon solid fa-envelope"></i>
+             </span>
+             <span class="contact-item-body">
+              <span class="contact-item-label">E-mail</span>
+              <span class="contact-item-value"
+               >contato.estevamdelima@gmail.com</span
+              >
+             </span>
+             <ion-icon
+              name="chevron-forward-outline"
+              class="contact-item-arrow"
+              aria-hidden="true"
+             ></ion-icon>
+            </a>
+           </li>
+           <li class="contact-item contact-item--primary" role="listitem">
+            <a
+             href="https://wa.me/5511913438979"
+             class="contact-item-link"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Abrir WhatsApp (11) 91343-8979"
+            >
+             <span class="contact-item-icon" aria-hidden="true">
+              <i class="icon brands fa-whatsapp"></i>
+             </span>
+             <span class="contact-item-body">
+              <span class="contact-item-label">WhatsApp</span>
+              <span class="contact-item-value">(11) 91343-8979</span>
+             </span>
+             <ion-icon
+              name="chevron-forward-outline"
+              class="contact-item-arrow"
+              aria-hidden="true"
+             ></ion-icon>
+            </a>
+           </li>
+          </ul>
+         </section>
+         <section
+          class="contact-group"
+          aria-labelledby="contact-professional-title"
+         >
+          <h3 id="contact-professional-title" class="contact-group-title font-mono">
+           Profissional
+          </h3>
+          <ul class="contact-list" role="list">
+           <li class="contact-item" role="listitem">
+            <a
+             href="https://github.com/GuiEstevam"
+             class="contact-item-link"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Visitar perfil no GitHub"
+            >
+             <span class="contact-item-icon" aria-hidden="true">
+              <i class="icon brands fa-github"></i>
+             </span>
+             <span class="contact-item-body">
+              <span class="contact-item-label">GitHub</span>
+              <span class="contact-item-value">Projetos e contribuições</span>
+             </span>
+             <ion-icon
+              name="open-outline"
+              class="contact-item-arrow"
+              aria-hidden="true"
+             ></ion-icon>
+            </a>
+           </li>
+           <li class="contact-item" role="listitem">
+            <a
+             href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
+             class="contact-item-link"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Visitar perfil no LinkedIn"
+            >
+             <span class="contact-item-icon" aria-hidden="true">
+              <i class="icon brands fa-linkedin"></i>
+             </span>
+             <span class="contact-item-body">
+              <span class="contact-item-label">LinkedIn</span>
+              <span class="contact-item-value">Conecte-se e vamos conversar</span>
+             </span>
+             <ion-icon
+              name="open-outline"
+              class="contact-item-arrow"
+              aria-hidden="true"
+             ></ion-icon>
+            </a>
+           </li>
+          </ul>
+         </section>
+         <section
+          class="contact-group"
+          aria-labelledby="contact-social-title"
+         >
+          <h3 id="contact-social-title" class="contact-group-title font-mono">
+           Redes
+          </h3>
+          <ul class="contact-list" role="list">
+           <li class="contact-item contact-item--social" role="listitem">
+            <a
+             href="https://www.instagram.com/srhiddan"
+             class="contact-item-link"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Visitar perfil no Instagram @srhiddan"
+            >
+             <span class="contact-item-icon" aria-hidden="true">
+              <i class="icon brands fa-instagram"></i>
+             </span>
+             <span class="contact-item-body">
+              <span class="contact-item-label">Instagram</span>
+              <span class="contact-item-value">@srhiddan</span>
+             </span>
+             <ion-icon
+              name="open-outline"
+              class="contact-item-arrow"
+              aria-hidden="true"
+             ></ion-icon>
+            </a>
+           </li>
+           <li class="contact-item contact-item--social" role="listitem">
+            <a
+             href="https://www.tiktok.com/@srhiddan"
+             class="contact-item-link"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Visitar perfil no TikTok @srhiddan"
+            >
+             <span class="contact-item-icon" aria-hidden="true">
+              <i class="icon brands fa-tiktok"></i>
+             </span>
+             <span class="contact-item-body">
+              <span class="contact-item-label">TikTok</span>
+              <span class="contact-item-value">@srhiddan</span>
+             </span>
+             <ion-icon
+              name="open-outline"
+              class="contact-item-arrow"
+              aria-hidden="true"
+             ></ion-icon>
+            </a>
+           </li>
+          </ul>
+         </section>
+        </div>
        </div>
       </div>
      </section>
@@ -974,13 +1224,7 @@
      <footer id="footer" role="contentinfo">
       <div class="footer-content">
        <p class="copyright">
-        &copy; 2024 Guilherme Estevam. Todos os direitos reservados.
-       </p>
-       <p class="footer-credit">
-        Design baseado em
-        <a href="https://html5up.net" target="_blank" rel="noopener noreferrer"
-         >HTML5 UP</a
-        >
+        &copy; 2026 Guilherme Estevam. Todos os direitos reservados.
        </p>
       </div>
      </footer>
