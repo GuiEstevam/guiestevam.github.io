@@ -3,11 +3,6 @@
  * Entry point para Vite
  */
 
-import '../css/base.css';
-import '../css/toast.css';
-import '../css/custom.css';
-import '../css/dev-theme.css';
-
 // Importar utilitários
 import { loadGitHubRepos } from './github.js';
 import { renderFeaturedProjects } from './featured-projects.js';
@@ -33,9 +28,8 @@ import './back-to-top.js';
 // Importar experiência (toggle de descrição no mobile)
 import './experience.js';
 
+// Aguardar DOM estar pronto
 function initApp() {
-    document.body.classList.remove('is-preload');
-
     renderFeaturedProjects();
 
     // Inicializar carregamento de projetos do GitHub
