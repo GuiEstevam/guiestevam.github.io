@@ -97,7 +97,7 @@ const GITHUB_REPO_OVERRIDES = {
   topics: ['laravel', 'php', 'finance'],
  },
  Horientando: {
-  image: 'images/horientando.jpg',
+  image: 'images/horientando.png',
   description:
    'Trabalho de conclusão de curso com sistema completo desenvolvido em Laravel.',
   stack: ['PHP', 'Laravel', 'MySQL'],
