@@ -46,14 +46,8 @@
 
   // Verificar preferência salva ou preferência do sistema
   function initDarkMode() {
-   const savedMode = localStorage.getItem(DARK_MODE_KEY);
-
-   // Padrão: dark ao abrir; respeitar preferência salva
-   if (savedMode === null || savedMode === 'true') {
-    enableDarkMode(false);
-   } else {
-    disableDarkMode(false);
-   }
+   // Forçar dark mode como padrão absoluto
+   enableDarkMode(false);
   }
 
   function enableDarkMode(save = true) {
@@ -191,17 +185,20 @@
    toggleBtn.innerHTML =
     '<i class="fas fa-moon" aria-hidden="true"></i><span class="label">Modo Escuro</span>';
 
-   // Adicionar listener com flag para evitar duplicatas
-   // Usar uma função nomeada para poder remover depois se necessário
+   // Adicionar listener único com debounce para evitar duplo clique
+   let toggleInProgress = false;
    function darkModeClickHandler(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    toggleDarkMode();
+     e.preventDefault();
+     e.stopPropagation();
+     if (toggleInProgress) return;
+     toggleInProgress = true;
+     toggleDarkMode();
+     // Reenable after transition (e.g., 300ms)
+     setTimeout(() => { toggleInProgress = false; }, 300);
    }
-
-   // Adicionar listener em múltiplas fases para garantir que seja capturado
-   toggleBtn.addEventListener('mousedown', darkModeClickHandler, true);
+   // Apenas escuta o click (não mousedown) em fase de captura
    toggleBtn.addEventListener('click', darkModeClickHandler, true);
+
    toggleBtn.dataset.listenerAdded = 'true';
 
    listItem.appendChild(toggleBtn);

@@ -21,6 +21,23 @@ const PROJECT_CATALOG = [
   isExternal: true,
  },
  {
+  id: 'ponto-corte',
+  name: 'PontoCorte',
+  impactLine: 'Plataforma SaaS para barbearias e agendamentos',
+  description:
+   'Sistema completo de gestão de barbearia com agendamento integrado, envio de mensagens via WhatsApp, controle financeiro e relatórios de desempenho.',
+  image: 'images/pontocorte.png',
+  demoUrl: 'https://app.pontocorte.com.br/',
+  repoUrl: 'https://app.pontocorte.com.br/',
+  stack: ['PHP', 'Laravel', 'MySQL', 'Livewire', 'TailwindCSS'],
+  language: 'PHP',
+  topics: ['laravel', 'livewire', 'barbershop', 'saas', 'whatsapp'],
+  updatedAt: '2026-07-01T00:00:00Z',
+  featured: true,
+  bentoClass: 'featured-card--pontocorte',
+  isExternal: true,
+ },
+ {
   id: 'skyfashion',
   name: 'SkyFashion',
   impactLine: 'E-commerce de moda esportiva completo',

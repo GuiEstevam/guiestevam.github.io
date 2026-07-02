@@ -4,26 +4,8 @@ export const DESCRIPTION_MOBILE_MQ = '(max-width: 767px)';
  * Expande/colapsa descrição no mobile quando o texto ultrapassa o limite de linhas.
  */
 export function setupMobileDescriptionToggle(desc, descContainer, options = {}) {
- const lineClamp = options.lineClamp ?? 3;
  const toggleClass = options.toggleClass ?? 'description-toggle';
  const mobileQuery = window.matchMedia(DESCRIPTION_MOBILE_MQ);
-
- const getCollapsedHeight = () => {
-  const styles = getComputedStyle(desc);
-  const lineHeight = parseFloat(styles.lineHeight);
-  const fontSize = parseFloat(styles.fontSize);
-  const resolvedLineHeight = Number.isNaN(lineHeight)
-   ? fontSize * 1.55
-   : lineHeight;
-  return Math.ceil(resolvedLineHeight * lineClamp);
- };
-
- const measureFullHeight = () => {
-  desc.classList.add('is-truncated', 'expanded');
-  const fullHeight = desc.scrollHeight;
-  desc.classList.remove('expanded');
-  return fullHeight;
- };
 
  const setToggleState = (toggleButton, isExpanded) => {
   toggleButton.setAttribute('aria-expanded', String(isExpanded));
@@ -46,6 +28,7 @@ export function setupMobileDescriptionToggle(desc, descContainer, options = {}) 
    existingToggle.remove();
   }
 
+  // Limpar estados prévios
   desc.classList.remove('expanded', 'is-truncated');
   desc.style.removeProperty('--desc-collapsed-height');
   desc.style.removeProperty('--desc-expanded-height');
@@ -54,17 +37,21 @@ export function setupMobileDescriptionToggle(desc, descContainer, options = {}) 
    return;
   }
 
+  // Ativar truncamento temporário para medição
   desc.classList.add('is-truncated');
-  const collapsedHeight = getCollapsedHeight();
-  const fullHeight = measureFullHeight();
+  
+  // Leitura única de layout (evitando alternar classes/estilos de forma cíclica)
+  const collapsedHeight = desc.clientHeight;
+  const fullHeight = desc.scrollHeight;
 
-  if (fullHeight <= collapsedHeight + 2) {
+  // Se o conteúdo cabe sem truncar (threshold de 4px para flexibilidade)
+  if (fullHeight <= collapsedHeight + 4) {
    desc.classList.remove('is-truncated');
    return;
   }
 
+  // Definir variável apenas para a altura colapsada medida de forma limpa
   desc.style.setProperty('--desc-collapsed-height', `${collapsedHeight}px`);
-  desc.style.setProperty('--desc-expanded-height', `${fullHeight}px`);
 
   const toggleButton = document.createElement('button');
   toggleButton.type = 'button';
@@ -78,15 +65,16 @@ export function setupMobileDescriptionToggle(desc, descContainer, options = {}) 
 
   toggleButton.addEventListener('click', () => {
    const isExpanded = desc.classList.contains('expanded');
+   
    if (isExpanded) {
     desc.classList.remove('expanded');
     setToggleState(toggleButton, false);
-    return;
+   } else {
+    // Definir altura expandida dinamicamente apenas no clique (lazy measurement)
+    desc.style.setProperty('--desc-expanded-height', `${desc.scrollHeight}px`);
+    desc.classList.add('expanded');
+    setToggleState(toggleButton, true);
    }
-
-   desc.style.setProperty('--desc-expanded-height', `${desc.scrollHeight}px`);
-   desc.classList.add('expanded');
-   setToggleState(toggleButton, true);
   });
 
   descContainer.appendChild(toggleButton);
@@ -100,3 +88,4 @@ export function setupMobileDescriptionToggle(desc, descContainer, options = {}) 
   mobileQuery.addListener(syncToggle);
  }
 }
+

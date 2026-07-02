@@ -186,7 +186,7 @@ function createFeaturedImage(project, index) {
 
 function createFeaturedCard(project, index) {
  const article = document.createElement('article');
- const isPrimary = project.bentoClass === 'featured-card--primary';
+ const isPrimary = project.bentoClass === 'featured-card--primary' || project.bentoClass === 'featured-card--pontocorte';
  article.className = `featured-card ${project.bentoClass || ''} reveal-on-scroll`;
  article.setAttribute('role', 'listitem');
  article.setAttribute('aria-label', `Projeto em destaque: ${project.name}`);

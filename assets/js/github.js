@@ -283,12 +283,10 @@ function createProjectArticle(project) {
 
  // Função para mostrar a imagem e esconder o placeholder
  function showImage() {
-  if (img.naturalHeight > 0 && img.complete) {
-   placeholderDiv.classList.add('is-hidden');
-   requestAnimationFrame(() => {
-    img.classList.add('is-visible');
-   });
-  }
+  placeholderDiv.classList.add('is-hidden');
+  requestAnimationFrame(() => {
+   img.classList.add('is-visible');
+  });
  }
 
  // Função para mostrar o placeholder
@@ -306,7 +304,7 @@ function createProjectArticle(project) {
 
  // Esconder placeholder quando imagem carregar
  img.onload = function () {
-  if (this.naturalHeight > 0) {
+  if (img.naturalHeight > 0) {
    showImage();
   } else {
    showPlaceholder();
@@ -319,30 +317,14 @@ function createProjectArticle(project) {
  // Definir src (depois de configurar todos os handlers)
  img.src = project.image;
 
- // Verificar se a imagem já está no cache imediatamente após definir src
- // Usar setTimeout para dar tempo do navegador atualizar o estado
- setTimeout(() => {
-  if (img.complete && img.naturalHeight > 0) {
-   // Imagem já estava no cache
+ // Se a imagem já estiver no cache (complete é síncrono para imagens em cache)
+ if (img.complete) {
+  if (img.naturalHeight > 0) {
    showImage();
-  } else if (img.complete && img.naturalHeight === 0) {
-   // Imagem "carregou" mas é inválida (erro)
-   showPlaceholder();
-  }
- }, 50);
-
- // Verificação adicional após mais tempo (para casos de carregamento lento)
- setTimeout(() => {
-  if (img.complete && img.naturalHeight > 0) {
-   showImage();
-  } else if (!img.complete) {
-   // Ainda está carregando, manter placeholder visível
-   showPlaceholder();
   } else {
-   // Completo mas sem altura = erro
    showPlaceholder();
   }
- }, 1000);
+ }
 
  imageWrapper.appendChild(createProjectTypeBadge(project.isProduction));
 

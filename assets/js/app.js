@@ -28,9 +28,13 @@ import './back-to-top.js';
 // Importar experiência (toggle de descrição no mobile)
 import './experience.js';
 
+// Importar terminal interativo
+import { initInteractiveTerminal } from './interactive-terminal.js';
+
 // Aguardar DOM estar pronto
 function initApp() {
     renderFeaturedProjects();
+    initInteractiveTerminal();
 
     // Inicializar carregamento de projetos do GitHub
     // Após carregar, observar novos elementos para animações
@@ -65,4 +69,28 @@ if (document.readyState === 'loading') {
     // DOM já está pronto
     initApp();
 }
+
+// Controlar classe 'is-preload' no body após o carregamento completo da página
+const handleLoad = () => {
+    setTimeout(() => {
+        document.body.classList.remove('is-preload');
+    }, 100);
+};
+
+if (document.readyState === 'complete') {
+    handleLoad();
+} else {
+    window.addEventListener('load', handleLoad, { once: true });
+}
+
+// Adicionar temporariamente a classe 'is-resizing' no body ao redimensionar a janela
+let resizeTimeout;
+window.addEventListener('resize', () => {
+    document.body.classList.add('is-resizing');
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        document.body.classList.remove('is-resizing');
+    }, 100);
+}, { passive: true });
+
 

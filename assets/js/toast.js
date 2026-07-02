@@ -73,11 +73,20 @@
             <div class="toast-content">
                 <span class="toast-icon">${icons[type] || icons.info}</span>
                 <span class="toast-message">${escapeHtml(message)}</span>
-                <button class="toast-close" aria-label="Fechar notificação" onclick="this.parentElement.parentElement.remove()">
+                <button class="toast-close" aria-label="Fechar notificação">
                     <i class="fas fa-times" aria-hidden="true"></i>
                 </button>
             </div>
         `;
+
+        // Adicionar event listener ao botão de fechar para respeitar a animação
+        const closeBtn = toast.querySelector('.toast-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                removeToast(toast);
+            });
+        }
 
         // Adicionar ao container
         container.appendChild(toast);
