@@ -2,10 +2,7 @@
 
 <html lang="pt-BR" class="dark-mode">
  <head>
-  <script>
-   document.documentElement.classList.add('dark-mode');
-  </script>
-  <title>Guilherme Estevam — Full Stack Laravel & Vue.js</title>
+  <title>Guilherme Estevam — Full Stack Pleno Laravel & Vue.js</title>
   <meta charset="utf-8" />
   <meta
    name="viewport"
@@ -16,15 +13,15 @@
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
   <meta
    name="description"
-   content="Desenvolvedor Full Stack — PHP, Laravel e Vue.js. Projetos em produção, do backend à entrega."
+   content="Desenvolvedor Full Stack Pleno — Laravel e Vue.js em produção. 4 projetos no ar, do backend ao deploy."
   />
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://guiestevam.github.io/" />
-  <meta property="og:title" content="Guilherme Estevam — Full Stack Laravel & Vue.js" />
+  <meta property="og:title" content="Guilherme Estevam — Full Stack Pleno Laravel & Vue.js" />
   <meta
    property="og:description"
-   content="Desenvolvedor Full Stack especializado em PHP, Laravel e Vue.js — do backend à entrega em produção."
+   content="Desenvolvedor Full Stack Pleno — Laravel e Vue.js em produção. 4 projetos no ar, do backend ao deploy."
   />
   <meta
    property="og:image"
@@ -33,10 +30,10 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://guiestevam.github.io/" />
-  <meta name="twitter:title" content="Guilherme Estevam — Full Stack Laravel & Vue.js" />
+  <meta name="twitter:title" content="Guilherme Estevam — Full Stack Pleno Laravel & Vue.js" />
   <meta
    name="twitter:description"
-   content="Desenvolvedor Full Stack especializado em PHP, Laravel e Vue.js — do backend à entrega em produção."
+   content="Desenvolvedor Full Stack Pleno — Laravel e Vue.js em produção. 4 projetos no ar, do backend ao deploy."
   />
   <meta
    name="twitter:image"
@@ -91,21 +88,15 @@
          </a>
         </li>
         <li>
-         <a href="#destaques" class="nav-link" aria-label="Ir para destaques">
-          <ion-icon name="star-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
-          <span>Destaques</span>
-         </a>
-        </li>
-        <li class="nav-link-item--mobile-only">
-         <a href="#sobre" class="nav-link" aria-label="Ir para sobre">
-          <ion-icon name="person-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
-          <span>Sobre</span>
-         </a>
-        </li>
-        <li class="nav-link-item--mobile-only">
          <a href="#projetos" class="nav-link" aria-label="Ir para projetos">
           <ion-icon name="folder-open-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
           <span>Projetos</span>
+         </a>
+        </li>
+        <li>
+         <a href="#sobre" class="nav-link" aria-label="Ir para sobre">
+          <ion-icon name="person-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
+          <span>Sobre</span>
          </a>
         </li>
         <li>
@@ -138,7 +129,7 @@
           <span>Publicações</span>
          </a>
         </li>
-        <li class="nav-link-item--mobile-only">
+        <li>
          <a href="#contato" class="nav-link" aria-label="Ir para contato">
           <ion-icon name="mail-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
           <span>Contato</span>
@@ -235,14 +226,55 @@
            Desenvolvedor Full Stack
           </h1>
          </div>
-         <p
-          id="hero-subtitle"
-          class="hero-subtitle reveal-on-scroll"
-          data-delay="0.2"
-         >
-          Com <strong>Laravel</strong> e <strong>Vue.js</strong>, desenvolvo do
-          backend à interface — do código ao deploy.
-         </p>
+         <div class="hero-intro">
+          <p
+           id="hero-subtitle"
+           class="hero-subtitle reveal-on-scroll"
+           data-delay="0.2"
+          >
+           Especializado em <strong>Laravel</strong> e <strong>Vue.js</strong> —
+           do backend ao deploy, com projetos em produção.
+          </p>
+          <section
+           class="hero-stats-bar reveal-on-scroll"
+           data-delay="0.25"
+           aria-labelledby="hero-stats-heading"
+          >
+           <h2 id="hero-stats-heading" class="visually-hidden">
+            Métricas profissionais
+           </h2>
+           <div
+            class="hero-stats-grid"
+            role="list"
+            aria-label="Métricas profissionais"
+           >
+            <div class="hero-stat-item" role="listitem">
+             <span
+              class="hero-stat-number font-mono"
+              aria-label="3 ou mais anos de experiência"
+              >3+</span
+             >
+             <span class="hero-stat-label">anos de experiência</span>
+            </div>
+            <div class="hero-stat-item" role="listitem">
+             <span
+              class="hero-stat-number font-mono"
+              aria-label="4 projetos em produção"
+              >4</span
+             >
+             <span class="hero-stat-label">projetos em produção</span>
+            </div>
+            <div class="hero-stat-item" role="listitem">
+             <span
+              class="hero-stat-number font-mono"
+              aria-label="10 ou mais entregas relevantes"
+              >10+</span
+             >
+             <span class="hero-stat-label">entregas relevantes</span>
+            </div>
+           </div>
+          </section>
+         </div>
         <aside
          class="hero-visual reveal-on-scroll"
          data-delay="0.25"
@@ -263,6 +295,7 @@
            <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Olá! Bem-vindo ao meu portfólio.\n"</span>;</p>
            <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Sou {$dev}, desenvolvedor Full Stack.\n"</span>;</p>
            <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Stack: Laravel · Vue.js · PHP · MySQL\n"</span>;</p>
+           <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"4 projetos em produção · 3+ anos · 10+ entregas\n"</span>;</p>
            <p class="hero-code-blank" aria-hidden="true">&nbsp;</p>
            <p><span class="hero-code-comment">// Explore os projetos abaixo</span></p>
            <p><span class="hero-code-tag">?&gt;</span></p>
@@ -301,14 +334,29 @@
         </aside>
         <div class="hero-body">
          <div class="hero-actions reveal-on-scroll" data-delay="0.5">
-          <a
-           href="#destaques"
-           class="button hero-button-primary"
-           aria-label="Ver projetos em destaque"
+          <div
+           class="hero-actions-primary"
+           role="group"
+           aria-label="Ações principais"
           >
-           <i class="icon solid fa-folder-open" aria-hidden="true"></i>
-           <span>Ver Projetos</span>
-          </a>
+           <a
+            href="#projetos"
+            class="button hero-button-primary"
+            aria-label="Ver projetos"
+           >
+            <i class="icon solid fa-folder-open" aria-hidden="true"></i>
+            <span>Ver Projetos</span>
+           </a>
+           <a
+            href="/curriculo-guilherme-lima.pdf"
+            class="button hero-button-resume"
+            aria-label="Baixar currículo em PDF"
+            download="curriculo-guilherme-lima.pdf"
+           >
+            <i class="icon solid fa-file-pdf" aria-hidden="true"></i>
+            <span>Currículo</span>
+           </a>
+          </div>
           <div class="hero-social" role="group" aria-label="Redes profissionais">
            <a
             href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
@@ -329,24 +377,15 @@
             <i class="icon brands fa-github" aria-hidden="true"></i>
            </a>
           </div>
-          <a
-           href="/curriculo-guilherme-lima.pdf"
-           class="button hero-button-resume"
-           aria-label="Baixar currículo em PDF"
-           download="curriculo-guilherme-lima.pdf"
-          >
-           <i class="icon solid fa-file-pdf" aria-hidden="true"></i>
-           <span>Currículo</span>
-          </a>
          </div>
         </div>
         </div>
        </div>
       </div>
       <a
-       href="#destaques"
+       href="#projetos"
        class="scroll-indicator"
-       aria-label="Rolar para projetos em destaque"
+       aria-label="Rolar para projetos"
       >
        <span class="scroll-indicator-text">Explorar</span>
        <i
@@ -359,38 +398,56 @@
      <!-- Divider -->
      <div class="section-divider"></div>
 
-     <!-- Destaques Section -->
+     <!-- Projetos Section -->
      <section
-      id="destaques"
-      class="full-viewport-section"
-      data-section="destaques"
-      aria-labelledby="destaques-heading"
+      id="projetos"
+      class="full-viewport-section projects-section"
+      data-section="projetos"
+      aria-labelledby="projects-heading"
      >
       <div class="section-content">
        <header class="section-header">
-        <h2 id="destaques-heading" class="section-title reveal-on-scroll">
-         Destaques
+        <h2 id="projects-heading" class="section-title reveal-on-scroll">
+         Projetos
         </h2>
         <p class="section-subtitle reveal-on-scroll" data-delay="0.1">
-         Seleção de entregas reais — do e-commerce à landing
-         institucional
+         Sites no ar e repositórios — do deploy ao open source.
         </p>
        </header>
        <div
-        id="featured-projects-grid"
-        class="featured-bento"
-        role="list"
-        aria-label="Projetos em destaque"
-       ></div>
-       <p class="featured-section-footer reveal-on-scroll" data-delay="0.3">
-        <a href="#projetos" class="featured-section-link">
-         <span>Ver todos os projetos</span>
-         <ion-icon
-          name="arrow-forward-outline"
-          aria-hidden="true"
-         ></ion-icon>
-        </a>
-       </p>
+        id="projects-slider"
+        class="projects-slider reveal-on-scroll"
+        data-delay="0.15"
+        aria-roledescription="carrossel"
+       >
+        <button
+         type="button"
+         class="projects-slider-btn projects-slider-btn--prev"
+         aria-label="Projetos anteriores"
+        >
+         <ion-icon name="chevron-back-outline" aria-hidden="true"></ion-icon>
+        </button>
+        <div class="projects-slider-viewport">
+         <div
+          id="projects-slider-track"
+          class="projects-slider-track"
+          role="list"
+          aria-label="Lista de projetos"
+         ></div>
+        </div>
+        <button
+         type="button"
+         class="projects-slider-btn projects-slider-btn--next"
+         aria-label="Próximos projetos"
+        >
+         <ion-icon name="chevron-forward-outline" aria-hidden="true"></ion-icon>
+        </button>
+        <div
+         class="projects-slider-dots"
+         role="tablist"
+         aria-label="Navegação do carrossel de projetos"
+        ></div>
+       </div>
       </div>
      </section>
 
@@ -519,42 +576,6 @@
      </section>
 
      <!-- Divider -->
-     <div class="section-divider"></div>
-
-     <!-- Projetos Section -->
-     <section
-      id="projetos"
-      class="full-viewport-section projects-section"
-      data-section="projetos"
-      aria-labelledby="projects-heading"
-     >
-      <div class="section-content">
-       <header class="section-header">
-        <h2 id="projects-heading" class="section-title reveal-on-scroll">
-         Projetos
-        </h2>
-        <p class="section-subtitle reveal-on-scroll">
-         Repositórios open source e projetos entregues — do GitHub ao deploy
-        </p>
-       </header>
-       <div
-        id="projects-controls"
-        class="projects-controls"
-        aria-label="Controles de projetos"
-       >
-        <!-- Controles de ordenação e contador serão inseridos aqui via JavaScript -->
-       </div>
-       <div class="posts" role="list" aria-label="Lista de projetos">
-        <!-- Projetos serão carregados dinamicamente via GitHub API -->
-        <article role="listitem" aria-busy="true">
-         <div class="loading-state" role="status" aria-live="polite">
-          <p>Carregando projetos...</p>
-         </div>
-        </article>
-       </div>
-      </div>
-     </section>
-<!-- Divider -->
      <div class="section-divider"></div>
 
      <!-- Experiência Section -->

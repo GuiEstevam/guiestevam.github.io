@@ -1,7 +1,14 @@
 /**
- * Sistema de Dark Mode com toggle manual
- * Salva a preferência do usuário no localStorage
+ * Sistema de Dark Mode — dark mode fixo (sem toggle visível)
+ * Garante classe dark-mode antes da pintura quando o módulo carrega
  */
+
+if (typeof document !== 'undefined') {
+ document.documentElement.classList.add('dark-mode');
+ if (document.body) {
+  document.body.classList.add('dark-mode');
+ }
+}
 
 // Inicializar módulo apenas em ambientes com DOM
 (function initDarkModeModule() {

@@ -6,6 +6,7 @@ const PROJECT_CATALOG = [
  {
   id: 'nerdola-miner',
   name: 'Nerdola Miner',
+  category: 'E-commerce',
   impactLine: 'Laravel + e-commerce e regras de negócio para mineração',
   description:
    'Loja especializada em ASICs com calculadoras de rentabilidade, suporte e conteúdo para mineração de Bitcoin.',
@@ -23,6 +24,7 @@ const PROJECT_CATALOG = [
  {
   id: 'ponto-corte',
   name: 'PontoCorte',
+  category: 'SaaS',
   impactLine: 'Plataforma SaaS para barbearias e agendamentos',
   description:
    'Sistema completo de gestão de barbearia com agendamento integrado, envio de mensagens via WhatsApp, controle financeiro e relatórios de desempenho.',
@@ -40,6 +42,7 @@ const PROJECT_CATALOG = [
  {
   id: 'skyfashion',
   name: 'SkyFashion',
+  category: 'E-commerce',
   impactLine: 'E-commerce de moda esportiva completo',
   description:
    'E-commerce de moda esportiva com catálogo, categorias e carrinho de compras.',
@@ -57,6 +60,7 @@ const PROJECT_CATALOG = [
  {
   id: 'lgf-contabilidade',
   name: 'LGF Contabilidade',
+  category: 'Institucional',
   impactLine: 'Landing institucional entregue',
   description:
    'Landing page institucional de contabilidade e consultoria para empresas.',
@@ -172,6 +176,11 @@ function findGithubOverride(name) {
 export function isFeaturedProject(name) {
  if (!name) return false;
  return FEATURED_NAMES.has(name.toLowerCase());
+}
+
+export function getProjectCategory(name) {
+ const project = findProjectByName(name);
+ return project?.category || null;
 }
 
 export function resolveProjectImage(name) {

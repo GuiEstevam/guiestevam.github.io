@@ -927,6 +927,7 @@ strong {
 
 /* ============================================
    NAVEGAÇÃO STICKY - Menu Fixo
+   Visual ativo: dev-theme.css (hero/nav/destaques)
    ============================================ */
 
 #main-navigation.sticky-nav {
@@ -954,7 +955,7 @@ strong {
 
 .nav-container .logo {
  font-size: clamp(1rem, 2.5vw, 1.25rem); /* Mobile first com clamp */
- font-family: 'Roboto Slab', serif;
+ font-family: var(--font-sans, 'Plus Jakarta Sans', system-ui, sans-serif);
  font-weight: 700;
  letter-spacing: 0.05em;
  color: var(--text-dark);

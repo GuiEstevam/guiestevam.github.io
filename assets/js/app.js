@@ -4,8 +4,7 @@
  */
 
 // Importar utilitários
-import { loadGitHubRepos } from './github.js';
-import { renderFeaturedProjects } from './featured-projects.js';
+import { initProjectsSlider } from './projects-slider.js';
 
 // Importar toast system
 import './toast.js';
@@ -33,33 +32,8 @@ import { initInteractiveTerminal } from './interactive-terminal.js';
 
 // Aguardar DOM estar pronto
 function initApp() {
-    renderFeaturedProjects();
     initInteractiveTerminal();
-
-    // Inicializar carregamento de projetos do GitHub
-    // Após carregar, observar novos elementos para animações
-    if (document.querySelector('.posts')) {
-        const loadPromise = loadGitHubRepos();
-        if (loadPromise && typeof loadPromise.then === 'function') {
-            loadPromise.then(() => {
-                // Re-observar elementos após projetos serem carregados
-                if (window.observeNewElements) {
-                    setTimeout(() => {
-                        window.observeNewElements();
-                    }, 100);
-                }
-            }).catch(error => {
-                console.error('Erro ao carregar projetos:', error);
-            });
-        } else {
-            // Se não retornar Promise, observar após um delay
-            setTimeout(() => {
-                if (window.observeNewElements) {
-                    window.observeNewElements();
-                }
-            }, 500);
-        }
-    }
+    initProjectsSlider();
 }
 
 // Aguardar DOM estar pronto
