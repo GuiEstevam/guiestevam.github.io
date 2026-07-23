@@ -6,14 +6,15 @@
   <meta charset="utf-8" />
   <meta
    name="viewport"
-   content="width=device-width, initial-scale=1, user-scalable=no"
+   content="width=device-width, initial-scale=1"
   />
   <meta name="theme-color" content="#0a0f16" />
   <meta name="color-scheme" content="dark light" />
+  <link rel="canonical" href="https://guiestevam.github.io/" />
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
   <meta
    name="description"
-   content="Portfólio de Guilherme Estevam — aplicações Laravel e Vue.js em produção, projetos open source e trajetória de TI para desenvolvimento."
+   content="Portfólio de Guilherme Estevam — Desenvolvedor Full Stack (Laravel e Vue.js), do backend ao deploy. Projetos em produção, freela e base em suporte de TI."
   />
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
@@ -21,7 +22,7 @@
   <meta property="og:title" content="Guilherme Estevam — Desenvolvedor Full Stack Laravel & Vue.js" />
   <meta
    property="og:description"
-   content="Portfólio de Guilherme Estevam — aplicações Laravel e Vue.js em produção, projetos open source e trajetória de TI para desenvolvimento."
+   content="Portfólio de Guilherme Estevam — Desenvolvedor Full Stack (Laravel e Vue.js), do backend ao deploy. Projetos em produção, freela e base em suporte de TI."
   />
   <meta
    property="og:image"
@@ -33,12 +34,34 @@
   <meta name="twitter:title" content="Guilherme Estevam — Desenvolvedor Full Stack Laravel & Vue.js" />
   <meta
    name="twitter:description"
-   content="Portfólio de Guilherme Estevam — aplicações Laravel e Vue.js em produção, projetos open source e trajetória de TI para desenvolvimento."
+   content="Portfólio de Guilherme Estevam — Desenvolvedor Full Stack (Laravel e Vue.js), do backend ao deploy. Projetos em produção, freela e base em suporte de TI."
   />
   <meta
    name="twitter:image"
    content="https://guiestevam.github.io/images/guilherme-lima.jpg"
   />
+  <script type="application/ld+json">
+   {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Guilherme Estevam",
+    "url": "https://guiestevam.github.io/",
+    "image": "https://guiestevam.github.io/images/guilherme-lima.jpg",
+    "jobTitle": "Desenvolvedor Full Stack",
+    "description": "Desenvolvedor Full Stack especializado em Laravel e Vue.js — do backend ao deploy — com trajetória em suporte de TI e projetos em produção.",
+    "email": "mailto:contato.estevamdelima@gmail.com",
+    "address": {
+     "@type": "PostalAddress",
+     "addressLocality": "Guarulhos",
+     "addressRegion": "SP",
+     "addressCountry": "BR"
+    },
+    "sameAs": [
+     "https://github.com/GuiEstevam",
+     "https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
+    ]
+   }
+  </script>
   <link rel="stylesheet" href="assets/css/base.css" />
   <link rel="stylesheet" href="assets/css/toast.css" />
   <link rel="stylesheet" href="assets/css/custom.css" />
@@ -46,14 +69,15 @@
   <link rel="stylesheet" href="assets/css/about.css" />
   <script
    type="module"
-   src="https://unpkg.com/ionicons@latest/dist/ionicons/ionicons.esm.js"
+   src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"
   ></script>
   <script
    nomodule
-   src="https://unpkg.com/ionicons@latest/dist/ionicons/ionicons.js"
+   src="https://unpkg.com/ionicons@7.4.0/dist/ionicons/ionicons.js"
   ></script>
  </head>
  <body class="is-preload">
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
   <!-- Wrapper -->
   <div id="wrapper">
    <!-- Main -->
@@ -177,8 +201,7 @@
            data-delay="0.1"
           >
            Especializado em <strong>Laravel</strong> e
-           <strong>Vue.js</strong> — do backend ao deploy, com foco em
-           entrega.
+           <strong>Vue.js</strong> — do backend ao deploy.
           </p>
           <section
            class="hero-stats-bar reveal-on-scroll"
@@ -215,7 +238,7 @@
            <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Olá! Bem-vindo ao meu portfólio.\n"</span>;</p>
            <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Sou {$dev}, desenvolvedor Full Stack.\n"</span>;</p>
            <p><span class="hero-code-key">echo</span> <span class="hero-code-str" data-metrics-line="true">"Laravel · Vue.js · PHP · MySQL\n"</span>;</p>
-           <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Foco em entrega.\n"</span>;</p>
+           <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Do backend ao deploy.\n"</span>;</p>
            <p><span class="hero-code-comment">// clique em Run para executar</span></p>
           </div>
          </div>
@@ -258,7 +281,7 @@
            aria-label="Ações principais"
           >
            <a
-            href="/curriculo-guilherme-lima.pdf"
+            href="curriculo-guilherme-lima.pdf"
             class="button hero-button-primary"
             aria-label="Baixar currículo em PDF"
             download="curriculo-guilherme-lima.pdf"
@@ -295,9 +318,9 @@
       <a
        href="#projetos"
        class="scroll-indicator"
-       aria-label="Rolar para projetos"
+       aria-label="Ver projetos"
       >
-       <span class="scroll-indicator-text">Explorar</span>
+       <span class="scroll-indicator-text">Ver projetos</span>
        <i
         class="icon solid fa-chevron-down scroll-indicator-icon"
         aria-hidden="true"
@@ -321,7 +344,7 @@
          Projetos
         </h2>
         <p class="section-subtitle reveal-on-scroll" data-delay="0.1">
-         Aplicações no ar e repositórios open source.
+         Sites e produtos em produção — e repositórios open source.
         </p>
        </header>
        <div
@@ -377,7 +400,7 @@
          Sobre Mim
         </h2>
         <p class="section-subtitle reveal-on-scroll" data-delay="0.1">
-         Do suporte de TI ao desenvolvimento de software
+         Operação de TI como diferencial no desenvolvimento
         </p>
        </header>
 
@@ -395,12 +418,12 @@
          <div class="about-card__intro">
           <h3 class="about-card__name">Guilherme Estevam</h3>
           <p class="about-card__role">
-           Desenvolvedor Full Stack com base em operação de TI
+           Desenvolvedor Full Stack · base em operação de TI
           </p>
           <ul class="about-card__meta" aria-label="Informações do perfil">
            <li>
             <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
-            <span>Guarulhos, SP · Remoto</span>
+            <span>Guarulhos, SP · Remoto ou híbrido</span>
            </li>
            <li class="about-card__meta-item--available">
             <ion-icon name="briefcase-outline" aria-hidden="true"></ion-icon>
@@ -411,10 +434,10 @@
         </div>
 
         <p class="about-card__bio">
-         Vim do suporte de TI — incidentes, servidores e atendimento — e levo
-         essa visão operacional para o desenvolvimento: traduzir necessidade
-         de negócio em código claro, estável e fácil de manter, com
-         comunicação direta e decisões técnicas conscientes.
+         Ainda atuo em suporte de TI e levo essa visão para o código: entender
+         incidente e impacto no negócio antes de propor a solução. Como
+         freelancer, entrego aplicações Laravel e Vue.js do backend ao deploy —
+         claras, estáveis e fáceis de manter.
         </p>
 
         <section
@@ -430,8 +453,8 @@
            <div class="about-card__trait-copy">
             <span class="about-card__trait-title">Visão operacional</span>
             <p class="about-card__trait-proof">
-             Entendo incidente e impacto no negócio antes de propor a solução
-             técnica.
+             Venho do suporte: priorizo estabilidade e impacto no dia a dia de
+             quem usa o sistema.
             </p>
            </div>
           </li>
@@ -448,9 +471,9 @@
           <li>
            <ion-icon name="git-merge-outline" aria-hidden="true"></ion-icon>
            <div class="about-card__trait-copy">
-            <span class="about-card__trait-title">Entrega end-to-end</span>
+            <span class="about-card__trait-title">Do backend ao deploy</span>
             <p class="about-card__trait-proof">
-             Da API ao front e ao deploy, acompanhando o fluxo até produção.
+             Da API ao front e à publicação, acompanhando o fluxo até produção.
             </p>
            </div>
           </li>
@@ -467,17 +490,6 @@
          </ul>
         </section>
        </article>
-
-       <nav class="about-actions" aria-label="Próximas seções">
-        <a href="#experiencia" class="about-actions__link about-actions__link--primary">
-         <span>Ver experiência</span>
-         <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
-        </a>
-        <a href="#tecnologias" class="about-actions__link">
-         <span>Ver tecnologias</span>
-         <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
-        </a>
-       </nav>
       </div>
      </section>
 
@@ -497,7 +509,7 @@
          Experiência Profissional
         </h2>
         <p class="section-subtitle reveal-on-scroll">
-         Cargos, contexto e principais responsabilidades
+         Cargos, entregas e formação
         </p>
        </header>
 
@@ -509,6 +521,21 @@
          aria-label="Histórico profissional"
         ></ul>
        </div>
+
+       <section
+        class="education-block reveal-on-scroll"
+        aria-labelledby="education-heading"
+       >
+        <h3 id="education-heading" class="education-block-title font-mono">
+         Formação
+        </h3>
+        <ul
+         id="education-list"
+         class="education-list"
+         role="list"
+         aria-label="Formação acadêmica"
+        ></ul>
+       </section>
       </div>
      </section>
 <!-- Divider -->
@@ -527,7 +554,7 @@
          Tecnologias
         </h2>
         <p class="section-subtitle reveal-on-scroll">
-         Linguagens, frameworks, APIs, testes, CI/CD e ferramentas do dia a dia
+         O que uso no dia a dia
         </p>
        </header>
        <div class="technologies-panel reveal-on-scroll">
@@ -551,7 +578,21 @@
             <span class="technology-item-icon" aria-hidden="true">
              <span class="icon brands fa-laravel"></span>
             </span>
-            <span class="technology-item-name">Laravel</span>
+            <span class="technology-item-name">Laravel · Blade</span>
+            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+           </li>
+           <li class="technology-item" role="listitem" data-level="production">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon solid fa-bolt"></span>
+            </span>
+            <span class="technology-item-name">Livewire</span>
+            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+           </li>
+           <li class="technology-item" role="listitem" data-level="production">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon solid fa-database"></span>
+            </span>
+            <span class="technology-item-name">MySQL</span>
             <span class="technology-level-dot" aria-label="Nível: Produção"></span>
            </li>
            <li class="technology-item" role="listitem" data-level="familiar">
@@ -559,20 +600,6 @@
              <span class="icon brands fa-python"></span>
             </span>
             <span class="technology-item-name">Python</span>
-            <span class="technology-level-dot" aria-label="Nível: Familiar"></span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon solid fa-database"></span>
-            </span>
-            <span class="technology-item-name">Banco de Dados</span>
-            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="familiar">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon solid fa-coffee"></span>
-            </span>
-            <span class="technology-item-name">Java</span>
             <span class="technology-level-dot" aria-label="Nível: Familiar"></span>
            </li>
           </ul>
@@ -599,18 +626,11 @@
             <span class="technology-item-name">JavaScript</span>
             <span class="technology-level-dot" aria-label="Nível: Produção"></span>
            </li>
-           <li class="technology-item" role="listitem" data-level="familiar">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon brands fa-bootstrap"></span>
-            </span>
-            <span class="technology-item-name">Bootstrap</span>
-            <span class="technology-level-dot" aria-label="Nível: Familiar"></span>
-           </li>
            <li class="technology-item" role="listitem" data-level="production">
             <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon brands fa-html5"></span>
+             <span class="icon brands fa-css3-alt"></span>
             </span>
-            <span class="technology-item-name">HTML5 &amp; CSS3</span>
+            <span class="technology-item-name">HTML/CSS · Tailwind</span>
             <span class="technology-level-dot" aria-label="Nível: Produção"></span>
            </li>
           </ul>
@@ -646,28 +666,21 @@
             <span class="technology-item-icon" aria-hidden="true">
              <span class="icon solid fa-network-wired"></span>
             </span>
-            <span class="technology-item-name">APIs &amp; Integrações</span>
+            <span class="technology-item-name">APIs REST</span>
             <span class="technology-level-dot" aria-label="Nível: Produção"></span>
            </li>
            <li class="technology-item" role="listitem" data-level="production">
             <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon solid fa-vial"></span>
+             <span class="icon brands fa-whatsapp"></span>
             </span>
-            <span class="technology-item-name">Testes</span>
-            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon solid fa-rocket"></span>
-            </span>
-            <span class="technology-item-name">CI/CD</span>
+            <span class="technology-item-name">Integrações WhatsApp</span>
             <span class="technology-level-dot" aria-label="Nível: Produção"></span>
            </li>
            <li class="technology-item" role="listitem" data-level="familiar">
             <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon solid fa-cloud"></span>
+             <span class="icon solid fa-bolt"></span>
             </span>
-            <span class="technology-item-name">Terraform &amp; DevOps</span>
+            <span class="technology-item-name">Vite</span>
             <span class="technology-level-dot" aria-label="Nível: Familiar"></span>
            </li>
           </ul>
@@ -705,7 +718,7 @@
          Publicações
         </h2>
         <p class="section-subtitle reveal-on-scroll">
-         Conteúdo técnico publicado — pesquisa aplicada com consulta pública
+         Análise preditiva com dados do NAEP — entrega da pós em Gestão de SI
         </p>
        </header>
        <div class="publications-panel reveal-on-scroll" role="list" aria-label="Lista de publicações">
@@ -733,17 +746,19 @@
              <span class="publication-venue font-mono">SDC Guarulhos</span>
             </div>
             <h3 class="publication-title">
-             Estudo técnico publicado na Secretaria de Desenvolvimento
-             Científico
+             Impacto de fatores socioeconômicos no desempenho acadêmico: uma
+             análise preditiva com dados do NAEP
             </h3>
             <p class="publication-description">
-             Trabalho disponibilizado no portal institucional da SDC Guarulhos,
-             com conteúdo aplicado e contextualizado para consulta pública.
+             Estudo de análise preditiva relacionando fatores socioeconômicos e
+             desempenho acadêmico. Artigo publicado no portal da SDC Guarulhos
+             como entrega da pós-graduação em Gestão de Sistemas de Informação
+             (IFSP).
             </p>
             <ul class="publication-meta-list" aria-label="Detalhes da publicação">
              <li class="publication-meta-item">
               <i class="icon solid fa-university" aria-hidden="true"></i>
-              <span>Secretaria de Desenvolvimento Científico</span>
+              <span>Entrega da pós · IFSP</span>
              </li>
              <li class="publication-meta-item">
               <i class="icon solid fa-map-marker-alt" aria-hidden="true"></i>
@@ -762,9 +777,9 @@
             class="publication-link"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Ler publicação na SDC Guarulhos"
+            aria-label="Ler artigo sobre análise preditiva com dados do NAEP"
            >
-            <span>Ler publicação</span>
+            <span>Ler artigo</span>
             <ion-icon name="open-outline" aria-hidden="true"></ion-icon>
            </a>
           </footer>
@@ -789,7 +804,7 @@
          Contato
         </h2>
         <p class="section-subtitle reveal-on-scroll">
-         Aberto a vagas CLT, projetos PJ e conversas sobre tecnologia
+         Vaga CLT ou projeto PJ — vamos conversar
         </p>
        </header>
        <div class="contact-panel reveal-on-scroll">
@@ -808,27 +823,33 @@
            Direto
           </h3>
           <ul class="contact-list" role="list">
-           <li class="contact-item contact-item--primary" role="listitem">
-            <a
-             href="mailto:contato.estevamdelima@gmail.com"
-             class="contact-item-link"
-             aria-label="Enviar e-mail para contato.estevamdelima@gmail.com"
-            >
-             <span class="contact-item-icon" aria-hidden="true">
-              <i class="icon solid fa-envelope"></i>
-             </span>
-             <span class="contact-item-body">
-              <span class="contact-item-label">E-mail</span>
-              <span class="contact-item-value"
-               >contato.estevamdelima@gmail.com</span
-              >
-             </span>
-             <ion-icon
-              name="chevron-forward-outline"
-              class="contact-item-arrow"
-              aria-hidden="true"
-             ></ion-icon>
-            </a>
+           <li class="contact-item contact-item--primary contact-item--with-action" role="listitem">
+            <div class="contact-item-shell">
+             <a
+              href="mailto:contato.estevamdelima@gmail.com"
+              class="contact-item-link contact-item-link--in-shell"
+              aria-label="Enviar e-mail para contato.estevamdelima@gmail.com"
+             >
+              <span class="contact-item-icon" aria-hidden="true">
+               <i class="icon solid fa-envelope"></i>
+              </span>
+              <span class="contact-item-body">
+               <span class="contact-item-label">E-mail</span>
+               <span class="contact-item-value"
+                >contato.estevamdelima@gmail.com</span
+               >
+              </span>
+             </a>
+             <button
+              type="button"
+              class="contact-item-action"
+              data-copy-text="contato.estevamdelima@gmail.com"
+              aria-label="Copiar e-mail para a área de transferência"
+              title="Copiar e-mail"
+             >
+              <ion-icon name="copy-outline" aria-hidden="true"></ion-icon>
+             </button>
+            </div>
            </li>
            <li class="contact-item contact-item--primary" role="listitem">
             <a

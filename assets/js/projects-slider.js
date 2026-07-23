@@ -11,6 +11,7 @@ import {
  isProductionProject,
  resolveProjectHomepage,
  resolveProjectImage,
+ resolveProjectOutcome,
  resolveProjectStack,
 } from './data/projects.js';
 import { getStackIcon } from './utils/stack-icons.js';
@@ -75,6 +76,7 @@ function buildUnifiedProjectList(repos) {
  const featured = FEATURED_PROJECTS.map((project) => ({
   name: project.name,
   category: project.category || null,
+  outcome: project.outcome || null,
   image: project.image,
   demoUrl: project.demoUrl || project.repoUrl,
   repoUrl: project.repoUrl || project.demoUrl,
@@ -100,6 +102,7 @@ function buildUnifiedProjectList(repos) {
     category:
      getProjectCategory(repo.name) ||
      (isProduction ? 'Site' : 'Open source'),
+    outcome: resolveProjectOutcome(repo.name),
     image: resolveProjectImage(repo.name) || getFallbackImage(repo.name),
     demoUrl: isProduction ? homepage || htmlUrl : homepage || htmlUrl,
     repoUrl: htmlUrl,
@@ -303,6 +306,13 @@ function createProjectCard(project, index) {
   category.className = 'featured-item-category font-mono';
   category.textContent = categoryLabel;
   caption.appendChild(category);
+
+  if (project.outcome) {
+   const outcome = document.createElement('p');
+   outcome.className = 'featured-item-outcome';
+   outcome.textContent = project.outcome;
+   caption.appendChild(outcome);
+  }
 
   const languageTags = createLanguageTags(project.stack);
   if (languageTags) {

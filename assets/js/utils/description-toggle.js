@@ -1,11 +1,22 @@
 export const DESCRIPTION_MOBILE_MQ = '(max-width: 767px)';
 
 /**
- * Expande/colapsa descrição no mobile quando o texto ultrapassa o limite de linhas.
+ * Expande/colapsa descrição no mobile com line-clamp.
+ * @param {HTMLElement} descContainer - .experience-description
+ * @param {HTMLElement} _toggleParent - mantido por compat (botão vai dentro do container)
+ * @param {{ toggleClass?: string, lineClamp?: number }} [options]
  */
-export function setupMobileDescriptionToggle(desc, descContainer, options = {}) {
+export function setupMobileDescriptionToggle(
+ descContainer,
+ _toggleParent,
+ options = {}
+) {
  const toggleClass = options.toggleClass ?? 'description-toggle';
+ const lineClamp = options.lineClamp ?? 2;
  const mobileQuery = window.matchMedia(DESCRIPTION_MOBILE_MQ);
+ const textEl = descContainer.querySelector('p');
+
+ if (!textEl) return;
 
  const setToggleState = (toggleButton, isExpanded) => {
   toggleButton.setAttribute('aria-expanded', String(isExpanded));
@@ -22,36 +33,30 @@ export function setupMobileDescriptionToggle(desc, descContainer, options = {}) 
   }
  };
 
- const syncToggle = () => {
-  const existingToggle = descContainer.querySelector(`.${toggleClass}`);
-  if (existingToggle) {
-   existingToggle.remove();
-  }
+ const clearState = () => {
+  descContainer.querySelector(`.${toggleClass}`)?.remove();
+  descContainer.classList.remove('expanded', 'is-truncated');
+  descContainer.style.removeProperty('--desc-line-clamp');
+ };
 
-  // Limpar estados prévios
-  desc.classList.remove('expanded', 'is-truncated');
-  desc.style.removeProperty('--desc-collapsed-height');
-  desc.style.removeProperty('--desc-expanded-height');
+ const syncToggle = () => {
+  clearState();
 
   if (!mobileQuery.matches) {
    return;
   }
 
-  // Ativar truncamento temporário para medição
-  desc.classList.add('is-truncated');
-  
-  // Leitura única de layout (evitando alternar classes/estilos de forma cíclica)
-  const collapsedHeight = desc.clientHeight;
-  const fullHeight = desc.scrollHeight;
+  descContainer.style.setProperty('--desc-line-clamp', String(lineClamp));
+  descContainer.classList.add('is-truncated');
 
-  // Se o conteúdo cabe sem truncar (threshold de 4px para flexibilidade)
-  if (fullHeight <= collapsedHeight + 4) {
-   desc.classList.remove('is-truncated');
+  // Força layout com clamp aplicado
+  void textEl.offsetHeight;
+
+  const needsToggle = textEl.scrollHeight > textEl.clientHeight + 1;
+  if (!needsToggle) {
+   clearState();
    return;
   }
-
-  // Definir variável apenas para a altura colapsada medida de forma limpa
-  desc.style.setProperty('--desc-collapsed-height', `${collapsedHeight}px`);
 
   const toggleButton = document.createElement('button');
   toggleButton.type = 'button';
@@ -64,23 +69,24 @@ export function setupMobileDescriptionToggle(desc, descContainer, options = {}) 
   `;
 
   toggleButton.addEventListener('click', () => {
-   const isExpanded = desc.classList.contains('expanded');
-   
-   if (isExpanded) {
-    desc.classList.remove('expanded');
-    setToggleState(toggleButton, false);
-   } else {
-    // Definir altura expandida dinamicamente apenas no clique (lazy measurement)
-    desc.style.setProperty('--desc-expanded-height', `${desc.scrollHeight}px`);
-    desc.classList.add('expanded');
-    setToggleState(toggleButton, true);
-   }
+   const isExpanded = descContainer.classList.contains('expanded');
+   descContainer.classList.toggle('expanded', !isExpanded);
+   setToggleState(toggleButton, !isExpanded);
   });
 
   descContainer.appendChild(toggleButton);
  };
 
- syncToggle();
+ // Aguarda layout/fonte/reveal para medir com precisão
+ const scheduleSync = () => {
+  window.requestAnimationFrame(() => {
+   window.requestAnimationFrame(syncToggle);
+  });
+ };
+
+ scheduleSync();
+ window.setTimeout(scheduleSync, 120);
+ window.setTimeout(scheduleSync, 400);
 
  if (typeof mobileQuery.addEventListener === 'function') {
   mobileQuery.addEventListener('change', syncToggle);
@@ -88,4 +94,3 @@ export function setupMobileDescriptionToggle(desc, descContainer, options = {}) 
   mobileQuery.addListener(syncToggle);
  }
 }
-

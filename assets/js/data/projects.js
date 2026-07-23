@@ -1,30 +1,18 @@
 /**
  * Fonte única de metadados de projetos (GitHub + externos + destaques)
+ *
+ * featuredOrder: ordem no carrossel (menor = primeiro)
+ * ready: false = ainda não exibir (ex.: sem screenshot)
  */
 
 const PROJECT_CATALOG = [
- {
-  id: 'nerdola-miner',
-  name: 'Nerdola Miner',
-  category: 'E-commerce',
-  description:
-   'Loja especializada em ASICs com calculadoras de rentabilidade, suporte e conteúdo para mineração de Bitcoin.',
-  image: 'images/nerdolaminer.png',
-  demoUrl: 'https://nerdolaminer.com.br/',
-  repoUrl: 'https://nerdolaminer.com.br/',
-  stack: ['PHP', 'Laravel', 'MySQL', 'Blade'],
-  language: 'PHP',
-  topics: ['laravel', 'blade', 'sql', 'php'],
-  updatedAt: '2026-04-15T00:00:00Z',
-  featured: true,
-  isExternal: true,
- },
  {
   id: 'ponto-corte',
   name: 'PontoCorte',
   category: 'SaaS',
   description:
-   'Sistema completo de gestão de barbearia com agendamento integrado, envio de mensagens via WhatsApp, controle financeiro e relatórios de desempenho.',
+   'Agenda, mensagens e financeiro da barbearia estavam espalhados. Entreguei um SaaS em Laravel e Livewire com WhatsApp, agendamento e painel financeiro unificados.',
+  outcome: 'Agendamento, WhatsApp e financeiro em um só painel.',
   image: 'images/pontocorte.png',
   demoUrl: 'https://app.pontocorte.com.br/',
   repoUrl: 'https://app.pontocorte.com.br/',
@@ -33,6 +21,25 @@ const PROJECT_CATALOG = [
   topics: ['laravel', 'livewire', 'barbershop', 'saas', 'whatsapp'],
   updatedAt: '2026-07-01T00:00:00Z',
   featured: true,
+  featuredOrder: 1,
+  isExternal: true,
+ },
+ {
+  id: 'nerdola-miner',
+  name: 'Nerdola Miner',
+  category: 'E-commerce',
+  description:
+   'Loja de ASICs precisava de catálogo, conteúdo técnico e calculadoras de rentabilidade. Desenvolvi o e-commerce em Laravel, em produção.',
+  outcome: 'Catálogo + calculadoras de rentabilidade em produção.',
+  image: 'images/nerdolaminer.png',
+  demoUrl: 'https://nerdolaminer.com.br/',
+  repoUrl: 'https://nerdolaminer.com.br/',
+  stack: ['PHP', 'Laravel', 'MySQL', 'Blade'],
+  language: 'PHP',
+  topics: ['laravel', 'blade', 'sql', 'php'],
+  updatedAt: '2026-04-15T00:00:00Z',
+  featured: true,
+  featuredOrder: 2,
   isExternal: true,
  },
  {
@@ -40,7 +47,8 @@ const PROJECT_CATALOG = [
   name: 'SkyFashion',
   category: 'E-commerce',
   description:
-   'E-commerce de moda esportiva com catálogo, categorias e carrinho de compras.',
+   'As vendas aconteciam pelo Instagram; o projeto deu à marca uma vitrine própria e presença digital mais sólida, com catálogo, categorias e carrinho.',
+  outcome: 'Loja online com catálogo, categorias e carrinho.',
   image: 'images/skyfashion.png',
   demoUrl: 'https://skyfashion.pt/',
   repoUrl: 'https://skyfashion.pt/',
@@ -49,6 +57,25 @@ const PROJECT_CATALOG = [
   topics: ['laravel', 'blade', 'sql', 'php', 'ecommerce'],
   updatedAt: '2026-04-15T00:00:00Z',
   featured: true,
+  featuredOrder: 3,
+  isExternal: true,
+ },
+ {
+  id: 'ntinformatica',
+  name: 'Ntinformatica',
+  category: 'Institucional',
+  description:
+   'A empresa precisava de um site institucional claro, com caminho direto para a plataforma de suporte.',
+  outcome: 'Site institucional da NT com foco em serviços de TI.',
+  image: 'images/ntinformatica.png',
+  demoUrl: 'https://nt-informatica.vercel.app/',
+  repoUrl: 'https://nt-informatica.vercel.app/',
+  stack: ['HTML', 'CSS', 'JavaScript'],
+  language: 'JavaScript',
+  topics: ['html', 'css', 'javascript', 'institucional'],
+  updatedAt: '2026-04-15T00:00:00Z',
+  featured: true,
+  featuredOrder: 4,
   isExternal: true,
  },
  {
@@ -57,6 +84,7 @@ const PROJECT_CATALOG = [
   category: 'Institucional',
   description:
    'Landing page institucional de contabilidade e consultoria para empresas.',
+  outcome: 'Presença digital institucional com foco em conversão.',
   image: 'images/lgf-contabilidade.png',
   demoUrl: 'https://lgfcontabilidade.com.br/',
   repoUrl: 'https://lgfcontabilidade.com.br/',
@@ -65,13 +93,16 @@ const PROJECT_CATALOG = [
   topics: ['html', 'css', 'javascript', 'institucional'],
   updatedAt: '2026-04-15T00:00:00Z',
   featured: true,
+  featuredOrder: 5,
   isExternal: true,
  },
  {
   id: 'transcende',
   name: 'Transcende',
+  category: 'Institucional',
   description:
-   'Site institucional para yoga, massagens, terapias e locação de espaços em São Paulo.',
+   'O site antigo pedia um visual mais alinhado ao negócio e um fluxo de agendamento e financeiro no próprio canal.',
+  outcome: 'Visual renovado com agendamento e financeiro no site.',
   image: 'images/transcende.png',
   demoUrl: 'https://transcende.vercel.app/',
   repoUrl: 'https://transcende.vercel.app/',
@@ -83,44 +114,57 @@ const PROJECT_CATALOG = [
   isExternal: true,
  },
  {
-  id: 'ntinformatica',
-  name: 'Ntinformatica',
+  id: 'automacao-ops',
+  name: 'Automação operacional',
+  category: 'Automação',
   description:
-   'Site institucional da NT Informática com foco em suporte técnico e soluções completas em TI.',
-  image: 'images/ntinformatica.png',
-  demoUrl: 'https://nt-informatica.vercel.app/',
-  repoUrl: 'https://nt-informatica.vercel.app/',
-  stack: ['HTML', 'CSS', 'JavaScript'],
-  language: 'JavaScript',
-  topics: ['html', 'css', 'javascript', 'institucional'],
-  updatedAt: '2026-04-15T00:00:00Z',
+   'Projeto de automação em desenvolvimento — será publicado com demo e screenshot.',
+  outcome: 'Em desenvolvimento.',
+  image: 'images/pontocorte.png',
+  demoUrl: '',
+  repoUrl: '',
+  stack: ['Python'],
+  language: 'Python',
+  topics: ['automation'],
+  updatedAt: '2026-07-22T00:00:00Z',
   featured: false,
   isExternal: true,
+  ready: false,
  },
 ];
+
+const VISIBLE_CATALOG = PROJECT_CATALOG.filter(
+ (project) => project.ready !== false
+);
 
 /** Repositórios GitHub com metadados customizados (fora do catálogo externo) */
 const GITHUB_REPO_OVERRIDES = {
  Syncfinance: {
   image: 'images/syncfinance.png',
+  category: 'Open source',
   description:
    'Aplicação web para organização e acompanhamento de finanças pessoais com Laravel.',
+  outcome: 'App Laravel para organizar e acompanhar finanças pessoais.',
   stack: ['PHP', 'Laravel', 'MySQL'],
   language: 'PHP',
   topics: ['laravel', 'php', 'finance'],
  },
  Horientando: {
   image: 'images/horientando.png',
+  category: 'Open source',
   description:
    'Trabalho de conclusão de curso com sistema completo desenvolvido em Laravel.',
+  outcome: 'TCC com sistema completo em Laravel.',
   stack: ['PHP', 'Laravel', 'MySQL'],
   language: 'PHP',
   topics: ['laravel', 'tcc', 'php'],
  },
  Guicodex: {
   image: 'images/guicodex.png',
+  category: 'Portfólio',
   description:
    'Portfólio interativo em estilo Pokédex para exibir projetos e habilidades de desenvolvedor.',
+  outcome: 'Portfólio interativo em estilo Pokédex.',
   stack: ['HTML', 'CSS', 'JavaScript'],
   language: 'JavaScript',
   topics: ['portfolio', 'javascript', 'css'],
@@ -134,8 +178,10 @@ export const EXCLUDED_PROJECT_NAMES = [
  'riftfinder',
 ];
 
-export const FEATURED_PROJECTS = PROJECT_CATALOG.filter(
+export const FEATURED_PROJECTS = VISIBLE_CATALOG.filter(
  (project) => project.featured
+).sort(
+ (a, b) => (a.featuredOrder ?? 99) - (b.featuredOrder ?? 99)
 );
 
 const FEATURED_NAMES = new Set(
@@ -146,7 +192,7 @@ function findProjectByName(name) {
  if (!name) return null;
  const normalized = name.toLowerCase();
  return (
-  PROJECT_CATALOG.find((project) => project.name.toLowerCase() === normalized) ||
+  VISIBLE_CATALOG.find((project) => project.name.toLowerCase() === normalized) ||
   null
  );
 }
@@ -170,7 +216,18 @@ export function isFeaturedProject(name) {
 
 export function getProjectCategory(name) {
  const project = findProjectByName(name);
- return project?.category || null;
+ if (project?.category) return project.category;
+
+ const override = findGithubOverride(name);
+ return override?.category || null;
+}
+
+export function resolveProjectOutcome(name) {
+ const project = findProjectByName(name);
+ if (project?.outcome) return project.outcome;
+
+ const override = findGithubOverride(name);
+ return override?.outcome || null;
 }
 
 export function resolveProjectImage(name) {
@@ -249,7 +306,7 @@ export function toGitHubRepoShape(project) {
  };
 }
 
-export const EXTERNAL_PROJECTS = PROJECT_CATALOG.filter(
+export const EXTERNAL_PROJECTS = VISIBLE_CATALOG.filter(
  (project) => project.isExternal
 ).map(toGitHubRepoShape);
 
@@ -284,16 +341,16 @@ export const LOCAL_GITHUB_REPOS = Object.entries(GITHUB_REPO_OVERRIDES).map(
  */
 export function getPortfolioStats() {
  const catalogNames = new Set(
-  PROJECT_CATALOG.map((project) => project.name.toLowerCase())
+  VISIBLE_CATALOG.map((project) => project.name.toLowerCase())
  );
 
  const githubOnlyCount = LOCAL_GITHUB_REPOS.filter(
   (repo) => !catalogNames.has(repo.name.toLowerCase())
  ).length;
 
- const portfolioTotal = PROJECT_CATALOG.length + githubOnlyCount;
+ const portfolioTotal = VISIBLE_CATALOG.length + githubOnlyCount;
 
- const liveSites = PROJECT_CATALOG.filter(
+ const liveSites = VISIBLE_CATALOG.filter(
   (project) =>
    project.isExternal &&
    project.demoUrl &&

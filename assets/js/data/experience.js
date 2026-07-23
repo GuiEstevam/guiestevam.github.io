@@ -1,8 +1,30 @@
 /**
  * Histórico profissional — fonte única para a timeline
+ *
+ * startDate / endDate (ISO YYYY-MM-DD): duração calculada em runtime.
+ * endDate omitido ou null = cargo atual.
  */
 
 export const EXPERIENCE_ITEMS = [
+ {
+  id: 'freelance',
+  title: 'Desenvolvedor Full Stack',
+  company: 'Freelancer',
+  badges: [
+   { text: 'Atual', variant: 'current' },
+   { text: 'PJ', variant: 'dev' },
+  ],
+  period: 'jun de 2024 - o momento',
+  startDate: '2024-06-01',
+  endDate: null,
+  location: 'Guarulhos, SP · Remota',
+  parallelNote: 'Atuação em paralelo com o suporte de T.I.',
+  description:
+   'Desenvolvimento de aplicações web sob demanda: SaaS, e-commerces e sites institucionais. Entrego do levantamento ao deploy — Laravel, Livewire, Vue.js e MySQL — com foco em estabilidade, integrações e manutenção contínua.',
+  stack: ['Laravel', 'Livewire', 'Vue.js', 'MySQL', 'TailwindCSS'],
+  itemModifiers: ['experience-item--current'],
+  cardModifiers: ['experience-card--current', 'experience-card--highlight'],
+ },
  {
   id: 'nt-servicos',
   title: 'Suporte de T.I',
@@ -12,7 +34,8 @@ export const EXPERIENCE_ITEMS = [
    { text: 'Terceirizado' },
   ],
   period: 'ago de 2023 - o momento',
-  duration: '2 anos 4 meses',
+  startDate: '2023-08-01',
+  endDate: null,
   location: 'São Paulo, Brasil · Remota',
   description:
    'Atuo no suporte técnico de nível 1 e 2, atendendo usuários e resolvendo incidentes relacionados a sistemas e ferramentas. Realizo manutenção e atualizações de servidores, máquinas e softwares, além de monitorar o desempenho para evitar falhas.',
@@ -22,14 +45,15 @@ export const EXPERIENCE_ITEMS = [
  },
  {
   id: 'unimais-fullstack',
-  title: 'Desenvolvedor Fullstack',
+  title: 'Desenvolvedor Full Stack',
   company: 'UNIMAIS - Faculdade Educamais',
   badges: [{ text: 'Dev', variant: 'dev' }],
   period: 'jan de 2022 - nov de 2022',
-  duration: '11 meses',
+  startDate: '2022-01-01',
+  endDate: '2022-11-30',
   location: 'São Paulo, Brasil · Remota',
   description:
-   'Participei no desenvolvimento e testes de um projeto em implementação, com foco em melhorias de funcionalidades e resolução de problemas técnicos em ambiente Laravel com interface Vue.js.',
+   'Participei do desenvolvimento e testes de um produto em implementação: melhorias de funcionalidades, correção de bugs e evolução de fluxos em Laravel com interface Vue.js e MySQL, em ambiente de equipe remota.',
   stack: ['Laravel', 'Vue.js', 'MySQL'],
   itemModifiers: ['experience-item--featured'],
   cardModifiers: ['experience-card--highlight'],
@@ -40,7 +64,8 @@ export const EXPERIENCE_ITEMS = [
   company: 'Campos Contabilidade e Consultoria Ltda.',
   badges: [{ text: 'Tempo integral' }],
   period: 'abr de 2020 - jan de 2022',
-  duration: '1 ano 10 meses',
+  startDate: '2020-04-01',
+  endDate: '2022-01-31',
   location: 'Guarulhos, São Paulo, Brasil',
   parallelNote: 'Exercido em paralelo com o cargo na Online Certificadora.',
   description:
@@ -48,6 +73,7 @@ export const EXPERIENCE_ITEMS = [
   stack: [],
   itemModifiers: ['experience-item--parallel'],
   cardModifiers: [],
+  collapsedByDefault: true,
  },
  {
   id: 'online-certificadora',
@@ -55,7 +81,8 @@ export const EXPERIENCE_ITEMS = [
   company: 'Online Certificadora',
   badges: [{ text: 'Tempo integral' }],
   period: 'abr de 2020 - jan de 2022',
-  duration: '1 ano 10 meses',
+  startDate: '2020-04-01',
+  endDate: '2022-01-31',
   location: 'Guarulhos, São Paulo, Brasil',
   parallelNote: 'Exercido em paralelo com o cargo na Campos Contabilidade.',
   description:
@@ -63,5 +90,6 @@ export const EXPERIENCE_ITEMS = [
   stack: [],
   itemModifiers: ['experience-item--parallel'],
   cardModifiers: [],
+  collapsedByDefault: true,
  },
 ];

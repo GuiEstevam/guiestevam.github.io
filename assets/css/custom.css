@@ -1399,6 +1399,16 @@ section {
  border-top: none !important;
 }
 
+/* Só o Hero preenche o viewport; demais seções = altura do conteúdo */
+#projetos.full-viewport-section,
+#sobre.full-viewport-section,
+#experiencia.full-viewport-section,
+#tecnologias.full-viewport-section,
+#publicacoes.full-viewport-section,
+#contato.full-viewport-section {
+ min-height: auto;
+}
+
 /* Espaçamento extra entre seções */
 .full-viewport-section + .section-divider {
  margin: var(--spacing-xl) 0;
@@ -1584,6 +1594,27 @@ section {
  clip: rect(0, 0, 0, 0);
  white-space: nowrap;
  border-width: 0;
+}
+
+/* Skip link — acessibilidade de teclado */
+.skip-link {
+ position: absolute;
+ left: 1rem;
+ top: -100%;
+ z-index: 100000;
+ padding: 0.75rem 1.25rem;
+ border-radius: 0.5rem;
+ background: var(--color-accent-primary, #22d3ee);
+ color: #0a0f16;
+ font-weight: 700;
+ text-decoration: none;
+ transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+ top: 1rem;
+ outline: 2px solid #f8fafc;
+ outline-offset: 2px;
 }
 
 /* ============================================

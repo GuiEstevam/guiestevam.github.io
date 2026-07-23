@@ -12,10 +12,32 @@ import './darkmode.js';
 import './back-to-top.js';
 import { renderExperienceTimeline } from './experience.js';
 
+function initCopyButtons() {
+  document.querySelectorAll('[data-copy-text]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const text = button.getAttribute('data-copy-text');
+      if (!text) return;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        if (window.showToast) {
+          window.showToast('E-mail copiado!', 'success', 3000);
+        }
+      } catch (error) {
+        console.error('Erro ao copiar texto:', error);
+        if (window.showToast) {
+          window.showToast('Não foi possível copiar o e-mail', 'error');
+        }
+      }
+    });
+  });
+}
+
 async function initApp() {
   renderPortfolioMetrics();
   renderExperienceTimeline();
   initProjectsSlider();
+  initCopyButtons();
 
   // Import dinamico: falha no terminal nao derruba metricas/cards
   try {

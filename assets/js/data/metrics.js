@@ -33,7 +33,7 @@ export function getTerminalStackLine() {
 }
 
 export function getTerminalFocusLine() {
- return 'Foco em entrega.';
+ return 'Do backend ao deploy.';
 }
 
 /** Linha dinâmica do echo de stack no HTML do terminal */
