@@ -11,12 +11,38 @@
   let isMenuOpen = false;
   let menuToggle = null;
   let navMenu = null;
+  let navOverlay = null;
 
   /**
    * Verifica se está em modo mobile
    */
   function isMobile() {
-    return window.innerWidth < 768;
+    // Alinhado ao CSS: menu horizontal só a partir de 1024px
+    return window.innerWidth < 1024;
+  }
+
+  /**
+   * Atualiza overlay (blur) e atributos ARIA
+   */
+  function setOverlayVisible(visible) {
+    if (!navOverlay) return;
+
+    if (visible) {
+      navOverlay.hidden = false;
+      navOverlay.classList.add('active');
+      navOverlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('nav-menu-open');
+    } else {
+      navOverlay.classList.remove('active');
+      navOverlay.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('nav-menu-open');
+      // Aguarda fade-out antes de hidden (evita corte abrupto)
+      window.setTimeout(() => {
+        if (!isMenuOpen && navOverlay) {
+          navOverlay.hidden = true;
+        }
+      }, 300);
+    }
   }
 
   /**
@@ -96,6 +122,7 @@
     navMenu.classList.add('active');
     menuToggle.setAttribute('aria-expanded', 'true');
     menuToggle.setAttribute('aria-label', 'Fechar menu');
+    setOverlayVisible(true);
 
     // Prevenir scroll do body
     document.body.style.overflow = 'hidden';
@@ -114,6 +141,7 @@
     navMenu.classList.remove('active');
     menuToggle.setAttribute('aria-expanded', 'false');
     menuToggle.setAttribute('aria-label', 'Abrir menu');
+    setOverlayVisible(false);
 
     // Restaurar scroll do body
     document.body.style.overflow = '';
@@ -227,6 +255,7 @@
     // Buscar elementos
     menuToggle = document.querySelector('.menu-toggle');
     navMenu = document.querySelector('.nav-menu');
+    navOverlay = document.getElementById('nav-overlay');
 
     if (!menuToggle || !navMenu) {
       return;
@@ -238,6 +267,14 @@
       e.stopPropagation();
       toggleMenu();
     });
+
+    // Clique no overlay fecha o menu
+    if (navOverlay) {
+      navOverlay.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeMenu();
+      });
+    }
 
     // Event delegation no menu para links
     navMenu.addEventListener('click', (e) => {

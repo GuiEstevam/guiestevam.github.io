@@ -4,6 +4,7 @@
  */
 
 import {
+ EXCLUDED_PROJECT_NAMES,
  EXTERNAL_PROJECTS,
  getPortfolioProjectsFallback,
 } from '../data/projects.js';
@@ -11,7 +12,9 @@ import {
 // Configuração
 const GITHUB_USERNAME = 'GuiEstevam';
 const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos`;
-const EXCLUDED_REPOS = ['guiestevam.github.io'];
+const EXCLUDED_REPOS = new Set(
+ EXCLUDED_PROJECT_NAMES.map((name) => name.toLowerCase())
+);
 const CACHE_KEY = 'github_repos_cache';
 const CACHE_TIMESTAMP_KEY = 'github_repos_cache_timestamp';
 const CACHE_DURATION = 60 * 60 * 1000; // 1 hora
@@ -53,11 +56,7 @@ export async function fetchRepositories() {
   }
 
   const repos = await response.json();
-  const filteredRepos = repos.filter((repo) => {
-   if (repo.fork || repo.private) return false;
-   if (EXCLUDED_REPOS.includes(repo.name)) return false;
-   return true;
-  });
+  const filteredRepos = filterListedRepos(repos);
 
   setCachedRepos(filteredRepos);
 
@@ -146,15 +145,32 @@ function setCachedRepos(repos) {
     }
 }
 
+function isExcludedRepo(name) {
+ if (!name) return true;
+ return EXCLUDED_REPOS.has(String(name).toLowerCase());
+}
+
+function filterListedRepos(repos) {
+ if (!Array.isArray(repos)) return [];
+ return repos.filter((repo) => {
+  if (!repo || repo.fork || repo.private) return false;
+  if (isExcludedRepo(repo.name)) return false;
+  return true;
+ });
+}
+
 function mergeWithExternalProjects(repos) {
  if (!Array.isArray(repos)) return [...EXTERNAL_PROJECTS];
 
- const repoNames = new Set(repos.map((repo) => repo?.name).filter(Boolean));
+ const filteredRepos = filterListedRepos(repos);
+ const repoNames = new Set(
+  filteredRepos.map((repo) => repo?.name).filter(Boolean)
+ );
  const missingExternalProjects = EXTERNAL_PROJECTS.filter(
   (externalProject) => !repoNames.has(externalProject.name)
  );
 
- return [...repos, ...missingExternalProjects];
+ return [...filteredRepos, ...missingExternalProjects];
 }
 
 function resolveFallbackRepos() {
@@ -166,7 +182,7 @@ function resolveFallbackRepos() {
   };
  }
 
- const localRepos = getPortfolioProjectsFallback();
+ const localRepos = filterListedRepos(getPortfolioProjectsFallback());
  if (localRepos.length > 0) {
   return {
    repos: localRepos,

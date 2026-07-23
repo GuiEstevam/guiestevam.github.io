@@ -1,0 +1,65 @@
+---
+description: Composição de seções full-viewport e práticas de layout do portfólio
+globs: "{index.html,assets/css/**/*.css,assets/sass/**/*.scss}"
+alwaysApply: false
+---
+
+# Composição de seções
+
+## Uma função por seção
+
+Cada seção (`#hero`, `#sobre`, `#experiencia`, …) tem: um título, um subtítulo curto, um bloco principal. Evitar repetir cópia já coberta em outra seção (ex.: anos/cargos em Sobre se Experiência já lista).
+
+## Full-viewport vs fluxo natural
+
+### Hero (e seções densas com CTA inferior)
+
+Seções marcadas `full-viewport-section` **quando o conteúdo justifica**:
+
+- Podem usar `min-height: 100svh` / `100dvh` na **seção**
+- Preferir conteúdo **compacto** + CTA/scroll inferior (padrão `#hero`), em vez de esticar o card até encher o vazio
+- Colunas irmãs devem ter **altura alinhada** e densidade visual parecida — sem coluna “oca”
+
+```css
+/* ✅ Seção no viewport; card no tamanho do conteúdo; CTA embaixo */
+@media (min-width: 1024px) {
+  #hero.full-viewport-section {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: var(--scroll-reserve, 4.5rem);
+  }
+}
+```
+
+### Sobre Mim (`#sobre`) — exceção: fluxo natural
+
+`#sobre` usa `full-viewport-section` **só** para o mesmo padding/largura das outras seções. **Não** força `100svh` — altura = conteúdo.
+
+- Card denso, faixa de identidade horizontal
+- Traits com **título + 1 linha de prova**
+- Em desktop/FHD: escalar tipografia/padding — **não** alongar altura nem mudar o gutter horizontal
+- Shell interno com o mesmo padding de `.section-content` (`clamp(1rem, 4vw, 1.5rem)`)
+- CSS dedicado: `assets/css/about.css`
+
+## Mobile-first estrutural
+
+1. HTML em ordem de leitura (identidade → texto → detalhes → CTAs)
+2. CSS empilha por padrão
+3. Só ramificar em 2 colunas quando os blocos tiverem **peso visual similar**
+
+## CSS
+
+- Estilos de seção em `assets/css/` (sem `<style>` inline)
+- Preferir tokens/`clamp` a magic numbers
+- Dark mode via classes/tokens existentes do projeto
+- Novos CSS linkados em `index.html` e, se bundling, no `vite.config.js`
+
+## Checklist visual
+
+- [ ] Sem overflow-x em 320px
+- [ ] Foto/meta/CTAs legíveis em todas as larguras
+- [ ] Em FHD, tipografia e padding acompanham a resolução (sem forçar 100vh em seções magras)
+- [ ] Links externos com `rel="noopener noreferrer"`

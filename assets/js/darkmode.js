@@ -126,8 +126,8 @@ if (typeof document !== 'undefined') {
    const desktopIcons = document.querySelector('.nav-icons .icons');
    const mobileIcons = document.querySelector('.nav-menu-social');
 
-   // Verificar se estamos no desktop (largura >= 768px) e se o container desktop existe e está visível
-   if (window.innerWidth >= 768 && desktopIcons) {
+   // Verificar se estamos no desktop (largura >= 1024px) e se o container desktop existe e está visível
+   if (window.innerWidth >= 1024 && desktopIcons) {
     const desktopIconsStyle = window.getComputedStyle(desktopIcons);
     const desktopNavIcons = desktopIcons.closest('.nav-icons');
     const desktopNavIconsStyle = desktopNavIcons
@@ -265,7 +265,7 @@ if (typeof document !== 'undefined') {
 
    // Verificar qual container deve ter o botão
    let targetContainer = null;
-   if (window.innerWidth >= 768 && desktopIcons) {
+   if (window.innerWidth >= 1024 && desktopIcons) {
     const desktopNavIcons = desktopIcons.closest('.nav-icons');
     const desktopNavIconsStyle = desktopNavIcons
      ? window.getComputedStyle(desktopNavIcons)

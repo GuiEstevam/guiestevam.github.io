@@ -4,6 +4,7 @@
 
 import { fetchRepositories } from './services/github-service.js';
 import {
+ EXCLUDED_PROJECT_NAMES,
  FEATURED_PROJECTS,
  getPortfolioProjectsFallback,
  getProjectCategory,
@@ -13,6 +14,10 @@ import {
  resolveProjectStack,
 } from './data/projects.js';
 import { getStackIcon } from './utils/stack-icons.js';
+
+const EXCLUDED_PROJECTS = new Set(
+ EXCLUDED_PROJECT_NAMES.map((name) => name.toLowerCase())
+);
 
 const SLIDER_GAP = 16;
 
@@ -79,7 +84,12 @@ function buildUnifiedProjectList(repos) {
  }));
 
  const others = (Array.isArray(repos) ? repos : [])
-  .filter((repo) => repo?.name && !featuredNames.has(repo.name.toLowerCase()))
+  .filter(
+   (repo) =>
+    repo?.name &&
+    !featuredNames.has(repo.name.toLowerCase()) &&
+    !EXCLUDED_PROJECTS.has(repo.name.toLowerCase())
+  )
   .map((repo) => {
    const homepage = resolveProjectHomepage(repo.name, repo.homepage);
    const htmlUrl = repo.html_url || '';
@@ -262,53 +272,55 @@ function createProjectCard(project, index) {
   `${project.name} — ${categoryLabel} (${formatProjectUrl(linkUrl)})`
  );
 
- const media = document.createElement('div');
- media.className = 'featured-item-media';
+  const media = document.createElement('div');
+  media.className = 'featured-item-media';
 
- const badge = document.createElement('span');
- badge.className = `featured-item-badge font-mono${
-  project.isProduction ? '' : ' featured-item-badge--opensource'
- }`;
- badge.setAttribute('aria-label', badgeLabel);
- badge.textContent = badgeLabel;
- media.appendChild(badge);
+  const img = document.createElement('img');
+  img.src = project.image;
+  img.alt = `Screenshot do projeto ${project.name}`;
+  img.className = 'featured-item-image';
+  img.loading = index < 3 ? 'eager' : 'lazy';
+  img.width = 640;
+  img.height = 400;
+  media.appendChild(img);
 
- const img = document.createElement('img');
- img.src = project.image;
- img.alt = `Screenshot do projeto ${project.name}`;
- img.className = 'featured-item-image';
- img.loading = index < 3 ? 'eager' : 'lazy';
- img.width = 640;
- img.height = 400;
- media.appendChild(img);
+  const badge = document.createElement('span');
+  badge.className = `featured-item-badge font-mono${
+   project.isProduction ? '' : ' featured-item-badge--opensource'
+  }`;
+  badge.setAttribute('aria-label', badgeLabel);
+  badge.textContent = badgeLabel;
 
- const caption = document.createElement('div');
- caption.className = 'featured-item-caption';
+  const caption = document.createElement('div');
+  caption.className = 'featured-item-caption';
 
- const title = document.createElement('h3');
- title.className = 'featured-item-title';
- title.textContent = project.name;
- caption.appendChild(title);
+  const title = document.createElement('h3');
+  title.className = 'featured-item-title';
+  title.textContent = project.name;
+  caption.appendChild(title);
 
- const category = document.createElement('p');
- category.className = 'featured-item-category font-mono';
- category.textContent = categoryLabel;
- caption.appendChild(category);
+  const category = document.createElement('p');
+  category.className = 'featured-item-category font-mono';
+  category.textContent = categoryLabel;
+  caption.appendChild(category);
 
- const languageTags = createLanguageTags(project.stack);
- if (languageTags) {
-  caption.appendChild(languageTags);
- }
+  const languageTags = createLanguageTags(project.stack);
+  if (languageTags) {
+   caption.appendChild(languageTags);
+  }
 
- const openIcon = document.createElement('ion-icon');
- openIcon.className = 'featured-item-icon';
- openIcon.setAttribute('name', 'open-outline');
- openIcon.setAttribute('aria-hidden', 'true');
- caption.appendChild(openIcon);
+  const openIcon = document.createElement('ion-icon');
+  openIcon.className = 'featured-item-icon';
+  openIcon.setAttribute('name', 'open-outline');
+  openIcon.setAttribute('aria-hidden', 'true');
+  caption.appendChild(openIcon);
 
- media.appendChild(caption);
- link.appendChild(media);
- article.appendChild(link);
+  // Desktop: badge/caption sobrepõem a mídia via CSS absolute.
+  // Mobile: flex column com imagem limpa e metadados abaixo.
+  link.appendChild(media);
+  link.appendChild(badge);
+  link.appendChild(caption);
+  article.appendChild(link);
 
  return article;
 }

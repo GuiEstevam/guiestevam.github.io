@@ -684,153 +684,9 @@ img[loading='lazy'].loaded {
    ============================================ */
 
 /* ============================================
-   PROJETOS SECTION → dev-theme.css (Sprint 5)
-   Layout, cards, grid e tipografia migrados
+   PROJETOS SECTION → dev-theme.css
+   Slider legado (.slider-btn) removido
    ============================================ */
-.btn-action.is-hidden {
- display: none;
-}
-
-/* Botões de navegação modernos - Mobile First */
-.slider-btn {
- position: absolute;
- top: 50%;
- transform: translate3d(0, -50%, 0); /* GPU acceleration */
- z-index: 20;
- width: 44px; /* Mobile: tamanho adequado para toque */
- height: 44px;
- border-radius: 50%;
- background-color: var(--bg-white);
- border: 2px solid var(--divider-color);
- color: var(--text-dark);
- cursor: pointer;
- display: flex;
- align-items: center;
- justify-content: center;
- transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
- box-shadow: 0 4px 12px var(--color-shadow-sm);
- padding: 0;
- font-size: 1rem; /* Mobile: tamanho menor */
- outline: none;
- user-select: none;
- -webkit-tap-highlight-color: transparent;
- opacity: 0;
- animation: fadeInButtons 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
- min-width: 44px; /* Área de toque adequada */
- min-height: 44px;
- backface-visibility: hidden;
- -webkit-backface-visibility: hidden;
-}
-
-@keyframes fadeInButtons {
- from {
-  opacity: 0;
-  transform: translate3d(0, -50%, 0) scale(0.8); /* GPU acceleration */
- }
- to {
-  opacity: 1;
-  transform: translate3d(0, -50%, 0) scale(1); /* GPU acceleration */
- }
-}
-
-.slider-btn:focus {
- outline: 2px solid var(--accent-blue);
- outline-offset: 2px;
-}
-
-.slider-btn:hover:not(.disabled) {
- background-color: var(--accent-blue);
- border-color: var(--accent-blue);
- color: var(--color-text-inverse);
- transform: translate3d(0, -50%, 0) scale(1.08); /* GPU acceleration */
- box-shadow: 0 6px 20px var(--color-shadow-accent);
-}
-
-.slider-btn:active:not(.disabled) {
- transform: translate3d(0, -50%, 0) scale(0.96); /* GPU acceleration */
- transition: transform 0.1s ease; /* Feedback visual rápido */
-}
-
-.slider-btn.disabled {
- opacity: 0.4;
- cursor: not-allowed;
- pointer-events: none;
-}
-
-.slider-btn-prev {
- left: 0;
-}
-
-.slider-btn-next {
- right: 0;
-}
-
-.slider-btn .icon {
- font-size: 1.25rem;
- line-height: 1;
- display: flex;
- align-items: center;
- justify-content: center;
-}
-
-/* Dots de navegação modernos */
-.slider-dots {
- display: flex;
- justify-content: center;
- align-items: center;
- gap: 0.625rem;
- margin-top: var(--spacing-lg);
- padding: 0;
- list-style: none;
-}
-
-.slider-dot {
- width: 10px;
- height: 10px;
- border-radius: 50%;
- border: 2px solid var(--divider-color);
- background-color: transparent;
- cursor: pointer;
- transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
- padding: 0;
- margin: 0;
- outline: none;
-}
-
-.slider-dot:hover {
- border-color: var(--accent-blue);
- transform: scale(1.3);
-}
-
-.slider-dot:focus {
- outline: 2px solid var(--accent-blue);
- outline-offset: 2px;
-}
-
-.slider-dot.active {
- background-color: var(--accent-blue);
- border-color: var(--accent-blue);
- width: 28px;
- border-radius: 6px;
- transform: scale(1);
- animation: dotActive 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes dotActive {
- 0% {
-  transform: scale(0.8);
-  width: 10px;
-  border-radius: 50%;
- }
- 50% {
-  transform: scale(1.2);
- }
- 100% {
-  transform: scale(1);
-  width: 28px;
-  border-radius: 6px;
- }
-}
 
 /* Grid padrão quando não é slider (fallback) */
 .features {
@@ -900,20 +756,6 @@ strong {
 
 /* Responsividade melhorada */
 @media screen and (max-width: 736px) {
- .posts article {
-  margin-bottom: 3rem;
-  animation-delay: 0s !important;
- }
-
- .posts article:hover {
-  transform: none;
- }
-
- .project-language,
- .project-updated {
-  font-size: 0.85em;
- }
-
  /* Remover estilos de h2.major em mobile */
  h2.major::after {
   display: none !important;
@@ -927,7 +769,7 @@ strong {
 
 /* ============================================
    NAVEGAÇÃO STICKY - Menu Fixo
-   Visual ativo: dev-theme.css (hero/nav/destaques)
+   Visual ativo: dev-theme.css (hero/nav/projetos)
    ============================================ */
 
 #main-navigation.sticky-nav {
@@ -936,7 +778,9 @@ strong {
  left: 0;
  right: 0;
  z-index: 1000;
+ transform: translateY(0);
  transition:
+  transform 0.3s ease,
   background-color var(--transition-normal),
   border-color var(--transition-normal),
   box-shadow var(--transition-normal);
@@ -965,16 +809,16 @@ strong {
  z-index: 1002;
  overflow: visible;
  text-overflow: ellipsis;
- flex: 1 1 auto;
- min-width: 0; /* Permite que o flex item encolha */
+ flex: 0 0 auto;
+ min-width: 0;
 }
 
 .nav-container .logo:hover {
  color: var(--accent-blue);
 }
 
-/* Ajustes do logo no mobile */
-@media screen and (max-width: 767px) {
+/* Ajustes do logo no mobile/tablet (hambúrguer) */
+@media screen and (max-width: 1023px) {
  .nav-container {
   padding: 1rem var(--spacing-sm); /* Padding menor no mobile */
   gap: var(--spacing-sm); /* Gap menor para dar mais espaço */
@@ -1231,109 +1075,70 @@ strong {
  background-color: var(--accent-blue);
 }
 
-/* Overlay para fechar menu no mobile */
+/* Overlay para fechar menu no mobile — blur + escurecimento do conteúdo */
 .nav-overlay {
  display: none;
  position: fixed;
- top: 0;
- left: 0;
- right: 0;
- bottom: 0;
- background-color: transparent; /* Sem escurecimento */
- z-index: 1001; /* Abaixo do menu e do toggle */
+ inset: 0;
+ z-index: 999; /* Abaixo da navbar (1000), acima do conteúdo */
  opacity: 0;
  pointer-events: none;
- /* Sem blur ou backdrop-filter */
- /* Transições suaves - apenas para opacidade */
- transition: opacity 0.3s ease;
+ background-color: rgba(10, 15, 22, 0.6);
+ backdrop-filter: blur(12px) saturate(1.1);
+ -webkit-backdrop-filter: blur(12px) saturate(1.1);
+ transition:
+  opacity 0.3s ease,
+  backdrop-filter 0.3s ease,
+  -webkit-backdrop-filter 0.3s ease;
+}
+
+html:not(.dark-mode) .nav-overlay {
+ background-color: rgba(15, 23, 42, 0.4);
 }
 
 .nav-overlay.active {
  display: block;
  opacity: 1;
- /* IMPORTANTE: pointer-events apenas no overlay, não nos filhos */
- /* Usar pointer-events: auto apenas para capturar cliques fora do menu */
  pointer-events: auto;
- /* Sem blur, sem escurecimento - apenas área clicável invisível */
- /* Garantir que o overlay fique ABAIXO do menu */
- z-index: 1001 !important;
 }
 
-/* No mobile, o overlay não deve bloquear cliques dentro do menu */
-@media screen and (max-width: 767px) {
- /* O overlay não deve capturar cliques - o listener no document cuida disso */
- .nav-overlay.active {
-  pointer-events: none; /* Não bloquear cliques - apenas visual */
+.nav-overlay[hidden] {
+ display: none !important;
+ opacity: 0 !important;
+ pointer-events: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+ .nav-overlay {
+  transition: opacity 0.15s ease;
  }
- 
- /* Garantir que o menu e seus elementos estejam acima do overlay */
+}
+
+/* Overlay só no modo drawer; esconder no desktop */
+@media screen and (min-width: 1024px) {
+ .nav-overlay,
+ .nav-overlay.active {
+  display: none !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+ }
+}
+
+/* No mobile/tablet: menu e toggle acima do overlay */
+@media screen and (max-width: 1023px) {
  .nav-menu.active {
   z-index: 10010 !important;
-  pointer-events: auto !important;
- }
- 
- .nav-menu.active * {
-  pointer-events: auto !important;
-  position: relative;
-  z-index: 10011 !important;
- }
-}
-
-/* No mobile, garantir que o overlay não intercepte cliques dentro do menu */
-@media screen and (max-width: 767px) {
- /* O overlay só deve capturar cliques fora do menu */
- .nav-overlay.active {
-  pointer-events: auto;
- }
-
- /* O menu e seus elementos devem estar acima do overlay e serem clicáveis */
- .nav-menu.active {
-  pointer-events: auto !important;
-  /* Garantir que o menu está acima do overlay */
-  z-index: 1005 !important;
- }
-
- /* Todos os elementos dentro do menu devem ser clicáveis */
- .nav-menu.active * {
-  pointer-events: auto !important;
- }
-
- /* Garantir que links e botões dentro do menu sejam sempre clicáveis */
- .nav-menu.active a,
- .nav-menu.active button,
- .nav-menu.active .nav-link,
- .nav-menu.active .icon,
- .nav-menu.active #dark-mode-toggle,
- .nav-menu.active .nav-menu-social,
- .nav-menu.active .nav-menu-social * {
-  pointer-events: auto !important;
-  position: relative;
-  z-index: 1007 !important; /* Acima do overlay e do menu */
-  cursor: pointer !important;
- }
-}
-
-/* Garantir que o menu sempre fique acima do overlay - APENAS NO MOBILE */
-@media screen and (max-width: 767px) {
- .nav-menu.active {
-  z-index: 10010 !important; /* MUITO acima do overlay (1001) */
   position: fixed !important;
-  transform: translateZ(
-   0
-  ) !important; /* Forçar novo contexto de empilhamento */
-  isolation: isolate !important; /* Isola o contexto de empilhamento */
-  background-color: var(--bg-white) !important; /* Background sólido */
-  pointer-events: auto !important; /* Garantir que menu e seus elementos são clicáveis */
+  transform: translateZ(0) !important;
+  isolation: isolate !important;
+  background-color: var(--bg-white) !important;
+  pointer-events: auto !important;
  }
 
- /* Garantir que TODOS os elementos dentro do menu sejam clicáveis */
  .nav-menu.active * {
   pointer-events: auto !important;
-  position: relative;
-  z-index: 10011 !important; /* Acima do menu */
  }
 
- /* Garantir que links e botões dentro do menu sejam sempre clicáveis */
  .nav-menu.active a,
  .nav-menu.active button,
  .nav-menu.active .nav-link,
@@ -1345,8 +1150,12 @@ strong {
  .nav-menu.active .nav-menu-social * {
   pointer-events: auto !important;
   position: relative;
-  z-index: 10012 !important; /* Acima de tudo dentro do menu */
+  z-index: 10012 !important;
   cursor: pointer !important;
+ }
+
+ .menu-toggle {
+  z-index: 10015 !important;
  }
 }
 
@@ -1355,8 +1164,8 @@ strong {
  align-items: center;
 }
 
-/* Esconder ícones da navbar no mobile */
-@media screen and (max-width: 767px) {
+/* Esconder ícones da navbar no mobile/tablet */
+@media screen and (max-width: 1023px) {
  .nav-icons {
   display: none !important;
  }
@@ -1373,14 +1182,22 @@ strong {
 }
 
 /* ============================================
-   NAVEGAÇÃO DESKTOP (768px+)
+   NAVEGAÇÃO DESKTOP (1024px+)
    ============================================ */
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
  /* Container da navbar no desktop */
  .nav-container {
   padding: 1rem var(--spacing-lg);
-  gap: var(--spacing-lg);
+  gap: clamp(0.75rem, 1.5vw, 1.5rem);
+ }
+
+ .nav-container .logo {
+  flex: 0 0 auto;
+  z-index: 1;
+  max-width: none;
+  overflow: visible;
+  text-overflow: clip;
  }
 
  /* Esconder botão hambúrguer no desktop */
@@ -1400,14 +1217,16 @@ strong {
   align-items: center !important;
   justify-content: flex-end !important;
   padding: 0 !important;
-  gap: var(--spacing-md) !important;
+  gap: clamp(0.5rem, 1vw, 0.875rem) !important;
   overflow-y: visible !important;
   transform: none !important;
   backface-visibility: visible !important;
   -webkit-backface-visibility: visible !important;
-  z-index: auto !important; /* Z-index normal no desktop */
+  z-index: 2 !important;
   isolation: auto !important; /* Sem isolamento no desktop */
   min-height: auto !important;
+  flex: 1 1 auto;
+  min-width: 0;
  }
 
  /* Remover overlay no desktop - garantir que não bloqueie nada */
@@ -1424,7 +1243,7 @@ strong {
   margin: 0;
  }
 
- /* Esconder ícones dentro do menu no desktop (ficam na navbar) */
+ /* Esconder ícones sociais do drawer no desktop */
  .nav-menu li.nav-menu-icons {
   display: none;
  }
@@ -1892,25 +1711,6 @@ section {
   --spacing-xl: 3rem;
   --spacing-lg: 2rem;
   --spacing-md: 1.5rem;
- }
-
- /* Grid responsivo para projetos e tecnologias */
- .posts {
-  grid-template-columns: 1fr;
-  gap: var(--spacing-lg);
-  max-width: 100%;
- }
-
- /* Ajustes gerais dos cards em mobile */
- .posts article {
-  width: 100% !important;
-  max-width: 100%;
-  margin: 0 auto !important;
- }
-
- /* Container de conteúdo do card em mobile */
- .posts article .article-content {
-  padding: var(--spacing-md);
  }
 
  /* Ajustes de skeleton em mobile */

@@ -217,19 +217,33 @@ formatDate(new Date()); // "15/03/2025"
 
 ### Responsividade
 
-**SEMPRE** testar em:
+**Breakpoints e escala (Full HD incluso):** ver regra [responsive-layout.mdc](./responsive-layout.mdc).  
+**Composição de seções:** ver [section-composition.mdc](./section-composition.mdc).
 
-- Mobile (320px - 768px)
-- Tablet (768px - 1024px)
-- Desktop (1024px+)
+**SEMPRE** validar em:
 
-**Usar media queries CSS:**
+- Mobile: 320px, 390px
+- Tablet: 768px
+- Desktop: 1024px, 1280px
+- Large: 1440px
+- **Full HD: 1920×1080** — tipografia, paddings, ícones e cards devem **crescer**; não só o `max-width`
+
+**Padrão mobile-first:**
 
 ```css
-@media screen and (max-width: 768px) {
- /* Estilos mobile */
+/* base = mobile */
+.bloco { padding: 1rem; font-size: 0.875rem; }
+
+@media screen and (min-width: 1024px) {
+  .bloco { padding: 1.5rem; font-size: 1rem; }
+}
+
+@media screen and (min-width: 1920px) {
+  .bloco { padding: 2rem 2.5rem; font-size: 1.125rem; }
 }
 ```
+
+**PROIBIDO** em telas grandes: container largo + UI “miúda”; `min-height: 100vh` com área interna vazia sem escala de conteúdo.
 
 ### Dark Mode
 
@@ -517,7 +531,8 @@ assets/
 - [ ] Variáveis e funções com nomes descritivos em PT-BR
 - [ ] Comentários onde necessário (lógica complexa)
 - [ ] Dark mode implementado (se aplicável)
-- [ ] Responsivo para mobile (se aplicável)
+- [ ] Responsivo: 320 / 390 / 768 / 1024 / 1280 / 1440 / **1920**
+- [ ] Em Full HD, tipografia e espaçamento escalados (não só `max-width`)
 - [ ] Tratamento de erros adequado
 - [ ] Sem duplicatas de código
 - [ ] Acessibilidade (labels, ARIA, keyboard navigation)
@@ -544,6 +559,7 @@ assets/
 12. ❌ Expor tokens de API no frontend
 13. ❌ Componentes sem estados de loading
 14. ❌ Links externos sem `rel="noopener noreferrer"`
+15. ❌ Full HD com container largo e UI miúda / `100vh` cheio de vazio sem escala de conteúdo
 
 ## O Que é PERMITIDO (com bom senso)
 

@@ -2,7 +2,7 @@
 
 <html lang="pt-BR" class="dark-mode">
  <head>
-  <title>Guilherme Estevam — Full Stack Pleno Laravel & Vue.js</title>
+  <title>Guilherme Estevam — Desenvolvedor Full Stack Laravel & Vue.js</title>
   <meta charset="utf-8" />
   <meta
    name="viewport"
@@ -13,15 +13,15 @@
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
   <meta
    name="description"
-   content="Desenvolvedor Full Stack Pleno — Laravel e Vue.js em produção. 4 projetos no ar, do backend ao deploy."
+   content="Portfólio de Guilherme Estevam — aplicações Laravel e Vue.js em produção, projetos open source e trajetória de TI para desenvolvimento."
   />
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://guiestevam.github.io/" />
-  <meta property="og:title" content="Guilherme Estevam — Full Stack Pleno Laravel & Vue.js" />
+  <meta property="og:title" content="Guilherme Estevam — Desenvolvedor Full Stack Laravel & Vue.js" />
   <meta
    property="og:description"
-   content="Desenvolvedor Full Stack Pleno — Laravel e Vue.js em produção. 4 projetos no ar, do backend ao deploy."
+   content="Portfólio de Guilherme Estevam — aplicações Laravel e Vue.js em produção, projetos open source e trajetória de TI para desenvolvimento."
   />
   <meta
    property="og:image"
@@ -30,10 +30,10 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://guiestevam.github.io/" />
-  <meta name="twitter:title" content="Guilherme Estevam — Full Stack Pleno Laravel & Vue.js" />
+  <meta name="twitter:title" content="Guilherme Estevam — Desenvolvedor Full Stack Laravel & Vue.js" />
   <meta
    name="twitter:description"
-   content="Desenvolvedor Full Stack Pleno — Laravel e Vue.js em produção. 4 projetos no ar, do backend ao deploy."
+   content="Portfólio de Guilherme Estevam — aplicações Laravel e Vue.js em produção, projetos open source e trajetória de TI para desenvolvimento."
   />
   <meta
    name="twitter:image"
@@ -43,6 +43,7 @@
   <link rel="stylesheet" href="assets/css/toast.css" />
   <link rel="stylesheet" href="assets/css/custom.css" />
   <link rel="stylesheet" href="assets/css/dev-theme.css" />
+  <link rel="stylesheet" href="assets/css/about.css" />
   <script
    type="module"
    src="https://unpkg.com/ionicons@latest/dist/ionicons/ionicons.esm.js"
@@ -109,7 +110,7 @@
           <span>Experiência</span>
          </a>
         </li>
-        <li class="nav-link-item--mobile-only">
+        <li>
          <a
           href="#tecnologias"
           class="nav-link"
@@ -135,65 +136,14 @@
           <span>Contato</span>
          </a>
         </li>
-        <li class="nav-menu-icons">
-         <ul class="icons nav-menu-social">
-          <li>
-           <a
-            href="https://github.com/GuiEstevam"
-            class="nav-social-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Perfil no GitHub"
-           >
-            <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
-            <span class="label">Github</span>
-           </a>
-          </li>
-          <li>
-           <a
-            href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
-            class="nav-social-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Perfil no LinkedIn"
-           >
-            <ion-icon name="logo-linkedin" aria-hidden="true"></ion-icon>
-            <span class="label">Linkedin</span>
-           </a>
-          </li>
-         </ul>
-        </li>
        </ul>
-       <div class="nav-icons">
-        <ul class="icons">
-         <li>
-          <a
-           href="https://github.com/GuiEstevam"
-           class="nav-social-link nav-social-link--compact"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Perfil no GitHub"
-          >
-           <ion-icon name="logo-github" aria-hidden="true"></ion-icon>
-           <span class="label">Github</span>
-          </a>
-         </li>
-         <li>
-          <a
-           href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
-           class="nav-social-link nav-social-link--compact"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Perfil no LinkedIn"
-          >
-           <ion-icon name="logo-linkedin" aria-hidden="true"></ion-icon>
-           <span class="label">Linkedin</span>
-          </a>
-         </li>
-        </ul>
-       </div>
       </div>
      </nav>
+     <div
+      id="nav-overlay"
+      class="nav-overlay"
+      aria-hidden="true"
+     ></div>
 
      <!-- Hero Section -->
      <section
@@ -212,16 +162,10 @@
        <div class="hero-split">
         <div class="hero-copy">
          <div class="hero-headline">
-          <p
-           class="hero-eyebrow reveal-on-scroll"
-           data-delay="0"
-          >
-           Olá, eu sou o Guilherme
-          </p>
           <h1
            id="hero-heading"
            class="hero-title reveal-on-scroll"
-           data-delay="0.1"
+           data-delay="0"
           >
            Desenvolvedor Full Stack
           </h1>
@@ -230,54 +174,31 @@
           <p
            id="hero-subtitle"
            class="hero-subtitle reveal-on-scroll"
-           data-delay="0.2"
+           data-delay="0.1"
           >
-           Especializado em <strong>Laravel</strong> e <strong>Vue.js</strong> —
-           do backend ao deploy, com projetos em produção.
+           Especializado em <strong>Laravel</strong> e
+           <strong>Vue.js</strong> — do backend ao deploy, com foco em
+           entrega.
           </p>
           <section
            class="hero-stats-bar reveal-on-scroll"
-           data-delay="0.25"
+           data-delay="0.15"
            aria-labelledby="hero-stats-heading"
           >
            <h2 id="hero-stats-heading" class="visually-hidden">
             Métricas profissionais
            </h2>
            <div
+            id="hero-stats-grid"
             class="hero-stats-grid"
             role="list"
             aria-label="Métricas profissionais"
-           >
-            <div class="hero-stat-item" role="listitem">
-             <span
-              class="hero-stat-number font-mono"
-              aria-label="3 ou mais anos de experiência"
-              >3+</span
-             >
-             <span class="hero-stat-label">anos de experiência</span>
-            </div>
-            <div class="hero-stat-item" role="listitem">
-             <span
-              class="hero-stat-number font-mono"
-              aria-label="4 projetos em produção"
-              >4</span
-             >
-             <span class="hero-stat-label">projetos em produção</span>
-            </div>
-            <div class="hero-stat-item" role="listitem">
-             <span
-              class="hero-stat-number font-mono"
-              aria-label="10 ou mais entregas relevantes"
-              >10+</span
-             >
-             <span class="hero-stat-label">entregas relevantes</span>
-            </div>
-           </div>
+           ></div>
           </section>
          </div>
         <aside
          class="hero-visual reveal-on-scroll"
-         data-delay="0.25"
+         data-delay="0.15"
          aria-label="Terminal decorativo com mensagem de boas-vindas em PHP"
         >
          <div class="hero-terminal">
@@ -289,21 +210,19 @@
           </div>
           <div class="hero-terminal-body font-mono" aria-hidden="true">
            <p><span class="hero-code-tag">&lt;?php</span></p>
-           <p class="hero-code-blank" aria-hidden="true">&nbsp;</p>
            <p><span class="hero-code-var">$dev</span> = <span class="hero-code-str">'Guilherme'</span>;</p>
            <p class="hero-code-blank" aria-hidden="true">&nbsp;</p>
            <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Olá! Bem-vindo ao meu portfólio.\n"</span>;</p>
            <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Sou {$dev}, desenvolvedor Full Stack.\n"</span>;</p>
-           <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Stack: Laravel · Vue.js · PHP · MySQL\n"</span>;</p>
-           <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"4 projetos em produção · 3+ anos · 10+ entregas\n"</span>;</p>
-           <p class="hero-code-blank" aria-hidden="true">&nbsp;</p>
-           <p><span class="hero-code-comment">// Explore os projetos abaixo</span></p>
-           <p><span class="hero-code-tag">?&gt;</span></p>
+           <p><span class="hero-code-key">echo</span> <span class="hero-code-str" data-metrics-line="true">"Laravel · Vue.js · PHP · MySQL\n"</span>;</p>
+           <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Foco em entrega.\n"</span>;</p>
+           <p><span class="hero-code-comment">// clique em Run para executar</span></p>
           </div>
          </div>
+        </aside>
          <ul
           class="hero-stack reveal-on-scroll"
-          data-delay="0.35"
+          data-delay="0.25"
           aria-label="Stack principal"
          >
           <li class="stack-pill stack-pill--hero-primary">
@@ -331,25 +250,16 @@
            <span>Docker</span>
           </li>
          </ul>
-        </aside>
         <div class="hero-body">
-         <div class="hero-actions reveal-on-scroll" data-delay="0.5">
+         <div class="hero-actions reveal-on-scroll" data-delay="0.35">
           <div
            class="hero-actions-primary"
            role="group"
            aria-label="Ações principais"
           >
            <a
-            href="#projetos"
-            class="button hero-button-primary"
-            aria-label="Ver projetos"
-           >
-            <i class="icon solid fa-folder-open" aria-hidden="true"></i>
-            <span>Ver Projetos</span>
-           </a>
-           <a
             href="/curriculo-guilherme-lima.pdf"
-            class="button hero-button-resume"
+            class="button hero-button-primary"
             aria-label="Baixar currículo em PDF"
             download="curriculo-guilherme-lima.pdf"
            >
@@ -411,7 +321,7 @@
          Projetos
         </h2>
         <p class="section-subtitle reveal-on-scroll" data-delay="0.1">
-         Sites no ar e repositórios — do deploy ao open source.
+         Aplicações no ar e repositórios open source.
         </p>
        </header>
        <div
@@ -461,117 +371,113 @@
       data-section="sobre"
       aria-labelledby="sobre-heading"
      >
-      <div class="section-content about-content">
+      <div class="about-shell">
        <header class="section-header">
         <h2 id="sobre-heading" class="section-title reveal-on-scroll">
          Sobre Mim
         </h2>
         <p class="section-subtitle reveal-on-scroll" data-delay="0.1">
-         Da operação de TI ao desenvolvimento — com foco em resultado
+         Do suporte de TI ao desenvolvimento de software
         </p>
        </header>
 
        <article class="about-card reveal-on-scroll" data-delay="0.15">
-        <div class="about-image">
-         <div class="about-image-wrapper">
+        <div class="about-card__lead">
+         <div class="about-card__photo">
           <img
            src="images/guilherme-lima.jpg"
-           alt="Guilherme Estevam - Desenvolvedor de Software"
-           class="about-photo"
-           width="140"
-           height="140"
+           alt="Foto de Guilherme Estevam"
+           width="160"
+           height="160"
            loading="lazy"
           />
          </div>
-        </div>
-
-        <div class="about-article-content">
-         <div class="about-body">
-          <div class="about-description">
-           <p>
-            Desenvolvedor Full Stack com experiência em
-            <strong>Laravel</strong> e <strong>Vue.js</strong>, unindo backend
-            robusto e interfaces claras.
-           </p>
-           <p>
-            Vim do suporte de TI e aplico essa visão prática em cada entrega:
-            código organizado, prazos cumpridos e soluções que funcionam no dia
-            a dia.
-           </p>
-          </div>
-
-          <section class="about-stats" aria-labelledby="about-stats-heading">
-           <h3 id="about-stats-heading" class="visually-hidden">
-            Estatísticas profissionais
-           </h3>
-           <div
-            class="about-stats-grid"
-            role="list"
-            aria-label="Estatísticas profissionais"
-           >
-            <div class="about-stat-item" role="listitem">
-             <span
-              class="about-stat-number font-mono"
-              aria-label="3 ou mais anos de experiência"
-              >3+</span
-             >
-             <span class="about-stat-label">anos de experiência</span>
-            </div>
-            <div class="about-stat-item" role="listitem">
-             <span
-              class="about-stat-number font-mono"
-              aria-label="12 ou mais tecnologias"
-              >12+</span
-             >
-             <span class="about-stat-label">tecnologias</span>
-            </div>
-            <div class="about-stat-item" role="listitem">
-             <span
-              class="about-stat-number font-mono"
-              aria-label="10 ou mais entregas relevantes"
-              >10+</span
-             >
-             <span class="about-stat-label">entregas</span>
-            </div>
-           </div>
-          </section>
-
-          <section
-           class="about-interests"
-           aria-labelledby="about-interests-heading"
-          >
-           <h3
-            id="about-interests-heading"
-            class="about-interests-title font-mono"
-           >
-            Áreas de interesse
-           </h3>
-           <ul
-            class="about-interests-list"
-            role="list"
-            aria-label="Áreas de interesse"
-           >
-            <li class="stack-pill" role="listitem">Laravel</li>
-            <li class="stack-pill" role="listitem">Vue.js</li>
-            <li class="stack-pill" role="listitem">APIs RESTful</li>
-            <li class="stack-pill" role="listitem">DevOps</li>
-            <li class="stack-pill" role="listitem">Docker</li>
-            <li class="stack-pill" role="listitem">Testes</li>
-           </ul>
-          </section>
-
-          <p class="about-section-footer">
-           <a href="#tecnologias" class="about-section-link">
-            <span>Ver tecnologias</span>
-            <ion-icon
-             name="arrow-forward-outline"
-             aria-hidden="true"
-            ></ion-icon>
-           </a>
+         <div class="about-card__intro">
+          <h3 class="about-card__name">Guilherme Estevam</h3>
+          <p class="about-card__role">
+           Desenvolvedor Full Stack com base em operação de TI
           </p>
+          <ul class="about-card__meta" aria-label="Informações do perfil">
+           <li>
+            <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
+            <span>Guarulhos, SP · Remoto</span>
+           </li>
+           <li class="about-card__meta-item--available">
+            <ion-icon name="briefcase-outline" aria-hidden="true"></ion-icon>
+            <span>Aberto a CLT e PJ</span>
+           </li>
+          </ul>
          </div>
         </div>
+
+        <p class="about-card__bio">
+         Vim do suporte de TI — incidentes, servidores e atendimento — e levo
+         essa visão operacional para o desenvolvimento: traduzir necessidade
+         de negócio em código claro, estável e fácil de manter, com
+         comunicação direta e decisões técnicas conscientes.
+        </p>
+
+        <section
+         class="about-card__traits-block"
+         aria-labelledby="about-traits-heading"
+        >
+         <h3 id="about-traits-heading" class="about-card__label font-mono">
+          Como trabalho
+         </h3>
+         <ul class="about-card__traits" aria-label="Diferenciais de trabalho">
+          <li>
+           <ion-icon name="pulse-outline" aria-hidden="true"></ion-icon>
+           <div class="about-card__trait-copy">
+            <span class="about-card__trait-title">Visão operacional</span>
+            <p class="about-card__trait-proof">
+             Entendo incidente e impacto no negócio antes de propor a solução
+             técnica.
+            </p>
+           </div>
+          </li>
+          <li>
+           <ion-icon name="chatbubbles-outline" aria-hidden="true"></ion-icon>
+           <div class="about-card__trait-copy">
+            <span class="about-card__trait-title">Comunicação direta</span>
+            <p class="about-card__trait-proof">
+             Alinhamento claro com quem opera o sistema — sem jargão
+             desnecessário.
+            </p>
+           </div>
+          </li>
+          <li>
+           <ion-icon name="git-merge-outline" aria-hidden="true"></ion-icon>
+           <div class="about-card__trait-copy">
+            <span class="about-card__trait-title">Entrega end-to-end</span>
+            <p class="about-card__trait-proof">
+             Da API ao front e ao deploy, acompanhando o fluxo até produção.
+            </p>
+           </div>
+          </li>
+          <li>
+           <ion-icon name="construct-outline" aria-hidden="true"></ion-icon>
+           <div class="about-card__trait-copy">
+            <span class="about-card__trait-title">Código sustentável</span>
+            <p class="about-card__trait-proof">
+             Priorizo clareza e manutenção — o próximo a ler o código também
+             importa.
+            </p>
+           </div>
+          </li>
+         </ul>
+        </section>
        </article>
+
+       <nav class="about-actions" aria-label="Próximas seções">
+        <a href="#experiencia" class="about-actions__link about-actions__link--primary">
+         <span>Ver experiência</span>
+         <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+        </a>
+        <a href="#tecnologias" class="about-actions__link">
+         <span>Ver tecnologias</span>
+         <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+        </a>
+       </nav>
       </div>
      </section>
 
@@ -591,184 +497,17 @@
          Experiência Profissional
         </h2>
         <p class="section-subtitle reveal-on-scroll">
-         Minha trajetória profissional e principais realizações
+         Cargos, contexto e principais responsabilidades
         </p>
        </header>
 
        <div class="experience-timeline-wrapper">
         <ul
+         id="experience-timeline"
          class="experience-timeline"
          role="list"
          aria-label="Histórico profissional"
-        >
-         <!-- Experiência 1: Suporte de T.I - NT Serviços -->
-         <li class="experience-item experience-item--current" role="listitem">
-          <div class="experience-marker" aria-hidden="true"></div>
-          <div class="experience-card experience-card--current reveal-on-scroll">
-           <div class="experience-header">
-            <div class="experience-title-wrapper">
-             <h3 class="experience-title">Suporte de T.I</h3>
-             <p class="experience-company">
-              NT Serviços e Comércio de Informática
-             </p>
-            </div>
-            <div class="experience-badges">
-             <span class="experience-badge-text experience-badge-text--current">Atual</span>
-             <span class="experience-badge-text">Terceirizado</span>
-            </div>
-           </div>
-           <div class="experience-meta">
-            <span class="experience-period">
-             <i class="icon solid fa-calendar" aria-hidden="true"></i>
-             ago de 2023 - o momento
-            </span>
-            <span class="experience-duration">2 anos 4 meses</span>
-           </div>
-           <div class="experience-location">
-            <i class="icon solid fa-map-marker-alt" aria-hidden="true"></i>
-            São Paulo, Brasil · Remota
-           </div>
-           <div class="experience-description">
-            <p>
-             Atuo no suporte técnico de nível 1 e 2, atendendo usuários e
-             resolvendo incidentes relacionados a sistemas e ferramentas.
-             Realizo manutenção e atualizações de servidores, máquinas e
-             softwares, além de monitorar o desempenho para evitar falhas.
-            </p>
-           </div>
-          </div>
-         </li>
-
-         <!-- Experiência 2: Desenvolvedor Fullstack - UNIMAIS -->
-         <li class="experience-item experience-item--featured" role="listitem">
-          <div class="experience-marker" aria-hidden="true"></div>
-          <div class="experience-card experience-card--highlight reveal-on-scroll">
-           <div class="experience-header">
-            <div class="experience-title-wrapper">
-             <h3 class="experience-title">Desenvolvedor Fullstack</h3>
-             <p class="experience-company">UNIMAIS - Faculdade Educamais</p>
-            </div>
-            <div class="experience-badges">
-             <span class="experience-badge-text experience-badge-text--dev">Dev</span>
-            </div>
-           </div>
-           <div class="experience-meta">
-            <span class="experience-period">
-             <i class="icon solid fa-calendar" aria-hidden="true"></i>
-             jan de 2022 - nov de 2022
-            </span>
-            <span class="experience-duration">11 meses</span>
-           </div>
-           <div class="experience-location">
-            <i class="icon solid fa-map-marker-alt" aria-hidden="true"></i>
-            São Paulo, Brasil · Remota
-           </div>
-           <ul class="experience-stack" aria-label="Stack utilizada">
-            <li class="stack-pill">
-             <i class="fab fa-laravel" aria-hidden="true"></i>
-             <span>Laravel</span>
-            </li>
-            <li class="stack-pill">
-             <i class="fab fa-vuejs" aria-hidden="true"></i>
-             <span>Vue.js</span>
-            </li>
-            <li class="stack-pill">
-             <i class="fas fa-database" aria-hidden="true"></i>
-             <span>MySQL</span>
-            </li>
-           </ul>
-           <div class="experience-description">
-            <p>
-             Participei no desenvolvimento e testes de um projeto em
-             implementação, com foco em melhorias de funcionalidades e
-             resolução de problemas técnicos em ambiente Laravel com
-             interface Vue.js.
-            </p>
-           </div>
-          </div>
-         </li>
-
-         <!-- Experiência 3: Assistente de TI - Campos Contabilidade -->
-         <li class="experience-item experience-item--parallel" role="listitem">
-          <div class="experience-marker" aria-hidden="true"></div>
-          <div class="experience-card reveal-on-scroll">
-           <div class="experience-header">
-            <div class="experience-title-wrapper">
-             <h3 class="experience-title">Assistente de TI</h3>
-             <p class="experience-company">
-              Campos Contabilidade e Consultoria Ltda.
-             </p>
-            </div>
-            <div class="experience-badges">
-             <span class="experience-badge-text">Tempo integral</span>
-            </div>
-           </div>
-           <p class="experience-parallel-note">
-            <i class="icon solid fa-layer-group" aria-hidden="true"></i>
-            Exercido em paralelo com o cargo na Online Certificadora.
-           </p>
-           <div class="experience-meta">
-            <span class="experience-period">
-             <i class="icon solid fa-calendar" aria-hidden="true"></i>
-             abr de 2020 - jan de 2022
-            </span>
-            <span class="experience-duration">1 ano 10 meses</span>
-           </div>
-           <div class="experience-location">
-            <i class="icon solid fa-map-marker-alt" aria-hidden="true"></i>
-            Guarulhos, São Paulo, Brasil
-           </div>
-           <div class="experience-description">
-            <p>
-             Atuava no gerenciamento e suporte aos colaboradores e clientes,
-             sendo responsável pela resolução de incidentes e problemas
-             técnicos. Realizava manutenção preventiva e corretiva de sistemas
-             integrados, servidores e máquinas, além de oferecer suporte técnico
-             remoto e presencial.
-            </p>
-           </div>
-          </div>
-         </li>
-
-         <!-- Experiência 4: Agente Certificador - Online Certificadora -->
-         <li class="experience-item experience-item--parallel" role="listitem">
-          <div class="experience-marker" aria-hidden="true"></div>
-          <div class="experience-card reveal-on-scroll">
-           <div class="experience-header">
-            <div class="experience-title-wrapper">
-             <h3 class="experience-title">Agente Certificador</h3>
-             <p class="experience-company">Online Certificadora</p>
-            </div>
-            <div class="experience-badges">
-             <span class="experience-badge-text">Tempo integral</span>
-            </div>
-           </div>
-           <p class="experience-parallel-note">
-            <i class="icon solid fa-layer-group" aria-hidden="true"></i>
-            Exercido em paralelo com o cargo na Campos Contabilidade.
-           </p>
-           <div class="experience-meta">
-            <span class="experience-period">
-             <i class="icon solid fa-calendar" aria-hidden="true"></i>
-             abr de 2020 - jan de 2022
-            </span>
-            <span class="experience-duration">1 ano 10 meses</span>
-           </div>
-           <div class="experience-location">
-            <i class="icon solid fa-map-marker-alt" aria-hidden="true"></i>
-            Guarulhos, São Paulo, Brasil
-           </div>
-           <div class="experience-description">
-            <p>
-             Experiência em emissão, renovação, manutenção e preparação de
-             certificados de chave pública (certificados digitais) no padrão
-             ICP-Brasil, garantindo que 100% dos processos de validação
-             estivessem em conformidade com as regulamentações.
-            </p>
-           </div>
-          </div>
-         </li>
-        </ul>
+        ></ul>
        </div>
       </div>
      </section>
@@ -788,31 +527,10 @@
          Tecnologias
         </h2>
         <p class="section-subtitle reveal-on-scroll">
-         Stack do dia a dia — do backend ao deploy, com foco em entregas reais
+         Linguagens, frameworks, APIs, testes, CI/CD e ferramentas do dia a dia
         </p>
        </header>
        <div class="technologies-panel reveal-on-scroll">
-        <div class="technologies-panel-intro">
-         <p class="technologies-core-label font-mono">Stack principal</p>
-         <ul
-          class="technologies-core-stack"
-          role="list"
-          aria-label="Tecnologias principais"
-         >
-          <li class="stack-pill" role="listitem">
-           <i class="icon brands fa-php" aria-hidden="true"></i>
-           <span>PHP</span>
-          </li>
-          <li class="stack-pill" role="listitem">
-           <i class="icon brands fa-laravel" aria-hidden="true"></i>
-           <span>Laravel</span>
-          </li>
-          <li class="stack-pill" role="listitem">
-           <i class="icon brands fa-vuejs" aria-hidden="true"></i>
-           <span>Vue.js</span>
-          </li>
-         </ul>
-        </div>
         <div class="technologies-panel-grid">
          <section
           class="technologies-group"
@@ -922,6 +640,27 @@
              <span class="icon brands fa-docker"></span>
             </span>
             <span class="technology-item-name">Docker</span>
+            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+           </li>
+           <li class="technology-item" role="listitem" data-level="production">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon solid fa-network-wired"></span>
+            </span>
+            <span class="technology-item-name">APIs &amp; Integrações</span>
+            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+           </li>
+           <li class="technology-item" role="listitem" data-level="production">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon solid fa-vial"></span>
+            </span>
+            <span class="technology-item-name">Testes</span>
+            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+           </li>
+           <li class="technology-item" role="listitem" data-level="production">
+            <span class="technology-item-icon" aria-hidden="true">
+             <span class="icon solid fa-rocket"></span>
+            </span>
+            <span class="technology-item-name">CI/CD</span>
             <span class="technology-level-dot" aria-label="Nível: Produção"></span>
            </li>
            <li class="technology-item" role="listitem" data-level="familiar">
@@ -1050,7 +789,7 @@
          Contato
         </h2>
         <p class="section-subtitle reveal-on-scroll">
-         Aberto a oportunidades, projetos e conversas sobre tecnologia
+         Aberto a vagas CLT, projetos PJ e conversas sobre tecnologia
         </p>
        </header>
        <div class="contact-panel reveal-on-scroll">

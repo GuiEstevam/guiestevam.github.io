@@ -241,7 +241,7 @@
      * Detecta a seção ativa e atualiza navegação
      */
     function updateActiveNavigation() {
-        const sections = document.querySelectorAll('.full-viewport-section[data-section]');
+        const sections = document.querySelectorAll('[data-section]');
         const navLinks = document.querySelectorAll('.nav-link');
         const headerHeight = document.querySelector('.sticky-nav')?.offsetHeight || 0;
         
@@ -279,25 +279,35 @@
      * Adiciona efeito de scroll no header (fundo mais opaco)
      */
     function initHeaderScrollEffect() {
-        const nav = document.querySelector('.sticky-nav');
+        const nav = document.querySelector('#main-navigation.sticky-nav')
+            || document.querySelector('.sticky-nav');
         if (!nav) return;
 
-        let lastScroll = 0;
+        let lastScroll = Math.max(
+            0,
+            window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
+        );
         let ticking = false;
-        const scrollDelta = 8;
-        const hideAfter = 72;
+        const scrollDelta = 4;
+        const hideAfter = 48;
+
+        const getScrollY = () => Math.max(
+            0,
+            window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0
+        );
 
         const updateNavOnScroll = () => {
-            const currentScroll = Math.max(0, window.pageYOffset || window.scrollY || 0);
+            const currentScroll = getScrollY();
 
-            if (currentScroll > 50) {
+            if (currentScroll > 24) {
                 nav.classList.add('scrolled');
             } else {
                 nav.classList.remove('scrolled');
                 nav.classList.remove('nav--hidden');
             }
 
-            if (!prefersReducedMotion && currentScroll > hideAfter) {
+            // Esconder no scroll down (mesmo com reduced-motion — animação fica instantânea via CSS)
+            if (currentScroll > hideAfter) {
                 if (currentScroll > lastScroll + scrollDelta) {
                     nav.classList.add('nav--hidden');
                     if (window.mobileMenu?.isOpen?.()) {
@@ -314,11 +324,15 @@
             ticking = false;
         };
 
-        window.addEventListener('scroll', () => {
+        const onScroll = () => {
             if (ticking) return;
             ticking = true;
             requestAnimationFrame(updateNavOnScroll);
-        }, { passive: true });
+        };
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+        updateNavOnScroll();
     }
 
     /**

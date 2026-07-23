@@ -1,0 +1,68 @@
+---
+description: Breakpoints, escala de elementos e validação de viewport (inclui Full HD)
+alwaysApply: true
+---
+
+# Layout responsivo e escala de viewport
+
+## Breakpoints obrigatórios (mobile-first)
+
+Usar `min-width` (não `max-width` como padrão de novos estilos):
+
+| Token | Largura | Uso |
+|-------|---------|-----|
+| mobile | default (&lt;640) | Empilhar; tipografia/base compacta |
+| sm | ≥640px | 2 colunas leves quando equilibradas |
+| md | ≥768px | Tablet |
+| lg | ≥1024px | Desktop; seção pode ocupar `100svh` |
+| xl | ≥1440px | Large desktop; layouts laterais |
+| fhd | ≥1920px | Full HD — **redimensionar elementos**, não só o container |
+
+## Full HD (1920×1080) — regra crítica
+
+Em `@media (min-width: 1920px)` **NÃO** basta:
+
+- aumentar `max-width` do container
+- forçar `min-height: 100vh` com vazio interno
+
+**OBRIGATÓRIO** escalar de forma proporcional:
+
+- tipografia (`font-size`, `line-height`)
+- padding/gap dos blocos
+- avatares, ícones, pills, botões/links
+- raios e pesos visuais se fizer sentido
+
+```css
+/* ❌ ERRADO: container grande, UI pequena */
+@media (min-width: 1920px) {
+  .section-content { max-width: 120rem; }
+}
+
+/* ✅ CORRETO: escala elementos + ocupa viewport */
+@media (min-width: 1920px) {
+  .section-title { font-size: 2.75rem; }
+  .card { padding: 2rem 2.5rem; }
+  .avatar { width: 10rem; height: 10rem; }
+  .stack-pill { font-size: 0.875rem; padding: 0.45rem 0.85rem; }
+}
+```
+
+## Escala fluida
+
+Preferir `clamp()` para tipo e espaço entre breakpoints, em vez de saltos abruptos só no FHD.
+
+## Checklist por seção/UI nova
+
+1. [ ] Mobile 320 e 390 sem overflow horizontal
+2. [ ] Tablet 768
+3. [ ] Desktop 1024 e 1280
+4. [ ] Large 1440
+5. [ ] **Full HD 1920×1080** — elementos proporcionais + viewport preenchido
+6. [ ] Sem “coluna fantasma” (aside esticado com vazio inútil)
+7. [ ] Conteúdo denso/escalado preenche altura; não só `margin: auto` em bloco pequeno
+
+## Proibido
+
+- Layout desktop-only sem empilhar no mobile
+- `max-width` baixo (~72rem) em FHD sem escala tipográfica
+- Side-by-side de blocos com alturas muito desiguais sem alinhamento (`align-items: start` ou empilhar)

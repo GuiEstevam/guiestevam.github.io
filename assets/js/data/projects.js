@@ -7,7 +7,6 @@ const PROJECT_CATALOG = [
   id: 'nerdola-miner',
   name: 'Nerdola Miner',
   category: 'E-commerce',
-  impactLine: 'Laravel + e-commerce e regras de negócio para mineração',
   description:
    'Loja especializada em ASICs com calculadoras de rentabilidade, suporte e conteúdo para mineração de Bitcoin.',
   image: 'images/nerdolaminer.png',
@@ -18,14 +17,12 @@ const PROJECT_CATALOG = [
   topics: ['laravel', 'blade', 'sql', 'php'],
   updatedAt: '2026-04-15T00:00:00Z',
   featured: true,
-  bentoClass: 'featured-card--primary',
   isExternal: true,
  },
  {
   id: 'ponto-corte',
   name: 'PontoCorte',
   category: 'SaaS',
-  impactLine: 'Plataforma SaaS para barbearias e agendamentos',
   description:
    'Sistema completo de gestão de barbearia com agendamento integrado, envio de mensagens via WhatsApp, controle financeiro e relatórios de desempenho.',
   image: 'images/pontocorte.png',
@@ -36,14 +33,12 @@ const PROJECT_CATALOG = [
   topics: ['laravel', 'livewire', 'barbershop', 'saas', 'whatsapp'],
   updatedAt: '2026-07-01T00:00:00Z',
   featured: true,
-  bentoClass: 'featured-card--pontocorte',
   isExternal: true,
  },
  {
   id: 'skyfashion',
   name: 'SkyFashion',
   category: 'E-commerce',
-  impactLine: 'E-commerce de moda esportiva completo',
   description:
    'E-commerce de moda esportiva com catálogo, categorias e carrinho de compras.',
   image: 'images/skyfashion.png',
@@ -54,14 +49,12 @@ const PROJECT_CATALOG = [
   topics: ['laravel', 'blade', 'sql', 'php', 'ecommerce'],
   updatedAt: '2026-04-15T00:00:00Z',
   featured: true,
-  bentoClass: 'featured-card--sky',
   isExternal: true,
  },
  {
   id: 'lgf-contabilidade',
   name: 'LGF Contabilidade',
   category: 'Institucional',
-  impactLine: 'Landing institucional entregue',
   description:
    'Landing page institucional de contabilidade e consultoria para empresas.',
   image: 'images/lgf-contabilidade.png',
@@ -72,7 +65,6 @@ const PROJECT_CATALOG = [
   topics: ['html', 'css', 'javascript', 'institucional'],
   updatedAt: '2026-04-15T00:00:00Z',
   featured: true,
-  bentoClass: 'featured-card--lgf',
   isExternal: true,
  },
  {
@@ -133,16 +125,14 @@ const GITHUB_REPO_OVERRIDES = {
   language: 'JavaScript',
   topics: ['portfolio', 'javascript', 'css'],
  },
- Riftfinder: {
-  image: 'images/riftfinder.png',
-  demoUrl: 'http://guiestevam.me/Riftfinder/',
-  description:
-   'Ferramenta web para consulta e análise de dados de League of Legends.',
-  stack: ['JavaScript', 'HTML', 'CSS'],
-  language: 'JavaScript',
-  topics: ['javascript', 'games', 'api'],
- },
 };
+
+/** Repositórios que não devem aparecer no carrossel / listagem */
+export const EXCLUDED_PROJECT_NAMES = [
+ 'guiestevam.github.io',
+ 'guiestevam',
+ 'riftfinder',
+];
 
 export const FEATURED_PROJECTS = PROJECT_CATALOG.filter(
  (project) => project.featured
@@ -288,6 +278,47 @@ function buildGithubFallbackRepo(name, extras = {}) {
 export const LOCAL_GITHUB_REPOS = Object.entries(GITHUB_REPO_OVERRIDES).map(
  ([name, override]) => buildGithubFallbackRepo(name, override)
 );
+
+/**
+ * Contagens do portfólio para métricas do hero (fonte única)
+ */
+export function getPortfolioStats() {
+ const catalogNames = new Set(
+  PROJECT_CATALOG.map((project) => project.name.toLowerCase())
+ );
+
+ const githubOnlyCount = LOCAL_GITHUB_REPOS.filter(
+  (repo) => !catalogNames.has(repo.name.toLowerCase())
+ ).length;
+
+ const portfolioTotal = PROJECT_CATALOG.length + githubOnlyCount;
+
+ const liveSites = PROJECT_CATALOG.filter(
+  (project) =>
+   project.isExternal &&
+   project.demoUrl &&
+   !project.demoUrl.includes('github.com')
+ ).length;
+
+ return {
+  portfolioTotal,
+  liveSites,
+  featuredCount: FEATURED_PROJECTS.length,
+ };
+}
+
+function formatMetricValue(count) {
+ if (count >= 10) return `${count}+`;
+ return String(count);
+}
+
+export function getPortfolioMetricValue() {
+ return formatMetricValue(getPortfolioStats().portfolioTotal);
+}
+
+export function getLiveSitesMetricValue() {
+ return formatMetricValue(getPortfolioStats().liveSites);
+}
 
 function mergeReposByName(...repoGroups) {
  const byName = new Map();
