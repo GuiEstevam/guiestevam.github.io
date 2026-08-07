@@ -11,11 +11,11 @@ const PROJECT_CATALOG = [
   name: 'PontoCorte',
   category: 'SaaS',
   description:
-   'Agenda, mensagens e financeiro da barbearia estavam espalhados. Entreguei um SaaS em Laravel e Livewire com WhatsApp, agendamento e painel financeiro unificados.',
-  outcome: 'Agendamento, WhatsApp e financeiro em um só painel.',
-  image: 'images/pontocorte.png',
+   'SaaS de gestão integrada para barbearias de alto fluxo. Unifica agendamentos em tempo real, fluxo de caixa e envio automático de lembretes via API do WhatsApp.',
+  outcome: 'Reduziu ausências (no-shows) e otimizou o atendimento diário do estabelecimento.',
+  image: 'images/pontocorte.webp',
   demoUrl: 'https://app.pontocorte.com.br/',
-  repoUrl: 'https://app.pontocorte.com.br/',
+  repoUrl: '',
   stack: ['PHP', 'Laravel', 'MySQL', 'Livewire', 'TailwindCSS'],
   language: 'PHP',
   topics: ['laravel', 'livewire', 'barbershop', 'saas', 'whatsapp'],
@@ -29,11 +29,11 @@ const PROJECT_CATALOG = [
   name: 'Nerdola Miner',
   category: 'E-commerce',
   description:
-   'Loja de ASICs precisava de catálogo, conteúdo técnico e calculadoras de rentabilidade. Desenvolvi o e-commerce em Laravel, em produção.',
-  outcome: 'Catálogo + calculadoras de rentabilidade em produção.',
-  image: 'images/nerdolaminer.png',
+   'E-commerce de alto volume especializado em hardwares de mineração de Bitcoin (ASICs). Conta com integração de pagamentos, catálogo estruturado e calculadoras dinâmicas de rentabilidade em tempo real.',
+  outcome: 'Canal direto de vendas faturando ativamente em ambiente de produção.',
+  image: 'images/nerdolaminer.webp',
   demoUrl: 'https://nerdolaminer.com.br/',
-  repoUrl: 'https://nerdolaminer.com.br/',
+  repoUrl: '',
   stack: ['PHP', 'Laravel', 'MySQL', 'Blade'],
   language: 'PHP',
   topics: ['laravel', 'blade', 'sql', 'php'],
@@ -47,11 +47,11 @@ const PROJECT_CATALOG = [
   name: 'SkyFashion',
   category: 'E-commerce',
   description:
-   'As vendas aconteciam pelo Instagram; o projeto deu à marca uma vitrine própria e presença digital mais sólida, com catálogo, categorias e carrinho.',
-  outcome: 'Loja online com catálogo, categorias e carrinho.',
-  image: 'images/skyfashion.png',
+   'Plataforma de comércio eletrônico desenvolvida para expandir as vendas de moda (Instagram) para uma operação web estruturada, com catálogo, categorias e carrinho.',
+  outcome: 'Deu à marca independência comercial e um canal próprio de vendas 24/7.',
+  image: 'images/skyfashion.webp',
   demoUrl: 'https://skyfashion.pt/',
-  repoUrl: 'https://skyfashion.pt/',
+  repoUrl: '',
   stack: ['PHP', 'Laravel', 'MySQL', 'Blade'],
   language: 'PHP',
   topics: ['laravel', 'blade', 'sql', 'php', 'ecommerce'],
@@ -65,11 +65,11 @@ const PROJECT_CATALOG = [
   name: 'Ntinformatica',
   category: 'Institucional',
   description:
-   'A empresa precisava de um site institucional claro, com caminho direto para a plataforma de suporte.',
-  outcome: 'Site institucional da NT com foco em serviços de TI.',
-  image: 'images/ntinformatica.png',
-  demoUrl: 'https://nt-informatica.vercel.app/',
-  repoUrl: 'https://nt-informatica.vercel.app/',
+   'Portal institucional e de captação de clientes para empresa de suporte e gestão de infraestrutura de TI corporativa, integrado a sistemas de chamados.',
+  outcome: 'Aumento na captura de leads de suporte de TI e melhoria no fluxo de incidentes.',
+  image: 'images/ntinformatica.webp',
+  demoUrl: 'https://ntinformatica.inf.br/',
+  repoUrl: '',
   stack: ['HTML', 'CSS', 'JavaScript'],
   language: 'JavaScript',
   topics: ['html', 'css', 'javascript', 'institucional'],
@@ -83,11 +83,11 @@ const PROJECT_CATALOG = [
   name: 'LGF Contabilidade',
   category: 'Institucional',
   description:
-   'Landing page institucional de contabilidade e consultoria para empresas.',
-  outcome: 'Presença digital institucional com foco em conversão.',
-  image: 'images/lgf-contabilidade.png',
+   'Landing page focada em conversão para escritório de contabilidade empresarial. Estruturada com SEO local de alta performance, copywriting focado em atração de PJs e formulários otimizados.',
+  outcome: 'Conversão ativa de novos clientes corporativos a partir de tráfego de busca.',
+  image: 'images/lgf-contabilidade.webp',
   demoUrl: 'https://lgfcontabilidade.com.br/',
-  repoUrl: 'https://lgfcontabilidade.com.br/',
+  repoUrl: '',
   stack: ['HTML', 'CSS', 'JavaScript'],
   language: 'JavaScript',
   topics: ['html', 'css', 'javascript', 'institucional'],
@@ -101,35 +101,17 @@ const PROJECT_CATALOG = [
   name: 'Transcende',
   category: 'Institucional',
   description:
-   'O site antigo pedia um visual mais alinhado ao negócio e um fluxo de agendamento e financeiro no próprio canal.',
-  outcome: 'Visual renovado com agendamento e financeiro no site.',
-  image: 'images/transcende.png',
+   'Web app dinâmico para estúdio de yoga e terapias. Conta com sistema de agendamento integrado, catálogo de serviços e gateway para reservas diretas.',
+  outcome: 'Automação total da reserva de horários e facilidade de pagamento.',
+  image: 'images/transcende.webp',
   demoUrl: 'https://transcende.vercel.app/',
-  repoUrl: 'https://transcende.vercel.app/',
+  repoUrl: '',
   stack: ['HTML', 'CSS', 'JavaScript'],
   language: 'JavaScript',
   topics: ['html', 'css', 'javascript', 'landing-page'],
   updatedAt: '2026-04-15T00:00:00Z',
   featured: false,
   isExternal: true,
- },
- {
-  id: 'automacao-ops',
-  name: 'Automação operacional',
-  category: 'Automação',
-  description:
-   'Projeto de automação em desenvolvimento — será publicado com demo e screenshot.',
-  outcome: 'Em desenvolvimento.',
-  image: 'images/pontocorte.png',
-  demoUrl: '',
-  repoUrl: '',
-  stack: ['Python'],
-  language: 'Python',
-  topics: ['automation'],
-  updatedAt: '2026-07-22T00:00:00Z',
-  featured: false,
-  isExternal: true,
-  ready: false,
  },
 ];
 
@@ -140,7 +122,7 @@ const VISIBLE_CATALOG = PROJECT_CATALOG.filter(
 /** Repositórios GitHub com metadados customizados (fora do catálogo externo) */
 const GITHUB_REPO_OVERRIDES = {
  Syncfinance: {
-  image: 'images/syncfinance.png',
+  image: 'images/syncfinance.webp',
   category: 'Open source',
   description:
    'Aplicação web para organização e acompanhamento de finanças pessoais com Laravel.',
@@ -150,7 +132,7 @@ const GITHUB_REPO_OVERRIDES = {
   topics: ['laravel', 'php', 'finance'],
  },
  Horientando: {
-  image: 'images/horientando.png',
+  image: 'images/horientando.webp',
   category: 'Open source',
   description:
    'Trabalho de conclusão de curso com sistema completo desenvolvido em Laravel.',
@@ -160,7 +142,7 @@ const GITHUB_REPO_OVERRIDES = {
   topics: ['laravel', 'tcc', 'php'],
  },
  Guicodex: {
-  image: 'images/guicodex.png',
+  image: 'images/guicodex.webp',
   category: 'Portfólio',
   description:
    'Portfólio interativo em estilo Pokédex para exibir projetos e habilidades de desenvolvedor.',
@@ -367,10 +349,6 @@ export function getPortfolioStats() {
 function formatMetricValue(count) {
  if (count >= 10) return `${count}+`;
  return String(count);
-}
-
-export function getPortfolioMetricValue() {
- return formatMetricValue(getPortfolioStats().portfolioTotal);
 }
 
 export function getLiveSitesMetricValue() {

@@ -10,7 +10,7 @@
   />
   <meta name="theme-color" content="#0a0f16" />
   <meta name="color-scheme" content="dark light" />
-  <link rel="canonical" href="https://guiestevam.github.io/" />
+  <link rel="canonical" href="https://guiestevam.me/" />
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
   <meta
    name="description"
@@ -18,7 +18,9 @@
   />
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://guiestevam.github.io/" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Guilherme Estevam — Portfólio" />
+  <meta property="og:url" content="https://guiestevam.me/" />
   <meta property="og:title" content="Guilherme Estevam — Desenvolvedor Full Stack Laravel & Vue.js" />
   <meta
    property="og:description"
@@ -26,11 +28,11 @@
   />
   <meta
    property="og:image"
-   content="https://guiestevam.github.io/images/guilherme-lima.jpg"
+   content="https://guiestevam.me/images/og-image.jpg"
   />
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://guiestevam.github.io/" />
+  <meta name="twitter:url" content="https://guiestevam.me/" />
   <meta name="twitter:title" content="Guilherme Estevam — Desenvolvedor Full Stack Laravel & Vue.js" />
   <meta
    name="twitter:description"
@@ -38,15 +40,15 @@
   />
   <meta
    name="twitter:image"
-   content="https://guiestevam.github.io/images/guilherme-lima.jpg"
+   content="https://guiestevam.me/images/og-image.jpg"
   />
   <script type="application/ld+json">
    {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Guilherme Estevam",
-    "url": "https://guiestevam.github.io/",
-    "image": "https://guiestevam.github.io/images/guilherme-lima.jpg",
+    "url": "https://guiestevam.me/",
+    "image": "https://guiestevam.me/images/og-image.jpg",
     "jobTitle": "Desenvolvedor Full Stack",
     "description": "Desenvolvedor Full Stack especializado em Laravel e Vue.js — do backend ao deploy — com trajetória em suporte de TI e projetos em produção.",
     "email": "mailto:contato.estevamdelima@gmail.com",
@@ -62,6 +64,12 @@
     ]
    }
   </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+   rel="stylesheet"
+   href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
+  />
   <link rel="stylesheet" href="assets/css/base.css" />
   <link rel="stylesheet" href="assets/css/toast.css" />
   <link rel="stylesheet" href="assets/css/custom.css" />
@@ -92,6 +100,7 @@
      >
       <div class="nav-container">
        <a href="#hero" class="logo" aria-label="Ir para início"
+        ><span class="logo-mark font-mono" aria-hidden="true">&lt;/&gt;</span
         ><strong>Guilherme Estevam</strong></a
        >
        <button
@@ -191,8 +200,8 @@
            class="hero-title reveal-on-scroll"
            data-delay="0"
           >
-           Desenvolvedor Full Stack
-          </h1>
+          Desenvolvedor <span class="text-gradient">Full Stack</span>
+         </h1>
          </div>
          <div class="hero-intro">
           <p
@@ -222,57 +231,82 @@
         <aside
          class="hero-visual reveal-on-scroll"
          data-delay="0.15"
-         aria-label="Terminal decorativo com mensagem de boas-vindas em PHP"
+         aria-label="Showcase interativo de dispositivos (MacBook Pro e iPhone)"
         >
-         <div class="hero-terminal">
-          <div class="hero-terminal-bar">
-           <span class="hero-terminal-dot hero-terminal-dot--close" aria-hidden="true"></span>
-           <span class="hero-terminal-dot hero-terminal-dot--min" aria-hidden="true"></span>
-           <span class="hero-terminal-dot hero-terminal-dot--max" aria-hidden="true"></span>
-           <span class="hero-terminal-title font-mono">welcome.php</span>
+         <div class="hero-device-showcase" id="hero-device-showcase">
+          <div class="showcase-glow"></div>
+          
+          <!-- MacBook Pro Mockup -->
+          <div class="device-mockup macbook">
+           <div class="macbook-screen-frame">
+            <div class="macbook-webcam"></div>
+            <div class="macbook-screen">
+
+             <div class="screen-slide active" data-index="0">
+              <img src="images/pontocorte.webp" alt="PontoCorte no MacBook Pro" loading="eager" width="380" height="238" />
+             </div>
+             <div class="screen-slide" data-index="1">
+              <img src="images/nerdolaminer.webp" alt="Nerdola Miner no MacBook Pro" loading="lazy" width="380" height="238" />
+             </div>
+             <div class="screen-slide" data-index="2">
+              <img src="images/skyfashion.webp" alt="SkyFashion no MacBook Pro" loading="lazy" width="380" height="238" />
+             </div>
+             <div class="screen-slide" data-index="3">
+              <img src="images/ntinformatica.webp" alt="NT Informática no MacBook Pro" loading="lazy" width="380" height="238" />
+             </div>
+             <div class="screen-slide" data-index="4">
+              <img src="images/lgf-contabilidade.webp" alt="LGF Contabilidade no MacBook Pro" loading="lazy" width="380" height="238" />
+             </div>
+             <div class="screen-slide" data-index="5">
+              <img src="images/transcende.webp" alt="Transcende no MacBook Pro" loading="lazy" width="380" height="238" />
+             </div>
+            </div>
+           </div>
+           <div class="macbook-base-frame">
+            <div class="macbook-notch"></div>
+           </div>
           </div>
-          <div class="hero-terminal-body font-mono" aria-hidden="true">
-           <p><span class="hero-code-tag">&lt;?php</span></p>
-           <p><span class="hero-code-var">$dev</span> = <span class="hero-code-str">'Guilherme'</span>;</p>
-           <p class="hero-code-blank" aria-hidden="true">&nbsp;</p>
-           <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Olá! Bem-vindo ao meu portfólio.\n"</span>;</p>
-           <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Sou {$dev}, desenvolvedor Full Stack.\n"</span>;</p>
-           <p><span class="hero-code-key">echo</span> <span class="hero-code-str" data-metrics-line="true">"Laravel · Vue.js · PHP · MySQL\n"</span>;</p>
-           <p><span class="hero-code-key">echo</span> <span class="hero-code-str">"Do backend ao deploy.\n"</span>;</p>
-           <p><span class="hero-code-comment">// clique em Run para executar</span></p>
+          
+          <!-- iPhone Mockup -->
+          <div class="device-mockup iphone">
+           <div class="iphone-frame">
+            <div class="iphone-island"></div>
+            <div class="iphone-speaker"></div>
+            <div class="iphone-screen">
+             <div class="screen-slide active" data-index="0">
+              <img src="images/pontocorte-mobile.png" alt="PontoCorte no iPhone" loading="eager" width="105" height="228" />
+             </div>
+             <div class="screen-slide" data-index="1">
+              <img src="images/nerdolaminer-mobile.png" alt="Nerdola Miner no iPhone" loading="lazy" width="105" height="228" />
+             </div>
+             <div class="screen-slide" data-index="2">
+              <img src="images/skyfashion-mobile.png" alt="SkyFashion no iPhone" loading="lazy" width="105" height="228" />
+             </div>
+             <div class="screen-slide" data-index="3">
+              <img src="images/ntinformatica-mobile.png" alt="NT Informática no iPhone" loading="lazy" width="105" height="228" />
+             </div>
+             <div class="screen-slide" data-index="4">
+              <img src="images/lgf-contabilidade-mobile.png" alt="LGF Contabilidade no iPhone" loading="lazy" width="105" height="228" />
+             </div>
+             <div class="screen-slide" data-index="5">
+              <img src="images/transcende-mobile.png" alt="Transcende no iPhone" loading="lazy" width="105" height="228" />
+             </div>
+            </div>
+            <div class="iphone-home-bar"></div>
+           </div>
+          </div>
+
+          <!-- Indicadores de slide (Dots) -->
+          <div class="showcase-dots" role="tablist" aria-label="Navegação do slideshow">
+           <button class="dot active" data-index="0" role="tab" aria-selected="true" aria-label="Ver PontoCorte"></button>
+           <button class="dot" data-index="1" role="tab" aria-selected="false" aria-label="Ver Nerdola Miner"></button>
+           <button class="dot" data-index="2" role="tab" aria-selected="false" aria-label="Ver SkyFashion"></button>
+           <button class="dot" data-index="3" role="tab" aria-selected="false" aria-label="Ver NT Informática"></button>
+           <button class="dot" data-index="4" role="tab" aria-selected="false" aria-label="Ver LGF Contabilidade"></button>
+           <button class="dot" data-index="5" role="tab" aria-selected="false" aria-label="Ver Transcende"></button>
           </div>
          </div>
         </aside>
-         <ul
-          class="hero-stack reveal-on-scroll"
-          data-delay="0.25"
-          aria-label="Stack principal"
-         >
-          <li class="stack-pill stack-pill--hero-primary">
-           <i class="fab fa-php" aria-hidden="true"></i>
-           <span>PHP</span>
-          </li>
-          <li class="stack-pill stack-pill--hero-primary">
-           <i class="fab fa-laravel" aria-hidden="true"></i>
-           <span>Laravel</span>
-          </li>
-          <li class="stack-pill stack-pill--hero-primary">
-           <i class="fab fa-vuejs" aria-hidden="true"></i>
-           <span>Vue.js</span>
-          </li>
-          <li class="stack-pill stack-pill--hero-extra">
-           <i class="fas fa-database" aria-hidden="true"></i>
-           <span>MySQL</span>
-          </li>
-          <li class="stack-pill stack-pill--hero-extra">
-           <i class="fab fa-git-alt" aria-hidden="true"></i>
-           <span>Git</span>
-          </li>
-          <li class="stack-pill stack-pill--hero-extra">
-           <i class="fab fa-docker" aria-hidden="true"></i>
-           <span>Docker</span>
-          </li>
-         </ul>
         <div class="hero-body">
          <div class="hero-actions reveal-on-scroll" data-delay="0.35">
           <div
@@ -280,15 +314,25 @@
            role="group"
            aria-label="Ações principais"
           >
-           <a
-            href="curriculo-guilherme-lima.pdf"
-            class="button hero-button-primary"
-            aria-label="Baixar currículo em PDF"
-            download="curriculo-guilherme-lima.pdf"
-           >
-            <i class="icon solid fa-file-pdf" aria-hidden="true"></i>
-            <span>Currículo</span>
-           </a>
+            <a
+             href="https://wa.me/5511913438979?text=Olá,%20Guilherme!%20Achei%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20uma%20oportunidade."
+             class="button hero-button-primary"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Falar no WhatsApp com Guilherme"
+            >
+             <i class="icon brands fa-whatsapp" aria-hidden="true"></i>
+             <span>Falar Comigo</span>
+            </a>
+            <a
+             href="curriculo-guilherme-lima.pdf"
+             class="button hero-button-resume"
+             aria-label="Baixar currículo em PDF"
+             download="curriculo-guilherme-lima.pdf"
+            >
+             <i class="icon solid fa-file-pdf" aria-hidden="true"></i>
+             <span>Currículo</span>
+            </a>
           </div>
           <div class="hero-social" role="group" aria-label="Redes profissionais">
            <a
@@ -347,39 +391,29 @@
          Sites e produtos em produção — e repositórios open source.
         </p>
        </header>
-       <div
-        id="projects-slider"
-        class="projects-slider reveal-on-scroll"
-        data-delay="0.15"
-        aria-roledescription="carrossel"
-       >
+       <div class="projects-slider-container">
         <button
          type="button"
-         class="projects-slider-btn projects-slider-btn--prev"
+         class="projects-nav-btn projects-nav-btn--prev"
          aria-label="Projetos anteriores"
+         disabled
         >
          <ion-icon name="chevron-back-outline" aria-hidden="true"></ion-icon>
         </button>
-        <div class="projects-slider-viewport">
-         <div
-          id="projects-slider-track"
-          class="projects-slider-track"
-          role="list"
-          aria-label="Lista de projetos"
-         ></div>
-        </div>
+        <div
+         id="projects-grid"
+         class="projects-grid reveal-on-scroll"
+         data-delay="0.15"
+         role="list"
+         aria-label="Grade de projetos"
+        ></div>
         <button
          type="button"
-         class="projects-slider-btn projects-slider-btn--next"
+         class="projects-nav-btn projects-nav-btn--next"
          aria-label="Próximos projetos"
         >
          <ion-icon name="chevron-forward-outline" aria-hidden="true"></ion-icon>
         </button>
-        <div
-         class="projects-slider-dots"
-         role="tablist"
-         aria-label="Navegação do carrossel de projetos"
-        ></div>
        </div>
       </div>
      </section>
@@ -408,7 +442,7 @@
         <div class="about-card__lead">
          <div class="about-card__photo">
           <img
-           src="images/guilherme-lima.jpg"
+           src="images/guilherme-lima.webp"
            alt="Foto de Guilherme Estevam"
            width="160"
            height="160"
@@ -427,17 +461,14 @@
            </li>
            <li class="about-card__meta-item--available">
             <ion-icon name="briefcase-outline" aria-hidden="true"></ion-icon>
-            <span>Aberto a CLT e PJ</span>
+            <span>Aberto a Freelance, PJ e CLT</span>
            </li>
           </ul>
          </div>
         </div>
 
         <p class="about-card__bio">
-         Ainda atuo em suporte de TI e levo essa visão para o código: entender
-         incidente e impacto no negócio antes de propor a solução. Como
-         freelancer, entrego aplicações Laravel e Vue.js do backend ao deploy —
-         claras, estáveis e fáceis de manter.
+         Atuo em suporte de TI e trago essa visão operacional diretamente para a engenharia de software: identificar gargalos, entender o impacto do incidente no negócio e desenhar a arquitetura ideal antes de escrever a primeira linha de código. Como desenvolvedor Full Stack e freelancer, entrego sistemas completos em Laravel e Vue.js, do banco de dados ao deploy final em produção — criando soluções de alta performance que geram resultados comerciais reais e são sustentáveis de manter a longo prazo.
         </p>
 
         <section
@@ -572,35 +603,35 @@
              <span class="icon brands fa-php"></span>
             </span>
             <span class="technology-item-name">PHP</span>
-            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
            </li>
            <li class="technology-item" role="listitem" data-level="production">
             <span class="technology-item-icon" aria-hidden="true">
              <span class="icon brands fa-laravel"></span>
             </span>
             <span class="technology-item-name">Laravel · Blade</span>
-            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
            </li>
            <li class="technology-item" role="listitem" data-level="production">
             <span class="technology-item-icon" aria-hidden="true">
              <span class="icon solid fa-bolt"></span>
             </span>
             <span class="technology-item-name">Livewire</span>
-            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
            </li>
            <li class="technology-item" role="listitem" data-level="production">
             <span class="technology-item-icon" aria-hidden="true">
              <span class="icon solid fa-database"></span>
             </span>
             <span class="technology-item-name">MySQL</span>
-            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
            </li>
            <li class="technology-item" role="listitem" data-level="familiar">
             <span class="technology-item-icon" aria-hidden="true">
              <span class="icon brands fa-python"></span>
             </span>
             <span class="technology-item-name">Python</span>
-            <span class="technology-level-dot" aria-label="Nível: Familiar"></span>
+            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Familiar</span>
            </li>
           </ul>
          </section>
@@ -617,21 +648,21 @@
              <span class="icon brands fa-vuejs"></span>
             </span>
             <span class="technology-item-name">Vue.js</span>
-            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
            </li>
            <li class="technology-item" role="listitem" data-level="production">
             <span class="technology-item-icon" aria-hidden="true">
              <span class="icon brands fa-js"></span>
             </span>
             <span class="technology-item-name">JavaScript</span>
-            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
            </li>
            <li class="technology-item" role="listitem" data-level="production">
             <span class="technology-item-icon" aria-hidden="true">
              <span class="icon brands fa-css3-alt"></span>
             </span>
             <span class="technology-item-name">HTML/CSS · Tailwind</span>
-            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
            </li>
           </ul>
          </section>
@@ -653,35 +684,35 @@
              <span class="icon brands fa-git-alt"></span>
             </span>
             <span class="technology-item-name">Git &amp; GitHub</span>
-            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
            </li>
            <li class="technology-item" role="listitem" data-level="production">
             <span class="technology-item-icon" aria-hidden="true">
              <span class="icon brands fa-docker"></span>
             </span>
             <span class="technology-item-name">Docker</span>
-            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
            </li>
            <li class="technology-item" role="listitem" data-level="production">
             <span class="technology-item-icon" aria-hidden="true">
              <span class="icon solid fa-network-wired"></span>
             </span>
             <span class="technology-item-name">APIs REST</span>
-            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
            </li>
            <li class="technology-item" role="listitem" data-level="production">
             <span class="technology-item-icon" aria-hidden="true">
              <span class="icon brands fa-whatsapp"></span>
             </span>
             <span class="technology-item-name">Integrações WhatsApp</span>
-            <span class="technology-level-dot" aria-label="Nível: Produção"></span>
+            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
            </li>
            <li class="technology-item" role="listitem" data-level="familiar">
             <span class="technology-item-icon" aria-hidden="true">
              <span class="icon solid fa-bolt"></span>
             </span>
             <span class="technology-item-name">Vite</span>
-            <span class="technology-level-dot" aria-label="Nível: Familiar"></span>
+            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Familiar</span>
            </li>
           </ul>
          </section>
@@ -852,8 +883,8 @@
             </div>
            </li>
            <li class="contact-item contact-item--primary" role="listitem">
-            <a
-             href="https://wa.me/5511913438979"
+             <a
+              href="https://wa.me/5511913438979?text=Olá,%20Guilherme!%20Achei%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20uma%20oportunidade."
              class="contact-item-link"
              target="_blank"
              rel="noopener noreferrer"

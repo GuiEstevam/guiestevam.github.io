@@ -3,8 +3,9 @@
  * Entry point para Vite
  */
 
-import { initProjectsSlider } from './projects-slider.js';
+import { initProjectsGrid } from './projects-grid.js';
 import { renderPortfolioMetrics } from './portfolio-metrics.js';
+import { initCardSpotlight } from './card-spotlight.js';
 import './toast.js';
 import './scroll-animations.js';
 import './mobile-menu.js';
@@ -36,15 +37,16 @@ function initCopyButtons() {
 async function initApp() {
   renderPortfolioMetrics();
   renderExperienceTimeline();
-  initProjectsSlider();
+  initProjectsGrid();
   initCopyButtons();
+  initCardSpotlight();
 
-  // Import dinamico: falha no terminal nao derruba metricas/cards
+  // Import dinamico do novo Showcase interativo do Hero
   try {
-    const { initInteractiveTerminal } = await import('./interactive-terminal.js');
-    initInteractiveTerminal();
+    const { initHeroShowcase } = await import('./hero-showcase.js');
+    initHeroShowcase();
   } catch (err) {
-    console.error('Erro ao iniciar o terminal interativo:', err);
+    console.error('Erro ao iniciar o showcase do hero:', err);
   }
 }
 

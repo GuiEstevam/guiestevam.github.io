@@ -12,16 +12,19 @@ Cada seção (`#hero`, `#sobre`, `#experiencia`, …) tem: um título, um subtí
 
 ## Full-viewport vs fluxo natural
 
-### Hero (e seções densas com CTA inferior)
+### Classe `full-viewport-section`
 
-Seções marcadas `full-viewport-section` **quando o conteúdo justifica**:
+Usada em todas as seções principais **para padding/largura compartilhados**. Por padrão: `min-height: auto` (altura = conteúdo).
 
-- Podem usar `min-height: 100svh` / `100dvh` na **seção**
-- Preferir conteúdo **compacto** + CTA/scroll inferior (padrão `#hero`), em vez de esticar o card até encher o vazio
-- Colunas irmãs devem ter **altura alinhada** e densidade visual parecida — sem coluna “oca”
+### Hero — única seção que preenche o viewport
+
+Só `#hero` usa `min-height: 100svh` / `100dvh`:
+
+- Conteúdo compacto + CTA/scroll inferior
+- Colunas irmãs com densidade parecida — sem coluna “oca”
 
 ```css
-/* ✅ Seção no viewport; card no tamanho do conteúdo; CTA embaixo */
+/* ✅ Só o Hero força viewport cheio */
 @media (min-width: 1024px) {
   #hero.full-viewport-section {
     position: relative;
@@ -34,15 +37,14 @@ Seções marcadas `full-viewport-section` **quando o conteúdo justifica**:
 }
 ```
 
-### Sobre Mim (`#sobre`) — exceção: fluxo natural
+### Seções magras (fluxo natural)
 
-`#sobre` usa `full-viewport-section` **só** para o mesmo padding/largura das outras seções. **Não** força `100svh` — altura = conteúdo.
+`#projetos`, `#sobre`, `#experiencia`, `#tecnologias`, `#publicacoes`, `#contato`:
 
-- Card denso, faixa de identidade horizontal
-- Traits com **título + 1 linha de prova**
-- Em desktop/FHD: escalar tipografia/padding — **não** alongar altura nem mudar o gutter horizontal
-- Shell interno com o mesmo padding de `.section-content` (`clamp(1rem, 4vw, 1.5rem)`)
-- CSS dedicado: `assets/css/about.css`
+- **Não** forçar `100vh` / `100svh` / `100dvh` na seção
+- **Não** esticar painéis com `min-height` baseado em `vh` nem `justify-content: center` para “preencher” vazio
+- Em desktop/FHD: escalar tipografia/padding — **não** alongar altura
+- Sobre: CSS dedicado em `assets/css/about.css`
 
 ## Mobile-first estrutural
 

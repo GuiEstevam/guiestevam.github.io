@@ -4,6 +4,8 @@
 
 import { HERO_METRICS, getTerminalMetricsLine } from './data/metrics.js';
 
+const COUNT_UP_DURATION_MS = 1200;
+
 /**
  * Preenche métricas do hero (a seção sobre usa trajetória estática)
  */
@@ -36,6 +38,57 @@ function renderMetricsGrid(containerId, metrics, prefix) {
   item.appendChild(label);
   container.appendChild(item);
  });
+
+ initCountUp(container, `${prefix}-number`);
+}
+
+/**
+ * Anima os números das métricas (count-up) quando entram no viewport.
+ * O valor final permanece no aria-label, então leitores de tela não são afetados.
+ */
+function initCountUp(container, numberClass) {
+ const prefersReducedMotion = window.matchMedia(
+  '(prefers-reduced-motion: reduce)'
+ ).matches;
+ if (prefersReducedMotion || !('IntersectionObserver' in window)) return;
+
+ const numbers = Array.from(container.querySelectorAll(`.${numberClass}`));
+ const targets = numbers
+  .map((el) => {
+   const match = /^(\D*)(\d+)(\D*)$/.exec(el.textContent.trim());
+   if (!match) return null;
+   return { el, prefix: match[1], value: Number(match[2]), suffix: match[3] };
+  })
+  .filter(Boolean);
+
+ if (targets.length === 0) return;
+
+ const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+   if (!entry.isIntersecting) return;
+   observer.unobserve(entry.target);
+   const target = targets.find((item) => item.el === entry.target);
+   if (target) animateCountUp(target);
+  });
+ }, { threshold: 0.4 });
+
+ targets.forEach(({ el, prefix, suffix }) => {
+  el.textContent = `${prefix}0${suffix}`;
+  observer.observe(el);
+ });
+}
+
+function animateCountUp({ el, prefix, value, suffix }) {
+ const start = performance.now();
+
+ const tick = (now) => {
+  const progress = Math.min((now - start) / COUNT_UP_DURATION_MS, 1);
+  const eased = 1 - Math.pow(1 - progress, 3);
+  el.textContent = `${prefix}${Math.round(value * eased)}${suffix}`;
+  if (progress < 1) requestAnimationFrame(tick);
+ };
+
+ requestAnimationFrame(tick);
 }
 
 function updateTerminalMetricsLine() {
