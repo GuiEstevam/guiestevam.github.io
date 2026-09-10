@@ -43,7 +43,6 @@
 
   --gradient-accent: linear-gradient(135deg, #22d3ee 0%, #0891b2 100%);
   --gradient-text: linear-gradient(135deg, #22d3ee, #0891b2);
-  --gradient-signature: linear-gradient(120deg, #22d3ee 0%, #818cf8 55%, #c084fc 100%);
   --gradient-bg-subtle: #0a0f16;
   --section-title-accent: var(--color-accent-primary);
 
@@ -89,7 +88,6 @@ html:not(.dark-mode) {
 
   --gradient-accent: linear-gradient(135deg, #0e7490 0%, #0891b2 100%);
   --gradient-text: linear-gradient(135deg, #0e7490, #0891b2);
-  --gradient-signature: linear-gradient(120deg, #0e7490 0%, #6366f1 55%, #9333ea 100%);
   --gradient-bg-subtle: linear-gradient(135deg, #ffffff 0%, #f6f8fa 100%);
   --section-title-accent: var(--color-accent-primary);
 }
@@ -440,6 +438,8 @@ html:not(.dark-mode) .hero-orb--tertiary {
   display: flex;
   align-items: center;
   justify-content: center;
+  touch-action: pan-y;
+  user-select: none;
 }
 
 /* Background Ambient Glow */
@@ -449,7 +449,7 @@ html:not(.dark-mode) .hero-orb--tertiary {
   left: 10%;
   width: 80%;
   height: 80%;
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.15) 0%, rgba(139, 92, 246, 0.05) 50%, transparent 85%);
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.15) 0%, rgba(8, 145, 178, 0.05) 50%, transparent 85%);
   filter: blur(40px);
   pointer-events: none;
   z-index: 0;
@@ -537,6 +537,7 @@ html:not(.dark-mode) .hero-orb--tertiary {
 }
 
 .showcase-dots .dot {
+  position: relative;
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -545,6 +546,12 @@ html:not(.dark-mode) .hero-orb--tertiary {
   cursor: pointer;
   padding: 0;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.showcase-dots .dot::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
 }
 
 .showcase-dots .dot:hover {
@@ -565,6 +572,8 @@ html:not(.dark-mode) .hero-orb--tertiary {
   height: 100%;
   object-fit: cover;
   object-position: left top;
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 .macbook-base-frame {
@@ -658,6 +667,8 @@ html:not(.dark-mode) .hero-orb--tertiary {
   height: 100%;
   object-fit: cover;
   object-position: center top;
+  -webkit-user-drag: none;
+  pointer-events: none;
 }
 
 .iphone-home-bar {
@@ -1328,6 +1339,20 @@ html:not(.dark-mode) .hero-orb--tertiary {
     max-width: 90px;
   }
 
+  .showcase-dots {
+    bottom: -8px;
+    gap: 10px;
+  }
+
+  .showcase-dots .dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .showcase-dots .dot.active {
+    width: 22px;
+  }
+
   #hero .hero-actions {
     flex-direction: row;
     flex-wrap: nowrap;
@@ -1348,55 +1373,40 @@ html:not(.dark-mode) .hero-orb--tertiary {
 
   #hero .hero-actions-primary .button.hero-button-primary,
   #hero .hero-actions-primary .button.hero-button-resume {
+    display: inline-flex;
     flex: 0 1 auto;
     min-width: 0;
     width: auto;
-    height: 2.5rem;
-    padding: 0 0.625rem;
-    font-size: 0.6875rem;
+    height: 2.75rem;
+    padding: 0 0.875rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    gap: 0.35rem;
     white-space: nowrap;
     text-decoration: none;
     letter-spacing: 0;
   }
 
   #hero .hero-actions-primary .button.hero-button-primary {
-    font-weight: 600;
-    gap: 0.3rem;
     box-shadow:
       0 1px 2px rgba(0, 0, 0, 0.25),
       0 4px 10px rgba(34, 211, 238, 0.22);
   }
 
   #hero .hero-actions-primary .button.hero-button-primary:hover,
-  #hero .hero-actions-primary .button.hero-button-primary:focus {
+  #hero .hero-actions-primary .button.hero-button-primary:focus,
+  #hero .hero-actions-primary .button.hero-button-resume:hover,
+  #hero .hero-actions-primary .button.hero-button-resume:focus {
     text-decoration: none;
   }
 
-  #hero .hero-actions-primary .button.hero-button-primary .icon {
-    font-size: 0.6875rem;
-  }
-
-  #hero .hero-actions-primary .button.hero-button-resume {
-    gap: 0.25rem;
-    font-weight: 600;
-  }
-
+  #hero .hero-actions-primary .button.hero-button-primary .icon,
   #hero .hero-actions-primary .button.hero-button-resume .icon {
-    font-size: 0.6875rem;
-  }
-
-  #hero .hero-actions-primary .button.hero-button-resume span {
-    white-space: nowrap;
+    font-size: 0.875rem;
   }
 
   #hero .hero-social {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  #hero .hero-social-link {
-    width: 2.5rem;
-    height: 2.5rem;
+    display: none;
   }
 
   #hero .scroll-indicator {
@@ -2126,7 +2136,7 @@ html:not(.dark-mode) #main-navigation.sticky-nav.scrolled {
   }
 
   #hero .hero-social {
-    justify-content: center;
+    display: none;
   }
 }
 
@@ -5186,13 +5196,13 @@ html:not(.dark-mode) a {
 }
 
 /* ============================================
-   CAMADA VISUAL — gradiente assinatura,
+   CAMADA VISUAL — acento cyan,
    spotlight, badges de tecnologia, marca
    ============================================ */
 
-/* --- Texto com gradiente assinatura --- */
+/* --- Texto com gradiente de acento --- */
 .text-gradient {
-  background: var(--gradient-signature);
+  background: var(--gradient-text);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -5207,7 +5217,7 @@ html:not(.dark-mode) a {
   margin-right: 0.5rem;
   font-weight: 700;
   font-size: 1.05em;
-  background: var(--gradient-signature);
+  background: var(--gradient-text);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -5222,7 +5232,7 @@ html:not(.dark-mode) a {
 #experiencia .section-title::after,
 #contato .section-title::after,
 #sobre .section-title::after {
-  background: var(--gradient-signature);
+  background: var(--gradient-accent);
 }
 
 /* --- Hero: orbs mais presentes --- */
@@ -5233,7 +5243,7 @@ html:not(.dark-mode) a {
 /* --- Botão primário do hero com gradiente + glow --- */
 #hero .hero-actions .button.hero-button-primary {
   border: none;
-  background: var(--gradient-signature);
+  background: var(--gradient-accent);
   background-size: 150% 150%;
   background-position: 0% 50%;
   color: #0a0f16;
@@ -5248,7 +5258,7 @@ html:not(.dark-mode) a {
   background-position: 100% 50%;
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.25),
-    0 6px 20px rgba(129, 140, 248, 0.35),
+    0 6px 20px var(--color-shadow-accent),
     0 4px 14px rgba(34, 211, 238, 0.3);
   transform: translateY(-1px);
 }
@@ -5277,7 +5287,7 @@ html:not(.dark-mode) a {
 
 .projects-slider-dot.active {
   width: 1.625rem;
-  background: var(--gradient-signature);
+  background: var(--gradient-accent);
 }
 
 /* --- Spotlight nos cards de projeto (segue o cursor) --- */
@@ -5293,7 +5303,7 @@ html:not(.dark-mode) a {
   border-radius: inherit;
   background: radial-gradient(
     320px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-    rgba(129, 140, 248, 0.14),
+    rgba(34, 211, 238, 0.16),
     rgba(34, 211, 238, 0.08) 40%,
     transparent 65%
   );
@@ -5394,16 +5404,16 @@ html:not(.dark-mode) #tecnologias .technology-item-icon .fa-python { color: #377
   border-top: 2px solid transparent;
   background-image:
     linear-gradient(var(--color-bg-card), var(--color-bg-card)),
-    var(--gradient-signature);
+    var(--gradient-accent);
   background-origin: border-box;
   background-clip: padding-box, border-box;
 }
 
-/* Timeline mobile com trilho no gradiente assinatura */
+/* Timeline mobile com trilho no acento cyan */
 #experiencia .experience-timeline::before {
   background: linear-gradient(180deg,
-      #22d3ee 0%,
-      #818cf8 45%,
+      var(--color-accent-primary) 0%,
+      var(--color-accent-secondary) 45%,
       var(--color-border-primary) 100%);
   opacity: 0.55;
 }
@@ -5455,3 +5465,5 @@ html:not(.dark-mode) #tecnologias .technology-item-icon .fa-python { color: #377
     transform: none;
   }
 }
+
+

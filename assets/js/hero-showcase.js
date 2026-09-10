@@ -1,7 +1,7 @@
 /**
  * Lógica do Showcase de Dispositivos (MacBook + iPhone) no Hero
- * Adiciona rotação paralaxe 3D, rotação automática de slides (slideshow)
- * e indicadores interativos (dots).
+ * Adiciona swipe no mobile, rotação paralaxe 3D no desktop,
+ * rotação automática de slides e indicadores (dots).
  */
 
 export function initHeroShowcase() {
@@ -63,22 +63,65 @@ export function initHeroShowcase() {
     }
   };
 
+  const goToSlide = (index) => {
+    const nextIndex = (index + totalSlides) % totalSlides;
+    if (nextIndex === currentSlide) return;
+    stopSlideshow();
+    changeSlide(nextIndex);
+    startSlideshow();
+  };
+
   // --- DOTS INTERACTION LOGIC ---
   dots.forEach(dot => {
     dot.addEventListener('click', (e) => {
-      const targetIndex = parseInt(e.target.dataset.index, 10);
+      const targetIndex = parseInt(e.currentTarget.dataset.index, 10);
       if (isNaN(targetIndex) || targetIndex === currentSlide) return;
-
-      stopSlideshow();
-      changeSlide(targetIndex);
-      startSlideshow();
+      goToSlide(targetIndex);
     });
   });
+
+  // --- SWIPE (mobile / touch) ---
+  const SWIPE_THRESHOLD = 36;
+  let swipeStartX = 0;
+  let swipeStartY = 0;
+  let swipeLocked = false;
+
+  showcase.addEventListener(
+    'pointerdown',
+    (event) => {
+      swipeStartX = event.clientX;
+      swipeStartY = event.clientY;
+      swipeLocked = false;
+      if (showcase.setPointerCapture) {
+        showcase.setPointerCapture(event.pointerId);
+      }
+    },
+    { passive: true }
+  );
+
+  showcase.addEventListener(
+    'pointerup',
+    (event) => {
+      if (swipeLocked) return;
+      const dx = event.clientX - swipeStartX;
+      const dy = event.clientY - swipeStartY;
+      if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) < Math.abs(dy)) return;
+      swipeLocked = true;
+      goToSlide(dx < 0 ? currentSlide + 1 : currentSlide - 1);
+    },
+    { passive: true }
+  );
 
   // Inicializa o temporizador
   startSlideshow();
 
-  // --- 3D PARALLAX TILT LOGIC ---
+  // --- 3D PARALLAX TILT LOGIC (só ponteiro fino; no touch atrapalha o swipe) ---
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!canHover) {
+    window.addEventListener('beforeunload', stopSlideshow);
+    return;
+  }
+
   let request = null;
   let mouseX = 0;
   let mouseY = 0;
