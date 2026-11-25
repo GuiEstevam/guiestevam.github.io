@@ -11,6 +11,7 @@ FILES = [
     "ntinformatica.png",
     "lgf-contabilidade.png",
     "transcende.png",
+    "frota-segura.png",
     "syncfinance.png",
     "horientando.png",
     "guicodex.png",

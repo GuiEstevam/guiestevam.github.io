@@ -20,8 +20,8 @@ export const EXPERIENCE_ITEMS = [
   location: 'Guarulhos, SP · Remota',
   parallelNote: 'Atuação em paralelo com o suporte de T.I.',
   description:
-   'Desenvolvimento de aplicações web sob demanda: SaaS, e-commerces e sites institucionais. Entrego do levantamento ao deploy — Laravel, Livewire, Vue.js e MySQL — com foco em estabilidade, integrações e manutenção contínua.',
-  stack: ['Laravel', 'Livewire', 'Vue.js', 'MySQL', 'TailwindCSS'],
+   'Desenvolvimento de aplicações web sob demanda: SaaS, e-commerces, sites e sistemas de operação. Entrego do levantamento ao deploy — Laravel, Livewire, Vue.js, MySQL e Python — com foco em estabilidade, integrações e manutenção contínua.',
+  stack: ['Laravel', 'Livewire', 'Vue.js', 'MySQL', 'Python'],
   itemModifiers: ['experience-item--current'],
   cardModifiers: ['experience-card--current', 'experience-card--highlight'],
  },
