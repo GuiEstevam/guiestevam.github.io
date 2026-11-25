@@ -1,30 +1,36 @@
 /**
- * Formação acadêmica — exibida no fim da seção Experiência
+ * Formação acadêmica — coluna "Formação e publicação" da Trajetória
+ * publication: artigo ligado ao curso (exibido dentro do item).
  */
 
 export const EDUCATION_ITEMS = [
  {
   id: 'engenharia-computacao',
-  title: 'Bacharelado em Engenharia da Computação',
+  title: 'Engenharia da Computação',
   institution: 'Instituto Federal de São Paulo (IFSP)',
-  period: '2026 – 2029',
+  period: '2026 · 2029',
   status: 'Em andamento',
-  statusVariant: 'current',
+  current: true,
  },
  {
   id: 'pos-gestao-si',
   title: 'Pós-graduação em Gestão de Sistemas de Informação',
   institution: 'Instituto Federal de São Paulo (IFSP)',
-  period: '2024 – 2025',
+  period: '2024 · 2025',
   status: 'Concluída',
-  statusVariant: 'done',
+  publication: {
+   kind: 'Artigo publicado',
+   venue: 'SDC Guarulhos',
+   title:
+    'Impacto de fatores socioeconômicos no desempenho acadêmico: uma análise preditiva com dados do NAEP',
+   href: 'https://sdc.guarulhos.sp.gov.br/index.php/SDC/article/view/1785',
+  },
  },
  {
   id: 'ads',
-  title: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
+  title: 'Análise e Desenvolvimento de Sistemas',
   institution: 'Instituto Federal de São Paulo (IFSP)',
-  period: '2019 – 2022',
+  period: '2019 · 2022',
   status: 'Concluído',
-  statusVariant: 'done',
  },
 ];

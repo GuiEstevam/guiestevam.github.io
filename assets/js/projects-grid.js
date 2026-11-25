@@ -1,454 +1,331 @@
 /**
- * Renderização da grade de projetos (Gridresponsivo)
+ * Seção Projetos
+ * - Estudos de caso: os projetos com `caseStudy` no catálogo (Nerdola Miner primeiro)
+ * - Lista compacta: o restante do catálogo + repositórios do GitHub
+ *
+ * Tudo é montado de forma síncrona a partir do catálogo local, sem depender de
+ * animação de scroll. A API do GitHub só atualiza a lista compacta quando responde.
  */
 
 import { fetchRepositories } from './services/github-service.js';
 import {
+  CASE_STUDIES,
   EXCLUDED_PROJECT_NAMES,
-  FEATURED_PROJECTS,
+  getCatalogOrder,
   getPortfolioProjectsFallback,
   getProjectCategory,
   isProductionProject,
+  resolveProjectDescription,
   resolveProjectHomepage,
   resolveProjectImage,
-  resolveProjectOutcome,
   resolveProjectStack,
-  resolveProjectDescription,
+  resolveProjectTagline,
 } from './data/projects.js';
-import { getStackIcon } from './utils/stack-icons.js';
 
-const EXCLUDED_PROJECTS = new Set(
-  EXCLUDED_PROJECT_NAMES.map((name) => name.toLowerCase())
-);
+const EXCLUDED = new Set(EXCLUDED_PROJECT_NAMES.map((name) => name.toLowerCase()));
+const CASE_NAMES = new Set(CASE_STUDIES.map((project) => project.name.toLowerCase()));
+
+/* ---------- Utilidades ---------- */
+
+function el(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text != null) node.textContent = text;
+  return node;
+}
+
+function hostOf(url) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return '';
+  }
+}
 
 /**
- * Monta <img> do projeto ou placeholder com ícone
+ * Link externo. O texto visível vem primeiro; `context` (ex.: nome do projeto)
+ * entra só para leitores de tela, junto com o aviso de nova aba.
  */
-function createProjectMediaImage(project, index) {
-  const imagePath = project.image || '';
-
-  if (!imagePath) {
-    const placeholder = document.createElement('div');
-    placeholder.className = 'project-card-placeholder';
-
-    const icon = document.createElement('ion-icon');
-    icon.setAttribute('name', 'code-outline');
-    icon.setAttribute('aria-hidden', 'true');
-    placeholder.appendChild(icon);
-
-    const label = document.createElement('span');
-    label.className = 'font-mono';
-    label.textContent = project.name;
-    placeholder.appendChild(label);
-
-    return placeholder;
-  }
-
-  const img = document.createElement('img');
-  img.alt = `Screenshot do projeto ${project.name}`;
-  img.className = 'project-card-image';
-  img.loading = index < 4 ? 'eager' : 'lazy';
-  img.width = 640;
-  img.height = 400;
-  img.decoding = 'async';
-  img.src = imagePath;
-  return img;
-}
-
-function createTagIcon(tech) {
-  const icon = document.createElement('i');
-  icon.className = getStackIcon(tech);
+function externalLink(href, className, label, context) {
+  const link = el('a', className);
+  link.href = href;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  link.append(el('span', null, label));
+  link.append(el('span', 'visually-hidden', `${context ? ` ${context}` : ''} (abre em nova aba)`));
+  const icon = el('i', 'icon solid fa-external-link-alt');
   icon.setAttribute('aria-hidden', 'true');
-  return icon;
+  link.append(icon);
+  return link;
 }
 
-function createLanguageTags(stack) {
-  const tags = Array.isArray(stack)
-    ? stack.filter((item) => item && typeof item === 'string')
-    : [];
-
-  if (tags.length === 0) return null;
-
-  const list = document.createElement('ul');
-  list.className = 'project-card-tags';
-  list.setAttribute('aria-label', 'Tecnologias do projeto');
-
-  const visibleTags = tags.slice(0, 4);
-  visibleTags.forEach((tech) => {
-    const item = document.createElement('li');
-    item.className = 'project-card-tag font-mono';
-    item.appendChild(createTagIcon(tech));
-
-    const label = document.createElement('span');
-    label.className = 'project-card-tag-label';
-    label.textContent = tech;
-    item.appendChild(label);
-
-    list.appendChild(item);
-  });
-
-  const hiddenCount = tags.length - visibleTags.length;
-  if (hiddenCount > 0) {
-    const more = document.createElement('li');
-    more.className = 'project-card-tag project-card-tag--more font-mono';
-    more.setAttribute('aria-label', `Mais ${hiddenCount} tecnologias`);
-
-    const moreIcon = document.createElement('ion-icon');
-    moreIcon.setAttribute('name', 'layers-outline');
-    moreIcon.setAttribute('aria-hidden', 'true');
-    more.appendChild(moreIcon);
-
-    const moreLabel = document.createElement('span');
-    moreLabel.className = 'project-card-tag-label';
-    moreLabel.textContent = `+${hiddenCount}`;
-    more.appendChild(moreLabel);
-
-    list.appendChild(more);
-  }
-
-  return list;
+function truncate(text, max = 90) {
+  if (!text || text.length <= max) return text || '';
+  return `${text.slice(0, max).replace(/\s+\S*$/, '')}…`;
 }
 
-function createProjectCard(project, index) {
-  const card = document.createElement('article');
-  card.className = 'project-grid-card reveal-on-scroll';
-  card.setAttribute('role', 'listitem');
-  card.style.setProperty('--reveal-index', String(index));
-  card.dataset.delay = String(Math.min(index * 0.08, 0.6));
+/* ---------- Estudos de caso ---------- */
 
-  const projectKey = project.name.toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, '-');
-  card.dataset.project = projectKey;
+function createCaseMedia(project, index) {
+  const media = el('div', 'case-media');
 
-  const demoUrl = project.demoUrl;
-  const repoUrl = project.repoUrl;
-  const badgeLabel = project.isProduction ? 'Em produção' : 'Open source';
-  const categoryLabel = project.category || (project.isProduction ? 'Projeto' : 'Repositório');
+  // A imagem também leva ao site; fica fora da ordem de tab (o botão já cumpre isso)
+  const shot = el(project.demoUrl ? 'a' : 'div', 'case-shot');
+  if (project.demoUrl) {
+    shot.href = project.demoUrl;
+    shot.target = '_blank';
+    shot.rel = 'noopener noreferrer';
+    shot.tabIndex = -1;
+    shot.setAttribute('aria-hidden', 'true');
+  }
+  const img = document.createElement('img');
+  img.src = project.image;
+  img.alt = `Tela do ${project.name}`;
+  img.width = 1280;
+  img.height = 800;
+  img.decoding = 'async';
+  img.loading = index === 0 ? 'eager' : 'lazy';
+  shot.append(img);
+  media.append(shot);
 
-  // Media & Imagem
-  const media = document.createElement('div');
-  media.className = 'project-card-media';
-  media.appendChild(createProjectMediaImage(project, index));
-
-  // Badge da stack
-  const badge = document.createElement('span');
-  badge.className = `project-card-badge font-mono ${project.isProduction ? 'prod' : 'open'}`;
-  badge.textContent = badgeLabel;
-  media.appendChild(badge);
-
-  // Conteúdo do Card
-  const content = document.createElement('div');
-  content.className = 'project-card-content';
-
-  const category = document.createElement('span');
-  category.className = 'project-card-category font-mono';
-  category.textContent = categoryLabel;
-  content.appendChild(category);
-
-  const title = document.createElement('h3');
-  title.className = 'project-card-title';
-  title.textContent = project.name;
-  content.appendChild(title);
-
-  // Descrição do problema / solução
-  const desc = document.createElement('p');
-  desc.className = 'project-card-desc';
-  desc.textContent = project.description || '';
-  content.appendChild(desc);
-
-  // Resultado
-  if (project.outcome) {
-    const outcome = document.createElement('div');
-    outcome.className = 'project-card-outcome';
-    outcome.innerHTML = `<strong>Resultado:</strong> ${project.outcome}`;
-    content.appendChild(outcome);
+  // O print do celular só acompanha o caso em destaque
+  if (index === 0 && project.mobileImage) {
+    const phone = el('div', 'case-phone');
+    phone.setAttribute('aria-hidden', 'true');
+    const phoneImg = document.createElement('img');
+    phoneImg.src = project.mobileImage;
+    phoneImg.alt = '';
+    phoneImg.width = 414;
+    phoneImg.height = 830;
+    phoneImg.decoding = 'async';
+    phoneImg.loading = 'lazy';
+    phone.append(phoneImg);
+    media.append(phone);
   }
 
-  // Tags das tecnologias
-  const languageTags = createLanguageTags(project.stack);
-  if (languageTags) {
-    content.appendChild(languageTags);
-  }
-
-  // Ações / Links
-  const actions = document.createElement('div');
-  actions.className = 'project-card-actions';
-
-  if (demoUrl) {
-    const demoLink = document.createElement('a');
-    demoLink.className = 'button project-btn-primary';
-    demoLink.href = demoUrl;
-    demoLink.target = '_blank';
-    demoLink.rel = 'noopener noreferrer';
-    demoLink.innerHTML = '<ion-icon name="open-outline" aria-hidden="true"></ion-icon> <span>Acessar</span>';
-    actions.appendChild(demoLink);
-  }
-
-  if (repoUrl && (!project.isProduction || repoUrl !== demoUrl)) {
-    const repoLink = document.createElement('a');
-    repoLink.className = 'button project-btn-secondary';
-    repoLink.href = repoUrl;
-    repoLink.target = '_blank';
-    repoLink.rel = 'noopener noreferrer';
-    repoLink.innerHTML = '<i class="fab fa-github" aria-hidden="true"></i> <span>Código</span>';
-    actions.appendChild(repoLink);
-  }
-
-  content.appendChild(actions);
-  card.appendChild(media);
-  card.appendChild(content);
-
-  return card;
+  return media;
 }
 
-function buildUnifiedProjectList(repos) {
-  const featuredNames = new Set(
-    FEATURED_PROJECTS.map((project) => project.name.toLowerCase())
+function createCaseStudy(project, index) {
+  // O primeiro caso (Nerdola Miner) é o destaque; os demais formam uma dupla
+  const article = el('article', index === 0 ? 'case case--featured' : 'case case--compact');
+  article.dataset.project = project.id;
+  const headingId = `case-${project.id}`;
+  article.setAttribute('aria-labelledby', headingId);
+
+  const body = el('div', 'case-body');
+
+  const meta = el('p', 'case-meta');
+  meta.append(
+    el('span', 'case-index', String(index + 1).padStart(2, '0')),
+    el('span', 'case-category', project.category)
   );
 
-  const featured = FEATURED_PROJECTS.map((project) => ({
-    name: project.name,
-    category: project.category || null,
-    outcome: project.outcome || null,
-    image: project.image,
-    demoUrl: project.demoUrl || project.repoUrl,
-    repoUrl: project.repoUrl || project.demoUrl,
-    isProduction: true,
-    updatedAt: project.updatedAt,
-    stack: project.stack?.length ? [...project.stack] : [],
-    description: project.description || '',
-  }));
+  const title = el('h3', 'case-title', project.name);
+  title.id = headingId;
 
-  const others = (Array.isArray(repos) ? repos : [])
-    .filter(
-      (repo) =>
-        repo?.name &&
-        !featuredNames.has(repo.name.toLowerCase()) &&
-        !EXCLUDED_PROJECTS.has(repo.name.toLowerCase())
-    )
-    .map((repo) => {
-      const homepage = resolveProjectHomepage(repo.name, repo.homepage);
-      const htmlUrl = repo.html_url || '';
-      const isProduction = isProductionProject(repo.name, htmlUrl, homepage);
+  const summary = el('p', 'case-summary', project.summary || project.description);
 
-      return {
-        name: repo.name,
-        category:
-          getProjectCategory(repo.name) ||
-          (isProduction ? 'Site' : 'Open source'),
-        outcome: resolveProjectOutcome(repo.name),
-        image: resolveProjectImage(repo.name) || '',
-        demoUrl: isProduction ? homepage || htmlUrl : homepage || htmlUrl,
-        repoUrl: htmlUrl,
-        isProduction,
-        updatedAt: repo.updated_at,
-        stack: resolveProjectStack(
-          repo.name,
-          repo.language ? [repo.language] : []
-        ),
-        description: resolveProjectDescription(repo.name, repo.description),
-      };
+  body.append(meta, title, summary);
+
+  if (project.highlights?.length) {
+    const list = el('ul', 'case-highlights');
+    list.setAttribute('aria-label', 'O que foi desenvolvido');
+    project.highlights.forEach((item) => list.append(el('li', null, item)));
+    body.append(list);
+  }
+
+  const facts = el('dl', 'case-facts');
+  if (project.outcome) {
+    const row = el('div', 'case-fact');
+    row.append(el('dt', null, 'Resultado'), el('dd', null, project.outcome));
+    facts.append(row);
+  }
+  if (project.stack?.length) {
+    const row = el('div', 'case-fact');
+    row.append(el('dt', null, 'Stack'), el('dd', 'case-stack', project.stack.join(' · ')));
+    facts.append(row);
+  }
+  body.append(facts);
+
+  if (project.demoUrl) {
+    // Botão + endereço ao lado (ou o aviso de login, quando é um sistema fechado)
+    const actions = el('div', 'case-actions');
+    const button = externalLink(
+      project.demoUrl,
+      index === 0 ? 'case-button case-button--primary' : 'case-button',
+      project.linkLabel || 'Visitar site',
+      `do ${project.name}`
+    );
+    const note = el('span', 'case-link-note');
+    if (project.linkNote) {
+      const lock = el('i', 'icon solid fa-lock');
+      lock.setAttribute('aria-hidden', 'true');
+      note.append(lock, document.createTextNode(` ${project.linkNote}`));
+    } else {
+      note.textContent = hostOf(project.demoUrl);
+    }
+    actions.append(button, note);
+    body.append(actions);
+  }
+
+  article.append(createCaseMedia(project, index), body);
+  return article;
+}
+
+function renderCaseStudies(container) {
+  container.textContent = '';
+  CASE_STUDIES.forEach((project, index) => {
+    container.append(createCaseStudy(project, index));
+  });
+}
+
+/* ---------- Lista compacta ---------- */
+
+function toListItem(repo) {
+  const homepage = resolveProjectHomepage(repo.name, repo.homepage);
+  const htmlUrl = repo.html_url || '';
+  const isProduction = isProductionProject(repo.name, htmlUrl, homepage);
+  const url = homepage || htmlUrl;
+
+  return {
+    name: repo.name,
+    category: getProjectCategory(repo.name) || (isProduction ? 'Site' : 'Open source'),
+    tagline:
+      resolveProjectTagline(repo.name) ||
+      truncate(resolveProjectDescription(repo.name, repo.description)),
+    stack: resolveProjectStack(repo.name, repo.language ? [repo.language] : []).slice(0, 3),
+    image: resolveProjectImage(repo.name) || '',
+    url,
+    linkLabel: !url ? null : url.includes('github.com') ? 'Código' : 'Ver site',
+    isProduction,
+    updatedAt: repo.updated_at,
+  };
+}
+
+function buildOtherProjects(repos) {
+  return (Array.isArray(repos) ? repos : [])
+    .filter((repo) => {
+      const key = repo?.name?.toLowerCase();
+      return key && !EXCLUDED.has(key) && !CASE_NAMES.has(key);
     })
-    .sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0));
-
-  return [...featured, ...others];
-}
-
-function showLoadingState(grid) {
-  grid.innerHTML = '';
-  grid.setAttribute('aria-busy', 'true');
-
-  for (let i = 0; i < 6; i += 1) {
-    const skeleton = document.createElement('article');
-    skeleton.className = 'project-grid-card project-grid-card--skeleton';
-    skeleton.setAttribute('aria-hidden', 'true');
-    skeleton.innerHTML = `
-      <div class="project-card-media"><div class="skeleton-shimmer"></div></div>
-      <div class="project-card-content">
-        <div class="skeleton-line title"></div>
-        <div class="skeleton-line desc"></div>
-        <div class="skeleton-line desc"></div>
-        <div class="skeleton-line tags"></div>
-      </div>
-    `;
-    grid.appendChild(skeleton);
-  }
-}
-
-function showErrorState(grid) {
-  grid.innerHTML = '';
-  grid.removeAttribute('aria-busy');
-  grid.innerHTML =
-    '<p class="projects-grid-error" role="alert">Não foi possível carregar os projetos no momento.</p>';
-}
-
-function setupSliderControls(grid) {
-  const container = grid.parentElement;
-  if (!container) return;
-
-  const btnPrev = container.querySelector('.projects-nav-btn--prev');
-  const btnNext = container.querySelector('.projects-nav-btn--next');
-
-  if (!btnPrev || !btnNext) return;
-
-  const updateButtons = () => {
-    const scrollLeft = grid.scrollLeft;
-    const maxScroll = grid.scrollWidth - grid.clientWidth;
-
-    btnPrev.disabled = scrollLeft <= 5;
-    btnNext.disabled = scrollLeft >= maxScroll - 5;
-  };
-
-  const getScrollAmount = () => {
-    const card = grid.querySelector('.project-grid-card');
-    if (card) {
-      return card.clientWidth + 32; // card width + grid gap (2rem = 32px)
-    }
-    return grid.clientWidth * 0.75;
-  };
-
-  btnPrev.onclick = () => {
-    grid.scrollBy({
-      left: -getScrollAmount(),
-      behavior: 'smooth'
+    .map(toListItem)
+    .sort((a, b) => {
+      // Produção primeiro (na ordem do catálogo), depois open source pelo mais recente
+      if (a.isProduction !== b.isProduction) return a.isProduction ? -1 : 1;
+      const orderA = getCatalogOrder(a.name) ?? 99;
+      const orderB = getCatalogOrder(b.name) ?? 99;
+      if (orderA !== orderB) return orderA - orderB;
+      return new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0);
     });
-  };
-
-  btnNext.onclick = () => {
-    grid.scrollBy({
-      left: getScrollAmount(),
-      behavior: 'smooth'
-    });
-  };
-
-  grid.addEventListener('scroll', updateButtons);
-  window.addEventListener('resize', updateButtons);
-
-  // Inicializa o estado dos botões após a renderização
-  setTimeout(updateButtons, 100);
-
-  // --- MOUSE DRAG SCROLLING ---
-  let isDown = false;
-  let startX;
-  let startPageX;
-  let scrollLeft;
-  let isDragging = false;
-  let mouseMoved = false;
-
-  grid.addEventListener('mousedown', (e) => {
-    if (e.button !== 0) return; // Apenas clique esquerdo
-    
-    isDown = true;
-    isDragging = false;
-    mouseMoved = false;
-    startX = e.pageX - grid.offsetLeft;
-    startPageX = e.pageX;
-    scrollLeft = grid.scrollLeft;
-    
-    grid.style.scrollSnapType = 'none';
-    grid.style.scrollBehavior = 'auto';
-  });
-
-  const stopDragging = () => {
-    if (isDown) {
-      isDown = false;
-      grid.style.scrollSnapType = 'x mandatory';
-      grid.style.scrollBehavior = 'smooth';
-    }
-  };
-
-  grid.addEventListener('mouseleave', stopDragging);
-  grid.addEventListener('mouseup', stopDragging);
-
-  grid.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
-    
-    const x = e.pageX - grid.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    
-    if (Math.abs(e.pageX - startPageX) > 5) {
-      mouseMoved = true;
-      isDragging = true;
-    }
-    
-    grid.scrollLeft = scrollLeft - walk;
-  });
-
-  grid.addEventListener('click', (e) => {
-    if (isDragging && mouseMoved) {
-      e.preventDefault();
-      e.stopPropagation();
-      isDragging = false;
-      mouseMoved = false;
-    }
-  }, true);
 }
 
-function renderProjectCards(grid, projects) {
-  grid.innerHTML = '';
-  grid.removeAttribute('aria-busy');
+function createProjectThumb(item) {
+  const thumb = el('div', 'project-tile-thumb');
 
-  projects.forEach((project, index) => {
-    grid.appendChild(createProjectCard(project, index));
-  });
-
-  requestAnimationFrame(() => {
-    triggerCardEntrance(grid);
-    if (window.observeNewElements) {
-      window.observeNewElements();
-    }
-    setupSliderControls(grid);
-  });
-}
-
-function triggerCardEntrance(grid) {
-  const cards = grid.querySelectorAll('.project-grid-card:not(.project-grid-card--skeleton)');
-  const prefersReducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches;
-
-  if (prefersReducedMotion) {
-    cards.forEach((card) => card.classList.add('revealed'));
-    return;
+  if (item.image) {
+    const img = document.createElement('img');
+    img.src = item.image;
+    img.alt = `Tela do ${item.name}`;
+    img.width = 640;
+    img.height = 400;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    thumb.append(img);
+  } else {
+    // Sem captura pública (ex.: sistema interno): bloco neutro com o nome
+    thumb.classList.add('project-tile-thumb--empty');
+    thumb.setAttribute('aria-hidden', 'true');
+    const icon = el('i', 'icon solid fa-lock');
+    thumb.append(icon, el('span', null, item.name));
   }
 
-  requestAnimationFrame(() => {
-    cards.forEach((card, index) => {
-      window.setTimeout(() => {
-        card.classList.add('revealed');
-      }, index * 80);
-    });
-  });
+  return thumb;
 }
 
-export async function initProjectsGrid() {
-  const grid = document.getElementById('projects-grid');
-  if (!grid) return;
+function createProjectTile(item) {
+  const tile = el('li', 'project-tile');
 
-  showLoadingState(grid);
+  const body = el('div', 'project-tile-body');
+
+  const head = el('div', 'project-tile-head');
+  head.append(el('h4', 'project-tile-title', item.name), el('span', 'project-tile-category', item.category));
+
+  const desc = el('p', 'project-tile-desc', item.tagline);
+  const stack = el('p', 'project-tile-stack', item.stack.join(' · '));
+
+  const action = item.url
+    ? externalLink(item.url, 'project-tile-link', item.linkLabel, `do ${item.name}`)
+    : el('span', 'project-tile-note', 'Uso interno');
+
+  body.append(head, desc, stack, action);
+  tile.append(createProjectThumb(item), body);
+  return tile;
+}
+
+function renderOtherProjects(list, repos) {
+  const items = buildOtherProjects(repos);
+  list.textContent = '';
+  items.forEach((item) => list.append(createProjectTile(item)));
+  list.closest('.projects-more')?.toggleAttribute('hidden', items.length === 0);
+  setupCarousel(list);
+  list._updateCarousel?.();
+}
+
+/* ---------- Carrossel dos outros projetos ---------- */
+
+/**
+ * Rolagem nativa (touch, trackpad, teclado) com scroll-snap no CSS;
+ * as setas só avançam uma "página" e são desativadas nas pontas.
+ */
+function setupCarousel(list) {
+  const nav = list.closest('.projects-more')?.querySelector('.projects-carousel-nav');
+  if (!nav || list.dataset.carousel) return;
+  list.dataset.carousel = 'true';
+
+  const buttons = nav.querySelectorAll('.projects-carousel-btn');
+
+  const update = () => {
+    const max = list.scrollWidth - list.clientWidth;
+    nav.hidden = max <= 4;
+    buttons.forEach((btn) => {
+      const dir = Number(btn.dataset.dir);
+      btn.disabled = dir < 0 ? list.scrollLeft <= 4 : list.scrollLeft >= max - 4;
+    });
+  };
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const dir = Number(btn.dataset.dir);
+      list.scrollBy({ left: dir * list.clientWidth * 0.9, behavior: 'smooth' });
+    });
+  });
+
+  list.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  list._updateCarousel = update;
+  update();
+}
+
+/* ---------- Init ---------- */
+
+export async function initProjectsSection() {
+  const cases = document.getElementById('projects-cases');
+  const list = document.getElementById('projects-list');
+  if (!cases && !list) return;
+
+  if (cases) renderCaseStudies(cases);
+  if (!list) return;
+
+  // Mostra o catálogo local na hora; a API do GitHub só complementa
+  renderOtherProjects(list, getPortfolioProjectsFallback());
 
   try {
     const { repos } = await fetchRepositories();
-    const projects = buildUnifiedProjectList(repos);
-    renderProjectCards(grid, projects);
+    if (Array.isArray(repos) && repos.length) {
+      renderOtherProjects(list, repos);
+    }
   } catch (error) {
-    console.error('Erro ao carregar projetos:', error);
-    const fallbackRepos = getPortfolioProjectsFallback();
-    const projects = buildUnifiedProjectList(fallbackRepos);
-
-    if (projects.length > 0) {
-      renderProjectCards(grid, projects);
-      if (window.showToast) {
-        window.showToast('Projetos carregados do catálogo local', 'info', 4000);
-      }
-      return;
-    }
-
-    showErrorState(grid);
-    if (window.showToast) {
-      window.showToast('Erro ao carregar projetos', 'error');
-    }
+    console.warn('GitHub indisponível; mantendo a lista local de projetos.', error);
   }
 }

@@ -12,10 +12,25 @@ FILES = [
     "lgf-contabilidade.png",
     "transcende.png",
     "frota-segura.png",
+    "atrio.png",
     "syncfinance.png",
     "horientando.png",
     "guicodex.png",
 ]
+# Capturas que ficam na proporção original (sem corte lateral nem preenchimento).
+# O valor é (esquerda, topo, direita): quantos px cortar de cada borda
+# (faixa de progresso, borda da janela, barra de rolagem).
+NATIVE_RATIO = {
+    "pontocorte.png": (10, 2, 0),
+    "frota-segura.png": (0, 0, 0),
+}
+
+# Recorte de uma área da captura (esquerda, topo, direita, base), redimensionado
+# para a largura alvo. Usado em painéis densos ou telas largas em cards 16:10.
+CROP_BOX = {
+    "atrio.png": (0, 2, 712, 447),  # 16:10 preenchendo o card (hero + chat)
+    "ntinformatica.png": (40, 0, 824, 490),  # 16:10 preenchendo o card (hero + painel)
+}
 TARGET_W, TARGET_H = 1280, 800  # 16:10
 TARGET_RATIO = TARGET_W / TARGET_H
 
@@ -53,6 +68,14 @@ def fit_on_canvas(img: Image.Image) -> Image.Image:
     return canvas
 
 
+def fit_width_native(img: Image.Image, trim: tuple = (0, 0, 0)) -> Image.Image:
+    trim_left, trim_top, trim_right = trim
+    if trim_left or trim_top or trim_right:
+        img = img.crop((trim_left, trim_top, img.size[0] - trim_right, img.size[1]))
+    w, h = img.size
+    return img.resize((TARGET_W, round(h * TARGET_W / w)), Image.Resampling.LANCZOS)
+
+
 def main() -> None:
     for name in FILES:
         src = SRC_DIR / name
@@ -62,7 +85,13 @@ def main() -> None:
         with Image.open(src) as im:
             rgb = im.convert("RGB")
             w, h = rgb.size
-            if w < TARGET_W or h < TARGET_H:
+            if name in CROP_BOX:
+                region = rgb.crop(CROP_BOX[name])
+                rw, rh = region.size
+                final = region.resize((TARGET_W, round(rh * TARGET_W / rw)), Image.Resampling.LANCZOS)
+            elif name in NATIVE_RATIO:
+                final = fit_width_native(rgb, NATIVE_RATIO[name])
+            elif w < TARGET_W or h < TARGET_H:
                 # Fonte menor que o alvo: encaixar inteira no quadro 16:10,
                 # sem upscale, preenchendo as bordas com a cor de fundo da captura
                 final = fit_on_canvas(rgb)

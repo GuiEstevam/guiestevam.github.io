@@ -337,21 +337,6 @@
  font-size: 0.9em;
 }
 
-
-/* Melhorias para imagens lazy loading - Mobile First */
-img[loading='lazy'] {
- opacity: 0;
- transition: opacity 0.3s ease;
- transform: translateZ(0); /* GPU acceleration */
- backface-visibility: hidden;
- -webkit-backface-visibility: hidden;
-}
-
-img[loading='lazy'].loaded {
- opacity: 1;
- will-change: auto; /* Remover após carregar */
-}
-
 /* Wrapper para imagem e placeholder - regras específicas para cards de projeto */
 .posts article .image-wrapper {
  position: relative !important;
@@ -1399,16 +1384,6 @@ section {
  border-top: none !important;
 }
 
-/* Só o Hero preenche o viewport; demais seções = altura do conteúdo */
-#projetos.full-viewport-section,
-#sobre.full-viewport-section,
-#experiencia.full-viewport-section,
-#tecnologias.full-viewport-section,
-#publicacoes.full-viewport-section,
-#contato.full-viewport-section {
- min-height: auto;
-}
-
 /* Espaçamento extra entre seções */
 .full-viewport-section + .section-divider {
  margin: var(--spacing-xl) 0;
@@ -1497,37 +1472,8 @@ section {
  pointer-events: none;
 }
 
-/* ============================================
-   ANIMAÇÕES PROGRESSIVAS
-   ============================================ */
-
-/* Reveal on Scroll - GPU Optimized */
-.reveal-on-scroll {
- opacity: 0;
- transform: translate3d(0, 30px, 0); /* GPU acceleration */
- transition: opacity 0.6s ease-out, transform 0.6s ease-out;
- will-change: opacity, transform; /* Otimização antecipada */
-}
-
-.reveal-on-scroll.revealed {
- opacity: 1;
- transform: translate3d(0, 0, 0); /* GPU acceleration */
- will-change: auto; /* Remover will-change após animação */
-}
-
 /* Prefers Reduced Motion - Acessibilidade */
 @media (prefers-reduced-motion: reduce) {
- .reveal-on-scroll {
-  opacity: 1;
-  transform: none;
-  transition: none;
- }
-
- .reveal-on-scroll.revealed {
-  opacity: 1;
-  transform: none;
- }
-
  * {
   animation-duration: 0.01ms !important;
   animation-iteration-count: 1 !important;
@@ -1624,32 +1570,6 @@ section {
 #contato {
  background-color: var(--color-bg-primary);
 }
-
-/* Título da Seção Contato - Estilização similar às outras seções */
-#contato .section-title {
- font-family: 'Roboto Slab', serif;
- font-size: clamp(2rem, 4vw, 3.5rem);
- font-weight: 800;
- color: var(--color-text-primary);
- letter-spacing: -0.03em;
- line-height: 1.1;
- margin-bottom: var(--spacing-lg);
-}
-
-/* Desktop: margin-bottom ainda menor */
-@media screen and (min-width: 1024px) {
- #contato .section-title {
-  margin-bottom: var(--spacing-md);
- }
-}
-
-#contato .section-title::after {
- background: var(--gradient-accent);
- height: 4px;
- width: 80px;
-}
-
-/* CONTATO → dev-theme.css (Sprint 9) */
 
 /* ============================================
    FOOTER

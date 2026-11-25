@@ -3,9 +3,8 @@
  * Entry point para Vite
  */
 
-import { initProjectsGrid } from './projects-grid.js';
+import { initProjectsSection } from './projects-grid.js';
 import { renderPortfolioMetrics } from './portfolio-metrics.js';
-import { initCardSpotlight } from './card-spotlight.js';
 import './toast.js';
 import './scroll-animations.js';
 import './mobile-menu.js';
@@ -34,20 +33,11 @@ function initCopyButtons() {
   });
 }
 
-async function initApp() {
+function initApp() {
   renderPortfolioMetrics();
   renderExperienceTimeline();
-  initProjectsGrid();
+  initProjectsSection();
   initCopyButtons();
-  initCardSpotlight();
-
-  // Import dinamico do novo Showcase interativo do Hero
-  try {
-    const { initHeroShowcase } = await import('./hero-showcase.js');
-    initHeroShowcase();
-  } catch (err) {
-    console.error('Erro ao iniciar o showcase do hero:', err);
-  }
 }
 
 if (document.readyState === 'loading') {

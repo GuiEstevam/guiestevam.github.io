@@ -1,471 +1,184 @@
-/**
- * Sobre Mim (#sobre) — fluxo natural (altura do conteúdo)
- * Ver: .cursor/rules/responsive-layout.mdc | section-composition.mdc
- */
+/* ============================================
+   SOBRE — texto, stack complementar (chips) e forma de trabalho (cards)
+   Container e rótulos compartilhados em sections.css.
+   Foto, base e disponibilidade já estão no hero; não repetir aqui.
+   ============================================ */
 
-#sobre {
-  --about-name: 1.25rem;
-  --about-role: 0.875rem;
-  --about-bio: 0.9375rem;
-  --about-label: 0.6875rem;
-  --about-meta: 0.75rem;
-  --about-trait: 0.875rem;
-  --about-proof: 0.8125rem;
-  --about-pill: 0.75rem;
-  --about-link: 0.9375rem;
-  --about-icon: 1.05rem;
-  --about-photo: 4.75rem;
-  --about-pad-y: 1rem;
-  --about-pad-x: 1rem;
-  --about-gap: 1rem;
-  --about-radius: 12px;
-
-  scroll-margin-top: var(--nav-height, 4.5rem);
-  /* Largura/padding horizontal = mesmas seções (.full-viewport-section) */
-  min-height: auto;
-  width: 100%;
-  box-sizing: border-box;
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(2rem, 4vw, 6rem);
+  row-gap: clamp(3rem, 6vh, 4.5rem);
+  align-items: start;
 }
 
-/* Mesmo padrão de .section-content das outras seções */
-#sobre .about-shell {
-  width: 100%;
-  max-width: 100%;
+/* ---------- Texto ---------- */
+
+.about-bio {
+  grid-column: 1 / span 7;
+  position: relative;
+  padding-left: clamp(1.25rem, 2vw, 2rem);
+  border-left: 2px solid var(--color-accent-primary);
+}
+
+.about-bio p {
+  max-width: 52rem;
   margin: 0;
-  padding-left: clamp(1rem, 4vw, 1.5rem);
-  padding-right: clamp(1rem, 4vw, 1.5rem);
-  box-sizing: border-box;
+  font-size: clamp(1rem, 1.05vw, 1.1875rem);
+  line-height: 1.75;
+  color: var(--color-text-secondary);
 }
 
-#sobre .section-header {
-  margin-bottom: clamp(1rem, 2.5vw, 1.25rem);
-  padding: 0;
-  width: 100%;
-  text-align: left;
+.about-bio .about-lead {
+  max-width: 52rem;
+  font-size: clamp(1.5rem, 2.1vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
 }
 
-#sobre .section-title {
-  font-family: var(--font-sans);
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
+.about-bio .about-lead + p {
+  margin-top: 1.5rem;
+}
+
+/* ---------- Stack complementar ---------- */
+
+.about-stack {
+  grid-column: 8 / -1;
+  align-self: center;
+  display: grid;
+  gap: 1.5rem;
+  padding: clamp(1.5rem, 2vw, 2rem);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 12px;
+  background: var(--color-bg-secondary);
+}
+
+.about-stack .page-label {
+  margin: 0;
+}
+
+.about-stack-group {
+  display: grid;
+  gap: 0.625rem;
+}
+
+.about-stack-name {
+  font-size: 0.875rem;
   font-weight: 700;
   color: var(--color-text-primary);
-  letter-spacing: -0.02em;
-  line-height: 1.15;
-  margin-bottom: 0.5rem;
-  display: block;
-  width: 100%;
-  text-align: left;
 }
 
-#sobre .section-title::after {
-  left: 0;
-  transform: none;
-  background: var(--color-accent-primary);
-  height: 2px;
-  width: 48px;
-  border-radius: 1px;
+.about-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-/* ---- Card: empilha zonas (altura = conteúdo) ---- */
-#sobre .about-card {
+.about-chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 999px;
+  background: var(--color-bg-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  color: var(--color-text-primary);
+}
+
+.about-chips .icon {
+  font-size: 0.875rem;
+  color: var(--color-accent-primary);
+}
+
+.about-chips .fa-php { color: #8f9fe8; }
+.about-chips .fa-react { color: #61dafb; }
+.about-chips .fa-js-square { color: #3b82f6; }
+.about-chips .fa-js { color: #f7df1e; }
+.about-chips .fa-css3-alt { color: #38bdf8; }
+.about-chips .fa-docker { color: #2496ed; }
+.about-chips .fa-git-alt { color: #f05032; }
+
+html:not(.dark-mode) .about-chips .fa-js { color: #b59f00; }
+
+/* ---------- Como trabalho ---------- */
+
+.about-traits {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 1.5vw, 1.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-trait {
   display: flex;
   flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+  padding: clamp(1.5rem, 2vw, 2rem);
   border: 1px solid var(--color-border-primary);
-  border-radius: var(--about-radius);
-  background-color: var(--color-bg-card);
-  box-shadow:
-    0 0 0 1px rgba(34, 211, 238, 0.06),
-    0 8px 28px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
+  border-radius: 12px;
+  background: var(--color-bg-secondary);
   transition: border-color 0.2s ease;
 }
 
-#sobre .about-card:hover {
-  border-color: var(--color-accent-primary);
+.about-trait:hover {
+  border-color: var(--color-border-secondary);
 }
 
-#sobre .about-card.reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.2s ease;
-}
-
-#sobre .about-card.reveal-on-scroll.revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Identidade: faixa horizontal */
-#sobre .about-card__lead {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: var(--about-gap);
-  padding: var(--about-pad-y) var(--about-pad-x);
-  border-bottom: 1px solid var(--color-border-primary);
-  background: linear-gradient(
-    180deg,
-    rgba(34, 211, 238, 0.07) 0%,
-    transparent 100%
-  );
-}
-
-#sobre .about-card__photo {
-  flex-shrink: 0;
-  width: var(--about-photo);
-  height: var(--about-photo);
-  border-radius: 50%;
-  padding: 3px;
-  border: 2px solid var(--color-accent-primary);
-  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.12);
-  background: var(--color-bg-primary);
-  box-sizing: border-box;
-}
-
-#sobre .about-card__photo img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-#sobre .about-card__intro {
-  min-width: 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-}
-
-#sobre .about-card__name {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: var(--about-name);
-  font-weight: 700;
-  color: var(--color-text-primary);
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
-
-#sobre .about-card__role {
-  margin: 0;
-  font-size: var(--about-role);
-  line-height: 1.4;
-  color: var(--color-text-secondary);
-}
-
-#sobre .about-card__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-#sobre .about-card__meta li {
+.about-trait-icon {
   display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.3rem 0.6rem;
-  border: 1px solid var(--color-border-primary);
-  border-radius: 999px;
-  background-color: var(--color-bg-secondary);
-  font-size: var(--about-meta);
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  line-height: 1.2;
-}
-
-#sobre .about-card__meta li ion-icon {
-  font-size: 0.95em;
-  color: var(--color-accent-primary);
-}
-
-#sobre .about-card__meta-item--available {
-  border-color: rgba(34, 211, 238, 0.35);
-  background-color: var(--color-accent-muted);
-  color: var(--color-text-primary);
-}
-
-#sobre .about-card__bio {
-  margin: 0;
-  padding: var(--about-pad-y) var(--about-pad-x);
-  border-bottom: 1px solid var(--color-border-primary);
-  font-family: var(--font-sans);
-  font-size: var(--about-bio);
-  font-weight: 400;
-  line-height: 1.65;
-  color: var(--color-text-secondary);
-  max-width: none;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Como trabalho — bloco único, largura total */
-#sobre .about-card__traits-block {
-  padding: var(--about-pad-y) var(--about-pad-x);
-  border-bottom: none;
-}
-
-#sobre .about-card__label {
-  margin: 0 0 0.75rem;
-  font-size: var(--about-label);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-}
-
-#sobre .about-card__traits {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.85rem;
-}
-
-#sobre .about-card__traits li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.55rem;
-  min-width: 0;
-}
-
-#sobre .about-card__traits ion-icon {
-  flex-shrink: 0;
-  margin-top: 0.15em;
-  font-size: var(--about-icon);
-  color: var(--color-accent-primary);
-}
-
-#sobre .about-card__trait-copy {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-#sobre .about-card__trait-title {
-  font-size: var(--about-trait);
-  font-weight: 600;
-  color: var(--color-text-primary);
-  line-height: 1.3;
-}
-
-#sobre .about-card__trait-proof {
-  margin: 0;
-  font-size: var(--about-proof);
-  font-weight: 400;
-  line-height: 1.45;
-  color: var(--color-text-secondary);
-}
-
-/* CTAs fora do card — centralizados + respiro até a próxima seção */
-#sobre .about-actions {
-  display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem 1.5rem;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-  padding-inline: 0.15rem;
-}
-
-#sobre .about-actions__link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: var(--about-link);
-  font-weight: 500;
-  color: var(--color-text-muted);
-  text-decoration: none;
-  transition:
-    color 0.2s ease,
-    gap 0.2s ease;
-}
-
-#sobre .about-actions__link--primary {
-  font-weight: 700;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: 0.25rem;
+  border-radius: 10px;
+  background: var(--color-accent-muted);
   color: var(--color-accent-primary);
+  font-size: 1.375rem;
 }
 
-#sobre .about-actions__link ion-icon {
-  font-size: 1.05em;
-  transition: transform 0.2s ease;
-}
-
-#sobre .about-actions__link:hover,
-#sobre .about-actions__link:focus {
+.about-trait-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
   color: var(--color-text-primary);
-  gap: 0.6rem;
 }
 
-#sobre .about-actions__link:hover ion-icon,
-#sobre .about-actions__link:focus ion-icon {
-  transform: translateX(2px);
+.about-trait p {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
 }
 
-/* Espaço extra entre Sobre e a seção seguinte */
-#sobre + .section-divider {
-  margin-top: clamp(1.5rem, 4vh, 2.5rem);
-  margin-bottom: clamp(2rem, 5vh, 3.5rem);
-}
-
-/* ---- sm ≥640: traits em 2 colunas ---- */
-@media screen and (min-width: 640px) {
-  #sobre {
-    --about-name: 1.35rem;
-    --about-role: 0.9rem;
-    --about-photo: 5.5rem;
-    --about-pad-y: 1.15rem;
-    --about-pad-x: 1.25rem;
-    --about-gap: 1.15rem;
+@media screen and (max-width: 1023px) {
+  .about-grid {
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
   }
 
-  #sobre .about-card__lead {
-    align-items: center;
-  }
-
-  #sobre .about-card__traits {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.9rem 1.25rem;
+  .about-bio,
+  .about-stack {
+    grid-column: 1 / -1;
   }
 }
 
-/* ---- md ≥768 ---- */
-@media screen and (min-width: 768px) {
-  #sobre {
-    --about-bio: 1rem;
-    --about-trait: 0.9rem;
-    --about-proof: 0.85rem;
-    --about-pill: 0.8rem;
+@media screen and (max-width: 767px) {
+  .about-traits {
+    grid-template-columns: minmax(0, 1fr);
   }
-}
-
-/* ---- lg ≥1024: escala tipográfica; mesma largura das outras seções ---- */
-@media screen and (min-width: 1024px) {
-  #sobre {
-    --about-name: 1.5rem;
-    --about-role: 0.95rem;
-    --about-bio: 1.05rem;
-    --about-label: 0.72rem;
-    --about-meta: 0.8rem;
-    --about-trait: 0.95rem;
-    --about-proof: 0.875rem;
-    --about-pill: 0.85rem;
-    --about-link: 1rem;
-    --about-icon: 1.1rem;
-    --about-photo: 6.25rem;
-    --about-pad-y: 1.35rem;
-    --about-pad-x: 1.75rem;
-    --about-gap: 1.25rem;
-  }
-
-  #sobre .about-card__photo {
-    box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.12);
-  }
-
-  #sobre .about-card__traits {
-    gap: 1rem 1.75rem;
-  }
-
-  #sobre .about-actions {
-    margin-top: 1.75rem;
-  }
-}
-
-/* ---- xl ≥1440: escala elementos ---- */
-@media screen and (min-width: 1440px) {
-  #sobre {
-    --about-name: 1.65rem;
-    --about-role: 1rem;
-    --about-bio: 1.1rem;
-    --about-label: 0.75rem;
-    --about-trait: 1rem;
-    --about-proof: 0.9rem;
-    --about-pill: 0.9rem;
-    --about-link: 1.05rem;
-    --about-icon: 1.15rem;
-    --about-photo: 7rem;
-    --about-pad-y: 1.5rem;
-    --about-pad-x: 2rem;
-    --about-gap: 1.5rem;
-    --about-radius: 14px;
-  }
-
-  #sobre .about-card__lead {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  #sobre .about-card__traits {
-    gap: 1.1rem 2rem;
-  }
-}
-
-/* ---- fhd ≥1920: redimensiona elementos (não só o container) ---- */
-@media screen and (min-width: 1920px) {
-  #sobre {
-    --about-name: 1.85rem;
-    --about-role: 1.1rem;
-    --about-bio: 1.175rem;
-    --about-label: 0.8125rem;
-    --about-meta: 0.875rem;
-    --about-trait: 1.05rem;
-    --about-proof: 0.95rem;
-    --about-pill: 0.95rem;
-    --about-link: 1.1rem;
-    --about-icon: 1.2rem;
-    --about-photo: 8rem;
-    --about-pad-y: 1.75rem;
-    --about-pad-x: 2.5rem;
-    --about-gap: 1.65rem;
-    --about-radius: 16px;
-  }
-
-  #sobre .about-card__bio {
-    line-height: 1.7;
-  }
-
-  #sobre .about-card__meta li {
-    padding: 0.4rem 0.8rem;
-  }
-
-  #sobre .about-card__traits {
-    gap: 1.25rem 2.25rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #sobre .about-card.reveal-on-scroll {
-    opacity: 1;
-    transform: none;
-    transition: border-color 0.2s ease;
-  }
-
-  #sobre .about-actions__link:hover ion-icon,
-  #sobre .about-actions__link:focus ion-icon {
-    transform: none;
-  }
-}
-
-html:not(.dark-mode) #sobre .about-card {
-  border: 1px solid var(--color-border-primary);
-  background-color: var(--color-bg-card);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-}
-
-html:not(.dark-mode) #sobre .about-card__lead {
-  background: linear-gradient(
-    180deg,
-    rgba(8, 145, 178, 0.06) 0%,
-    transparent 100%
-  );
 }

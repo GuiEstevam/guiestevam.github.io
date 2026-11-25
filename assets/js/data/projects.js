@@ -1,7 +1,12 @@
 /**
  * Fonte única de metadados de projetos (GitHub + externos + destaques)
  *
- * featuredOrder: ordem no carrossel (menor = primeiro)
+ * featuredOrder: ordem na lista de projetos (menor = primeiro)
+ * caseStudy: posição entre os estudos de caso (1 = primeiro); sem o campo = lista compacta
+ * summary / highlights / mobileImage: usados só nos estudos de caso
+ * tagline: linha curta usada na lista compacta
+ * linkLabel / linkNote: texto do botão do estudo de caso (padrão: "Visitar site")
+ *   e nota ao lado (padrão: o domínio do site)
  * ready: false = ainda não exibir (ex.: sem screenshot)
  */
 
@@ -21,8 +26,16 @@ const PROJECT_CATALOG = [
   topics: ['laravel', 'livewire', 'barbershop', 'saas', 'whatsapp'],
   updatedAt: '2026-07-01T00:00:00Z',
   featured: true,
-  featuredOrder: 1,
+  featuredOrder: 2,
   isExternal: true,
+  caseStudy: 2,
+  summary: 'SaaS de gestão para barbearias de alto fluxo, com a rotina do salão em um só lugar.',
+  highlights: [
+   'Agendamentos em tempo real',
+   'Fluxo de caixa',
+   'Lembretes automáticos pela API do WhatsApp',
+  ],
+  mobileImage: 'images/pontocorte-mobile.png',
  },
  {
   id: 'nerdola-miner',
@@ -39,11 +52,20 @@ const PROJECT_CATALOG = [
   topics: ['laravel', 'blade', 'sql', 'php'],
   updatedAt: '2026-04-15T00:00:00Z',
   featured: true,
-  featuredOrder: 2,
+  featuredOrder: 1,
   isExternal: true,
+  caseStudy: 1,
+  summary: 'E-commerce especializado em hardwares de mineração de Bitcoin (ASICs).',
+  highlights: [
+   'Integração de pagamentos',
+   'Catálogo estruturado de equipamentos',
+   'Calculadoras de rentabilidade em tempo real',
+  ],
+  mobileImage: 'images/nerdolaminer-mobile.png',
  },
  {
   id: 'skyfashion',
+  tagline: 'E-commerce de moda com checkout e painel de pedidos',
   name: 'SkyFashion',
   category: 'E-commerce',
   description:
@@ -57,11 +79,12 @@ const PROJECT_CATALOG = [
   topics: ['laravel', 'livewire', 'jetstream', 'mysql', 'ecommerce'],
   updatedAt: '2026-04-15T00:00:00Z',
   featured: true,
-  featuredOrder: 5,
+  featuredOrder: 4,
   isExternal: true,
  },
  {
   id: 'ntinformatica',
+  tagline: 'Portal de captação para empresa de suporte de TI',
   name: 'Ntinformatica',
   category: 'Institucional',
   description:
@@ -95,27 +118,38 @@ const PROJECT_CATALOG = [
   featured: true,
   featuredOrder: 3,
   isExternal: true,
+  caseStudy: 3,
+  summary: 'Sistema web para a gestão de uma frota de veículos.',
+  linkLabel: 'Acessar sistema',
+  linkNote: 'Requer login',
+  highlights: [
+   'Ficha por veículo com QR Code',
+   'Leitura de CRLV e CNH em PDF',
+   'Interface em português, inglês e chinês',
+  ],
  },
  {
-  id: 'intranet-uc',
-  name: 'Intranet UC',
+  id: 'atrio',
+  tagline: 'Chat interno com telefonia, busca e auditoria',
+  name: 'Átrio',
   category: 'Operação',
   description:
    'Comunicação interna com histórico no servidor, busca, trilha de auditoria e telefonia junto do chat.',
   outcome: 'Chat e ramal na mesma ferramenta, em uso interno da operação.',
-  image: '',
+  image: 'images/atrio.webp',
   demoUrl: '',
   repoUrl: '',
   stack: ['TypeScript', 'React', 'PostgreSQL'],
   language: 'TypeScript',
-  topics: ['typescript', 'react', 'postgresql', 'intranet'],
+  topics: ['typescript', 'react', 'postgresql', 'atrio'],
   updatedAt: '2026-11-01T00:00:00Z',
   featured: true,
-  featuredOrder: 4,
+  featuredOrder: 5,
   isExternal: true,
  },
  {
   id: 'lgf-contabilidade',
+  tagline: 'Site do escritório com guias sobre MEI e Simples',
   name: 'LGF Contabilidade',
   category: 'Institucional',
   description:
@@ -134,6 +168,7 @@ const PROJECT_CATALOG = [
  },
  {
   id: 'transcende',
+  tagline: 'Site do estúdio com fluxo para escolher horário',
   name: 'Transcende',
   category: 'Institucional',
   description:
@@ -147,6 +182,7 @@ const PROJECT_CATALOG = [
   topics: ['html', 'css', 'javascript', 'landing-page'],
   updatedAt: '2026-04-15T00:00:00Z',
   featured: false,
+  featuredOrder: 8,
   isExternal: true,
  },
 ];
@@ -158,6 +194,7 @@ const VISIBLE_CATALOG = PROJECT_CATALOG.filter(
 /** Repositórios GitHub com metadados customizados (fora do catálogo externo) */
 const GITHUB_REPO_OVERRIDES = {
  Syncfinance: {
+  tagline: 'Controle de finanças pessoais em Laravel',
   image: 'images/syncfinance.webp',
   category: 'Open source',
   description:
@@ -168,6 +205,7 @@ const GITHUB_REPO_OVERRIDES = {
   topics: ['laravel', 'php', 'finance'],
  },
  Horientando: {
+  tagline: 'TCC com sistema completo em Laravel',
   image: 'images/horientando.webp',
   category: 'Open source',
   description:
@@ -178,6 +216,7 @@ const GITHUB_REPO_OVERRIDES = {
   topics: ['laravel', 'tcc', 'php'],
  },
  Guicodex: {
+  tagline: 'Portfólio interativo em estilo Pokédex',
   image: 'images/guicodex.webp',
   category: 'Portfólio',
   description:
@@ -205,6 +244,25 @@ export const FEATURED_PROJECTS = VISIBLE_CATALOG.filter(
 const FEATURED_NAMES = new Set(
  FEATURED_PROJECTS.map((project) => project.name.toLowerCase())
 );
+
+/** Projetos contados em detalhe na seção Projetos (Nerdola Miner primeiro) */
+export const CASE_STUDIES = VISIBLE_CATALOG.filter(
+ (project) => project.caseStudy
+).sort((a, b) => a.caseStudy - b.caseStudy);
+
+/** Posição do projeto no catálogo (featuredOrder), para ordenar listas */
+export function getCatalogOrder(name) {
+ return findProjectByName(name)?.featuredOrder ?? null;
+}
+
+/** Linha curta para a lista compacta (catálogo ou override do GitHub) */
+export function resolveProjectTagline(name) {
+ const project = findProjectByName(name);
+ if (project?.tagline) return project.tagline;
+
+ const override = findGithubOverride(name);
+ return override?.tagline || null;
+}
 
 function findProjectByName(name) {
  if (!name) return null;

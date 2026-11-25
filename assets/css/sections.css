@@ -1,0 +1,605 @@
+/* ============================================
+   SEÇÕES DEPOIS DE PROJETOS — Sobre, Trajetória, Contato
+   Mesmo container do hero e de Projetos (alinhado à navegação),
+   grid de 12 colunas, rótulos em mono maiúsculo e filetes finos.
+   Sem animação de scroll: o conteúdo aparece direto.
+   ============================================ */
+
+/* ---------- Container ---------- */
+
+/* Abaixo de 1024px: mesma margem lateral do hero e de Projetos */
+.page-section.full-viewport-section {
+  padding-inline: clamp(1rem, 4vw, var(--spacing-lg, 3rem)) !important;
+}
+
+.page-section .section-content {
+  width: 100%;
+  max-width: 110rem;
+  margin-inline: auto;
+  padding: 0 clamp(0.25rem, 2vw, 1.5rem);
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 1024px) {
+  /* !important: vence `#main > .inner > section { padding: 0 }` (custom.css) */
+  .page-section.full-viewport-section {
+    padding-inline: var(--spacing-lg) !important;
+  }
+
+  .page-section .section-content {
+    padding-inline: 0;
+  }
+}
+
+/* ---------- Cabeçalho ---------- */
+
+.page-section .page-section-header {
+  margin-bottom: clamp(2.5rem, 6vh, 4.5rem);
+  text-align: left;
+}
+
+.page-section .page-section-header .section-title {
+  margin-bottom: 0;
+}
+
+/* custom.css centraliza o sublinhado abaixo de 768px; aqui o título é à esquerda */
+.page-section .page-section-header .section-title::after {
+  left: 0;
+  transform: none;
+}
+
+/* ---------- Rótulo pequeno (mono maiúsculo) ---------- */
+
+.page-label {
+  margin: 0 0 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+/* ============================================
+   TRAJETÓRIA — duas linhas do tempo (experiência | formação)
+   Linha vertical com marcadores de ícone; cada item é um card.
+   ============================================ */
+
+.journey-grid {
+  --journey-marker: 2.75rem;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(2rem, 4vw, 5rem);
+  row-gap: 3.5rem;
+  align-items: start;
+}
+
+.journey-column--work {
+  grid-column: 1 / span 7;
+}
+
+.journey-column--study {
+  grid-column: 8 / -1;
+}
+
+.journey-list {
+  position: relative;
+  display: grid;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Linha vertical que liga os marcadores */
+.journey-list::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--journey-marker) / 2);
+  bottom: calc(var(--journey-marker) / 2);
+  left: calc(var(--journey-marker) / 2 - 1px);
+  width: 2px;
+  border-radius: 1px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-accent-primary) 0%,
+    var(--color-border-secondary) 35%,
+    var(--color-border-primary) 100%
+  );
+}
+
+.journey-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--journey-marker) minmax(0, 1fr);
+  column-gap: clamp(1rem, 1.5vw, 1.5rem);
+  margin: 0;
+  padding: 0;
+}
+
+.journey-marker {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--journey-marker);
+  height: var(--journey-marker);
+  margin-top: 1rem;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 50%;
+  background: var(--color-bg-primary);
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+}
+
+.journey-item--current .journey-marker {
+  border-color: var(--color-accent-primary);
+  background: var(--color-bg-primary);
+  color: var(--color-accent-primary);
+  box-shadow: 0 0 0 4px var(--color-accent-muted);
+}
+
+.journey-item--compact .journey-marker {
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-left: calc((var(--journey-marker) - 1.75rem) / 2);
+  margin-top: 1.125rem;
+  font-size: 0.8125rem;
+}
+
+.journey-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: clamp(1.25rem, 1.6vw, 1.75rem);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 12px;
+  background: var(--color-bg-secondary);
+  transition: border-color 0.2s ease;
+}
+
+.journey-card:hover {
+  border-color: var(--color-border-secondary);
+}
+
+.journey-item--current .journey-card {
+  border-color: var(--color-accent-medium);
+}
+
+.journey-item--compact .journey-card {
+  padding-block: 1rem;
+  background: transparent;
+}
+
+.journey-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem 0.75rem;
+  margin: 0 0 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.journey-period {
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
+}
+
+.journey-extra {
+  color: var(--color-text-tertiary);
+}
+
+.journey-extra::before {
+  content: '·';
+  margin-right: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.journey-badge {
+  padding: 0.125rem 0.5rem;
+  border: 1px solid var(--color-accent-medium);
+  border-radius: 999px;
+  background: var(--color-accent-muted);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent-primary);
+}
+
+.journey-title {
+  margin: 0;
+  font-size: clamp(1.125rem, 1.3vw, 1.375rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.journey-item--compact .journey-meta {
+  margin-bottom: 0.5rem;
+}
+
+.journey-item--compact .journey-title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+.journey-org {
+  margin: 0.25rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--color-accent-primary);
+}
+
+.journey-item--compact .journey-org {
+  color: var(--color-text-secondary);
+}
+
+.journey-text {
+  max-width: 42rem;
+  margin: 0.875rem 0 0;
+  font-size: clamp(0.9375rem, 0.95vw, 1.0625rem);
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+
+.journey-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--color-accent-primary);
+  text-decoration: none;
+  border-bottom: none;
+}
+
+.journey-link .icon {
+  font-size: 0.6875rem;
+}
+
+.journey-link:hover,
+.journey-link:focus-visible {
+  color: var(--color-accent-hover);
+}
+
+/* Publicação dentro da pós */
+.journey-publication {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  width: 100%;
+  margin-top: 1.125rem;
+  padding: 1rem;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 10px;
+  background: var(--color-bg-primary);
+  color: inherit;
+  text-decoration: none;
+  border-bottom-width: 1px;
+  transition: border-color 0.2s ease;
+}
+
+.journey-publication:hover,
+.journey-publication:focus-visible {
+  border-color: var(--color-accent-primary);
+  color: inherit;
+}
+
+.journey-publication-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 8px;
+  background: var(--color-accent-muted);
+  color: var(--color-accent-primary);
+  font-size: 1.125rem;
+}
+
+.journey-publication-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  min-width: 0;
+}
+
+.journey-publication-kind {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.journey-publication-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--color-text-primary);
+}
+
+.journey-publication-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.125rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-accent-primary);
+}
+
+.journey-publication-cta .icon {
+  font-size: 0.6875rem;
+}
+
+@media screen and (max-width: 1023px) {
+  .journey-grid {
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
+  }
+
+  .journey-column--work,
+  .journey-column--study {
+    grid-column: 1 / -1;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .journey-grid {
+    --journey-marker: 2.25rem;
+  }
+
+  .journey-item {
+    column-gap: 0.75rem;
+  }
+
+  .journey-marker {
+    font-size: 1rem;
+  }
+
+  .journey-extra::before {
+    content: none;
+  }
+}
+
+/* ============================================
+   CONTATO
+   ============================================ */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(2rem, 4vw, 6rem);
+  row-gap: 3rem;
+  align-items: start;
+}
+
+.contact-intro {
+  grid-column: 1 / span 6;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.contact-lead {
+  max-width: 34rem;
+  margin: 0;
+  font-size: clamp(1.625rem, 2.6vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.contact-text {
+  max-width: 34rem;
+  margin: 1.5rem 0 0;
+  font-size: clamp(1rem, 1.05vw, 1.1875rem);
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+
+#contato .button.contact-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  height: 3rem;
+  margin-top: 2rem;
+  padding: 0 1.5rem;
+  border: 1px solid var(--color-accent-primary);
+  border-radius: 8px;
+  background: var(--color-accent-primary);
+  box-shadow: none;
+  color: var(--color-text-inverse);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: none;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+#contato .button.contact-cta:hover,
+#contato .button.contact-cta:focus-visible {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: var(--color-text-inverse);
+}
+
+.contact-channels {
+  grid-column: 7 / -1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--color-border-primary);
+}
+
+.contact-channel {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 1.25rem;
+  min-height: 4.5rem;
+  margin: 0;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.contact-channel .contact-channel-label {
+  margin: 0;
+}
+
+.contact-channel-value {
+  min-width: 0;
+  overflow-wrap: break-word;
+  font-size: clamp(1rem, 1.1vw, 1.1875rem);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  border-bottom: none;
+  transition: color 0.2s ease;
+}
+
+.contact-channel-value:hover,
+.contact-channel-value:focus-visible {
+  color: var(--color-accent-primary);
+}
+
+.contact-channel-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 6px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.contact-channel-action:hover,
+.contact-channel-action:focus-visible {
+  border-color: var(--color-accent-primary);
+  background: transparent;
+  color: var(--color-accent-primary);
+}
+
+@media screen and (max-width: 1023px) {
+  .contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: 0;
+  }
+
+  .contact-intro,
+  .contact-channels {
+    grid-column: 1 / -1;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .contact-channel {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 0.25rem;
+    padding: 1rem 0;
+  }
+
+  .contact-channel .contact-channel-label {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ============================================
+   RODAPÉ — mesmo container das seções
+   ============================================ */
+
+#footer.site-footer {
+  margin-top: clamp(4rem, 10vh, 7rem);
+  padding: 0 clamp(1rem, 4vw, var(--spacing-lg, 3rem));
+  border-top: none;
+  background: transparent;
+  text-align: left;
+}
+
+.site-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  max-width: 110rem;
+  margin-inline: auto;
+  padding: 1.75rem clamp(0.25rem, 2vw, 1.5rem) 2.25rem;
+  border-top: 1px solid var(--color-border-primary);
+  box-sizing: border-box;
+}
+
+#footer .copyright {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-text-tertiary);
+}
+
+.site-footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer-social li {
+  margin: 0;
+  padding: 0;
+}
+
+.site-footer-social a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  border-bottom: none;
+}
+
+.site-footer-social a:hover,
+.site-footer-social a:focus-visible {
+  color: var(--color-accent-primary);
+}
+
+@media screen and (min-width: 1024px) {
+  #footer.site-footer {
+    padding-inline: var(--spacing-lg);
+  }
+
+  .site-footer-inner {
+    padding-inline: 0;
+  }
+
+  .site-footer-social {
+    padding-right: 4rem;
+  }
+}

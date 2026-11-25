@@ -85,6 +85,9 @@
   <link rel="stylesheet" href="assets/css/toast.css" />
   <link rel="stylesheet" href="assets/css/custom.css" />
   <link rel="stylesheet" href="assets/css/dev-theme.css" />
+  <link rel="stylesheet" href="assets/css/hero.css" />
+  <link rel="stylesheet" href="assets/css/projects.css" />
+  <link rel="stylesheet" href="assets/css/sections.css" />
   <link rel="stylesheet" href="assets/css/about.css" />
   <script
    type="module"
@@ -145,33 +148,9 @@
          </a>
         </li>
         <li>
-         <a
-          href="#experiencia"
-          class="nav-link"
-          aria-label="Ir para experiência profissional"
-         >
-          <ion-icon name="briefcase-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
-          <span>Experiência</span>
-         </a>
-        </li>
-        <li>
-         <a
-          href="#tecnologias"
-          class="nav-link"
-          aria-label="Ir para tecnologias"
-         >
-          <ion-icon name="hardware-chip-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
-          <span>Tecnologias</span>
-         </a>
-        </li>
-        <li>
-         <a
-          href="#publicacoes"
-          class="nav-link"
-          aria-label="Ir para publicações"
-         >
-          <ion-icon name="newspaper-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
-          <span>Publicações</span>
+         <a href="#trajetoria" class="nav-link" aria-label="Ir para trajetória">
+          <ion-icon name="git-commit-outline" class="nav-link-icon" aria-hidden="true"></ion-icon>
+          <span>Trajetória</span>
          </a>
         </li>
         <li>
@@ -225,170 +204,87 @@
        <span class="hero-orb hero-orb--tertiary"></span>
       </div>
       <div class="hero-content">
-       <div class="hero-split">
-        <div class="hero-copy">
-         <div class="hero-headline">
-          <h1
-           id="hero-heading"
-           class="hero-title reveal-on-scroll"
-           data-delay="0"
-          >
-          Desenvolvedor <span class="text-gradient">Full Stack</span>
-         </h1>
-         </div>
-         <div class="hero-intro">
-          <p
-           id="hero-subtitle"
-           class="hero-subtitle reveal-on-scroll"
-           data-delay="0.1"
-          >
-           Especializado em <strong>Laravel</strong> e
-           <strong>Vue.js</strong> — do backend ao deploy.
-          </p>
-          <section
-           class="hero-stats-bar reveal-on-scroll"
-           data-delay="0.15"
-           aria-labelledby="hero-stats-heading"
-          >
-           <h2 id="hero-stats-heading" class="visually-hidden">
-            Métricas profissionais
-           </h2>
-           <div
-            id="hero-stats-grid"
-            class="hero-stats-grid"
-            role="list"
-            aria-label="Métricas profissionais"
-           ></div>
-          </section>
-         </div>
-        <aside
-         class="hero-visual reveal-on-scroll"
-         data-delay="0.15"
-         aria-label="Showcase interativo de dispositivos. Deslize para o lado para ver outros projetos."
-        >
-         <div class="hero-device-showcase" id="hero-device-showcase">
-          <div class="showcase-glow"></div>
-          
-          <!-- MacBook Pro Mockup -->
-          <div class="device-mockup macbook">
-           <div class="macbook-screen-frame">
-            <div class="macbook-webcam"></div>
-            <div class="macbook-screen">
-
-             <div class="screen-slide active" data-index="0">
-              <img src="images/pontocorte.webp" alt="PontoCorte no MacBook Pro" loading="eager" width="380" height="238" />
-             </div>
-             <div class="screen-slide" data-index="1">
-              <img src="images/nerdolaminer.webp" alt="Nerdola Miner no MacBook Pro" loading="lazy" width="380" height="238" />
-             </div>
-             <div class="screen-slide" data-index="2">
-              <img src="images/skyfashion.webp" alt="SkyFashion no MacBook Pro" loading="lazy" width="380" height="238" />
-             </div>
-             <div class="screen-slide" data-index="3">
-              <img src="images/ntinformatica.webp" alt="NT Informática no MacBook Pro" loading="lazy" width="380" height="238" />
-             </div>
-             <div class="screen-slide" data-index="4">
-              <img src="images/lgf-contabilidade.webp" alt="LGF Contabilidade no MacBook Pro" loading="lazy" width="380" height="238" />
-             </div>
-             <div class="screen-slide" data-index="5">
-              <img src="images/transcende.webp" alt="Transcende no MacBook Pro" loading="lazy" width="380" height="238" />
-             </div>
-            </div>
-           </div>
-           <div class="macbook-base-frame">
-            <div class="macbook-notch"></div>
-           </div>
-          </div>
-          
-          <!-- iPhone Mockup -->
-          <div class="device-mockup iphone">
-           <div class="iphone-frame">
-            <div class="iphone-island"></div>
-            <div class="iphone-speaker"></div>
-            <div class="iphone-screen">
-             <div class="screen-slide active" data-index="0">
-              <img src="images/pontocorte-mobile.png" alt="PontoCorte no iPhone" loading="eager" width="105" height="228" />
-             </div>
-             <div class="screen-slide" data-index="1">
-              <img src="images/nerdolaminer-mobile.png" alt="Nerdola Miner no iPhone" loading="lazy" width="105" height="228" />
-             </div>
-             <div class="screen-slide" data-index="2">
-              <img src="images/skyfashion-mobile.png" alt="SkyFashion no iPhone" loading="lazy" width="105" height="228" />
-             </div>
-             <div class="screen-slide" data-index="3">
-              <img src="images/ntinformatica-mobile.png" alt="NT Informática no iPhone" loading="lazy" width="105" height="228" />
-             </div>
-             <div class="screen-slide" data-index="4">
-              <img src="images/lgf-contabilidade-mobile.png" alt="LGF Contabilidade no iPhone" loading="lazy" width="105" height="228" />
-             </div>
-             <div class="screen-slide" data-index="5">
-              <img src="images/transcende-mobile.png" alt="Transcende no iPhone" loading="lazy" width="105" height="228" />
-             </div>
-            </div>
-            <div class="iphone-home-bar"></div>
-           </div>
-          </div>
-
-          <!-- Indicadores de slide (Dots) -->
-          <div class="showcase-dots" role="tablist" aria-label="Navegação do slideshow">
-           <button class="dot active" data-index="0" role="tab" aria-selected="true" aria-label="Ver PontoCorte"></button>
-           <button class="dot" data-index="1" role="tab" aria-selected="false" aria-label="Ver Nerdola Miner"></button>
-           <button class="dot" data-index="2" role="tab" aria-selected="false" aria-label="Ver SkyFashion"></button>
-           <button class="dot" data-index="3" role="tab" aria-selected="false" aria-label="Ver NT Informática"></button>
-           <button class="dot" data-index="4" role="tab" aria-selected="false" aria-label="Ver LGF Contabilidade"></button>
-           <button class="dot" data-index="5" role="tab" aria-selected="false" aria-label="Ver Transcende"></button>
-          </div>
-         </div>
-        </aside>
-        <div class="hero-body">
-         <div class="hero-actions reveal-on-scroll" data-delay="0.35">
-          <div
-           class="hero-actions-primary"
-           role="group"
-           aria-label="Ações principais"
-          >
-            <a
-             href="https://wa.me/5511913438979?text=Olá,%20Guilherme!%20Achei%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20uma%20oportunidade."
-             class="button hero-button-primary"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Falar no WhatsApp com Guilherme"
-            >
-             <i class="icon brands fa-whatsapp" aria-hidden="true"></i>
-             <span>Falar Comigo</span>
-            </a>
-            <a
-             href="curriculo-guilherme-lima.pdf"
-             class="button hero-button-resume"
-             aria-label="Baixar currículo em PDF"
-             download="curriculo-guilherme-lima.pdf"
-            >
-             <i class="icon solid fa-file-pdf" aria-hidden="true"></i>
-             <span>Currículo</span>
-            </a>
-          </div>
-          <div class="hero-social" role="group" aria-label="Redes profissionais">
-           <a
-            href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
-            class="hero-social-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Perfil no LinkedIn"
-           >
-            <i class="icon brands fa-linkedin" aria-hidden="true"></i>
-           </a>
-           <a
-            href="https://github.com/GuiEstevam"
-            class="hero-social-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Perfil no GitHub"
-           >
-            <i class="icon brands fa-github" aria-hidden="true"></i>
-           </a>
-          </div>
-         </div>
+       <div class="hero-grid">
+        <div class="hero-identity hero-enter" style="--enter-delay: 0ms">
+         <img
+          class="hero-avatar"
+          src="images/guilherme-lima.webp"
+          alt="Foto de Guilherme Estevam"
+          width="640"
+          height="640"
+          fetchpriority="high"
+         />
+         <p class="hero-eyebrow">
+          <span class="hero-eyebrow-name">Guilherme Estevam</span>
+          <span class="hero-eyebrow-role">Desenvolvedor Full Stack</span>
+         </p>
         </div>
+        <div class="hero-main">
+         <h1 id="hero-heading" class="hero-title hero-enter" style="--enter-delay: 60ms">
+          Desenvolvo sistemas web que empresas usam no dia a dia.
+         </h1>
+         <p id="hero-subtitle" class="hero-subtitle hero-enter" style="--enter-delay: 120ms">
+          Cuido de cada projeto do planejamento à publicação e sigo acompanhando
+          depois da entrega.
+         </p>
+        </div>
+
+        <dl class="hero-facts" aria-label="Resumo profissional">
+         <div class="hero-fact hero-enter" style="--enter-delay: 180ms">
+          <dt>Stack</dt>
+          <dd>Laravel, Vue.js e Python</dd>
+         </div>
+         <div class="hero-fact hero-enter" style="--enter-delay: 220ms">
+          <dt>Em produção</dt>
+          <dd><span><span data-metric="live-sites">7</span> projetos, entre e&#8209;commerces, um SaaS e sistemas internos</span></dd>
+         </div>
+         <div class="hero-fact hero-fact--optional hero-enter" style="--enter-delay: 260ms">
+          <dt>Integrações</dt>
+          <dd>WhatsApp, pagamentos, QR Code e leitura de documentos em PDF</dd>
+         </div>
+         <div class="hero-fact hero-enter" style="--enter-delay: 300ms">
+          <dt>Base</dt>
+          <dd>Guarulhos, SP · atendimento remoto</dd>
+         </div>
+         <div class="hero-fact hero-enter" style="--enter-delay: 340ms">
+          <dt>Disponibilidade</dt>
+          <dd><span class="hero-status-dot" aria-hidden="true"></span>Disponível para novos projetos</dd>
+         </div>
+        </dl>
+
+        <div class="hero-bar hero-enter" style="--enter-delay: 380ms">
+         <div class="hero-actions">
+          <a href="#projetos" class="button hero-button-primary">
+           <span>Ver projetos</span>
+           <i class="icon solid fa-arrow-down" aria-hidden="true"></i>
+          </a>
+          <a
+           href="https://wa.me/5511913438979?text=Olá,%20Guilherme!%20Achei%20seu%20portfólio%20e%20gostaria%20de%20conversar."
+           class="hero-link-secondary"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Entrar em contato pelo WhatsApp"
+          >
+           <i class="icon brands fa-whatsapp" aria-hidden="true"></i> Entrar em contato
+          </a>
+         </div>
+         <ul class="hero-links" aria-label="Currículo e perfis">
+          <li>
+           <a href="curriculo-guilherme-lima.pdf" download="curriculo-guilherme-lima.pdf">
+            <i class="icon solid fa-file-pdf" aria-hidden="true"></i> Currículo
+           </a>
+          </li>
+          <li>
+           <a href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/" target="_blank" rel="noopener noreferrer">
+            <i class="icon brands fa-linkedin" aria-hidden="true"></i> LinkedIn
+           </a>
+          </li>
+          <li>
+           <a href="https://github.com/GuiEstevam" target="_blank" rel="noopener noreferrer">
+            <i class="icon brands fa-github" aria-hidden="true"></i> GitHub
+           </a>
+          </li>
+         </ul>
         </div>
        </div>
       </div>
@@ -416,37 +312,28 @@
       aria-labelledby="projects-heading"
      >
       <div class="section-content">
-       <header class="section-header">
-        <h2 id="projects-heading" class="section-title reveal-on-scroll">
-         Projetos
-        </h2>
-        <p class="section-subtitle reveal-on-scroll" data-delay="0.1">
-         Sites e produtos em produção — e repositórios open source.
+       <header class="section-header projects-header">
+        <h2 id="projects-heading" class="section-title">Projetos</h2>
+        <p class="section-subtitle">
+         Três sistemas em detalhe e, logo abaixo, os outros projetos que já publiquei.
         </p>
        </header>
-       <div class="projects-slider-container">
-        <button
-         type="button"
-         class="projects-nav-btn projects-nav-btn--prev"
-         aria-label="Projetos anteriores"
-         disabled
-        >
-         <ion-icon name="chevron-back-outline" aria-hidden="true"></ion-icon>
-        </button>
-        <div
-         id="projects-grid"
-         class="projects-grid reveal-on-scroll"
-         data-delay="0.15"
-         role="list"
-         aria-label="Grade de projetos"
-        ></div>
-        <button
-         type="button"
-         class="projects-nav-btn projects-nav-btn--next"
-         aria-label="Próximos projetos"
-        >
-         <ion-icon name="chevron-forward-outline" aria-hidden="true"></ion-icon>
-        </button>
+
+       <div id="projects-cases" class="projects-cases"></div>
+
+       <div class="projects-more">
+        <div class="projects-more-head">
+         <h3 id="projects-more-title" class="projects-more-title">Outros projetos</h3>
+         <div class="projects-carousel-nav">
+          <button type="button" class="projects-carousel-btn" data-dir="-1" aria-controls="projects-list" aria-label="Projetos anteriores" disabled>
+           <i class="icon solid fa-arrow-left" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="projects-carousel-btn" data-dir="1" aria-controls="projects-list" aria-label="Próximos projetos">
+           <i class="icon solid fa-arrow-right" aria-hidden="true"></i>
+          </button>
+         </div>
+        </div>
+        <ul id="projects-list" class="projects-list" aria-labelledby="projects-more-title" tabindex="0"></ul>
        </div>
       </div>
      </section>
@@ -454,641 +341,219 @@
      <!-- Divider -->
      <div class="section-divider"></div>
 
-     <!-- Sobre Mim Section -->
+     <!-- Sobre Section -->
      <section
       id="sobre"
-      class="full-viewport-section"
+      class="full-viewport-section page-section"
       data-section="sobre"
       aria-labelledby="sobre-heading"
      >
-      <div class="about-shell">
-       <header class="section-header">
-        <h2 id="sobre-heading" class="section-title reveal-on-scroll">
-         Sobre Mim
-        </h2>
-        <p class="section-subtitle reveal-on-scroll" data-delay="0.1">
-         Operação de TI como diferencial no desenvolvimento
-        </p>
+      <div class="section-content">
+       <header class="section-header page-section-header">
+        <h2 id="sobre-heading" class="section-title">Sobre</h2>
        </header>
 
-       <article class="about-card reveal-on-scroll" data-delay="0.15">
-        <div class="about-card__lead">
-         <div class="about-card__photo">
-          <img
-           src="images/guilherme-lima.webp"
-           alt="Foto de Guilherme Estevam"
-           width="160"
-           height="160"
-           loading="lazy"
-          />
+       <div class="about-grid">
+        <div class="about-bio">
+         <p class="about-lead">
+          Trabalho com tecnologia desde 2020, primeiro no suporte de TI e hoje
+          também desenvolvendo sistemas.
+         </p>
+         <p>
+          O tempo no suporte me ensinou a olhar para o sistema do ponto de vista
+          de quem usa: o que trava a rotina, o que gera chamado e o que precisa
+          funcionar sem surpresa. Levo esse cuidado para cada projeto que
+          desenvolvo.
+         </p>
+        </div>
+
+        <div class="about-stack" aria-labelledby="about-stack-title">
+         <h3 id="about-stack-title" class="page-label">Também no dia a dia</h3>
+         <div class="about-stack-group">
+          <span class="about-stack-name">Backend</span>
+          <ul class="about-chips" role="list">
+           <li><i class="icon brands fa-php" aria-hidden="true"></i>PHP</li>
+           <li><i class="icon solid fa-bolt" aria-hidden="true"></i>Livewire</li>
+           <li><i class="icon solid fa-flask" aria-hidden="true"></i>Flask</li>
+           <li><i class="icon solid fa-database" aria-hidden="true"></i>MySQL</li>
+           <li><i class="icon solid fa-database" aria-hidden="true"></i>PostgreSQL</li>
+          </ul>
          </div>
-         <div class="about-card__intro">
-          <h3 class="about-card__name">Guilherme Estevam</h3>
-          <p class="about-card__role">
-           Desenvolvedor Full Stack · base em operação de TI
-          </p>
-          <ul class="about-card__meta" aria-label="Informações do perfil">
-           <li>
-            <ion-icon name="location-outline" aria-hidden="true"></ion-icon>
-            <span>Guarulhos, SP · Remoto ou híbrido</span>
-           </li>
-           <li class="about-card__meta-item--available">
-            <ion-icon name="briefcase-outline" aria-hidden="true"></ion-icon>
-            <span>Aberto a Freelance, PJ e CLT</span>
-           </li>
+         <div class="about-stack-group">
+          <span class="about-stack-name">Frontend</span>
+          <ul class="about-chips" role="list">
+           <li><i class="icon brands fa-react" aria-hidden="true"></i>React</li>
+           <li><i class="icon brands fa-js-square" aria-hidden="true"></i>TypeScript</li>
+           <li><i class="icon brands fa-js" aria-hidden="true"></i>JavaScript</li>
+           <li><i class="icon brands fa-css3-alt" aria-hidden="true"></i>Tailwind</li>
+          </ul>
+         </div>
+         <div class="about-stack-group">
+          <span class="about-stack-name">Infra e ferramentas</span>
+          <ul class="about-chips" role="list">
+           <li><i class="icon brands fa-docker" aria-hidden="true"></i>Docker</li>
+           <li><i class="icon brands fa-git-alt" aria-hidden="true"></i>Git e GitHub</li>
+           <li><i class="icon solid fa-network-wired" aria-hidden="true"></i>APIs REST</li>
+           <li><i class="icon solid fa-bolt" aria-hidden="true"></i>Vite</li>
           </ul>
          </div>
         </div>
 
-        <p class="about-card__bio">
-         Atuo em suporte de TI e trago essa visão operacional diretamente para a engenharia de software: identificar gargalos, entender o impacto do incidente no negócio e desenhar a arquitetura ideal antes de escrever a primeira linha de código. Como desenvolvedor Full Stack e freelancer, entrego sistemas completos em Laravel e Vue.js, do banco de dados ao deploy final em produção — criando soluções de alta performance que geram resultados comerciais reais e são sustentáveis de manter a longo prazo.
-        </p>
-
-        <section
-         class="about-card__traits-block"
-         aria-labelledby="about-traits-heading"
-        >
-         <h3 id="about-traits-heading" class="about-card__label font-mono">
-          Como trabalho
-         </h3>
-         <ul class="about-card__traits" aria-label="Diferenciais de trabalho">
-          <li>
-           <ion-icon name="pulse-outline" aria-hidden="true"></ion-icon>
-           <div class="about-card__trait-copy">
-            <span class="about-card__trait-title">Visão operacional</span>
-            <p class="about-card__trait-proof">
-             Venho do suporte: priorizo estabilidade e impacto no dia a dia de
-             quem usa o sistema.
-            </p>
-           </div>
-          </li>
-          <li>
-           <ion-icon name="chatbubbles-outline" aria-hidden="true"></ion-icon>
-           <div class="about-card__trait-copy">
-            <span class="about-card__trait-title">Comunicação direta</span>
-            <p class="about-card__trait-proof">
-             Alinhamento claro com quem opera o sistema — sem jargão
-             desnecessário.
-            </p>
-           </div>
-          </li>
-          <li>
-           <ion-icon name="git-merge-outline" aria-hidden="true"></ion-icon>
-           <div class="about-card__trait-copy">
-            <span class="about-card__trait-title">Do backend ao deploy</span>
-            <p class="about-card__trait-proof">
-             Da API ao front e à publicação, acompanhando o fluxo até produção.
-            </p>
-           </div>
-          </li>
-          <li>
-           <ion-icon name="construct-outline" aria-hidden="true"></ion-icon>
-           <div class="about-card__trait-copy">
-            <span class="about-card__trait-title">Código sustentável</span>
-            <p class="about-card__trait-proof">
-             Priorizo clareza e manutenção — o próximo a ler o código também
-             importa.
-            </p>
-           </div>
-          </li>
-         </ul>
-        </section>
-       </article>
+        <ul class="about-traits" role="list" aria-label="Como trabalho">
+         <li class="about-trait">
+          <span class="about-trait-icon" aria-hidden="true"><ion-icon name="pulse-outline"></ion-icon></span>
+          <h3 class="about-trait-title">Olhar de quem já fez suporte</h3>
+          <p>Antes de publicar, já penso em backup, monitoramento e no que fazer se algo sair do ar.</p>
+         </li>
+         <li class="about-trait">
+          <span class="about-trait-icon" aria-hidden="true"><ion-icon name="chatbubbles-outline"></ion-icon></span>
+          <h3 class="about-trait-title">Comunicação clara</h3>
+          <p>Explico o andamento e as decisões técnicas de forma simples, para que todos acompanhem o projeto.</p>
+         </li>
+         <li class="about-trait">
+          <span class="about-trait-icon" aria-hidden="true"><ion-icon name="construct-outline"></ion-icon></span>
+          <h3 class="about-trait-title">Código pensado para durar</h3>
+          <p>Escrevo código organizado, fácil de ajustar e de evoluir, por mim ou por outra pessoa.</p>
+         </li>
+        </ul>
+       </div>
       </div>
      </section>
 
      <!-- Divider -->
      <div class="section-divider"></div>
 
-     <!-- Experiência Section -->
+     <!-- Trajetória Section -->
      <section
-      id="experiencia"
-      class="full-viewport-section experience-section"
-      data-section="experiencia"
-      aria-labelledby="experience-heading"
-     >
-      <div class="section-content experience-content">
-       <header class="section-header">
-        <h2 id="experience-heading" class="section-title reveal-on-scroll">
-         Experiência Profissional
-        </h2>
-        <p class="section-subtitle reveal-on-scroll">
-         Cargos, entregas e formação
-        </p>
-       </header>
-
-       <div class="experience-timeline-wrapper">
-        <ul
-         id="experience-timeline"
-         class="experience-timeline"
-         role="list"
-         aria-label="Histórico profissional"
-        ></ul>
-       </div>
-
-       <section
-        class="education-block reveal-on-scroll"
-        aria-labelledby="education-heading"
-       >
-        <h3 id="education-heading" class="education-block-title font-mono">
-         Formação
-        </h3>
-        <ul
-         id="education-list"
-         class="education-list"
-         role="list"
-         aria-label="Formação acadêmica"
-        ></ul>
-       </section>
-      </div>
-     </section>
-<!-- Divider -->
-     <div class="section-divider"></div>
-
-     <!-- Tecnologias Section -->
-     <section
-      id="tecnologias"
-      class="full-viewport-section"
-      data-section="tecnologias"
-      aria-labelledby="technologies-heading"
+      id="trajetoria"
+      class="full-viewport-section page-section"
+      data-section="trajetoria"
+      aria-labelledby="trajetoria-heading"
      >
       <div class="section-content">
-       <header class="section-header">
-        <h2 id="technologies-heading" class="section-title reveal-on-scroll">
-         Tecnologias
-        </h2>
-        <p class="section-subtitle reveal-on-scroll">
-         O que uso no dia a dia
-        </p>
+       <header class="section-header page-section-header">
+        <h2 id="trajetoria-heading" class="section-title">Trajetória</h2>
        </header>
-       <div class="technologies-panel reveal-on-scroll">
-        <div class="technologies-panel-grid">
-         <section
-          class="technologies-group"
-          aria-labelledby="technologies-backend-title"
-         >
-          <h3 id="technologies-backend-title" class="technologies-group-title font-mono">
-           Backend
-          </h3>
-          <ul class="technologies-list" role="list">
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon brands fa-php"></span>
-            </span>
-            <span class="technology-item-name">PHP</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon brands fa-laravel"></span>
-            </span>
-            <span class="technology-item-name">Laravel · Blade</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon solid fa-bolt"></span>
-            </span>
-            <span class="technology-item-name">Livewire</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon solid fa-database"></span>
-            </span>
-            <span class="technology-item-name">MySQL</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon brands fa-python"></span>
-            </span>
-            <span class="technology-item-name">Python</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon solid fa-flask"></span>
-            </span>
-            <span class="technology-item-name">Flask</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon solid fa-database"></span>
-            </span>
-            <span class="technology-item-name">PostgreSQL</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-          </ul>
-         </section>
-         <section
-          class="technologies-group"
-          aria-labelledby="technologies-frontend-title"
-         >
-          <h3 id="technologies-frontend-title" class="technologies-group-title font-mono">
-           Frontend
-          </h3>
-          <ul class="technologies-list" role="list">
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon brands fa-vuejs"></span>
-            </span>
-            <span class="technology-item-name">Vue.js</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon brands fa-react"></span>
-            </span>
-            <span class="technology-item-name">React</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon brands fa-js-square"></span>
-            </span>
-            <span class="technology-item-name">TypeScript</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon brands fa-js"></span>
-            </span>
-            <span class="technology-item-name">JavaScript</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon brands fa-css3-alt"></span>
-            </span>
-            <span class="technology-item-name">HTML/CSS · Tailwind</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-          </ul>
-         </section>
-         <section
-          class="technologies-group"
-          aria-labelledby="technologies-tools-title"
-         >
-          <h3 id="technologies-tools-title" class="technologies-group-title font-mono">
-           Ferramentas
-          </h3>
-          <ul
-           class="technologies-list"
-           id="technologies-grid"
-           role="list"
-           aria-live="polite"
-          >
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon brands fa-git-alt"></span>
-            </span>
-            <span class="technology-item-name">Git &amp; GitHub</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon brands fa-docker"></span>
-            </span>
-            <span class="technology-item-name">Docker</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon solid fa-network-wired"></span>
-            </span>
-            <span class="technology-item-name">APIs REST</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="production">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon brands fa-whatsapp"></span>
-            </span>
-            <span class="technology-item-name">Integrações WhatsApp</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Produção</span>
-           </li>
-           <li class="technology-item" role="listitem" data-level="familiar">
-            <span class="technology-item-icon" aria-hidden="true">
-             <span class="icon solid fa-bolt"></span>
-            </span>
-            <span class="technology-item-name">Vite</span>
-            <span class="technology-level font-mono"><span class="technology-level-dot" aria-hidden="true"></span>Familiar</span>
-           </li>
-          </ul>
-         </section>
-        </div>
-        <footer
-         class="technologies-panel-footer"
-         aria-label="Legenda de níveis de experiência"
-        >
-         <span class="technologies-legend-item">
-          <span class="technology-level-dot technology-level-dot--production"></span>
-          <span class="technologies-legend-text">Produção — uso profissional ativo</span>
-         </span>
-         <span class="technologies-legend-item">
-          <span class="technology-level-dot technology-level-dot--familiar"></span>
-          <span class="technologies-legend-text">Familiar — conhecimento aplicado</span>
-         </span>
-        </footer>
-       </div>
-      </div>
-     </section>
-<!-- Divider -->
-     <div class="section-divider"></div>
 
-     <!-- Publicações Section -->
-     <section
-      id="publicacoes"
-      class="full-viewport-section publications-section"
-      data-section="publicacoes"
-      aria-labelledby="publications-heading"
-     >
-      <div class="section-content publications-content">
-       <header class="section-header">
-        <h2 id="publications-heading" class="section-title reveal-on-scroll">
-         Publicações
-        </h2>
-        <p class="section-subtitle reveal-on-scroll">
-         Análise preditiva com dados do NAEP — entrega da pós em Gestão de SI
-        </p>
-       </header>
-       <div class="publications-panel reveal-on-scroll" role="list" aria-label="Lista de publicações">
-        <article class="publication-card" role="listitem">
-         <div class="publication-card-browser">
-          <div class="publication-card-browser-bar" aria-hidden="true">
-           <span class="publication-card-browser-dot publication-card-browser-dot--close"></span>
-           <span class="publication-card-browser-dot publication-card-browser-dot--min"></span>
-           <span class="publication-card-browser-dot publication-card-browser-dot--max"></span>
-           <span class="publication-card-browser-url font-mono"
-            >sdc.guarulhos.sp.gov.br</span
-           >
-          </div>
-          <div class="publication-card-layout">
-           <div class="publication-card-visual" aria-hidden="true">
-            <ion-icon name="document-text-outline"></ion-icon>
-           </div>
-           <div class="publication-card-body">
-            <div class="publication-card-meta">
-             <span
-              class="publication-badge font-mono"
-              aria-label="Tipo de conteúdo publicado"
-              >Artigo técnico</span
-             >
-             <span class="publication-venue font-mono">SDC Guarulhos</span>
-            </div>
-            <h3 class="publication-title">
-             Impacto de fatores socioeconômicos no desempenho acadêmico: uma
-             análise preditiva com dados do NAEP
-            </h3>
-            <p class="publication-description">
-             Estudo de análise preditiva relacionando fatores socioeconômicos e
-             desempenho acadêmico. Artigo publicado no portal da SDC Guarulhos
-             como entrega da pós-graduação em Gestão de Sistemas de Informação
-             (IFSP).
-            </p>
-            <ul class="publication-meta-list" aria-label="Detalhes da publicação">
-             <li class="publication-meta-item">
-              <i class="icon solid fa-university" aria-hidden="true"></i>
-              <span>Entrega da pós · IFSP</span>
-             </li>
-             <li class="publication-meta-item">
-              <i class="icon solid fa-map-marker-alt" aria-hidden="true"></i>
-              <span>Guarulhos, SP</span>
-             </li>
-             <li class="publication-meta-item">
-              <i class="icon solid fa-globe" aria-hidden="true"></i>
-              <span>Acesso aberto</span>
-             </li>
-            </ul>
-           </div>
-          </div>
-          <footer class="publication-card-footer">
-           <a
-            href="https://sdc.guarulhos.sp.gov.br/index.php/SDC/article/view/1785"
-            class="publication-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Ler artigo sobre análise preditiva com dados do NAEP"
-           >
-            <span>Ler artigo</span>
-            <ion-icon name="open-outline" aria-hidden="true"></ion-icon>
-           </a>
-          </footer>
-         </div>
-        </article>
+       <div class="journey-grid">
+        <section class="journey-column journey-column--work" aria-labelledby="journey-work-title">
+         <h3 id="journey-work-title" class="page-label">Experiência</h3>
+         <ol id="experience-timeline" class="journey-list" role="list"></ol>
+        </section>
+
+        <section class="journey-column journey-column--study" aria-labelledby="journey-study-title">
+         <h3 id="journey-study-title" class="page-label">Formação e publicação</h3>
+         <ol id="education-list" class="journey-list" role="list"></ol>
+        </section>
        </div>
       </div>
      </section>
-<!-- Divider -->
+
+     <!-- Divider -->
      <div class="section-divider"></div>
 
      <!-- Contato Section -->
      <section
       id="contato"
-      class="full-viewport-section contact-section"
+      class="full-viewport-section page-section"
       data-section="contato"
       aria-labelledby="contact-heading"
      >
-      <div class="section-content contact-content">
-       <header class="section-header">
-        <h2 id="contact-heading" class="section-title reveal-on-scroll">
-         Contato
-        </h2>
-        <p class="section-subtitle reveal-on-scroll">
-         Vaga CLT ou projeto PJ — vamos conversar
-        </p>
+      <div class="section-content">
+       <header class="section-header page-section-header">
+        <h2 id="contact-heading" class="section-title">Contato</h2>
        </header>
-       <div class="contact-panel reveal-on-scroll">
-        <div class="contact-panel-intro">
-         <p class="contact-panel-intro-text">
-          Resposta mais rápida por <strong>e-mail</strong> ou
-          <strong>WhatsApp</strong>.
+
+       <div class="contact-grid">
+        <div class="contact-intro">
+         <p class="contact-lead">
+          Tem um sistema para tirar do papel ou uma oportunidade para conversar?
          </p>
+         <p class="contact-text">
+          Me chame pelo canal que for mais prático para você. E-mail e WhatsApp
+          são os jeitos mais rápidos de falar comigo.
+         </p>
+         <a
+          href="https://wa.me/5511913438979?text=Olá,%20Guilherme!%20Achei%20seu%20portfólio%20e%20gostaria%20de%20conversar."
+          class="button contact-cta"
+          target="_blank"
+          rel="noopener noreferrer"
+         >
+          <i class="icon brands fa-whatsapp" aria-hidden="true"></i>
+          <span>Conversar no WhatsApp</span>
+         </a>
         </div>
-        <div class="contact-panel-grid">
-         <section
-          class="contact-group"
-          aria-labelledby="contact-direct-title"
-         >
-          <h3 id="contact-direct-title" class="contact-group-title font-mono">
-           Direto
-          </h3>
-          <ul class="contact-list" role="list">
-           <li class="contact-item contact-item--primary contact-item--with-action" role="listitem">
-            <div class="contact-item-shell">
-             <a
-              href="mailto:contato.estevamdelima@gmail.com"
-              class="contact-item-link contact-item-link--in-shell"
-              aria-label="Enviar e-mail para contato.estevamdelima@gmail.com"
-             >
-              <span class="contact-item-icon" aria-hidden="true">
-               <i class="icon solid fa-envelope"></i>
-              </span>
-              <span class="contact-item-body">
-               <span class="contact-item-label">E-mail</span>
-               <span class="contact-item-value"
-                >contato.estevamdelima@gmail.com</span
-               >
-              </span>
-             </a>
-             <button
-              type="button"
-              class="contact-item-action"
-              data-copy-text="contato.estevamdelima@gmail.com"
-              aria-label="Copiar e-mail para a área de transferência"
-              title="Copiar e-mail"
-             >
-              <ion-icon name="copy-outline" aria-hidden="true"></ion-icon>
-             </button>
-            </div>
-           </li>
-           <li class="contact-item contact-item--primary" role="listitem">
-             <a
-              href="https://wa.me/5511913438979?text=Olá,%20Guilherme!%20Achei%20seu%20portfólio%20e%20gostaria%20de%20conversar%20sobre%20uma%20oportunidade."
-             class="contact-item-link"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Abrir WhatsApp (11) 91343-8979"
-            >
-             <span class="contact-item-icon" aria-hidden="true">
-              <i class="icon brands fa-whatsapp"></i>
-             </span>
-             <span class="contact-item-body">
-              <span class="contact-item-label">WhatsApp</span>
-              <span class="contact-item-value">(11) 91343-8979</span>
-             </span>
-             <ion-icon
-              name="chevron-forward-outline"
-              class="contact-item-arrow"
-              aria-hidden="true"
-             ></ion-icon>
-            </a>
-           </li>
-          </ul>
-         </section>
-         <section
-          class="contact-group"
-          aria-labelledby="contact-professional-title"
-         >
-          <h3 id="contact-professional-title" class="contact-group-title font-mono">
-           Profissional
-          </h3>
-          <ul class="contact-list" role="list">
-           <li class="contact-item" role="listitem">
-            <a
-             href="https://github.com/GuiEstevam"
-             class="contact-item-link"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Visitar perfil no GitHub"
-            >
-             <span class="contact-item-icon" aria-hidden="true">
-              <i class="icon brands fa-github"></i>
-             </span>
-             <span class="contact-item-body">
-              <span class="contact-item-label">GitHub</span>
-              <span class="contact-item-value">Projetos e contribuições</span>
-             </span>
-             <ion-icon
-              name="open-outline"
-              class="contact-item-arrow"
-              aria-hidden="true"
-             ></ion-icon>
-            </a>
-           </li>
-           <li class="contact-item" role="listitem">
-            <a
-             href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
-             class="contact-item-link"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Visitar perfil no LinkedIn"
-            >
-             <span class="contact-item-icon" aria-hidden="true">
-              <i class="icon brands fa-linkedin"></i>
-             </span>
-             <span class="contact-item-body">
-              <span class="contact-item-label">LinkedIn</span>
-              <span class="contact-item-value">Conecte-se e vamos conversar</span>
-             </span>
-             <ion-icon
-              name="open-outline"
-              class="contact-item-arrow"
-              aria-hidden="true"
-             ></ion-icon>
-            </a>
-           </li>
-          </ul>
-         </section>
-         <section
-          class="contact-group"
-          aria-labelledby="contact-social-title"
-         >
-          <h3 id="contact-social-title" class="contact-group-title font-mono">
-           Redes
-          </h3>
-          <ul class="contact-list" role="list">
-           <li class="contact-item contact-item--social" role="listitem">
-            <a
-             href="https://www.instagram.com/srhiddan"
-             class="contact-item-link"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Visitar perfil no Instagram @srhiddan"
-            >
-             <span class="contact-item-icon" aria-hidden="true">
-              <i class="icon brands fa-instagram"></i>
-             </span>
-             <span class="contact-item-body">
-              <span class="contact-item-label">Instagram</span>
-              <span class="contact-item-value">@srhiddan</span>
-             </span>
-             <ion-icon
-              name="open-outline"
-              class="contact-item-arrow"
-              aria-hidden="true"
-             ></ion-icon>
-            </a>
-           </li>
-           <li class="contact-item contact-item--social" role="listitem">
-            <a
-             href="https://www.tiktok.com/@srhiddan"
-             class="contact-item-link"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Visitar perfil no TikTok @srhiddan"
-            >
-             <span class="contact-item-icon" aria-hidden="true">
-              <i class="icon brands fa-tiktok"></i>
-             </span>
-             <span class="contact-item-body">
-              <span class="contact-item-label">TikTok</span>
-              <span class="contact-item-value">@srhiddan</span>
-             </span>
-             <ion-icon
-              name="open-outline"
-              class="contact-item-arrow"
-              aria-hidden="true"
-             ></ion-icon>
-            </a>
-           </li>
-          </ul>
-         </section>
-        </div>
+
+        <ul class="contact-channels" role="list" aria-label="Canais de contato">
+         <li class="contact-channel">
+          <span class="page-label contact-channel-label">E-mail</span>
+          <a href="mailto:contato.estevamdelima@gmail.com" class="contact-channel-value">
+           contato.estevamdelima@gmail.com
+          </a>
+          <button
+           type="button"
+           class="contact-channel-action"
+           data-copy-text="contato.estevamdelima@gmail.com"
+           aria-label="Copiar e-mail"
+           title="Copiar e-mail"
+          >
+           <ion-icon name="copy-outline" aria-hidden="true"></ion-icon>
+          </button>
+         </li>
+         <li class="contact-channel">
+          <span class="page-label contact-channel-label">WhatsApp</span>
+          <a
+           href="https://wa.me/5511913438979?text=Olá,%20Guilherme!%20Achei%20seu%20portfólio%20e%20gostaria%20de%20conversar."
+           class="contact-channel-value"
+           target="_blank"
+           rel="noopener noreferrer"
+          >
+           (11) 91343-8979
+          </a>
+         </li>
+         <li class="contact-channel">
+          <span class="page-label contact-channel-label">LinkedIn</span>
+          <a
+           href="https://www.linkedin.com/in/guilherme-estevam-de-lima-407575168/"
+           class="contact-channel-value"
+           target="_blank"
+           rel="noopener noreferrer"
+          >
+           Guilherme Estevam de Lima
+          </a>
+         </li>
+         <li class="contact-channel">
+          <span class="page-label contact-channel-label">GitHub</span>
+          <a
+           href="https://github.com/GuiEstevam"
+           class="contact-channel-value"
+           target="_blank"
+           rel="noopener noreferrer"
+          >
+           GuiEstevam
+          </a>
+         </li>
+        </ul>
        </div>
       </div>
      </section>
 
-     <!-- Divider -->
-     <div class="section-divider"></div>
-
      <!-- Footer -->
-     <footer id="footer" role="contentinfo">
-      <div class="footer-content">
-       <p class="copyright">
-        &copy; 2026 Guilherme Estevam. Todos os direitos reservados.
-       </p>
+     <footer id="footer" class="site-footer" role="contentinfo">
+      <div class="site-footer-inner">
+       <p class="copyright">&copy; 2026 Guilherme Estevam</p>
+       <ul class="site-footer-social" role="list" aria-label="Outras redes">
+        <li>
+         <a href="https://www.instagram.com/srhiddan" target="_blank" rel="noopener noreferrer" aria-label="Instagram @srhiddan">
+          <i class="icon brands fa-instagram" aria-hidden="true"></i> Instagram
+         </a>
+        </li>
+        <li>
+         <a href="https://www.tiktok.com/@srhiddan" target="_blank" rel="noopener noreferrer" aria-label="TikTok @srhiddan">
+          <i class="icon brands fa-tiktok" aria-hidden="true"></i> TikTok
+         </a>
+        </li>
+       </ul>
       </div>
      </footer>
     </div>

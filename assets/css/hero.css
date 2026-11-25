@@ -1,0 +1,447 @@
+/* ============================================
+   HERO — editorial em duas colunas
+   Esquerda: identidade, título e texto curto. Direita: ficha de fatos.
+   Embaixo: barra com as ações, separada por um filete.
+   Os projetos ficam na seção logo abaixo (sem repetir aqui).
+   Carrega depois de dev-theme.css e define todo o layout do hero.
+   ============================================ */
+
+/* ---------- Seção ---------- */
+
+#hero.full-viewport-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  padding-top: calc(var(--nav-height) + clamp(1.5rem, 4vh, 3rem)) !important;
+  padding-bottom: clamp(4.5rem, 9vh, 6rem) !important;
+}
+
+#hero .hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 110rem;
+  margin-inline: auto;
+  padding-inline: clamp(0.25rem, 2vw, 1.5rem);
+  box-sizing: border-box;
+}
+
+/* Desktop: mesma margem lateral da navegação, ocupando a largura da tela */
+@media screen and (min-width: 1024px) {
+  #hero.full-viewport-section {
+    padding-inline: var(--spacing-lg) !important;
+  }
+
+  #hero .hero-content {
+    padding-inline: 0;
+  }
+}
+
+/* ---------- Entrada (só CSS: aparece assim que a página pinta) ---------- */
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-enter {
+  animation: hero-enter 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter {
+    animation: none;
+  }
+}
+
+/* ---------- Grade ---------- */
+
+#hero {
+  --hero-gap: clamp(2rem, 4vw, 6rem);
+  --hero-facts-pad: clamp(1.5rem, 2vw, 2.5rem);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--hero-gap);
+  row-gap: 0;
+  /* a ficha começa na altura do título, não no rodapé do bloco */
+  align-items: start;
+}
+
+/* Identidade ocupa a linha inteira; título e ficha dividem a linha de baixo */
+.hero-grid > .hero-identity {
+  grid-column: 1 / -1;
+  margin-bottom: clamp(1.25rem, 2.6vh, 1.75rem);
+}
+
+.hero-main {
+  grid-column: 1 / span 7;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(1.25rem, 2.6vh, 1.75rem);
+  min-width: 0;
+}
+
+.hero-identity {
+  display: flex;
+  align-items: center;
+  gap: 1.125rem;
+}
+
+.hero-avatar {
+  display: block;
+  width: clamp(3.5rem, 4.6vw, 5.5rem);
+  height: clamp(3.5rem, 4.6vw, 5.5rem);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-border-primary);
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.12);
+  filter: saturate(0.9);
+  flex-shrink: 0;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-sans);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 0;
+}
+
+.hero-eyebrow-name {
+  font-family: var(--font-sans);
+  font-size: clamp(1.0625rem, 1.1vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.hero-eyebrow-role {
+  font-family: var(--font-mono);
+  font-size: clamp(0.8125rem, 0.8vw, 0.9375rem);
+  color: var(--color-text-secondary);
+}
+
+#hero .hero-title {
+  margin: 0;
+  max-width: 13ch;
+  font-size: clamp(2.125rem, 5.2vw, 6.5rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-align: left;
+  white-space: normal;
+  text-wrap: balance;
+  text-shadow: none;
+  color: var(--color-text-primary);
+}
+
+#hero .hero-subtitle {
+  max-width: 34rem;
+  margin: 0;
+  font-size: clamp(1rem, 1.15vw, 1.375rem);
+  font-weight: 400;
+  line-height: 1.6;
+  text-align: left;
+  color: var(--color-text-secondary);
+}
+
+#hero .hero-subtitle strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* ---------- Ficha de fatos ---------- */
+
+.hero-facts {
+  grid-column: 9 / -1;
+  /* alinha o primeiro rótulo com o topo das letras do título */
+  margin-top: 0.6rem;
+  display: grid;
+  gap: clamp(1.1rem, 2.2vh, 1.5rem);
+  margin: 0;
+  padding-left: var(--hero-facts-pad);
+  border-left: 1px solid var(--color-border-primary);
+}
+
+.hero-fact {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.hero-facts dt {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.hero-facts dd {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(0.9375rem, 0.95vw, 1.0625rem);
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Barra de ações ---------- */
+
+.hero-bar {
+  grid-column: 1 / -1;
+  margin-top: clamp(2.5rem, 6vh, 4.5rem);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--hero-gap);
+  align-items: center;
+  padding-top: clamp(1.25rem, 2.5vh, 1.75rem);
+  border-top: 1px solid var(--color-border-primary);
+}
+
+.hero-bar .hero-actions {
+  grid-column: 1 / span 7;
+}
+
+.hero-bar .hero-links {
+  grid-column: 9 / -1;
+  padding-left: var(--hero-facts-pad);
+}
+
+/* Ações: botão principal, contato e links discretos */
+#hero .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.875rem 1.75rem;
+  width: auto;
+  margin: 0 !important;
+}
+
+.hero-link-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  border-bottom: none;
+  transition: color 0.2s ease;
+}
+
+.hero-link-secondary .icon {
+  font-size: 1rem;
+  color: var(--color-accent-primary);
+}
+
+#hero .hero-button-primary .icon {
+  font-size: 0.8125rem;
+  transition: transform 0.2s ease;
+}
+
+#hero .hero-button-primary:hover .icon,
+#hero .hero-button-primary:focus-visible .icon {
+  transform: translateY(2px);
+}
+
+.hero-link-secondary:hover,
+.hero-link-secondary:focus-visible {
+  color: var(--color-accent-primary);
+}
+
+/* Links discretos: currículo e perfis */
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem 1.125rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-links li {
+  margin: 0;
+  padding: 0;
+}
+
+.hero-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-bottom: none;
+  transition: color 0.2s ease;
+}
+
+.hero-links a .icon {
+  font-size: 0.9375rem;
+}
+
+.hero-links a:hover,
+.hero-links a:focus-visible {
+  color: var(--color-accent-primary);
+}
+
+/* ---------- Ponto de disponibilidade ---------- */
+
+.hero-status-dot {
+  position: relative;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: #34d399;
+  flex-shrink: 0;
+}
+
+.hero-status-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-color: #34d399;
+  animation: hero-status-ping 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes hero-status-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  75%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-status-dot::after {
+    animation: none;
+  }
+}
+
+/* ---------- Indicador de rolagem ---------- */
+
+/* "Ver projetos" já cumpre esse papel */
+#hero .scroll-indicator {
+  display: none;
+}
+
+/* ---------- Notebook (1024–1439px) ---------- */
+
+@media screen and (min-width: 1024px) and (max-width: 1439px) {
+  .hero-main,
+  .hero-bar .hero-actions {
+    grid-column: 1 / span 7;
+  }
+
+  .hero-facts,
+  .hero-bar .hero-links {
+    grid-column: 8 / -1;
+  }
+
+  #hero .hero-title {
+    font-size: clamp(2.125rem, 5vw, 5rem);
+  }
+}
+
+/* ---------- Tablet e celular ---------- */
+
+@media screen and (max-width: 1023px) {
+  #hero.full-viewport-section {
+    min-height: 0 !important;
+    padding-top: calc(var(--nav-height) + clamp(1.75rem, 5vh, 3rem)) !important;
+    padding-bottom: clamp(3rem, 7vh, 4rem) !important;
+  }
+
+  .hero-grid,
+  .hero-bar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-facts {
+    margin-top: 2rem;
+  }
+
+  .hero-main,
+  .hero-facts,
+  .hero-bar .hero-actions,
+  .hero-bar .hero-links {
+    grid-column: 1 / -1;
+  }
+
+  #hero .hero-title {
+    max-width: 20ch;
+  }
+
+  .hero-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem 1.5rem;
+    padding: 1.5rem 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--color-border-primary);
+  }
+
+  .hero-fact--optional {
+    display: none;
+  }
+
+  /* Ações antes da ficha, para o CTA ficar na primeira tela */
+  .hero-bar {
+    order: 1;
+    margin-top: 2rem;
+    row-gap: 1.25rem;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .hero-facts {
+    order: 2;
+  }
+
+  .hero-bar .hero-links {
+    padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #hero .hero-title {
+    font-size: clamp(2.125rem, 9.5vw, 2.75rem);
+  }
+
+  #hero .hero-actions .button.hero-button-primary {
+    height: 2.875rem;
+    padding: 0 1.25rem;
+    font-size: 0.9375rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .hero-facts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+}

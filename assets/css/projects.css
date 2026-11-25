@@ -1,0 +1,683 @@
+/* ============================================
+   PROJETOS — estudos de caso + lista compacta
+   Mesmo container do hero (alinhado à navegação).
+   Conteúdo montado por assets/js/projects-grid.js, sem animação de scroll.
+   ============================================ */
+
+#projetos {
+  --projects-gap: clamp(2rem, 4vw, 6rem);
+  overflow: visible;
+}
+
+/* Abaixo de 1024px: mesma margem lateral do hero (dev-theme.css) */
+#projetos.full-viewport-section {
+  padding-inline: clamp(1rem, 4vw, var(--spacing-lg, 3rem)) !important;
+}
+
+#projetos .section-content {
+  width: 100%;
+  max-width: 110rem;
+  margin-inline: auto;
+  padding: 0 clamp(0.25rem, 2vw, 1.5rem);
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 1024px) {
+  /* !important: vence `#main > .inner > section { padding: 0 }` (custom.css), como no hero */
+  #projetos.full-viewport-section {
+    padding-inline: var(--spacing-lg) !important;
+  }
+
+  #projetos .section-content {
+    padding-inline: 0;
+  }
+}
+
+/* custom.css esconde img[loading=lazy] até um script marcar .loaded;
+   aqui o lazy nativo basta e a imagem não pode depender disso */
+#projetos img[loading='lazy'] {
+  opacity: 1;
+}
+
+/* ---------- Cabeçalho ---------- */
+
+#projetos .projects-header {
+  margin-bottom: clamp(2.5rem, 6vh, 4.5rem);
+  text-align: left;
+}
+
+#projetos .projects-header .section-title {
+  margin-bottom: 1.25rem;
+}
+
+/* custom.css centraliza o sublinhado abaixo de 768px; aqui o título é à esquerda */
+#projetos .projects-header .section-title::after {
+  left: 0;
+  transform: none;
+}
+
+#projetos .projects-header .section-subtitle {
+  max-width: 40rem;
+  margin: 0;
+  font-size: clamp(1rem, 1.05vw, 1.25rem);
+  line-height: 1.6;
+  text-align: left;
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Estudos de caso ---------- */
+
+.projects-cases {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--projects-gap);
+  row-gap: clamp(4rem, 9vh, 6rem);
+  align-items: start;
+}
+
+/* Destaque: imagem e texto lado a lado, ocupando a largura toda */
+.case--featured {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--projects-gap);
+  align-items: center;
+}
+
+.case--featured .case-media {
+  grid-column: 1 / span 7;
+  /* espaço para o celular que sai pela borda de baixo */
+  padding-bottom: 6%;
+}
+
+.case--featured .case-body {
+  grid-column: 8 / -1;
+}
+
+/* Dupla: imagem em cima, texto enxuto embaixo */
+.case--compact {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  min-width: 0;
+}
+
+.case-media {
+  position: relative;
+}
+
+.case-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.case--compact .case-body {
+  gap: 1rem;
+}
+
+.case--compact .case-title {
+  font-size: clamp(1.625rem, 2.1vw, 2.375rem);
+}
+
+/* Tópicos em linha; cada um leva o próprio marcador, então a quebra não deixa sobra */
+.case--compact .case-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem 1.25rem;
+}
+
+.case--compact .case-highlights li {
+  padding-left: 0;
+  font-size: 0.9375rem;
+}
+
+.case--compact .case-highlights li::before {
+  position: static;
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  vertical-align: 0.15em;
+}
+
+/* Dupla: faixa larga (~2,1:1), a proporção do print do PontoCorte;
+   centralizada, a tela de login da Frota cabe inteira */
+.case--compact .case-shot {
+  aspect-ratio: 21 / 10;
+}
+
+.case--compact .case-shot img {
+  object-position: center;
+}
+
+.case--compact .case-facts {
+  margin-top: 0;
+  padding-top: 1rem;
+}
+
+.case-shot {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--color-border-primary);
+  background: var(--color-bg-secondary);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+
+.case-shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.case-phone {
+  position: absolute;
+  right: -3%;
+  bottom: 0;
+  width: 16%;
+  aspect-ratio: 414 / 830;
+  border-radius: clamp(12px, 1.4vw, 22px);
+  overflow: hidden;
+  border: clamp(3px, 0.35vw, 5px) solid #05080c;
+  outline: 1px solid var(--color-border-secondary);
+  background: #05080c;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55);
+}
+
+.case-phone img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.case-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.case-index {
+  color: var(--color-accent-primary);
+}
+
+.case-meta .case-index + .case-category::before {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 1px;
+  margin-right: 0.75rem;
+  vertical-align: middle;
+  background: var(--color-border-secondary);
+}
+
+.case-title {
+  margin: 0;
+  font-size: clamp(1.875rem, 3vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.case-summary {
+  max-width: 34rem;
+  margin: 0;
+  font-size: clamp(1rem, 1.05vw, 1.1875rem);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.case-highlights {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-highlights li {
+  position: relative;
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: clamp(0.9375rem, 0.95vw, 1.0625rem);
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+.case-highlights li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 0.5rem;
+  height: 1px;
+  background: var(--color-accent-primary);
+}
+
+.case-facts {
+  display: grid;
+  gap: 0.875rem;
+  width: 100%;
+  max-width: 34rem;
+  margin: 0.25rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border-primary);
+}
+
+.case-fact {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.case-fact dt {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.case-fact dd {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+.case-fact .case-stack {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-text-primary);
+}
+
+/* Links externos (estudo de caso e lista) */
+/* Botão do estudo de caso + nota ao lado */
+.case-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.case-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  height: 2.75rem;
+  padding: 0 1.25rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border-secondary);
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.case-button .icon {
+  font-size: 0.75rem;
+  color: var(--color-accent-primary);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.case-button:hover,
+.case-button:focus-visible {
+  border-color: var(--color-accent-primary);
+  background: var(--color-accent-muted);
+  color: var(--color-text-primary);
+}
+
+.case-button:hover .icon,
+.case-button:focus-visible .icon {
+  transform: translate(2px, -2px);
+}
+
+/* Destaque: botão cheio, como o principal do hero */
+.case-button--primary {
+  border-color: var(--color-accent-primary);
+  background: var(--color-accent-primary);
+  color: var(--color-text-inverse);
+}
+
+.case-button--primary .icon {
+  color: inherit;
+}
+
+.case-button--primary:hover,
+.case-button--primary:focus-visible {
+  border-color: var(--color-accent-hover);
+  background: var(--color-accent-hover);
+  color: var(--color-text-inverse);
+}
+
+.case-link-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-text-tertiary);
+}
+
+.case-link-note .icon {
+  font-size: 0.7rem;
+}
+
+/* Imagem clicável: leve realce no hover */
+a.case-shot {
+  display: block;
+  border-bottom: 1px solid var(--color-border-primary);
+  transition: border-color 0.2s ease, transform 0.3s ease;
+}
+
+a.case-shot:hover {
+  border-color: var(--color-border-secondary);
+  transform: translateY(-3px);
+}
+
+.project-tile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: none;
+  color: var(--color-text-primary);
+  transition: color 0.2s ease;
+}
+
+.project-tile-link .icon {
+  font-size: 0.7rem;
+  color: var(--color-accent-primary);
+  transition: transform 0.2s ease;
+}
+
+.project-tile-link:hover,
+.project-tile-link:focus-visible {
+  color: var(--color-accent-primary);
+}
+
+.project-tile-link:hover .icon,
+.project-tile-link:focus-visible .icon {
+  transform: translate(2px, -2px);
+}
+
+/* ---------- Lista compacta ---------- */
+
+.projects-more {
+  margin-top: clamp(4.5rem, 12vh, 8rem);
+}
+
+.projects-more-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.projects-more-title {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+/* Setas do carrossel */
+.projects-carousel-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.projects-carousel-nav[hidden] {
+  display: none;
+}
+
+.projects-carousel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-secondary);
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  line-height: 1;
+  box-shadow: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.projects-carousel-btn:hover:not(:disabled),
+.projects-carousel-btn:focus-visible {
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary);
+}
+
+.projects-carousel-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Trilho: rolagem horizontal nativa com snap */
+.projects-list {
+  --tiles-visible: 4;
+  --tiles-gap: clamp(1.25rem, 2vw, 2rem);
+  display: flex;
+  gap: var(--tiles-gap);
+  margin: 0;
+  padding: 0 0 1rem;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.projects-list::-webkit-scrollbar {
+  display: none;
+}
+
+.projects-list:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.project-tile {
+  /* contém os textos .visually-hidden (absolutos) dentro do trilho */
+  position: relative;
+  flex: 0 0 calc((100% - (var(--tiles-visible) - 1) * var(--tiles-gap)) / var(--tiles-visible));
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.project-tile-thumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--color-border-primary);
+  background: var(--color-bg-secondary);
+}
+
+.project-tile-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.4s ease;
+}
+
+.project-tile:hover .project-tile-thumb img {
+  transform: scale(1.03);
+}
+
+/* Sem captura pública: bloco neutro com o nome */
+.project-tile-thumb--empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--color-text-tertiary);
+  background:
+    repeating-linear-gradient(135deg, transparent 0 10px, rgba(255, 255, 255, 0.02) 10px 20px),
+    var(--color-bg-secondary);
+}
+
+.project-tile-thumb--empty .icon {
+  font-size: 1.125rem;
+  color: var(--color-border-secondary);
+}
+
+.project-tile-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.project-tile-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+}
+
+.project-tile-title {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+
+.project-tile-category {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+.project-tile-desc {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.project-tile-stack {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-text-tertiary);
+}
+
+.project-tile-link,
+.project-tile-note {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.project-tile-note {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+@media screen and (max-width: 1279px) {
+  .projects-list {
+    --tiles-visible: 3;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .projects-list {
+    --tiles-visible: 2;
+  }
+}
+
+/* ---------- Tablet e celular ---------- */
+
+@media screen and (max-width: 1023px) {
+  .projects-cases {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .case--featured {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 2rem;
+  }
+
+  .case--featured .case-media,
+  .case--featured .case-body {
+    grid-column: 1 / -1;
+  }
+
+  .case-phone {
+    right: 3%;
+    width: 22%;
+  }
+
+}
+
+@media screen and (max-width: 767px) {
+  /* No celular o próprio aparelho já é o "mobile"; a tela grande basta */
+  .case-phone {
+    display: none;
+  }
+
+  .case-media {
+    padding-bottom: 0;
+  }
+}
+
+/* Celular: um card e a ponta do próximo, para indicar que dá para arrastar */
+@media screen and (max-width: 639px) {
+  .projects-list {
+    --tiles-visible: 1.25;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .case-fact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+  }
+}
