@@ -64,6 +64,44 @@ const PROJECT_CATALOG = [
   mobileImage: 'images/nerdolaminer-mobile.png',
  },
  {
+  id: 'pequeno-universo',
+  tagline: 'Loja de moda infantil com checkout PIX e painel de pedidos',
+  name: 'Pequeno Universo',
+  category: 'E-commerce',
+  description:
+   'E-commerce de moda infantil com vitrine completa, carrinho, checkout via PIX, confirmação de pagamento e gestão de pedidos no painel administrativo.',
+  outcome: 'Loja própria em produção, da escolha das peças ao acompanhamento do pedido.',
+  image: 'images/pequeno-universo.webp',
+  demoUrl: 'https://pequenouniversokids.com.br/',
+  repoUrl: '',
+  stack: ['Laravel', 'Vue.js', 'Filament', 'MySQL'],
+  language: 'PHP',
+  topics: ['laravel', 'vue', 'inertia', 'filament', 'ecommerce'],
+  updatedAt: '2026-11-12T00:00:00Z',
+  featured: true,
+  featuredOrder: 4,
+  isExternal: true,
+ },
+ {
+  id: 'whatsapp-api',
+  tagline: 'Microserviço FastAPI para notificações na Meta Cloud API',
+  name: 'Conector WhatsApp API',
+  category: 'Integração',
+  description:
+   'Serviço em Python e FastAPI rodando em Docker para envio de notificações via Meta Cloud API, com webhook de entrega, idempotência, deduplicação automática e controle de limites.',
+  outcome: 'Notificações automatizadas com proteção contra reenvio duplicado e rastreamento de falhas.',
+  image: 'images/whatsapp-api.webp',
+  demoUrl: '',
+  repoUrl: '',
+  stack: ['Python', 'FastAPI', 'Docker'],
+  language: 'Python',
+  topics: ['python', 'fastapi', 'docker', 'whatsapp', 'webhook'],
+  updatedAt: '2026-10-30T00:00:00Z',
+  featured: true,
+  featuredOrder: 5,
+  isExternal: true,
+ },
+ {
   id: 'skyfashion',
   tagline: 'E-commerce de moda com checkout e painel de pedidos',
   name: 'SkyFashion',
@@ -79,7 +117,7 @@ const PROJECT_CATALOG = [
   topics: ['laravel', 'livewire', 'jetstream', 'mysql', 'ecommerce'],
   updatedAt: '2026-04-15T00:00:00Z',
   featured: true,
-  featuredOrder: 4,
+  featuredOrder: 6,
   isExternal: true,
  },
  {
@@ -98,7 +136,7 @@ const PROJECT_CATALOG = [
   topics: ['html', 'css', 'javascript', 'institucional'],
   updatedAt: '2026-04-15T00:00:00Z',
   featured: true,
-  featuredOrder: 6,
+  featuredOrder: 8,
   isExternal: true,
  },
  {
@@ -137,14 +175,14 @@ const PROJECT_CATALOG = [
    'Comunicação interna com histórico no servidor, busca, trilha de auditoria e telefonia junto do chat.',
   outcome: 'Chat e ramal na mesma ferramenta, em uso interno da operação.',
   image: 'images/atrio.webp',
-  demoUrl: '',
+  demoUrl: 'https://intranet.ntinformatica.inf.br/',
   repoUrl: '',
   stack: ['TypeScript', 'React', 'PostgreSQL'],
   language: 'TypeScript',
   topics: ['typescript', 'react', 'postgresql', 'atrio'],
   updatedAt: '2026-11-01T00:00:00Z',
   featured: true,
-  featuredOrder: 5,
+  featuredOrder: 7,
   isExternal: true,
  },
  {
@@ -163,7 +201,7 @@ const PROJECT_CATALOG = [
   topics: ['html', 'css', 'javascript', 'institucional'],
   updatedAt: '2026-04-15T00:00:00Z',
   featured: true,
-  featuredOrder: 7,
+  featuredOrder: 9,
   isExternal: true,
  },
  {
@@ -182,7 +220,7 @@ const PROJECT_CATALOG = [
   topics: ['html', 'css', 'javascript', 'landing-page'],
   updatedAt: '2026-04-15T00:00:00Z',
   featured: false,
-  featuredOrder: 8,
+  featuredOrder: 10,
   isExternal: true,
  },
 ];
@@ -215,17 +253,6 @@ const GITHUB_REPO_OVERRIDES = {
   language: 'PHP',
   topics: ['laravel', 'tcc', 'php'],
  },
- Guicodex: {
-  tagline: 'Portfólio interativo em estilo Pokédex',
-  image: 'images/guicodex.webp',
-  category: 'Portfólio',
-  description:
-   'Portfólio interativo em estilo Pokédex para exibir projetos e habilidades de desenvolvedor.',
-  outcome: 'Portfólio interativo em estilo Pokédex.',
-  stack: ['HTML', 'CSS', 'JavaScript'],
-  language: 'JavaScript',
-  topics: ['portfolio', 'javascript', 'css'],
- },
 };
 
 /** Repositórios que não devem aparecer no carrossel / listagem */
@@ -233,6 +260,7 @@ export const EXCLUDED_PROJECT_NAMES = [
  'guiestevam.github.io',
  'guiestevam',
  'riftfinder',
+ 'guicodex',
 ];
 
 export const FEATURED_PROJECTS = VISIBLE_CATALOG.filter(

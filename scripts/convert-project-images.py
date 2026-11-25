@@ -13,6 +13,8 @@ FILES = [
     "transcende.png",
     "frota-segura.png",
     "atrio.png",
+    "pequeno-universo.png",
+    "whatsapp-api.png",
     "syncfinance.png",
     "horientando.png",
     "guicodex.png",
@@ -30,6 +32,7 @@ NATIVE_RATIO = {
 CROP_BOX = {
     "atrio.png": (0, 2, 712, 447),  # 16:10 preenchendo o card (hero + chat)
     "ntinformatica.png": (40, 0, 824, 490),  # 16:10 preenchendo o card (hero + painel)
+    "pequeno-universo.png": (118, 0, 907, 493),  # 16:10 centralizado (logo + astronauta)
 }
 TARGET_W, TARGET_H = 1280, 800  # 16:10
 TARGET_RATIO = TARGET_W / TARGET_H
