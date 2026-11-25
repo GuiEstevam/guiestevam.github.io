@@ -1,6 +1,6 @@
 # Portfólio — Guilherme Estevam
 
-Portfólio pessoal de **Guilherme Estevam**, Desenvolvedor Full Stack (Laravel e Vue.js), publicado em [guiestevam.me](https://guiestevam.me/).
+Portfólio pessoal de **Guilherme Estevam**, Desenvolvedor Full Stack (Laravel e Vue.js), publicado em [guiestevam.com.br](https://guiestevam.com.br/).
 
 ## Stack
 
